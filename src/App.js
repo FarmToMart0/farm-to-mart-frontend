@@ -4,6 +4,7 @@ import './App.css';
 import FarmerLayout from './layouts/FarmerLayout';
 
 import Home from './pages/home/index';
+import Login from './pages/signin/admin/index'
 
 import { BrowserRouter } from 'react-router-dom';
 function App() {
@@ -13,6 +14,7 @@ function App() {
     <Routes>
     <Route path="/home" element={<Home/>} exact />
     <Route path="/farmer/dash/:page" element={<FarmerLayout/>}/>
+    <Route path="/admin/login" element={<Login/>} exact />
     </Routes>
     </BrowserRouter>
 
