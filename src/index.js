@@ -10,7 +10,7 @@ import theme from './utils/theme'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
-<ThemeProvider>  <App theme={theme}/></ThemeProvider>
+<ThemeProvider theme={theme}>  <App /></ThemeProvider>
     
  
  
