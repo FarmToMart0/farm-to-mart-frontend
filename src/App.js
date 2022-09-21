@@ -5,7 +5,8 @@ import FarmerLayout from './layouts/FarmerLayout';
 
 import Home from './pages/home/index';
 import Login from './pages/signin/admin/index';
-import AddGSOPage from './pages/addGSO/index'
+import AddGSOPage from './pages/addGSO/index';
+import AddCropData from './pages/addCropData/index';
 
 import { BrowserRouter } from 'react-router-dom';
 function App() {
@@ -17,6 +18,7 @@ function App() {
     <Route path="/farmer/dash/:page" element={<FarmerLayout/>}/>
     <Route path="/admin/login" element={<Login/>} exact />
     <Route path="/admin/add-gso" element={<AddGSOPage/>} />
+    <Route path="/admin/add-crop-data" element={<AddCropData/>} />
 
     </Routes>
     </BrowserRouter>    
