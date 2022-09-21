@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-
+import AdminNavbar from '../../components/admin_navbar/index';
 
 export default function AddGSO() {
     const [age, setAge] = React.useState('');
@@ -32,7 +32,10 @@ export default function AddGSO() {
   };
 
   return (
-      <Container component="main" maxWidth="" sx={{width:'60%', border:"2px solid transparent", mt: 2}}>
+      <div>
+        <AdminNavbar />
+        <Container component="main" maxWidth="" sx={{width:'60%', boxShadow: 
+        '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )', borderRadius:'5px', mb: '5vw'}}>
         <CssBaseline />
         <Box
           sx={{
@@ -42,7 +45,7 @@ export default function AddGSO() {
             alignItems: 'center',
           }}
         >
-          <Typography component="h1" variant="h5" color='primary'>
+          <Typography component="h1" variant="h5" color='primary' sx={{mt: 2}}>
             GoviJana Seva Officer Registration
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, mb: 3}}>
@@ -201,5 +204,8 @@ export default function AddGSO() {
         </Box>
         
       </Container>
+
+      </div>
+      
   );
 }
