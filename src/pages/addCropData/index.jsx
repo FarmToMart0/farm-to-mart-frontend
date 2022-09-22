@@ -36,7 +36,7 @@ export default function AddCropData() {
   return (
       <div>
         <AdminNavbar />
-        <Container component="main" maxWidth="" sx={{width:'60%', boxShadow: 
+        <Container component="main" maxWidth="" sx={{width:'60%', background:'white', boxShadow: 
         '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )', borderRadius:'5px', mb: '5vw'}}>
         <CssBaseline />
         <Box

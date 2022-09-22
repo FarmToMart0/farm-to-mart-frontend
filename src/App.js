@@ -7,6 +7,7 @@ import Home from './pages/home/index';
 import Login from './pages/signin/admin/index';
 import AddGSOPage from './pages/addGSO/index';
 import AddCropData from './pages/addCropData/index';
+import ShowGSO from './pages/gsoDetails/index';
 // import Card from './pages/market/index'
 import Card from './pages/market/index';
 
@@ -33,7 +34,7 @@ function App() {
     <Route path="/admin/login" element={<Login/>} exact />
     <Route path="/admin/add-gso" element={<AddGSOPage/>} />
     <Route path="/admin/add-crop-data" element={<AddCropData/>} />
-
+    <Route path="/admin/show-gso" element={<ShowGSO/>} />
 
     </Routes>
     </BrowserRouter>    
