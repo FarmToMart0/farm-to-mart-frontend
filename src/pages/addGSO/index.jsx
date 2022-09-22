@@ -32,9 +32,8 @@ export default function AddGSO() {
   };
 
   return (
-      <div style={{backgroundColor:'red'}}>
+      <div>
         <AdminNavbar />
-        <div sx={{backgroundColor:'red'}}>
         <Container component="main" maxWidth="" sx={{background:'white',width:'60%', boxShadow: 
         '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )', borderRadius:'5px', mb: '5vw'}}>
         <CssBaseline />
@@ -205,8 +204,6 @@ export default function AddGSO() {
         </Box>
         
       </Container>
-      </div>
-
       </div>
       
   );
