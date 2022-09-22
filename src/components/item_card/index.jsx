@@ -20,13 +20,13 @@ export default function BoxSx() {
       }}
     >
         <div >
-        <h2 style={{padding:10, color:'#007476'}}>Paddy</h2>
+        <h1 style={{padding:10, color:'#007476'}}>Paddy</h1>
         
         <div style={{
         paddingLeft:30}}>
             <h3> Unit Price : 120 Rs/Kg</h3>
             <h3>Quantity : <TextF/> </h3>
-            <h3>Total :  1000 </h3>
+            
             
             </div>
         
