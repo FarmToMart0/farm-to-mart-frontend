@@ -1,10 +1,12 @@
 import React from 'react';
+import Typography from '@mui/material/Typography';
 
 export default function Home() {
     return (
-        <div>
-            Home
-        </div>
+        <Typography color='text.default' margin={40}>
+           isudhfisdghfhsgd
+           fjhsjdfhgsjdfhgkjfhdkjsdfsudgkmnsbduiaidgjassnbnsdafnbfnbasijnbasfbasfgasnbnfhabsjhgfuajnmasdammnbasjdhgjhnbnbnsafafuunnnbsfdinnbfisudhfisdghfhsgdfjhsjdfhgsjdfhgkjfhdkjsdfsudgkmnsbduiaidgjassnbnsdafnbfnbasijnbasfbasfgasnbnfhabsjhgfuajnmasdammnbasjdhgjhnbnbnsafafuunnnbsfdinnbfisudhfisdghfhsgdfjhsjdfhgsjdfhgkjfhdkjsdfsudgkmnsbduiaidgjassnbnsdafnbfnbasijnbasfbasfgasnbnfhabsjhgfuajnmasdammnbasjdhgjhnbnbnsafafuunnnbsfdinnbfisudhfisdghfhsgdfjhsjdfhgsjdfhgkjfhdkjsdfsudgkmnsbduiaidgjassnbnsdafnbfnbasijnbasfbasfgasnbnfhabsjhgfuajnmasdammnbasjdhgjhnbnbnsafafuunnnbsfdinnbfisudhfisdghfhsgdfjhsjdfhgsjdfhgkjfhdkjsdfsudgkmnsbduiaidgjassnbnsdafnbfnbasijnbasfbasfgasnbnfhabsjhgfuajnmasdammnbasjdhgjhnbnbnsafafuunnnbsfdinnbfisudhfisdghfhsgdfjhsjdfhgsjdfhgkjfhdkjsdfsudgkmnsbduiaidgjassnbnsdafnbfnbasijnbasfbasfgasnbnfhabsjhgfuajnmasdammnbasjdhgjhnbnbnsafafuunnnbsfdinnbfisudhfisdghfhsgdfjhsjdfhgsjdfhgkjfhdkjsdfsudgkmnsbduiaidgjassnbnsdafnbfnbasijnbasfbasfgasnbnfhabsjhgfuajnmasdammnbasjdhgjhnbnbnsafafuunnnbsfdinnbf
+        </Typography>
     );
 }
 
