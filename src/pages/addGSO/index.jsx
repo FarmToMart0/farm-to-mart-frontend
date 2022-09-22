@@ -14,7 +14,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import AdminNavbar from '../../components/admin_navbar/index';
 
 export default function AddGSO() {
-    const [age, setAge] = React.useState('');
+    // const [age, setAge] = React.useState('');
 
 //   const handleChange = (event: SelectChangeEvent) => {
 //     setAge(event.target.value);
@@ -22,7 +22,7 @@ export default function AddGSO() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    // const data = new FormData(event.currentTarget);
     // console.log({
 
     //   email: data.get('email'),
@@ -32,9 +32,10 @@ export default function AddGSO() {
   };
 
   return (
-      <div>
+      <div style={{backgroundColor:'red'}}>
         <AdminNavbar />
-        <Container component="main" maxWidth="" sx={{width:'60%', boxShadow: 
+        <div sx={{backgroundColor:'red'}}>
+        <Container component="main" maxWidth="" sx={{background:'white',width:'60%', boxShadow: 
         '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )', borderRadius:'5px', mb: '5vw'}}>
         <CssBaseline />
         <Box
@@ -204,6 +205,7 @@ export default function AddGSO() {
         </Box>
         
       </Container>
+      </div>
 
       </div>
       
