@@ -33,19 +33,12 @@ export default function FarmerLayout() {
           break;
         
         case FARMER_SECTIONS.MYCROP:
-         setOpenPane(<ProductManage/>)
+         setOpenPane()
           break;
-        case FARMER_SECTIONS.ADDCROP:
-         
-          break;
-        case FARMER_SECTIONS.EDITCROP:
-          
-          break;
-        case FARMER_SECTIONS.DELETECROP:
-          
-          break;
-        case FARMER_SECTIONS.SALES:
         
+      
+        case FARMER_SECTIONS.SALES:
+          setOpenPane(<ProductManage/>)
           break;
         case FARMER_SECTIONS.ORDERS:
           setOpenPane(<OrderPage/>)

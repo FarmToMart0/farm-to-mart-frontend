@@ -21,7 +21,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Button } from '@mui/material';
 // import LoginPage from '../../pages/LoginPage';
 import UserProfileIcon from '../UserProfileIcon';
-import logo from '../../assets/images/logo5.png';
+import logo from '../../assets/images/logo.png';
 
 
 import {Stack } from '@mui/material';

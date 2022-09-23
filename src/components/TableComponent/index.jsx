@@ -13,6 +13,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { color } from '@mui/system';
 import FormDialog from './../DialogComponent/index';
+import ModalBox from '../ModalBox';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -40,6 +41,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function CustomizedTables({columns,itemData}) {
     const [openDialogBox, setOpenDialog] = React.useState(false);
+    const [openModal, setOpenModal] = React.useState(false);
+
+    const handleClickOpenModal = () => {
+      setOpenModal(true);
+    };
+    const handleCloseModal = () => {
+      setOpenModal(false);
+    };
 
   const handleClickOpenDialog = () => {
     setOpenDialog(true);
@@ -50,6 +59,7 @@ export default function CustomizedTables({columns,itemData}) {
   };
   return (
     <TableContainer component={Paper}>
+       <ModalBox open={openModal} handleClose={handleCloseModal} handleClickOpen={handleClickOpenModal}/>
         <FormDialog openDialog={openDialogBox}  handleClose={handleCloseDialog}/>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
@@ -70,7 +80,7 @@ export default function CustomizedTables({columns,itemData}) {
               </StyledTableCell>
               <StyledTableCell align="left">{row.product}</StyledTableCell>
               
-              <StyledTableCell align="left"><Button size='small' variant="outlined" startIcon={<RemoveRedEyeIcon/>}>
+              <StyledTableCell align="left"><Button onClick={handleClickOpenModal} size='small' variant="outlined" startIcon={<RemoveRedEyeIcon/>}>
         View
       </Button></StyledTableCell>
 

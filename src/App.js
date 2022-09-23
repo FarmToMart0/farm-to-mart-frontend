@@ -22,7 +22,7 @@ function App() {
     
     <BrowserRouter>
     <Routes>
-    <Route path="/home" element={<ItemAdd/>} exact />
+    
     <Route path="/farmer/dash/:page" element={<FarmerLayout/>}/>
     
 
@@ -30,7 +30,7 @@ function App() {
     <Route path="/card" element={<Card /> }exact />
 
     <Route path="/home" element={<Home/>} exact />
-    <Route path="/farmer/dash/:page" element={<FarmerLayout/>}/>
+    
 
     </Routes>
     </BrowserRouter>
