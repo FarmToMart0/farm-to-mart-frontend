@@ -9,6 +9,7 @@ import Home from '../../pages/home/index'
 import ItemAdd from '../../components/ItemAdd/index'
 import ProductManage from '../../pages/farmer/ProductManage/index';
 import OrderPage from './../../pages/farmer/Orders/index';
+import TabPaneMyCrops from '../../pages/farmer/MyCrops';
 
 const drawerWidth = 240;
 
@@ -33,7 +34,7 @@ export default function FarmerLayout() {
           break;
         
         case FARMER_SECTIONS.MYCROP:
-         setOpenPane()
+         setOpenPane(<TabPaneMyCrops/>)
           break;
         
       
