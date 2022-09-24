@@ -15,6 +15,7 @@ import SignupButton from '../../../components/signup_button/index';
 import Stack from '@mui/material/Stack';
 
 import gLogo from '../../../Assets/images/google.png'
+import { width } from '@mui/system';
 
 function Copyright(props) {
   return (
@@ -41,9 +42,7 @@ export default function SignUp(props) {
     });
   };
 
-  const major=()=>{
-      console.log("Hello World")
-  }
+
 
   return (
     
@@ -110,9 +109,9 @@ export default function SignUp(props) {
                 </Link>
               </Grid>
             </Grid>
-            <Stack direction='row' >
+            <Stack direction='row' sx={{display:'flex', justifyContent:'center', alignItems:'center',width:'100%'}}>
                 
-                <SignupButton icon = {gLogo}  signUpFun = {props.signupFun}/>
+                <SignupButton icon = {gLogo}  signUpFun = {props.signupFun} />
                 
             </Stack>
             
