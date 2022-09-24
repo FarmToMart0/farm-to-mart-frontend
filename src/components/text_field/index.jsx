@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-export default function BasicTextFields() {
+export default function BasicTextFields(props) {
   return (
     <Box
       component="form"
@@ -13,7 +13,7 @@ export default function BasicTextFields() {
       autoComplete="off"
     >
       
-      <TextField id="standard-basic" label="Quantity" variant="standard" />
+      <TextField id="standard-basic" label={props.title} variant="standard" />
     </Box>
   );
 }
