@@ -5,9 +5,11 @@ import FarmerLayout from './layouts/FarmerLayout';
 
 
 import Home from './pages/home/index';
-// import Card from './pages/market/index'
 import Card from './pages/signUp/index';
+import ShoppingCard from '././components/shopping_card/index'
 import Card2 from './components/signup_button/index';
+import Market from './pages/market/index'
+import Item from './pages/shoppingCard/index'
 
 
 import { BrowserRouter } from 'react-router-dom';
@@ -18,11 +20,17 @@ function App() {
     <BrowserRouter>
     <Routes>
 
-    {/* <Route path="/home" element={<Home/>} exact /> */}
-    <Route path="/card" element={<Card /> }exact />
-    <Route path="/card2" element={<Card2 /> }exact />
-    <Route path="/home" element={<Home/>} exact />
-    <Route path="/farmer/dash/:page" element={<FarmerLayout/>}/>
+      {/* <Route path="/home" element={<Home/>} exact /> */}
+      <Route path="/card" element={<Card /> }exact />
+      <Route path="/card2" element={<Card2 /> }exact />
+      <Route path="/home" element={<Home/>} exact />
+      <Route path="/market" element={<Market/>} exact />
+      <Route path="/shopping" element={<ShoppingCard/>} exact />
+      <Route path="/farmer/dash/:page" element={<FarmerLayout/>}/>
+      <Route path="/item" element={<Item/>} exact />
+      
+
+
 
     </Routes>
     </BrowserRouter>
