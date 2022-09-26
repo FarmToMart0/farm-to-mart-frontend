@@ -10,6 +10,7 @@ import Grid from '@mui/material/Grid';
 import { makeStyles } from "@mui/material/styles";
 import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 export default function Home() {
@@ -68,6 +69,13 @@ export default function Home() {
                         }>
                             <Button variant="outlined" onClick={editHandler} sx={{margin: 0, fontWeight: 'bold', fontSize: '1rem', color: 'primary', float: 'right', width: '30%'}}>
                             Edit Details <EditIcon/> </Button>
+                        </div>
+
+                        <div style={
+                            {float: 'right', marginTop: '1vw'}
+                        }>
+                            <Button variant="outlined" sx={{margin: 0, fontWeight: 'bold', fontSize: '1rem', color: 'red', float: 'right', width: '30%'}}>
+                            Remove Officer <DeleteIcon/> </Button>
                         </div>
 
                         

@@ -7,6 +7,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import AdminNavbar from '../../components/admin_navbar/index';
 import AddGSO from '../../pages/addGSO/index';
 import GSOProfile from '../../pages/gsoDetails/index';
+import DetailsCard from '../../components/details_card/index';
 
 export default function HomeMainOfficer() {
   return (
@@ -40,6 +41,7 @@ export default function HomeMainOfficer() {
     </Stack>
     
     </div>
+    <DetailsCard />
     <AddGSO />
     <GSOProfile />
     
