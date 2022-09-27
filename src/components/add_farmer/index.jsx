@@ -53,8 +53,8 @@ export default function AddGSO() {
             alignItems: 'center',
           }}
         >
-          <Typography component="h1" variant="h5" color='primary' sx={{mt: 3, mb: 3}}>
-            GoviJana Seva Officer Registration
+          <Typography component="h1" variant="h5" color='primary' sx={{mt: 3, mb: 3, fontSize: '2rem', fontWeight: 'bold'}}>
+            Farmer Registration
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, mb: 3}}>
             <Grid container spacing={2}>
@@ -77,6 +77,18 @@ export default function AddGSO() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  type="address"
+                  id="address"
+                  label="Address"
+                  name="address"
+                  autoComplete="address"
                 />
               </Grid>
 
@@ -205,7 +217,7 @@ export default function AddGSO() {
               variant="contained"
               sx={{ mt: 3, mb: 2, height: '2.5rem'}}
             >
-              Register Govijana Seva Officer
+              Register Farmer
             </Button>
             
           </Box>

@@ -12,6 +12,7 @@ import HomeMainOfficer from './pages/homeMainOfficer/index';
 // import Card from './pages/market/index'
 import Card from './pages/market/index';
 import DetailsCard from './components/details_card/index';
+import GSOHome from './pages/gsoHome/index';
 
 
 
@@ -38,8 +39,7 @@ function App() {
     <Route path="/admin/add-crop-data" element={<AddCropData/>} />
     <Route path="/admin/show-gso" element={<ShowGSO/>} />
     <Route path="/main-officer/home" element={<HomeMainOfficer/>} />
-    <Route path="/details" element={<DetailsCard/>} />
-    <Route path='/card' element={<Card/>}/>
+    <Route path='/gso' element={<GSOHome/>}/>
 
     </Routes>
     </BrowserRouter>    

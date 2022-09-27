@@ -49,7 +49,7 @@ export default function Home() {
     return (
         <div>
             <Container component="main" Width="" sx={{background:'white', boxShadow: 
-            '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )', borderRadius:'5px', mb: '5vw', mt:0, width: '60%', padding: '2vw', paddingTop: 0}}>
+            '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )', borderRadius:'10px', mb: '5vw', mt:0, width: '60%', padding: '2vw', paddingTop: 0}}>
                 <CssBaseline />
                 <Box sx={{
                         marginTop: 0,
@@ -67,15 +67,15 @@ export default function Home() {
                         <div style={
                             {float: 'right', marginTop: '-5vw'}
                         }>
-                            <Button variant="outlined" onClick={editHandler} sx={{margin: 0, fontWeight: 'bold', fontSize: '1rem', color: 'primary', float: 'right', width: '30%'}}>
-                            Edit Details <EditIcon/> </Button>
+                            <Button variant="outlined" onClick={editHandler} sx={{margin: 0, fontWeight: 'bold', fontSize: '1rem', color: 'primary', float: 'right', width: '25%'}}>
+                            Edit Details  <hr/> <EditIcon/> </Button>
                         </div>
 
                         <div style={
                             {float: 'right', marginTop: '1vw'}
                         }>
-                            <Button variant="outlined" sx={{margin: 0, fontWeight: 'bold', fontSize: '1rem', color: 'red', float: 'right', width: '30%'}}>
-                            Remove Officer <DeleteIcon/> </Button>
+                            <Button variant="outlined" sx={{margin: 0, fontWeight: 'bold', fontSize: '1rem', color: 'red', float: 'right', width: '25%'}}>
+                            Remove Officer  <hr/> <DeleteIcon/> </Button>
                         </div>
 
                         
