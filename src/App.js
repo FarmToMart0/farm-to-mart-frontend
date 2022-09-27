@@ -14,6 +14,7 @@ import Card from './pages/market/index';
 import DetailsCard from './components/details_card/index';
 import GSOHome from './pages/gsoHome/index';
 import FarmerSignUp from './pages/farmer/SignUp/index';
+import BuyerSignUp from './pages/buyerSignUp/index';
 
 
 import { BrowserRouter } from 'react-router-dom';
@@ -45,6 +46,7 @@ function App() {
     <Route path="/main-officer/home" element={<HomeMainOfficer/>} />
     <Route path='/gso/home' element={<GSOHome/>}/>
     <Route path='/farmer/signup' element={<FarmerSignUp/>}/>
+    <Route path='/buyer/signup' element={<BuyerSignUp/>}/>
 
     </Routes>
     </BrowserRouter>    
