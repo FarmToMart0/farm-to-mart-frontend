@@ -5,8 +5,8 @@ import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 import InputAdornment from '@mui/material/InputAdornment';
 import AdminNavbar from '../../components/admin_navbar/index';
-import AddGSO from '../../pages/addGSO/index';
-import GSOProfile from '../../pages/gsoDetails/index';
+import AddGSO from '../../components/addGSO/index';
+import GSOProfile from '../../components/gsoDetails/index';
 import DetailsCard from '../../components/details_card/index';
 
 export default function HomeMainOfficer() {

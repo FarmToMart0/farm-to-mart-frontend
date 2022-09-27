@@ -8,6 +8,8 @@ import AdminNavbar from '../../components/admin_navbar/index';
 import AddFarmer from '../../components/add_farmer/index';
 import FarmerProfile from '../../components/farmer_details/index';
 import DetailsCard from '../../components/details_card/index';
+import CropDataForm from '../../components/addCropData/index';
+
 
 export default function GSOHome() {
   return (
@@ -41,9 +43,10 @@ export default function GSOHome() {
     </Stack>
     
     </div>
-    {/* <DetailsCard /> */}
-    {/* <AddFarmer /> */}
+    
+    <AddFarmer />
     <FarmerProfile />
+    <CropDataForm />
     
     </div>
     

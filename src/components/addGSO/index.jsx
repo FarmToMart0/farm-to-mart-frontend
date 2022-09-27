@@ -53,7 +53,7 @@ export default function AddGSO() {
             alignItems: 'center',
           }}
         >
-          <Typography component="h1" variant="h5" color='primary' sx={{mt: 3, mb: 3}}>
+          <Typography component="h1" variant="h5" color='primary' sx={{mt: 3, mb: 3, fontSize: '2rem', fontWeight: 'bold'}}>
             GoviJana Seva Officer Registration
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, mb: 3}}>
