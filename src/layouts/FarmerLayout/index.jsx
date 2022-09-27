@@ -9,6 +9,10 @@ import Home from '../../pages/home/index'
 import ItemAdd from '../../components/ItemAdd/index'
 import ProductManage from '../../pages/farmer/ProductManage/index';
 import OrderPage from './../../pages/farmer/Orders/index';
+import TabPaneMyCrops from '../../pages/farmer/MyCrops';
+import MapComponent from '../../components/MapComponent';
+
+import SalaseDashBoard from '../../pages/farmer/SalesDashBoard';
 
 const drawerWidth = 240;
 
@@ -29,11 +33,11 @@ export default function FarmerLayout() {
     
       switch (subComponent) {
         case FARMER_SECTIONS.DASHBOARD:
-          setOpenPane(<Home/>);
+          setOpenPane( <SalaseDashBoard/>);
           break;
         
         case FARMER_SECTIONS.MYCROP:
-         setOpenPane()
+         setOpenPane(<TabPaneMyCrops/>)
           break;
         
       
@@ -44,7 +48,7 @@ export default function FarmerLayout() {
           setOpenPane(<OrderPage/>)
           break;
         case FARMER_SECTIONS.TRANSACTIONS:
-         
+          setOpenPane()
           break;
      
         default:

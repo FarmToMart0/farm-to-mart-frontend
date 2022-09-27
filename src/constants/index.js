@@ -17,3 +17,5 @@ export const FARMER_SECTIONS = {
       VIEWTRANSPORTER: 'viewtransporter',
      
    };
+
+   export const HOST_URL = 'http://localhost:9000/api';

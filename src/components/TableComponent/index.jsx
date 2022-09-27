@@ -13,6 +13,8 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { color } from '@mui/system';
 import FormDialog from './../DialogComponent/index';
+import Typography from '@mui/material/Typography';
+import { Grid,TextField} from '@mui/material';
 import ModalBox from '../ModalBox';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -59,16 +61,62 @@ export default function CustomizedTables({columns,itemData}) {
   };
   return (
     <TableContainer component={Paper}>
-       <ModalBox open={openModal} handleClose={handleCloseModal} handleClickOpen={handleClickOpenModal}/>
-        <FormDialog openDialog={openDialogBox}  handleClose={handleCloseDialog}/>
+       <ModalBox open={openModal} handleClose={handleCloseModal} handleClickOpen={handleClickOpenModal}>
+       <Grid width={500} container spacing={2}>
+  
+  <Grid item xs={4}>
+  <Typography variant="h6" gutterBottom >Crop Type</Typography>
+  </Grid>
+  <Grid item xs={8}>
+  <Typography>Beans</Typography>
+  </Grid>
+  <Grid item xs={4}>
+  <Typography variant="h6" gutterBottom >Needed Amount</Typography>
+  </Grid>
+  <Grid item xs={8}>
+  <Typography>1000Kg</Typography>
+  </Grid>
+  <Grid item xs={4}>
+  <Typography variant="h6" gutterBottom >Total Price</Typography>
+  </Grid>
+  <Grid item xs={8}>
+  <Stack direction='row' spacing={2}><Typography>20000 LKR</Typography> <Chip color='secondary' label="Not Paid" /></Stack>
+  </Grid>
+  <Grid item xs={4}>
+  <Typography variant="h6" gutterBottom >Description</Typography>
+  </Grid>
+  <Grid item xs={8}>
+  <Typography>are thoseFresh things</Typography>
+  </Grid>
+  <Grid item xs={4}>
+  <Typography variant="h6" gutterBottom >Delivery Method</Typography>
+  </Grid>
+  <Grid item xs={8}>
+  <Typography>Farm Pickup</Typography>
+  </Grid>
+</Grid>
+       </ModalBox>
+        <FormDialog openDialog={openDialogBox}  handleClose={handleCloseDialog}>
+        <Stack alignSelf='center' direction='row' spacing={3}>
+      
+      <TextField
+       
+        autoFocus
+        margin="dense"
+        id="name"
+        label="Amount in LKR"
+        type="email"
+        
+        variant="standard"
+      />
+      </Stack>
+        </FormDialog>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
             {columns.map((item)=>{
                 return  <StyledTableCell>{item}</StyledTableCell>
             })}
-
-
             
           </TableRow>
         </TableHead>
@@ -78,6 +126,7 @@ export default function CustomizedTables({columns,itemData}) {
               <StyledTableCell component="th" scope="row">
                 {row.date}
               </StyledTableCell>
+              
               <StyledTableCell align="left">{row.product}</StyledTableCell>
               
               <StyledTableCell align="left"><Button onClick={handleClickOpenModal} size='small' variant="outlined" startIcon={<RemoveRedEyeIcon/>}>

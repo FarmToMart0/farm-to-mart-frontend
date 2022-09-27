@@ -8,7 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Stack } from '@mui/system';
 
-export default function FormDialog({handleClose,openDialog}) {
+export default function FormDialog({handleClose,openDialog,children}) {
   
 
   return (
@@ -17,18 +17,7 @@ export default function FormDialog({handleClose,openDialog}) {
       <Dialog open={openDialog} onClose={handleClose}>
         
         <DialogContent>
-            <Stack alignSelf='center' direction='row' spacing={3}>
-      
-          <TextField
-           
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Amount in LKR"
-            type="email"
-            
-            variant="standard"
-          /></Stack>
+            {children}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
