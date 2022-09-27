@@ -31,7 +31,7 @@ export default function FarmerListItems() {
     <React.Fragment>
       <ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.DASHBOARD)}>
         <ListItemIcon>
-      <Tooltip title="Dashboard">
+      <Tooltip title="Sales Dashboard">
         <DashboardIcon color="secondary" />
       </Tooltip>
         </ListItemIcon>

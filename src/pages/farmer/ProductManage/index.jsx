@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
+
 import NavigationIcon from '@mui/icons-material/Navigation';
 import ItemAdd from '../../../components/ItemAdd/index';
 import { CssBaseline } from '@mui/material';
@@ -68,10 +68,11 @@ const handleChangeSearchFilter =(e)=>{
 React.useEffect(() => {
   
   if (searchedText !== '') {
-    const items = products.filter((item) =>
-      item?.name.includes(searchedText)
-    );
-    setAllProducts(items);
+    
+    // const items = products.filter((item) =>
+    //   item?.name.includes(searchedText)
+    // );
+    // setAllProducts(items);
   } else {
     setAllProducts(row);
   }

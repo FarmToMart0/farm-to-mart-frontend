@@ -32,7 +32,7 @@ export default function ImageCollection({itemData}) {
         const rows = item.featured ? 2 : 1;
 
         return (
-          <ImageListItem key={item.img} cols={cols} rows={rows}>
+          <ImageListItem  key={item.img} cols={cols} rows={rows}>
             <img
               {...srcset(item.img, 250, 200, rows, cols)}
              

@@ -7,7 +7,8 @@ import { color } from '@mui/system';
 import Switch from '@mui/material/Switch';
 import ImageList from '../ImageList';
 import ImageCollection from '../ImageList';
-
+import axios from 'axios';
+import {Image} from 'cloudinary-react';
 
 const validationSchema = yup.object().shape({
   name: yup.string().required().label('Product Name'),
@@ -24,21 +25,10 @@ const Input = styled('input')({
 export default function ItemAdd() {
   const [imageList,setImageList]=useState(
     [
-      {
-        img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-        title: 'Breakfast',
-        rows: 2,
-        cols: 2,
-      },
-      {
-        img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-        title: 'Burger',
-        rows: 2,
-        cols: 2,
-      },
-      
+    
     ]
     );
+    const [img,setImg]=useState([])
   const [checked, setChecked] = React.useState(true);
 
   const handleChangeBiding = (event) => {
@@ -66,8 +56,22 @@ export default function ItemAdd() {
 
   
   const handleChangeImage = (event) => {
-    const files = Array.from(event.target.files);
-    setImageFiles(files);
+    // const files = Array.from(event.target.files);
+    // setImageFiles(files);
+    
+    const formData = new FormData();
+    formData.append('file',event.target.files[0]);
+    formData.append('upload_preset','xfj3iupf');
+    axios.post("https://api.cloudinary.com/v1_1/dnrpcuqvr/image/upload",formData).
+    then((res)=>{
+
+    setImageList([...imageList,{ img: res.data.secure_url,
+    title: 'img',
+    rows: 2,
+    cols: 2,}])
+
+    console.log('sumeela',res.data.secure_url)
+    })
   };
   return (
   
@@ -186,7 +190,7 @@ style={{
             filterSelectedOptions
             sx={{ width: 500 }}
             onChange={(event, value) => {
-              console.log(value)
+            
               setSelectedDeliveryOption(value)
             }}
             renderInput={(params) => (
@@ -214,7 +218,7 @@ style={{
             filterSelectedOptions
             sx={{ width: 500 }}
             onChange={(event, value) => {
-              console.log(value)
+          
               setSelectedPayementOption(value)
             }}
             renderInput={(params) => (
@@ -249,7 +253,7 @@ style={{
   <React.Fragment>
                   <label htmlFor="contained-button-file">
                     <Input
-                      accept="image/*"
+                      accept="image"
                       id="contained-button-file"
                       multiple
                       type="file"

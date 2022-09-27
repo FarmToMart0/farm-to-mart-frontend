@@ -137,9 +137,13 @@ setOpenDialog(true)
         
         <TableHead>
           <TableRow>
-          {  columns.map((row)=>{
+          {  
+         
+          columns.map((row)=>{
             return <StyledTableCell >{row}</StyledTableCell>
-          })}
+          })
+          
+          }
          
           </TableRow>
         </TableHead>
