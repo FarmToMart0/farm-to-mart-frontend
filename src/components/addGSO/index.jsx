@@ -1,4 +1,6 @@
 import * as React from 'react';
+import Joi from "joi-browser";
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -10,37 +12,104 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import AdminNavbar from '../../components/admin_navbar/index';
+import Select from '@mui/material/Select';
+import Alert from '@mui/material/Alert';
+
 
 export default function AddGSO() {
-    // const [age, setAge] = React.useState('');
+  const [district, setDistrict] = useState('');
+  const [gso, setGSO] = useState({
+    firstName: "",
+    lastName: "",
+    mobile: "",
+    gsoDevision: "",
+    gsoCode: "",
+    email: "",
+    nic:"",
+    password:"",
+    confPassword:""
+  });
 
-//   const handleChange = (event: SelectChangeEvent) => {
-//     setAge(event.target.value);
-//   }; 
+  const [errors, setErrors] = useState({});
+  const schema = {
+    firstName: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
+    lastName: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
+    mobile: Joi.string().length(10).regex(/^[0-9]+$/, 'given').required(),
+    gsoDevision: Joi.string().required(),
+    gsoCode: Joi.string().required(),
+    email: Joi.string().email().required(),
+    nic: Joi.string().required(),
+    password: Joi.string()
+    .min(8)
+    .max(25)
+    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, 
+    'password').required(),
+    confPassword: Joi.any().valid(Joi.ref('password')).required().options({ language: { any: { allowOnly: 'must match password' } } })
+  };
+
+  const handleSave = (event) => {
+    const { name, value } = event.target;
+    let errorData = { ...errors };
+    const errorMessage = validateProperty(event);
+    if (errorMessage) {
+    errorData[name] = errorMessage;
+    } else {
+    delete errorData[name];
+    }
+    let gsoData = { ...gso };
+    gsoData[name] = value;
+    setGSO(gsoData);
+    setErrors(errorData);
+  };
+
+  const handleDistrictChange = (event) => {
+    setDistrict(event.target.value)
+  }; 
+
+  const validateProperty = (event) => {
+    const { name, value } = event.target;
+    if (name === "confPassword") {
+        const obj = { password: gso.password, [name]: value };
+        const subSchema = {
+          [name]: schema[name],
+          password: schema["password"],
+        };
+        const { error } = Joi.validate(obj, subSchema);
+        return error ? error.details[0].message : null;
+    } else {
+        const obj = { [name]: value };
+        const subSchema = { [name]: schema[name] };
+        const result = Joi.validate(obj, subSchema);
+        const { error } = result;
+        return error ? error.details[0].message : null;
+    }
+  };
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // console.log({
-
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-
-    // });
+    const result = Joi.validate(gso,
+      schema, { abortEarly: false });
+    const { error } = result;
+    if (!error) {
+      console.log("Submitted");
+    } else {
+      const errorData = {};
+      for (let item of error.details) {
+        const name = item.path[0];
+        const message = item.message;
+        errorData[name] = message;
+      }
+      setErrors(errorData);
+      console.log(errorData);
+      return errorData;
+    }
+ 
   };
 
-  // const render = (status: Status) => {
-  //   return <h1>{status}</h1>;
-  // };
   
-  // <Wrapper apiKey={"YOUR_API_KEY"} render={render}>
-  //   <YourComponent/>
-  // </Wrapper>
   return (
       <div>
-        {/* <AdminNavbar /> */}
         <Container component="main" maxWidth="" sx={{background:'white',width:'60%', boxShadow: 
         '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )', borderRadius:'10px', mb: '5vw', mt:0}}>
         <CssBaseline />
@@ -55,7 +124,7 @@ export default function AddGSO() {
           <Typography component="h1" variant="h5" color='primary' sx={{mt: 3, mb: 3, fontSize: '2rem', fontWeight: 'bold'}}>
             GoviJana Seva Officer Registration
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, mb: 3}}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3, mb: 3}}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -65,8 +134,14 @@ export default function AddGSO() {
                   fullWidth
                   id="firstName"
                   label="First Name"
+                  value={gso.firstName}
+                  onChange={handleSave}
                   autoFocus
                 />
+                
+                {errors.firstName && (
+                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid First Name</Alert>)}
+                
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -75,8 +150,13 @@ export default function AddGSO() {
                   id="lastName"
                   label="Last Name"
                   name="lastName"
+                  value={gso.lastName}
+                  onChange={handleSave}
                   autoComplete="family-name"
                 />
+
+                {errors.lastName && (
+                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid Last Name</Alert>)}
               </Grid>
 
               <Grid item xs={12}>
@@ -87,8 +167,13 @@ export default function AddGSO() {
                   type="tel"
                   label="Mobile Number"
                   name="mobile"
+                  value={gso.mobile}
+                  onChange={handleSave}
                   autoComplete="mobile"
                 />
+
+                {errors.mobile && (
+                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid Mobile Number</Alert>)}
               </Grid>
 
               <Grid item xs={12} sm={12}>
@@ -97,9 +182,9 @@ export default function AddGSO() {
                     <Select
                     labelId="district"
                     id="district"
-                    //value={district}
+                    value={district}
                     label="District *"
-                    // onChange={handleChange}
+                    onChange={handleDistrictChange}
                     >
                     <MenuItem value={"Colombo"}>Colombo</MenuItem>
                     <MenuItem value={"Gampaha"}>Gampaha</MenuItem>
@@ -133,21 +218,31 @@ export default function AddGSO() {
                 <TextField
                   required
                   fullWidth
-                  id="gsodevision"
+                  id="gsoDevision"
                   label="GoviJana Seva Devision"
-                  name="gsodevision"
+                  type="text"
+                  name="gsoDevision"
+                  value={gso.gsoDevision}
+                  onChange={handleSave}
                   autoComplete="gso-devision"
                 />
+                {errors.gsoDevision && (
+                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid GoviJana Seva Devision</Alert>)}
               </Grid>
               <Grid item xs={12} sm={4}>
                 <TextField
                   required
                   fullWidth
-                  id="gsocode"
+                  id="gsoCode"
                   label="GoviJana Seva Devision Code"
-                  name="gsocode"
+                  name="gsoCode"
+                  value={gso.gsoCode}
+                  onChange={handleSave}
                   autoComplete="gso-code"
                 />
+
+                {errors.gsoCode && (
+                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid GoviJana Seva Devision Code</Alert>)}
               </Grid>
 
               <Grid item xs={12}>
@@ -158,8 +253,12 @@ export default function AddGSO() {
                   type="email"
                   label="Email Address"
                   name="email"
+                  value={gso.email}
+                  onChange={handleSave}
                   autoComplete="email"
                 />
+                {errors.email && (
+                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid Email</Alert>)}
               </Grid>
 
               <Grid item xs={12}>
@@ -169,8 +268,13 @@ export default function AddGSO() {
                   id="nic"
                   label="National Identity Card Number"
                   name="nic"
+                  value={gso.nic}
+                  onChange={handleSave}
                   autoComplete="nic"
                 />
+
+                {errors.nic && (
+                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid National Identity Card Number</Alert>)}
               </Grid>
 
               <Grid item xs={12}>
@@ -181,20 +285,30 @@ export default function AddGSO() {
                   label="Password"
                   type="password"
                   id="password"
+                  value={gso.password}
+                  onChange={handleSave}
                   autoComplete="new-password"
                 />
+
+                {errors.password && (
+                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Password must be at least 8 characters long contain a number, an uppercase letter, a lowercase letter and a special character </Alert>)}
               </Grid>
 
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  name="conf-password"
+                  name="confPassword"
                   label="Confirm Password"
                   type="password"
-                  id="conf-password"
+                  id="confPassword"
+                  value={gso.confPassword}
+                  onChange={handleSave}
                   autoComplete="conf-password"
                 />
+
+                {errors.confPassword && (
+                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Passwords do not match</Alert>)}
               </Grid>
               
             </Grid>
