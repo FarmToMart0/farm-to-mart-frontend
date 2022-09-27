@@ -17,13 +17,6 @@ export default function Home() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // const data = new FormData(event.currentTarget);
-        // console.log({
-    
-        //   email: data.get('email'),
-        //   password: data.get('password'),
-    
-        // });
       };
 
 
@@ -150,7 +143,7 @@ export default function Home() {
                                 </InputLabel>
 
                                 <TextField
-                                disabled = {!isEdit}
+                                disabled = {true}
                                 id="outlined-disabled"
                                 label=""
                                 defaultValue={gsoDetails.district}
@@ -167,7 +160,7 @@ export default function Home() {
                                 </InputLabel>
 
                                 <TextField
-                                disabled = {!isEdit}
+                                disabled = {true}
                                 id="outlined-disabled"
                                 label=""
                                 defaultValue={gsoDetails.gso}
@@ -184,7 +177,7 @@ export default function Home() {
                                 </InputLabel>
 
                                 <TextField
-                                disabled = {!isEdit}
+                                disabled = {true}
                                 id="outlined-disabled"
                                 label=""
                                 defaultValue={gsoDetails.gso_code}
