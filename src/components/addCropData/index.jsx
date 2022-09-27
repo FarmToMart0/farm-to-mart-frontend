@@ -13,7 +13,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import AdminNavbar from '../../components/admin_navbar/index';
+import AdminNavbar from '../admin_navbar/index';
 
 export default function AddCropData() {
     const [age, setAge] = React.useState('');
@@ -35,7 +35,6 @@ export default function AddCropData() {
 
   return (
       <div>
-        <AdminNavbar />
         <Container component="main" maxWidth="" sx={{width:'60%', background:'white', boxShadow: 
         '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )', borderRadius:'5px', mb: '5vw'}}>
         <CssBaseline />
@@ -47,7 +46,7 @@ export default function AddCropData() {
             alignItems: 'center',
           }}
         >
-          <Typography component="h1" variant="h5" color='primary' sx={{mt: 2}}>
+          <Typography component="h1" variant="h5" color='primary' sx={{mt: 3, mb: 3, fontSize: '2rem', fontWeight: 'bold'}}>
             Add Crop Data
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, mb: 3}}>
