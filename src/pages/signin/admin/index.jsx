@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -29,6 +30,9 @@ function Copyright(props) {
 
 
 export default function SignInSide() {
+  const [errorMessages, setErrorMessages] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -37,6 +41,11 @@ export default function SignInSide() {
       password: data.get('password'),
     });
   };
+
+  const renderErrorMessage = (name) =>
+    name === errorMessages.name && (
+      <div>{errorMessages.message}</div>
+  );
 
   return (
    
@@ -83,6 +92,7 @@ export default function SignInSide() {
                 autoComplete="nic"
                 autoFocus
               />
+              {renderErrorMessage("uname")}
               <TextField sx={{color:'black'}}
                 margin="normal"
                 required
@@ -93,6 +103,7 @@ export default function SignInSide() {
                 id="password"
                 autoComplete="current-password"
               />
+              {renderErrorMessage("pass")}
                 <FormControlLabel sx={{color:'#12877a', fontSize:'10px'}}
                 
 
@@ -105,6 +116,7 @@ export default function SignInSide() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                value="Login"
               >
                 Sign In
               </Button>
