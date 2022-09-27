@@ -1,10 +1,9 @@
 export const FARMER_SECTIONS = {
     DASHBOARD: 'dashboard',
-    MYREQUESTS:'myrequests',
-    FINDTRANSPORTER:'findtransporter',
+    
     ORDERS: 'orders',
     SALES:'sales',
-    CART:'addcart',
+    
     TRANSACTIONS:'transactions',
     REVIEWS:'reviews',
     MYCROP:'mycrop',

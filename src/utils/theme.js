@@ -3,7 +3,9 @@ const theme = createTheme({
     palette: {
         type: 'light',
         primary: {
+         
           main: '#128C7E',
+
         // main: '#075E54',
         
     
@@ -24,7 +26,8 @@ const theme = createTheme({
         
        
       },
+
+    
       
-     
   });
   export default theme;

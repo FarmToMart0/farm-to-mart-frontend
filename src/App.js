@@ -14,6 +14,7 @@ import Card from './pages/market/index';
 
 
 import { BrowserRouter } from 'react-router-dom';
+import ItemAdd from './pages/home/index';
 function App() {
   const arr = [
     { label: 'Paddy'},
@@ -25,6 +26,9 @@ function App() {
   return (
     <BrowserRouter>    
     <Routes>
+    
+    <Route path="/farmer/dash/:page" element={<FarmerLayout/>}/>
+    
 
     {/* <Route path="/home" element={<Home/>} exact /> */}
     <Route path="/card" element={<Card /> }exact />

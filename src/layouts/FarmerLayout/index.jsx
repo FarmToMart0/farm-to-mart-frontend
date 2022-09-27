@@ -6,7 +6,9 @@ import { FARMER_SECTIONS } from '../../constants';
 import FarmerListItems from './farmerListItem';
 import SidePanel from '../../components/SidePanel';
 import Home from '../../pages/home/index'
-
+import ItemAdd from '../../components/ItemAdd/index'
+import ProductManage from '../../pages/farmer/ProductManage/index';
+import OrderPage from './../../pages/farmer/Orders/index';
 
 const drawerWidth = 240;
 
@@ -19,36 +21,27 @@ export default function FarmerLayout() {
 
   React.useEffect(() => {
     const params = location.pathname.split('/');
-
+  
     if (params.length === 4) {
+      
       const subComponent = params[3];
+     
+    
       switch (subComponent) {
         case FARMER_SECTIONS.DASHBOARD:
           setOpenPane(<Home/>);
           break;
-        case FARMER_SECTIONS.FINDTRANSPORTER:
-          
-          break;
-        case FARMER_SECTIONS.CART:
-         
-          break;
-        case FARMER_SECTIONS.MYCROP:
-         
-          break;
-        case FARMER_SECTIONS.ADDCROP:
-         
-          break;
-        case FARMER_SECTIONS.EDITCROP:
-          
-          break;
-        case FARMER_SECTIONS.DELETECROP:
-          
-          break;
-        case FARMER_SECTIONS.SALES:
         
+        case FARMER_SECTIONS.MYCROP:
+         setOpenPane()
+          break;
+        
+      
+        case FARMER_SECTIONS.SALES:
+          setOpenPane(<ProductManage/>)
           break;
         case FARMER_SECTIONS.ORDERS:
-         
+          setOpenPane(<OrderPage/>)
           break;
         case FARMER_SECTIONS.TRANSACTIONS:
          

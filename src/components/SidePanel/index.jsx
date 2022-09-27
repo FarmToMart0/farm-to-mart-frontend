@@ -14,20 +14,21 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import MenuIcon from '@mui/icons-material/Menu';
-
+import appimage from '../../assets/images/appimg.jpg'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
 import { Button } from '@mui/material';
 // import LoginPage from '../../pages/LoginPage';
+import UserProfileIcon from '../UserProfileIcon';
+import logo from '../../assets/images/logo.png';
 
-// import logo from '../../assets/images/logo5.png';
 
-// import UserProfileIcon from '../UserProfileIcon';
 import {Stack } from '@mui/material';
 import { FARMER_SECTIONS } from '../../constants';
 
-// import NotificationIcon from '../NotificationIcon';
+import NotificationIcon from '../NotificationIcon';
+
 
 
 const drawerWidth = 240;
@@ -98,10 +99,12 @@ export default function SidePanel(Props) {
       <CssBaseline />
       <AppBar position="absolute" open={open}>
         <Toolbar
+       
           sx={{
             pr: '24px', // keep right padding when drawer closed
           }}
         >
+           {/* <img src={appimage} sx={{height:20}} /> */}
           <IconButton
             edge="start"
             color="inherit"
@@ -121,9 +124,9 @@ export default function SidePanel(Props) {
             noWrap
             sx={{ flexGrow: 1 }}
           >
-            <Toolbar sx={{ width: '100%', maxWidth: 1470, mx: 'auto' }}>
-            {/* <img src={logo} style={{ width: 60 }} sx={{ cursor: 'pointer' }}
-            onClick={() => navigate('/#')}/> */}
+          <Toolbar sx={{ width: '100%', maxWidth: 1470, mx: 'auto' }}>
+            <img src={logo} style={{ width: 60 }} sx={{ cursor: 'pointer' }}
+            onClick={() => navigate('/#')}/>
           <Typography
           fontFamily={"'Lilita One', cursive"}
        
@@ -133,7 +136,7 @@ export default function SidePanel(Props) {
             sx={{ cursor: 'pointer' }}
             onClick={() => navigate('/')}
           >
-            Agri2GO
+            FarmToMart
           </Typography>
           <Box sx={{ flexGrow: 1}} />
           <Stack spacing={3} direction="row">
@@ -144,14 +147,14 @@ export default function SidePanel(Props) {
           color="inherit"
         >
           <Badge badgeContent={17} color="secondary">
-          {/* <NotificationIcon/> */}
+          <NotificationIcon/>
             {/* <NotificationsIcon /> */}
           </Badge>
         </IconButton>
             {/* </Button> */}
            
             
-            {/* <UserProfileIcon item2={Props.item2}/> */}
+            <UserProfileIcon item2={Props.item2}/>
           </Stack>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}></Box>
         </Toolbar>
