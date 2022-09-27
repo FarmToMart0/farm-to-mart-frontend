@@ -154,6 +154,21 @@ export default function Home() {
                             <Grid item xs={12} md={8} sx={{fontSize: '1.2rem'}}>
                                 : {farmerDetails['nic']}
                             </Grid>
+                            </Grid>
+                            
+                            <div style={
+                            {float: 'right', marginTop:'1vw'}
+                            }>
+                                <Button
+                            // type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 0, height: '2.5rem', width:'25%', float: 'right'}}
+                            >
+                            Add New Crop data
+                            </Button>
+                            </div>
+                            
 
                             <List
                             sx={{ width: '100%', bgcolor: 'background.paper', mt: '2vw' }}
@@ -280,7 +295,7 @@ export default function Home() {
                                 })}
 
                             </List>
-                        </Grid>
+                        
                 </Box>
 
 
