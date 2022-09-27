@@ -14,14 +14,14 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import MenuIcon from '@mui/icons-material/Menu';
-import appimage from '../../assets/images/appimg.jpg'
+// import appimage from '../../assets/images/appimg.jpg'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
 import { Button } from '@mui/material';
 // import LoginPage from '../../pages/LoginPage';
 import UserProfileIcon from '../UserProfileIcon';
-import logo from '../../assets/images/logo.png';
+import logo from '../../Assets/images/logo.png';
 
 
 import {Stack } from '@mui/material';

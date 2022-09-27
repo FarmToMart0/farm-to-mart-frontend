@@ -8,7 +8,7 @@ import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Buy_card from '../../components/cards/buy_card/index'
 import Bid_card from '../../components/cards/bid_card/index'
-import BackI from '../../assets/images/weat.jpg'
+import BackI from '../../Assets/images/weat.jpg'
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import SearchField from '../../components/auto_com_search/index';
