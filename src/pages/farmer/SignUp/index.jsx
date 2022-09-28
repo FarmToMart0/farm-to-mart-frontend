@@ -1,38 +1,55 @@
 import * as React from 'react';
 import Joi from "joi-browser";
 import { useState } from 'react';
-import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import InputLabel from '@mui/material/InputLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
 
+function Copyright(props) {
+    return (
+      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+        {'Copyright © '}
+        <Link color="inherit" href="#">
+          www.farm2mart.org
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
+  }
 
-export default function AddFarmer() {
 
-  const [district, setDistrict] = useState('');
-  const [farmer, setFarmer] = useState({
-    firstName: "",
-    lastName: "",
-    address: "",
-    mobile: "",
-    gsoDevision: "",
-    gsoCode: "",
-    email: "",
-    nic:"",
-    password:"",
-    confPassword:""
-  });
+export default function SignUp() {
+    const [district, setDistrict] = useState('');
+    const [farmer, setFarmer] = useState({
+      firstName: "",
+      lastName: "",
+      address: "",
+      mobile: "",
+      gsoDevision: "",
+      gsoCode: "",
+      email: "",
+      nic:"",
+      password:"",
+      confPassword:""
+    });
 
-  const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({});
   const schema = {
     firstName: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
     lastName: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
@@ -109,28 +126,27 @@ export default function AddFarmer() {
  
   };
 
-
-  
   return (
-      <div>
-        <Container component="main" maxWidth="" sx={{background:'white',width:'60%', boxShadow: 
-        '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )', borderRadius:'10px', mb: '5vw', mt:0}}>
+      <Container component="main" maxWidth="md">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 0,
+            marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <Typography component="h1" variant="h5" color='primary' sx={{mt: 3, mb: 3, fontSize: '2rem', fontWeight: 'bold'}}>
-            Farmer Registration
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5" color="primary">
+            Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, mb: 3}}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
+            <Grid item xs={12} sm={6}>
+            <TextField
                   autoComplete="given-name"
                   name="firstName"
                   required
@@ -232,6 +248,7 @@ export default function AddFarmer() {
                     </Select>
                 </FormControl>
               </Grid>
+
               <Grid item xs={12} sm={8}>
                 <TextField
                   required
@@ -327,22 +344,26 @@ export default function AddFarmer() {
                 {errors.confPassword && (
                 <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Passwords do not match</Alert>)}
               </Grid>
-              
             </Grid>
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2, height: '2.5rem'}}
             >
-              Register Farmer
+              Sign Up
             </Button>
-            
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link href="/admin/login" variant="body2">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
           </Box>
         </Box>
-        
+        <Copyright sx={{ mt: 5 }} />
       </Container>
-      </div>
-      
   );
 }

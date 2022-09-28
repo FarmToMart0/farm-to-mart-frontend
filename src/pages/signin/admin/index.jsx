@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -31,6 +32,9 @@ function Copyright(props) {
 
 
 export default function SignInSide() {
+  const [errorMessages, setErrorMessages] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -39,6 +43,11 @@ export default function SignInSide() {
       password: data.get('password'),
     });
   };
+
+  const renderErrorMessage = (name) =>
+    name === errorMessages.name && (
+      <div>{errorMessages.message}</div>
+  );
 
   return (
    <><ResponsiveAppBar /><Grid container component="main" sx={{ height: '100%', width: '80%', margin: 'auto', mt: '5vw', mb: '2vw' }}>

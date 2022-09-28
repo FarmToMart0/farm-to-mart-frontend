@@ -1,4 +1,6 @@
 import * as React from 'react';
+import Joi from "joi-browser";
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -10,28 +12,74 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import FormHelperText from '@mui/material/FormHelperText';
+import Alert from '@mui/material/Alert';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import AdminNavbar from '../admin_navbar/index';
 
 export default function AddCropData() {
-    const [age, setAge] = React.useState('');
+  const [crop, setCrop] = useState({
+    cropType: "",
+    cropName: "",
+    startDate: "",
+    estiHarvest: "",
+  });
 
-//   const handleChange = (event: SelectChangeEvent) => {
-//     setAge(event.target.value);
-//   }; 
+  const [errors, setErrors] = useState({});
+  const schema = {
+    cropType: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
+    cropName: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
+    startDate: Joi.date().iso().required(),
+    estiHarvest: Joi.string().required()
+  };
+
+  const handleSave = (event) => {
+    const { name, value } = event.target;
+    let errorData = { ...errors };
+    const errorMessage = validateProperty(event);
+    if (errorMessage) {
+    errorData[name] = errorMessage;
+    } else {
+    delete errorData[name];
+    }
+    let CropData = { ...crop };
+    CropData[name] = value;
+    setCrop(CropData);
+    setErrors(errorData);
+  };
+
+  const validateProperty = (event) => {
+    const { name, value } = event.target;
+    const obj = { [name]: value };
+    const subSchema = { [name]: schema[name] };
+    const result = Joi.validate(obj, subSchema);
+    const { error } = result;
+    return error ? error.details[0].message : null;
+    
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // console.log({
-
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-
-    // });
+    const result = Joi.validate(crop,
+      schema, { abortEarly: false });
+    const { error } = result;
+    if (!error) {
+      console.log("Submitted");
+    } else {
+      const errorData = {};
+      for (let item of error.details) {
+        const name = item.path[0];
+        const message = item.message;
+        errorData[name] = message;
+      }
+      setErrors(errorData);
+      console.log(errorData);
+      return errorData;
+    }
+ 
   };
+
 
   return (
       <div>
@@ -56,37 +104,48 @@ export default function AddCropData() {
                 <TextField
                   required
                   fullWidth
-                  id="crop-type"
+                  id="cropType"
                   type="text"
                   label="Crop Type"
-                  name="crop-type"
-                  autoComplete="crop-type"
+                  name="cropType"
+                  value={crop.cropType}
+                  onChange={handleSave}
+                  autoFocus
                 />
+
+                {errors.cropType && (
+                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid Crop type</Alert>)}
               </Grid>
 
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="crop-name"
+                  id="cropName"
                   type="text"
                   label="Crop Name"
-                  name="crop-name"
+                  name="cropName"
+                  value={crop.cropName}
+                  onChange={handleSave}
                   autoComplete="crop-name"
                 />
+
+                {errors.cropName && (
+                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid Crop Name</Alert>)}
               </Grid>
               
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="land-size"
+                  id="cropArea"
                   type="text"
                   label="Growing Land Size"
-                  name="land-size"
+                  name="cropArea"
                   autoComplete="land-size"
                   InputProps={{
                     endAdornment: <InputAdornment position="end">Acre</InputAdornment>,
+                    inputMode: 'numeric', pattern: '[0-9]*'
                   }}
                 />
               </Grid>
@@ -95,30 +154,41 @@ export default function AddCropData() {
               <FormControl variant="outlined" sx={{width:'100%'}}>
               <FormHelperText id="outlined-weight-helper-text" sx={{ml:'5px', fontSize:'1rem'}}>Start Date of Growing</FormHelperText>
                 <OutlinedInput
-                    id="s-date"
-                    name='s-date'
-                    // value={values.weight}
-                    // onChange={handleChange('weight')}
+                    required
+                    id="startDate"
+                    name='startDate'
                     type = 'date'
                     aria-describedby="outlined-weight-helper-text"
                     inputProps={{
                     'aria-label': 'weight',
                     }}
+
+                    value={crop.startDate}
+                    onChange={handleSave}
                 />
                 
                 </FormControl>
+
+                {errors.startDate && (
+                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid Date</Alert>)}
               </Grid>
 
               <Grid item xs={12} md={6}>
                 <TextField
                   required
                   fullWidth
-                  id="est-harvest"
-                  type="number"
-                  label="Estimated Harvest (kg)"
-                  name="est-harvest"
+                  id="estiHarvest"
+                  //type="number"
+                  label="Estimated Harvest (kg / Quantity of fruits)"
+                  name="estiHarvest"
+                  value={crop.estiHarvest}
+                  onChange={handleSave}
                   autoComplete="est-harvest"
                 />
+                <FormHelperText id="outlined-weight-helper-text" sx={{ml:'5px', fontSize:'0.8rem'}}>*Clearly mention the unit</FormHelperText>
+
+                {errors.estiHarvest && (
+                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid Harvest Quantity</Alert>)}
               </Grid>
 
               <Grid item xs={12} md={6}>
@@ -132,6 +202,7 @@ export default function AddCropData() {
                   autoComplete="est-time"
                   InputProps={{
                     endAdornment: <InputAdornment position="end">Months</InputAdornment>,
+                    inputMode: 'numeric', pattern: '[0-9]*'
                   }}
                 />
               </Grid>

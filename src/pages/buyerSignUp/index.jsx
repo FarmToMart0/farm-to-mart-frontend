@@ -1,45 +1,57 @@
 import * as React from 'react';
 import Joi from "joi-browser";
 import { useState } from 'react';
-import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import InputLabel from '@mui/material/InputLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
 
+function Copyright(props) {
+    return (
+      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+        {'Copyright © '}
+        <Link color="inherit" href="#">
+          www.farm2mart.org
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
+  }
 
-export default function AddFarmer() {
 
-  const [district, setDistrict] = useState('');
-  const [farmer, setFarmer] = useState({
-    firstName: "",
-    lastName: "",
-    address: "",
-    mobile: "",
-    gsoDevision: "",
-    gsoCode: "",
-    email: "",
-    nic:"",
-    password:"",
-    confPassword:""
-  });
+export default function SignUp() {
+    const [buyer, setBuyer] = useState({
+      firstName: "",
+      lastName: "",
+      address: "",
+      mobile: "",
+      email: "",
+      nic:"",
+      password:"",
+      confPassword:""
+    });
 
-  const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({});
   const schema = {
     firstName: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
     lastName: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
     address: Joi.string().required(),
     mobile: Joi.string().length(10).regex(/^[0-9]+$/, 'given').required(),
-    gsoDevision: Joi.string().required(),
-    gsoCode: Joi.string().required(),
     email: Joi.string().email().required(),
     nic: Joi.string().required(),
     password: Joi.string()
@@ -59,20 +71,16 @@ export default function AddFarmer() {
     } else {
     delete errorData[name];
     }
-    let FarmerData = { ...farmer };
-    FarmerData[name] = value;
-    setFarmer(FarmerData);
+    let BuyerData = { ...buyer };
+    BuyerData[name] = value;
+    setBuyer(BuyerData);
     setErrors(errorData);
-  };
-
-  const handleDistrictChange = (event) => {
-    setDistrict(event.target.value)
   }; 
 
   const validateProperty = (event) => {
     const { name, value } = event.target;
     if (name === "confPassword") {
-        const obj = { password: farmer.password, [name]: value };
+        const obj = { password: buyer.password, [name]: value };
         const subSchema = {
           [name]: schema[name],
           password: schema["password"],
@@ -90,7 +98,7 @@ export default function AddFarmer() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const result = Joi.validate(farmer,
+    const result = Joi.validate(buyer,
       schema, { abortEarly: false });
     const { error } = result;
     if (!error) {
@@ -109,35 +117,34 @@ export default function AddFarmer() {
  
   };
 
-
-  
   return (
-      <div>
-        <Container component="main" maxWidth="" sx={{background:'white',width:'60%', boxShadow: 
-        '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )', borderRadius:'10px', mb: '5vw', mt:0}}>
+      <Container component="main" maxWidth="md">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 0,
+            marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <Typography component="h1" variant="h5" color='primary' sx={{mt: 3, mb: 3, fontSize: '2rem', fontWeight: 'bold'}}>
-            Farmer Registration
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5" color="primary">
+            Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, mb: 3}}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
+            <Grid item xs={12} sm={6}>
+            <TextField
                   autoComplete="given-name"
                   name="firstName"
                   required
                   fullWidth
                   id="firstName"
                   label="First Name"
-                  value={farmer.firstName}
+                  value={buyer.firstName}
                   onChange={handleSave}
                   autoFocus
                 />
@@ -152,7 +159,7 @@ export default function AddFarmer() {
                   id="lastName"
                   label="Last Name"
                   name="lastName"
-                  value={farmer.lastName}
+                  value={buyer.lastName}
                   onChange={handleSave}
                   autoComplete="family-name"
                 />
@@ -168,7 +175,7 @@ export default function AddFarmer() {
                   id="address"
                   label="Address"
                   name="address"
-                  value={farmer.address}
+                  value={buyer.address}
                   onChange={handleSave}
                   autoComplete="address"
                 />
@@ -185,83 +192,13 @@ export default function AddFarmer() {
                   type="tel"
                   label="Mobile Number"
                   name="mobile"
-                  value={farmer.mobile}
+                  value={buyer.mobile}
                   onChange={handleSave}
                   autoComplete="mobile"
                 />
 
                 {errors.mobile && (
                 <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid Mobile Number</Alert>)}
-              </Grid>
-
-              <Grid item xs={12} sm={12}>
-                <FormControl required sx={{ m: 1, minWidth: "100%", margin:'0'}}>
-                    <InputLabel id="demo-simple-select-required-label">District</InputLabel>
-                    <Select
-                    labelId="district"	
-                    id="district"
-                    value={district}
-                    label="District *"
-                    onChange={handleDistrictChange}
-                    >
-                    <MenuItem value={"Colombo"}>Colombo</MenuItem>
-                    <MenuItem value={"Gampaha"}>Gampaha</MenuItem>
-                    <MenuItem value={"Kalutara"}>Kalutara</MenuItem>
-                    <MenuItem value={"Kandy}"}>Kandy</MenuItem>
-                    <MenuItem value={"Matale"}>Matale</MenuItem>
-                    <MenuItem value={"Nuwara Eliya"}>Nuwara Eliya</MenuItem>
-                    <MenuItem value={"Galle"}>Galle</MenuItem>
-                    <MenuItem value={"Matara"}>Matara</MenuItem>
-                    <MenuItem value={"Hambantota"}>Hambantota</MenuItem>
-                    <MenuItem value={"Jaffna"}>Jaffna</MenuItem>
-                    <MenuItem value={"Kilinochchi"}>Kilinochchi</MenuItem>
-                    <MenuItem value={"Mannar"}>Mannar</MenuItem>
-                    <MenuItem value={"Vavuniya"}>Vavuniya</MenuItem>
-                    <MenuItem value={"Mullaitivu"}>Mullaitivu</MenuItem>
-                    <MenuItem value={"Batticaloa"}>Batticaloa</MenuItem>
-                    <MenuItem value={"Ampara"}>Ampara</MenuItem>
-                    <MenuItem value={"Trincomalee"}>Trincomalee</MenuItem>
-                    <MenuItem value={"Kurunegala"}>Kurunegala</MenuItem>
-                    <MenuItem value={"Puttalam"}>Puttalam</MenuItem>
-                    <MenuItem value={"Anuradhapura"}>Anuradhapura</MenuItem>
-                    <MenuItem value={"Polonnaruwa"}>Polonnaruwa</MenuItem>
-                    <MenuItem value={"Badulla"}>Badulla</MenuItem>
-                    <MenuItem value={"Moneragala"}>Moneragala</MenuItem>
-                    <MenuItem value={"Ratnapura"}>Ratnapura</MenuItem>
-                    <MenuItem value={"Kegalle"}>Kegalle</MenuItem>
-                    </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} sm={8}>
-                <TextField
-                  required
-                  fullWidth
-                  id="gsoDevision"
-                  label="GoviJana Seva Devision"
-                  name="gsoDevision"
-                  value={farmer.gsoDevision}
-                  onChange={handleSave}
-                  autoComplete="gso-devision"
-                />
-
-                {errors.gsoDevision && (
-                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid GoviJana Seva Devision</Alert>)}
-              </Grid>
-
-              <Grid item xs={12} sm={4}>
-                <TextField
-                  required
-                  fullWidth
-                  id="gsoCode"
-                  label="GoviJana Seva Devision Code"
-                  name="gsoCode"
-                  value={farmer.gsoCode}
-                  onChange={handleSave}
-                  autoComplete="gso-code"
-                />
-
-                {errors.gsoCode && (
-                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid GoviJana Seva Devision Code</Alert>)}
               </Grid>
 
               <Grid item xs={12}>
@@ -272,7 +209,7 @@ export default function AddFarmer() {
                   type="email"
                   label="Email Address"
                   name="email"
-                  value={farmer.email}
+                  value={buyer.email}
                   onChange={handleSave}
                   autoComplete="email"
                 />
@@ -287,7 +224,7 @@ export default function AddFarmer() {
                   id="nic"
                   label="National Identity Card Number"
                   name="nic"
-                  value={farmer.nic}
+                  value={buyer.nic}
                   onChange={handleSave}
                   autoComplete="nic"
                 />
@@ -303,7 +240,7 @@ export default function AddFarmer() {
                   label="Password"
                   type="password"
                   id="password"
-                  value={farmer.password}
+                  value={buyer.password}
                   onChange={handleSave}
                   autoComplete="new-password"
                 />
@@ -319,7 +256,7 @@ export default function AddFarmer() {
                   label="Confirm Password"
                   type="password"
                   id="confPassword"
-                  value={farmer.confPassword}
+                  value={buyer.confPassword}
                   onChange={handleSave}
                   autoComplete="conf-password"
                 />
@@ -327,22 +264,26 @@ export default function AddFarmer() {
                 {errors.confPassword && (
                 <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Passwords do not match</Alert>)}
               </Grid>
-              
             </Grid>
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2, height: '2.5rem'}}
             >
-              Register Farmer
+              Sign Up
             </Button>
-            
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link href="/admin/login" variant="body2">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
           </Box>
         </Box>
-        
+        <Copyright sx={{ mt: 5 }} />
       </Container>
-      </div>
-      
   );
 }
