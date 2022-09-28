@@ -5,10 +5,12 @@ import TextF from '../../components/text_field/index'
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
-import { padding } from '@mui/system';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import { useNavigate } from "react-router-dom";
+import TextField from '@mui/material/TextField';
 
 export default function SimplePaper() {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -68,7 +70,23 @@ export default function SimplePaper() {
         <Stack  style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
           <h1 style={{margin:2}}> Place a Bid</h1>
           <p style={{margin:3}}> Minimum Bid Value : 300KLR</p>
-          <TextF title={"Bidding Amount"}  style={{display:'flex',alignItems:'center',justifyContent:'center'}}/>
+          {/* <TextF title={"Bidding Amount"}  style={{display:'flex',alignItems:'center',justifyContent:'center'}}/> */}
+
+          {/* =================Text Field =================== */}
+
+          <Box
+                component="form"
+                sx={{
+                  '& > :not(style)': { m: 1, width: '100%' },
+                }}
+                noValidate
+                autoComplete="off"
+              >
+                
+                <TextField id="standard-basic" label="Amount of Bid" variant="standard" type= "number" />
+          </Box>
+
+          {/* ============= End Text Field ================= */}
           <Stack direction="row"  style={{display:'flex',alignItems:'center',justifyContent:'center'}} >
            
             <Button variant="contained" color="success" sx={{my:3}}>
@@ -81,7 +99,7 @@ export default function SimplePaper() {
       </Paper>
       
     </Box>
-    <Button variant="contained" sx={{width:'10%'}} startIcon={<ArrowCircleLeftIcon /> }>
+    <Button variant="contained" sx={{width:'10%'}} startIcon={<ArrowCircleLeftIcon /> } onClick={()=>{navigate('/market')}} >
         Market
       </Button>
       </Stack>

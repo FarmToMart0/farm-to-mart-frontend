@@ -1,5 +1,3 @@
-
-
 import React from 'react'
 import Navbar from '../../components/navbar/index';
 import BiddingCard from '../../components/bid_ui/index';

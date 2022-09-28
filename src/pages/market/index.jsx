@@ -32,6 +32,7 @@ const categoty2 = "Base Amount of Harvest"
 
 
 export default function market() {
+
   return (
     
     <div >
@@ -67,7 +68,7 @@ export default function market() {
     justifyContent:'center',}}>
 <SearchField cropItems = {arr} category = {category1}/>
 
-<TextFiled title={categoty2}/>
+{/* <TextFiled title={categoty2}/> */}
 
     </Stack>
     </Paper>

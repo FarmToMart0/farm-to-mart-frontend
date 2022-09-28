@@ -20,6 +20,7 @@ import { Stack } from '@mui/system';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import GavelIcon from '@mui/icons-material/Gavel';
+import { useNavigate } from "react-router-dom";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -33,9 +34,6 @@ const ExpandMore = styled((props) => {
   }));
 
 
-
-
-
 export default function ItemCard(props) {
     const farmer_id = props.id;
     const price = props.price;
@@ -45,6 +43,12 @@ export default function ItemCard(props) {
     const handleExpandClick = () => {
       setExpanded(!expanded);
     };
+
+    const navigate = useNavigate();
+    function handleBid(){
+      navigate('/bid')
+    }
+
   return (
     
     <Card sx={{ maxWidth: 345 ,background:'#e8e9ec',boxShadow: 'rgba(0, 0, 0, 0.24) 3px 5px 10px'}}>
@@ -81,7 +85,7 @@ export default function ItemCard(props) {
           <ShareIcon style={{margin:'0 10 0 0'}}/>
         </IconButton>
 
-        <Button variant="contained" color="success">
+        <Button variant="contained" color="success" onClick={handleBid}>
         <GavelIcon style={{margin:'0 10 0 0'}}/> Bid
       </Button>
 

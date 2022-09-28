@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -9,10 +9,34 @@ import Button from '@mui/material/Button';
 import ImageList from '../../components/imageList/index';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import PaymentIcon from '@mui/icons-material/Payment';
+import Alert from '@mui/material/Alert';
 
 
 
-export default function RowAndColumnSpacing() {
+export default function BuyItemShoppingCard(props) {
+  
+  const [totValue, setTotValue] = useState(0);
+  const [inputValue, setInputValue] = useState(0);
+  const deliveryMethods = props.deliveryMethods;
+  const paymentMethods = props.paymentMethods;
+  const itemData = props.itemData;
+  
+
+  function getInputAmount(value){
+    
+    setInputValue(value);
+  }
+  
+
+    useEffect(()=>{
+    
+      setTotValue(Math.round(inputValue*props.unitPrice*100)/100)
+      console.log(inputValue)
+    },[inputValue])
+
+
+  
+
   return (
     <div>
     
@@ -48,8 +72,10 @@ export default function RowAndColumnSpacing() {
       
       <Paper elevation={3}  style={{display:'flex', justifyContent:'center', alignItems:'center', padding:20,boxShadow: 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',marginBottom:20}}> 
         
-        <ItemCard />
-        
+
+        {/* ======================= Left Card ============================= */}
+        <ItemCard  getInputAmount = {getInputAmount}/>
+        {/* ============================ End Left Card ========================= */}
         <Box
       sx={{
         
@@ -60,7 +86,7 @@ export default function RowAndColumnSpacing() {
         '&:hover': {
         boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
         backgroundColor: '#f5f5f5',
-        //   opacity: [0.9, 0.8, 0.7],
+        
         },
       }}
     >
@@ -69,17 +95,23 @@ export default function RowAndColumnSpacing() {
         
         <div style={{
         paddingLeft:30}}>
-            <h2 style={{paddingTop:10, color:'#007476',display:'flex', justifyContent:'center', alignItems:'center'}}>Total Price</h2>
-            <h1 style={{paddingTop:10,display:'flex', justifyContent:'center', alignItems:'center'}}> 13,000.00 Rs</h1>
+            <h2 style={{paddingTop:10, color:'#007476',display:'flex', justifyContent:'center', alignItems:'center'}}>Total Price(LKR)</h2>
+            <h1 style={{paddingTop:10,display:'flex', justifyContent:'center', alignItems:'center'}}> {totValue}</h1>
             
             <Stack direction="row" > 
             <LocalShippingIcon sx={{mx:3}}/>
-            Farm Pickup/Delivery
+
+            <ul style={{margin:0}}>
+            {deliveryMethods.map((item)=><li key={item}>{item}</li>)}
+            </ul>
+            
             </Stack>
 
-            <Stack direction="row" > 
+            <Stack direction="row" style={{marginTop:15}}> 
             <PaymentIcon sx={{mx:3}}/>
-            Cash/Online Payment
+            <ul style={{margin:0}}>
+            {paymentMethods.map((item)=><li key={item}>{item}</li>)}
+            </ul>
             </Stack>
             
             
@@ -102,7 +134,20 @@ export default function RowAndColumnSpacing() {
     </Stack>
       
     </Box>
-    <ImageList/>
+
+    {/* ===========================Image component====================== */}
+    {/* // const itemData = [
+  
+// 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
+// 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
+// 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
+
+
+
+// ]; */}
+    <ImageList itemData = {itemData}/>
+
+{/* ===========================End ofImage component====================== */}
     
       </Paper>
       

@@ -6,10 +6,13 @@ import FarmerLayout from './layouts/FarmerLayout';
 
 import Home from './pages/home/index';
 import Card from './pages/signUp/index';
-import ShoppingCard from '././components/shopping_card/index'
+import ShoppingCard from '././pages/shoppingCard/index'
 import Card2 from './components/signup_button/index';
-import Market from './pages/market/index'
+import Market from './pages/Market/index'
 import Item from './pages/shoppingCard/index'
+import Bid from '././pages/Bidding'
+import Circle from './components/PieGraph/index'
+
 
 
 import { BrowserRouter } from 'react-router-dom';
@@ -28,9 +31,9 @@ function App() {
       <Route path="/shopping" element={<ShoppingCard/>} exact />
       <Route path="/farmer/dash/:page" element={<FarmerLayout/>}/>
       <Route path="/item" element={<Item/>} exact />
+      <Route path="/bid" element={<Bid/>} exact />
+      <Route path="/circle" element={<Circle/>} exact />
       
-
-
 
     </Routes>
     </BrowserRouter>
