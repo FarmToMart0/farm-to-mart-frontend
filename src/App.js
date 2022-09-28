@@ -11,7 +11,9 @@ import Card2 from './components/signup_button/index';
 import Market from './pages/Market/index'
 import Item from './pages/shoppingCard/index'
 import Bid from '././pages/Bidding'
-import Circle from './components/PieGraph/index'
+import PieGraph from './components/PieGraph/index'
+import BarGraph from './components/BarGraph/index'
+import LineGraph from './components/LineChart/index'
 
 
 
@@ -32,8 +34,9 @@ function App() {
       <Route path="/farmer/dash/:page" element={<FarmerLayout/>}/>
       <Route path="/item" element={<Item/>} exact />
       <Route path="/bid" element={<Bid/>} exact />
-      <Route path="/circle" element={<Circle/>} exact />
-      
+      <Route path="/pie" element={<PieGraph/>} exact />
+      <Route path="/bar" element={<BarGraph/>} exact />
+      <Route path="/line" element={<LineGraph/>} exact />
 
     </Routes>
     </BrowserRouter>
