@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-import logo from '../../Assets/images/logo.png'
+import logo from '../../assets/images/logo.png'
 
 const pages = [];
 const settings = ['Profile', 'Logout'];

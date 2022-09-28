@@ -8,7 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Stack } from '@mui/system';
 
-export default function FormDialog({handleClose,openDialog,children}) {
+export default function FormDialog({handleClose,openDialog,name1,name2,children}) {
   
 
   return (
@@ -20,8 +20,8 @@ export default function FormDialog({handleClose,openDialog,children}) {
             {children}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Save</Button>
+          <Button onClick={handleClose}>{name1}</Button>
+          <Button onClick={handleClose}>{name2}</Button>
         </DialogActions>
       </Dialog>
     </div>
