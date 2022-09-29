@@ -43,7 +43,7 @@ function App() {
 
     <Route path="/" element={<Home/>} exact />
     <Route path="/farmer/dash/:page" element={<FarmerLayout/>}/>
-    <Route path="/login" element={<Login/>} exact />
+    <Route path="/login" element={<Login/>} />
     <Route path="/main-officer/add-gso" element={<AddGSOPage/>} />
     <Route path="/gso/add-crop-data" element={<AddCropData/>} />
     <Route path="/main-officer/show-gso" element={<ShowGSO/>} />
