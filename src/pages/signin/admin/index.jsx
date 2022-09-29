@@ -14,6 +14,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import ResponsiveAppBar from '../../../components/navbar';
 import Footer from '../../../components/Footer';
+import Alert from '@mui/material/Alert';
 
 
 function Copyright(props) {
@@ -35,19 +36,114 @@ export default function SignInSide() {
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  // User Login info
+  const database = [
+    {
+      username: "nic1",
+      password: "pass1"
+    },
+    {
+      username: "nic2",
+      password: "pass2"
+    }
+  ];
+  
+  const errors = {
+    nic: "Invalid login, please try again",
+    pass: "Invalid login, please try again"
   };
 
+  const handleSubmit = (event) => {
+    //Prevent page reload
+    event.preventDefault();
+  
+    var { nic, pass } = document.forms[0];
+  
+    // Find user login info
+    const userData = database.find((user) => user.username === nic.value);
+  
+    // Compare user info
+    if (userData) {
+      if (userData.password !== pass.value) {
+        // Invalid password
+        setErrorMessages({ name: "pass", message: errors.pass });
+      } else {
+        setIsSubmitted(true);
+      }
+    } else {
+      // Username not found
+      setErrorMessages({ name: "nic", message: errors.nic });
+    }
+  };
+
+  // Generate JSX code for error message
   const renderErrorMessage = (name) =>
-    name === errorMessages.name && (
-      <div>{errorMessages.message}</div>
+  name === errorMessages.name && (
+    <Alert icon={false} sx={{ mt: '1vw', mb: '1vw' }} severity="error">{errorMessages.message}</Alert>
   );
+
+  // JSX code for login form
+const renderForm = (
+  <div>
+    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1, color: 'black' }}>
+            {renderErrorMessage("pass")}
+            {renderErrorMessage("nic")}
+
+            <TextField sx={{ color: 'black' }}
+              margin="normal"
+              required
+              type='text'
+              fullWidth
+              id="nic"
+              label="National Identity Card"
+              name="nic"
+              //autoComplete="nic"
+              autoFocus />
+
+             
+
+            <TextField sx={{ color: 'black' }}
+              margin="normal"
+              required
+              fullWidth
+              name="pass"
+              label="Password"
+              type="password"
+              id="pass"
+              //autoComplete="current-password"
+               />
+              
+            <FormControlLabel sx={{ color: '#12877a', fontSize: '10px' }}
+
+
+              control={<Checkbox value="remember" />}
+              label="Remember me" />
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign In
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2" color='#12877a'>
+                  Forgot password?
+                </Link>
+              </Grid>
+            </Grid>
+            <Copyright sx={{ mt: 5 }} />
+          </Box>
+  </div>
+);
+
+
+  
+
+
+
 
   return (
    <><ResponsiveAppBar /><Grid container component="main" sx={{ height: '100%', width: '80%', margin: 'auto', mt: '5vw', mb: '2vw' }}>
@@ -80,49 +176,7 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5" color='primary'>
             Sign in
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1, color: 'black' }}>
-            <TextField sx={{ color: 'black' }}
-              margin="normal"
-              required
-              type='email'
-              fullWidth
-              id="nic"
-              label="Email"
-              name="nic"
-              autoComplete="nic"
-              autoFocus />
-            <TextField sx={{ color: 'black' }}
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password" />
-            <FormControlLabel sx={{ color: '#12877a', fontSize: '10px' }}
-
-
-              control={<Checkbox value="remember" />}
-              label="Remember me" />
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2" color='#12877a'>
-                  Forgot password?
-                </Link>
-              </Grid>
-            </Grid>
-            <Copyright sx={{ mt: 5 }} />
-          </Box>
+          {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
         </Box>
       </Grid>
     </Grid>
