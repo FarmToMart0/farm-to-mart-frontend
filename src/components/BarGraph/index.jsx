@@ -52,7 +52,7 @@ function BarGraph() {
           <Tooltip />
           <Legend />
           <CartesianGrid strokeDasharray="3 3" />
-          <Bar dataKey="pv" fill="#00C49F" background={{ fill: '#eee' }} />
+          <Bar dataKey="pv" fill="green" background={{ fill: '#eee' }} />
         </BarChart>
       
     
