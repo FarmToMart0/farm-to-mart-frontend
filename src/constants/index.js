@@ -1,10 +1,9 @@
 export const FARMER_SECTIONS = {
     DASHBOARD: 'dashboard',
-    MYREQUESTS:'myrequests',
-    FINDTRANSPORTER:'findtransporter',
+    
     ORDERS: 'orders',
     SALES:'sales',
-    CART:'addcart',
+    
     TRANSACTIONS:'transactions',
     REVIEWS:'reviews',
     MYCROP:'mycrop',
@@ -18,3 +17,8 @@ export const FARMER_SECTIONS = {
       VIEWTRANSPORTER: 'viewtransporter',
      
    };
+
+  export const HOST_URL = 'http://localhost:9000/api';
+
+export const TOKEN_KEY = 'FARMETOMART_TOKEN';
+export const USER_DETAILS = 'USER_DETAILS';

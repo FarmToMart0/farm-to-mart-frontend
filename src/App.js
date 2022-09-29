@@ -11,7 +11,7 @@ import Card2 from './components/signup_button/index';
 import Market from './pages/Market/index'
 import Item from './pages/shoppingCard/index'
 import Bid from '././pages/Bidding'
-import PieGraph from './components/PieGraph/index'
+import PieGraph from './components/PieGraph/index' 
 import BarGraph from './components/BarGraph/index'
 import LineGraph from './components/LineChart/index'
 import Dashboard from './pages/F-Dashboard/index'
