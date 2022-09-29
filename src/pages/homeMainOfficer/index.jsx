@@ -12,9 +12,9 @@ import DetailsCard from '../../components/details_card/index';
 export default function HomeMainOfficer() {
   return (
     <div>
-    <AdminNavbar />
+  
     <div style={{margin: 'auto',
-        width: '50%',
+        width: '70%',
         padding: '10px', }}>
             
         <Stack spacing={2} sx={{padding:'5vw', width: '100%', textAlign:'center', mb: 0, paddingRight: 0, paddingLeft: 0, paddingBottom: '3vw'}}>

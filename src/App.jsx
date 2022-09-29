@@ -19,6 +19,8 @@ import BuyerSignUp from './pages/buyerSignUp/index';
 
 import { BrowserRouter } from 'react-router-dom';
 import ItemAdd from './pages/home/index';
+import GSOLayout from './layouts/GSOLayout';
+import MainOfficerLayout from './layouts/MainOfficerLayout/index';
 function App() {
   const arr = [
     { label: 'Paddy'},
@@ -32,6 +34,8 @@ function App() {
     <Routes>
     
     <Route path="/farmer/dash/:page" element={<FarmerLayout/>}/>
+    <Route path="/gso/dash/:page" element={<GSOLayout/>}/>
+    <Route path="/mainofficer/dash/:page" element={<MainOfficerLayout/>}/>
     
 
     {/* <Route path="/home" element={<Home/>} exact /> */}

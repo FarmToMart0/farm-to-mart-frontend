@@ -39,8 +39,6 @@ export default function FarmerLayout() {
         case FARMER_SECTIONS.MYCROP:
          setOpenPane(<TabPaneMyCrops/>)
           break;
-        
-      
         case FARMER_SECTIONS.SALES:
           setOpenPane(<ProductManage/>)
           break;

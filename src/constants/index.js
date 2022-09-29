@@ -4,17 +4,26 @@ export const FARMER_SECTIONS = {
     ORDERS: 'orders',
     SALES:'sales',
     
-    TRANSACTIONS:'transactions',
+    
     REVIEWS:'reviews',
     MYCROP:'mycrop',
-      ADDCROP:'addcrop',
-      EDITCROP:'editcrop',
-      DELETECROP:'deletecrop',
-      VIEWPRICES:'viewprices',
-      SENDREQUESTS: 'sendrequests',
-      TRANSPORTERS: 'transporters',
-      ADDTRANSPORTER: 'addtransporter',
-      VIEWTRANSPORTER: 'viewtransporter',
+     
+     
+   };
+
+   export const GSO_SECTIONS = {
+    DASHBOARD: 'dashboard',
+    FARMERDETAILS: 'farmerDetails',
+   
+     
+     
+   };
+
+   export const MO_SECTIONS = {
+    DASHBOARD: 'dashboard',
+    GSOMANAGE: 'managegso',
+   
+     
      
    };
 

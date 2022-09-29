@@ -75,7 +75,7 @@ export default function Home() {
                                                             // boxShadow: '20px 20px 40px -6px rgb(0 0 0 / 20%)',
                                                             boxShadow: 
                                                                         '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )',
-                                                            borderRadius:'10px', mb: '5vw', mt:0, width: '60%', padding: '2vw', paddingTop: 0}}>
+                                                            borderRadius:'10px', mb: '5vw', mt:0, width: '70%', padding: '2vw', paddingTop: 0}}>
                 <CssBaseline />
                 <Box sx={{
                         marginTop: 0,
