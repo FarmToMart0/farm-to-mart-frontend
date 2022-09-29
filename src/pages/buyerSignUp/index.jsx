@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Joi from "joi-browser";
 import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
@@ -19,6 +20,14 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
+import ResponsiveAppBar from '../../components/navbar';
+import api from '../../api'
+import {
+  setAuthorizationKey,
+
+} from '../../utils/localStorageHelper';
+import SnackBarComponent from '../../components/Snackbars';
+
 
 function Copyright(props) {
     return (
@@ -39,19 +48,21 @@ export default function SignUp() {
       firstName: "",
       lastName: "",
       address: "",
-      mobile: "",
+      phone: "",
       email: "",
       nic:"",
       password:"",
       confPassword:""
     });
-
+    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
+    const [errorOccured, setErrorOccured] = useState(false);
     const [errors, setErrors] = useState({});
   const schema = {
     firstName: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
     lastName: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
     address: Joi.string().required(),
-    mobile: Joi.string().length(10).regex(/^[0-9]+$/, 'given').required(),
+    phone: Joi.string().length(10).regex(/^[0-9]+$/, 'given').required(),
     email: Joi.string().email().required(),
     nic: Joi.string().required(),
     password: Joi.string()
@@ -96,13 +107,14 @@ export default function SignUp() {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const result = Joi.validate(buyer,
       schema, { abortEarly: false });
     const { error } = result;
     if (!error) {
       console.log("Submitted");
+      await registerBuyer(buyer)
     } else {
       const errorData = {};
       for (let item of error.details) {
@@ -117,173 +129,191 @@ export default function SignUp() {
  
   };
 
+
+  async function registerBuyer(values) {
+    
+    try {
+      const [code,res] = await api.buyer.signUpBuyer(values);
+    
+      if (code === 201) {
+        console.log(res)
+        setAuthorizationKey(res.token);
+        // setUserObjectInLocal(res.data.user);
+       
+        navigate('/');
+      } else {
+        setErrors({ type: 'error', message: res });
+        setErrorOccured(true);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      setErrors({ type: 'error', message:'server error' });
+      setErrorOccured(true);
+      setIsLoading(false);
+    }
+  }
   return (
-      <Container component="main" maxWidth="md">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5" color="primary">
-            Sign up
-          </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
+    <><ResponsiveAppBar /><Container component="main" maxWidth="md">
+      <CssBaseline />
+      <SnackBarComponent open={errorOccured} message={errors.message} type='error'  setOpen={setErrorOccured}   />
+
+      <Box
+        sx={{
+          marginTop: 10,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5" color="primary">
+          Sign up
+        </Typography>
+        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-            <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  value={buyer.firstName}
-                  onChange={handleSave}
-                  autoFocus
-                />
+              <TextField
+                autoComplete="given-name"
+                name="firstName"
+                required
+                fullWidth
+                id="firstName"
+                label="First Name"
+                value={buyer.firstName}
+                onChange={handleSave}
+                autoFocus />
 
-                {errors.firstName && (
-                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid First Name</Alert>)}
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  value={buyer.lastName}
-                  onChange={handleSave}
-                  autoComplete="family-name"
-                />
-                {errors.lastName && (
-                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid Last Name</Alert>)}
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  type="address"
-                  id="address"
-                  label="Address"
-                  name="address"
-                  value={buyer.address}
-                  onChange={handleSave}
-                  autoComplete="address"
-                />
-
-                {errors.address && (
-                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid Address</Alert>)}
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="mobile"
-                  type="tel"
-                  label="Mobile Number"
-                  name="mobile"
-                  value={buyer.mobile}
-                  onChange={handleSave}
-                  autoComplete="mobile"
-                />
-
-                {errors.mobile && (
-                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid Mobile Number</Alert>)}
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  type="email"
-                  label="Email Address"
-                  name="email"
-                  value={buyer.email}
-                  onChange={handleSave}
-                  autoComplete="email"
-                />
-                {errors.email && (
-                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid Email</Alert>)}
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="nic"
-                  label="National Identity Card Number"
-                  name="nic"
-                  value={buyer.nic}
-                  onChange={handleSave}
-                  autoComplete="nic"
-                />
-                {errors.nic && (
-                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid National Identity Card Number</Alert>)}
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  value={buyer.password}
-                  onChange={handleSave}
-                  autoComplete="new-password"
-                />
-                {errors.password && (
-                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Password must be at least 8 characters long contain a number, an uppercase letter, a lowercase letter and a special character </Alert>)}
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="confPassword"
-                  label="Confirm Password"
-                  type="password"
-                  id="confPassword"
-                  value={buyer.confPassword}
-                  onChange={handleSave}
-                  autoComplete="conf-password"
-                />
-
-                {errors.confPassword && (
-                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Passwords do not match</Alert>)}
-              </Grid>
+              {errors.firstName && (
+                <Alert sx={{ mt: '1vw', mb: '1vw' }} severity="error">Invalid First Name</Alert>)}
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                fullWidth
+                id="lastName"
+                label="Last Name"
+                name="lastName"
+                value={buyer.lastName}
+                onChange={handleSave}
+                autoComplete="family-name" />
+              {errors.lastName && (
+                <Alert sx={{ mt: '1vw', mb: '1vw' }} severity="error">Invalid Last Name</Alert>)}
             </Grid>
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2, height: '2.5rem'}}
-            >
-              Sign Up
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/admin/login" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                type="address"
+                id="address"
+                label="Address"
+                name="address"
+                value={buyer.address}
+                onChange={handleSave}
+                autoComplete="address" />
+
+              {errors.address && (
+                <Alert sx={{ mt: '1vw', mb: '1vw' }} severity="error">Invalid Address</Alert>)}
             </Grid>
-          </Box>
+
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="phone"
+                type="tel"
+                label="Mobile Number"
+                name="phone"
+                value={buyer.phone}
+                onChange={handleSave}
+                autoComplete="phone" />
+
+              {errors.phone && (
+                <Alert sx={{ mt: '1vw', mb: '1vw' }} severity="error">Invalid Mobile Number</Alert>)}
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="email"
+                type="email"
+                label="Email Address"
+                name="email"
+                value={buyer.email}
+                onChange={handleSave}
+                autoComplete="email" />
+              {errors.email && (
+                <Alert sx={{ mt: '1vw', mb: '1vw' }} severity="error">Invalid Email</Alert>)}
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="nic"
+                label="National Identity Card Number"
+                name="nic"
+                value={buyer.nic}
+                onChange={handleSave}
+                autoComplete="nic" />
+              {errors.nic && (
+                <Alert sx={{ mt: '1vw', mb: '1vw' }} severity="error">Invalid National Identity Card Number</Alert>)}
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                value={buyer.password}
+                onChange={handleSave}
+                autoComplete="new-password" />
+              {errors.password && (
+                <Alert sx={{ mt: '1vw', mb: '1vw' }} severity="error">Password must be at least 8 characters long contain a number, an uppercase letter, a lowercase letter and a special character </Alert>)}
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                name="confPassword"
+                label="Confirm Password"
+                type="password"
+                id="confPassword"
+                value={buyer.confPassword}
+                onChange={handleSave}
+                autoComplete="conf-password" />
+
+              {errors.confPassword && (
+                <Alert sx={{ mt: '1vw', mb: '1vw' }} severity="error">Passwords do not match</Alert>)}
+            </Grid>
+          </Grid>
+
+          <Button
+            type="submit"
+            fullWidth
+            disabled={isLoading}
+            variant="contained"
+            sx={{ mt: 3, mb: 2, height: '2.5rem' }}
+          >
+            Sign Up
+          </Button>
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <Link href="/admin/login" variant="body2">
+                Already have an account? Sign in
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
-      </Container>
+      </Box>
+      <Copyright sx={{ mt: 5 }} />
+    </Container></>
   );
 }

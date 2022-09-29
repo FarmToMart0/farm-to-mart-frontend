@@ -10,7 +10,7 @@ function Copyright() {
     <Typography color="secondary" align='center'>
       {'Copyright © '}
       <Link color="inherit" href="/">
-        Agri2GO
+        FarmToMart
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -43,7 +43,7 @@ export default function Footer() {
       >
         <Container maxWidth="sm">
           <Typography variant="body1" align='center'>
-             footer 
+             FarmToMart
           </Typography>
           <Copyright />
         </Container>

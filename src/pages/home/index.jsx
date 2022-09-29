@@ -21,12 +21,14 @@ const handle =()=>{
 
 }
 const handleFarmer =()=>{
+  navigate('/farmer/signup')
   handleClose()
 }
 const handleSignIn =()=>{
   navigate('/login')
 }
 const handleBuyer =()=>{
+  navigate('/buyer/signup')
   handleClose()
 }
 const handleClose =()=>{
