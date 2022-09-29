@@ -1,57 +1,68 @@
 import React from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Stack } from '@mui/system';
 
 function LineGraph() {
 
     const data = [
         {
-          name: 'Page A',
-          uv: 4000,
-          pv: 2400,
-          amt: 2400,
+          name: 'January',
+          Haevest: 2400,
         },
         {
-          name: 'Page B',
-          uv: 3000,
-          pv: 1398,
-          amt: 2210,
+          name: 'February',
+          Haevest: 1398,
         },
         {
-          name: 'Page C',
-          uv: 2000,
-          pv: 9800,
-          amt: 2290,
+          name: 'March',
+          Haevest: 9800,
         },
         {
-          name: 'Page D',
-          uv: 2780,
-          pv: 3908,
-          amt: 2000,
+          name: 'April',
+          Haevest: 3908,
         },
         {
-          name: 'Page E',
-          uv: 1890,
-          pv: 4800,
-          amt: 2181,
+          name: 'May',
+          Haevest: 4800,
         },
         {
-          name: 'Page F',
-          uv: 2390,
-          pv: 3800,
-          amt: 2500,
+          name: 'June',
+          Haevest: 3800,
         },
         {
-          name: 'Page G',
-          uv: 3490,
-          pv: 4300,
-          amt: 2100,
+          name: 'July',
+          Haevest: 9000,
         },
+        {
+          name: 'August',
+          Haevest: 1200,
+        },
+        {
+          name: 'September',
+          Haevest: 300,
+        },
+        {
+          name: 'Octomber',
+          Haevest: 4300,
+        },
+        {
+          name: 'November',
+          Haevest: 2400,
+        },
+        {
+          name: 'December',
+          Haevest: 7500,
+        }
       ];
   return (
-    <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}> 
-        <LineChart
-          width={500}
-          height={300}
+    <div style={{display:'flex', justifyContent:'center', alignItems:'center',padding:20, boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px', marginBottom:30}}> 
+        
+
+      <Stack>
+      <h1 style={{display:'flex', justifyContent:'center', alignItems:'center',color:'#42C2FF',marginBottom:30}}>Harvest Distribution Between 2012 And 2021</h1>
+      <LineChart
+          width={800}
+          height={600}
           data={data}
           margin={{
             top: 5,
@@ -59,15 +70,19 @@ function LineGraph() {
             left: 20,
             bottom: 5,
           }}
+          style={{fontWeight:'bold',floodColor:'black'}}
         >
+        
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="name" style={{fontWeight:'bold',floodColor:'black'}}/>
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="pv" stroke="green"  activeDot={{ r: 8 }} />
+          <Line type="monotone" dataKey="Haevest" stroke="green"  activeDot={{ r: 8, }} />
           
         </LineChart>
+      </Stack>
+        
     
     </div>
   )

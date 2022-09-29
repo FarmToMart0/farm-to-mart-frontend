@@ -11,11 +11,12 @@ import Card2 from './components/signup_button/index';
 import Market from './pages/Market/index'
 import Item from './pages/shoppingCard/index'
 import Bid from '././pages/Bidding'
-import PieGraph from './components/TestCom/index'
+import PieGraph from './components/PieGraph/index'
 import BarGraph from './components/BarGraph/index'
 import LineGraph from './components/LineChart/index'
-import Dashboard from './pages/Dashboard/index'
-import TestCom from './components/TestCom/index'
+import Dashboard from './pages/F-Dashboard/index'
+
+
 
 
 
@@ -27,7 +28,6 @@ function App() {
     <BrowserRouter>
     <Routes>
 
-      {/* <Route path="/home" element={<Home/>} exact /> */}
       <Route path="/card" element={<Card /> }exact />
       <Route path="/card2" element={<Card2 /> }exact />
       <Route path="/home" element={<Home/>} exact />
@@ -40,7 +40,7 @@ function App() {
       <Route path="/bar" element={<BarGraph/>} exact />
       <Route path="/line" element={<LineGraph/>} exact />
       <Route path="/dashboard" element={<Dashboard/>} exact />
-      <Route path="/test" element={<TestCom/>} exact />
+      <Route path="/test" element={<PieGraph/>} exact />
 
 
     </Routes>

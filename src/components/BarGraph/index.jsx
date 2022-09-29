@@ -32,12 +32,12 @@ function BarGraph() {
           pv: 4300,
         },
       ];
-  return (<div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+  return (<div  >
     
     
         <BarChart
-          width={500}
-          height={300}
+          width={800}
+          height={400}
           data={data}
           margin={{
             top: 5,
@@ -45,7 +45,8 @@ function BarGraph() {
             left: 20,
             bottom: 5,
           }}
-          barSize={20}
+          barSize={50}
+          
         >
           <XAxis dataKey="name" scale="point" padding={{ left: 10, right: 10 }} />
           <YAxis />

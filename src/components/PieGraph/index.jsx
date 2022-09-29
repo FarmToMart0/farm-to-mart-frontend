@@ -10,18 +10,20 @@ Chart.register(...registerables);
 
 export default function TestCom (props) {
   const theme = useTheme();
+  const supData = [63, 15, 22,40];
+  const supColors = ['#3F51B5', '#e53935', '#FB8C00','#00FFAB','#15133C','#F9D923','#FF5F00'].slice(0,supData.length)
 
   const data = {
     datasets: [
       {
-        data: [63, 15, 22,40],
-        backgroundColor: ['#3F51B5', '#e53935', '#FB8C00','red'],
+        data: supData,
+        backgroundColor: supColors,
         borderWidth: 8,
         borderColor: '#FFFFFF',
         hoverBorderColor: '#FFFFFF'
       }
     ],
-    labels: ['Desktop', 'Tablet', 'Mobile','car']
+    labels: ['Vegetable', 'Paddy', 'Grails','Eggs',]
   };
 
   const options = {
@@ -50,31 +52,34 @@ export default function TestCom (props) {
     {
       title: 'Desktop',
       value: 63,
-      icon: LaptopMacIcon,
       color: '#3F51B5'
     },
     {
       title: 'Tablet',
       value: 15,
-      icon: TabletIcon,
-      color: '#E53935'
+      color: '#e53935'
     },
     {
       title: 'Mobile',
       value: 23,
-      icon: PhoneIcon,
       color: '#FB8C00'
+    },
+    {
+      title: 'Mobile',
+      value: 23,
+      color: '#00FFAB'
     }
   ];
 
   return (
-    <Card {...props}>
-      <CardHeader title="Traffic by Device" />
+    <div {...props} style={{  boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px', marginBottom:40,marginTop:7, padding:20,height:698}}>
+      <h1 style={{display:'flex', justifyContent:'center', alignItems:'center',color:'#42C2FF',marginTop:30,marginBottom:70}}> Harvest Distibution </h1>
       <Divider />
-      <CardContent>
+      
         <Box
           sx={{
             height: 300,
+            weight:400,
             position: 'relative'
           }}
         >
@@ -92,7 +97,6 @@ export default function TestCom (props) {
         >
           {devices.map(({
             color,
-            icon: Icon,
             title,
             value
           }) => (
@@ -103,7 +107,7 @@ export default function TestCom (props) {
                 textAlign: 'center'
               }}
             >
-              <Icon color="action" />
+              
               <Typography
                 color="textPrimary"
                 variant="body1"
@@ -120,7 +124,7 @@ export default function TestCom (props) {
             </Box>
           ))}
         </Box>
-      </CardContent>
-    </Card>
+      
+    </div>
   );
 };
