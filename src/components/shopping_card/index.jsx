@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
+import {useNavigate}  from 'react-router-dom'
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { Stack } from '@mui/system';
@@ -14,6 +15,7 @@ import Alert from '@mui/material/Alert';
 
 
 export default function BuyItemShoppingCard(props) {
+  const navigate = useNavigate()
   
   const [totValue, setTotValue] = useState(0);
   const [inputValue, setInputValue] = useState(0);
@@ -151,7 +153,7 @@ export default function BuyItemShoppingCard(props) {
     
       </Paper>
       
-      <Button variant="contained" startIcon={<ShoppingCartIcon style={{height:50}}/>}>
+      <Button  onClick={()=>{navigate('/buyer/market/checkout/payment')}} variant="contained" startIcon={<ShoppingCartIcon style={{height:50}}/>}>
         BUY
       </Button>
     </Box>

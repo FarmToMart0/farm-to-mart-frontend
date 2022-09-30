@@ -19,16 +19,16 @@ import Market from './pages/market/index';
 
 
 
-import ShoppingCard from '././pages/shoppingCard/index'
-import Card2 from './components/signup_button/index';
+// import ShoppingCard from '././pages/shoppingCard/index'
+// import Card2 from './components/signup_button/index';
 
-import Item from './pages/shoppingCard/index'
-import Bid from '././pages/Bidding'
-import PieGraph from './components/PieGraph/index' 
-import BarGraph from './components/BarGraph/index'
-import LineGraph from './components/LineChart/index'
-import Dashboard from './pages/F-Dashboard/index'
-import GraphCard from './components/graphCard/index'
+// import Item from './pages/shoppingCard/index'
+// import Bid from '././pages/Bidding'
+// import PieGraph from './components/PieGraph/index' 
+// import BarGraph from './components/BarGraph/index'
+// import LineGraph from './components/LineChart/index'
+// import Dashboard from './pages/F-Dashboard/index'
+// import GraphCard from './components/graphCard/index'
 import Payment from './pages/Payment/index'
 
 
@@ -51,6 +51,7 @@ function App() {
     <Route path="/buyer/market" element={<Market/>}/>
     <Route path="/buyer/market/bidding" element={<Bidding/>}/>
     <Route path="/buyer/market/checkout" element={<ShoppingCard/>}/>
+    <Route path="/buyer/market/checkout/payment" element={<Payment/>} exact />
     <Route path="/gso/dash/:page" element={<GSOLayout/>}/>
     <Route path="/mainofficer/dash/:page" element={<MainOfficerLayout/>}/>
     
@@ -68,10 +69,11 @@ function App() {
     <Route path='/gso/home' element={<GSOHome/>}/>
     <Route path='/farmer/signup' element={<FarmerSignUp/>}/>
     <Route path='/buyer/signup' element={<BuyerSignUp/>}/>
+ 
 
     {/* ==================Buyer================ */}
     
-      <Route path="/card2" element={<Card2 /> }exact />
+      {/* <Route path="/card2" element={<Card2 /> }exact />
     
       <Route path="/market" element={<Market/>} exact />
       <Route path="/shopping" element={<ShoppingCard/>} exact />
@@ -84,7 +86,7 @@ function App() {
       <Route path="/dashboard" element={<Dashboard/>} exact />
       <Route path="/test" element={<PieGraph/>} exact />
       <Route path="/graphcard" element={<GraphCard/>} exact />
-      <Route path="/payment" element={<Payment/>} exact />
+      <Route path="/payment" element={<Payment/>} exact /> */}
 
     </Routes>
     </BrowserRouter>    
