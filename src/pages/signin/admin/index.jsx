@@ -15,6 +15,7 @@ import Typography from '@mui/material/Typography';
 import ResponsiveAppBar from '../../../components/navbar';
 import Footer from '../../../components/Footer';
 import Alert from '@mui/material/Alert';
+import HeaderAuth from '../../../components/HeaderAuth/HeaderAuth';
 
 
 function Copyright(props) {
@@ -22,7 +23,7 @@ function Copyright(props) {
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="#">
-        www.farm2mart.org
+        FarmToMart
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -95,7 +96,7 @@ const renderForm = (
               type='text'
               fullWidth
               id="nic"
-              label="National Identity Card"
+              label="National Identity Card Number"
               name="nic"
               //autoComplete="nic"
               autoFocus />
@@ -173,9 +174,7 @@ const renderForm = (
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5" color='primary'>
-            Sign in
-          </Typography>
+          <HeaderAuth title = "Sign In"/>
           {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
         </Box>
       </Grid>

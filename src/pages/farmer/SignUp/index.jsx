@@ -20,6 +20,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
 import ResponsiveAppBar from '../../../components/navbar';
+import HeaderAuth from '../../../components/HeaderAuth/HeaderAuth';
 import api from  '../../../api'
 import {
   setAuthorizationKey,
@@ -188,9 +189,7 @@ export default function SignUp() {
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5" color="primary">
-          Sign up
-        </Typography>
+        <HeaderAuth title="Sign Up" />
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
