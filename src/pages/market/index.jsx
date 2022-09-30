@@ -31,7 +31,7 @@ const categoty2 = "Base Amount of Harvest"
 
 
 
-export default function market() {
+export default function Market() {
 
   return (
     
@@ -39,8 +39,8 @@ export default function market() {
         <Navbar/>
     <React.Fragment >
       <CssBaseline />
-      <Container  style= {{backgroundColor:'',borderRadius: '30px',boxShadow: 'rgb(38, 57, 77) 0px 20px 30px -10px',paddingBottom:10,paddingTop:10,marginTop:15}}>
-        <Box sx={{ width: '100%' }}>
+      <Container   style= {{backgroundColor:'' ,borderRadius: '30px',boxShadow: 'rgb(38, 57, 77) 0px 20px 30px -10px',paddingBottom:10,paddingTop:10,marginTop:15}}>
+        <Box sx={{ width: '100%' ,marginTop:5}}>
 
       {/* SEARCH PANEL */}
 

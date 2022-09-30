@@ -140,7 +140,7 @@ export default function SignUp() {
         setAuthorizationKey(res.token);
         // setUserObjectInLocal(res.data.user);
        
-        navigate('/');
+        navigate('/buyer/market');
       } else {
         setErrors({ type: 'error', message: res });
         setErrorOccured(true);

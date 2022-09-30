@@ -160,7 +160,7 @@ export default function SignUp() {
         setAuthorizationKey(res.token);
         // setUserObjectInLocal(res.data.user);
        
-        navigate('/');
+        navigate('/farmer/dash/dashboard');
       } else {
         setErrorMessage({ type: 'error', message: res });
         setErrorOccured(true);

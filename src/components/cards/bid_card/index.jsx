@@ -46,7 +46,7 @@ export default function ItemCard(props) {
 
     const navigate = useNavigate();
     function handleBid(){
-      navigate('/bid')
+      navigate('/buyer/market/bidding')
     }
 
   return (
@@ -106,15 +106,12 @@ export default function ItemCard(props) {
         <LocalShippingIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
         <Typography paragraph style={{color:'black'}}>  Method: </Typography> 
         </Stack>
-
         <Stack direction="row">
         {/* <Item> <LocalShippingIcon style={{margin:'5'}} ></LocalShippingIcon></Item> */}
         <PaymentIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
         <Typography paragraph style={{color:'black'}}>  Method: </Typography> 
         </Stack>
         </Stack>
-        
-          
           <Typography paragraph style={{color:'black'}}>
             {more_details}
           </Typography>

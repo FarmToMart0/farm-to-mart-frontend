@@ -15,12 +15,14 @@ import DetailsCard from './components/details_card/index';
 import GSOHome from './pages/gsoHome/index';
 import FarmerSignUp from './pages/farmer/SignUp/index';
 import BuyerSignUp from './pages/buyerSignUp/index';
-
+import Market from './pages/market/index';
 
 import { BrowserRouter } from 'react-router-dom';
 import ItemAdd from './pages/home/index';
 import GSOLayout from './layouts/GSOLayout';
 import MainOfficerLayout from './layouts/MainOfficerLayout/index';
+import Bidding from './pages/Bidding/index';
+import ShoppingCard from './pages/shoppingCard/index';
 function App() {
   const arr = [
     { label: 'Paddy'},
@@ -34,6 +36,9 @@ function App() {
     <Routes>
     
     <Route path="/farmer/dash/:page" element={<FarmerLayout/>}/>
+    <Route path="/buyer/market" element={<Market/>}/>
+    <Route path="/buyer/market/bidding" element={<Bidding/>}/>
+    <Route path="/buyer/market/checkout" element={<ShoppingCard/>}/>
     <Route path="/gso/dash/:page" element={<GSOLayout/>}/>
     <Route path="/mainofficer/dash/:page" element={<MainOfficerLayout/>}/>
     
@@ -42,7 +47,7 @@ function App() {
     <Route path="/card" element={<Card /> }exact />
 
     <Route path="/" element={<Home/>} exact />
-    <Route path="/farmer/dash/:page" element={<FarmerLayout/>}/>
+
     <Route path="/login" element={<Login/>} />
     <Route path="/main-officer/add-gso" element={<AddGSOPage/>} />
     <Route path="/gso/add-crop-data" element={<AddCropData/>} />

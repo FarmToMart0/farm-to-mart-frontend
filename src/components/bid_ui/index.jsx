@@ -99,7 +99,7 @@ export default function SimplePaper() {
       </Paper>
       
     </Box>
-    <Button variant="contained" sx={{width:'10%'}} startIcon={<ArrowCircleLeftIcon /> } onClick={()=>{navigate('/market')}} >
+    <Button variant="contained" sx={{width:'10%'}} startIcon={<ArrowCircleLeftIcon /> } onClick={()=>{navigate('/buyer/market')}} >
         Market
       </Button>
       </Stack>

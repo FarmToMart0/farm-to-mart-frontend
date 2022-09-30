@@ -48,7 +48,7 @@ export default function ItemCard(props) {
 
     const navigate = useNavigate();
     function handleBuy(){
-      navigate('/item')
+      navigate('/buyer/market/checkout')
     }
   return (
     

@@ -3,7 +3,7 @@ import Navbar from '../../components/navbar/index';
 import BiddingCard from '../../components/bid_ui/index';
 
 
-function bidding() {
+function Bidding() {
   return (
     <div>
         <Navbar sx={{my:50}}/>
@@ -12,4 +12,4 @@ function bidding() {
   )
 }
 
-export default bidding
+export default Bidding

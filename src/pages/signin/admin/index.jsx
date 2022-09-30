@@ -74,7 +74,19 @@ export default function SignInSide() {
         console.log(res)
         setAuthorizationKey(res.token);
         // setUserObjectInLocal(res.data.user);
-        navigate('/');
+        console.log(res.userRole);
+        switch (res.userRole) {
+          
+          case 'FARMER':
+            navigate('/farmer/dash/dashboard')
+            break;
+            case 'BUYER':
+              navigate('/buyer/market')
+              break;
+          default:
+            break;
+        }
+       
       } else {
         setErrorMessages({ type: 'error', message: res });
         setErrorOccured(true);
