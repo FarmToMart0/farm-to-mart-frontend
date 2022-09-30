@@ -7,7 +7,7 @@ function Bidding() {
   return (
     <div>
         <Navbar sx={{my:50}}/>
-        <BiddingCard/>
+        <BiddingCard />
     </div>
   )
 }

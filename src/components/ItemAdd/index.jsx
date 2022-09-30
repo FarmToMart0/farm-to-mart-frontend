@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import { color } from '@mui/system';
 import Switch from '@mui/material/Switch';
 
-import ImageCollection from '../ImageList/index';
+import ImageCollection from '../imageList/index';
 import axios from 'axios';
 import {Image} from 'cloudinary-react';
 

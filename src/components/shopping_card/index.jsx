@@ -7,7 +7,7 @@ import { Stack } from '@mui/system';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ItemCard from '../../components/item_card/index';
 import Button from '@mui/material/Button';
-import ImageList from '../../components/ImageList/index';
+import ImageList from '../../components/imageList/index';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import PaymentIcon from '@mui/icons-material/Payment';
 import Alert from '@mui/material/Alert';
