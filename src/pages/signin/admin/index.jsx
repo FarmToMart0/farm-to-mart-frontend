@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,7 +16,12 @@ import Typography from '@mui/material/Typography';
 import ResponsiveAppBar from '../../../components/navbar';
 import Footer from '../../../components/Footer';
 import Alert from '@mui/material/Alert';
+import api from  '../../../api'
+import {
+  setAuthorizationKey,
 
+} from '../../../utils/localStorageHelper';
+import SnackBarComponent from '../../../components/Snackbars';
 
 function Copyright(props) {
   return (
@@ -33,48 +39,53 @@ function Copyright(props) {
 
 
 export default function SignInSide() {
+  const [errorOccured, setErrorOccured] = useState(false)
   const [errorMessages, setErrorMessages] = useState({});
+  const [isLoading, setIsLoading] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  // User Login info
-  const database = [
-    {
-      username: "nic1",
-      password: "pass1"
-    },
-    {
-      username: "nic2",
-      password: "pass2"
-    }
-  ];
+  const navigate = useNavigate();
+  const [email,setEmail] =useState('');
+  const [password,setPassword]=useState('')
   
+  const handleEmail =(e)=>{
+      setEmail(e.target.value)
+  }
+  const handlePassword =(e)=>{
+    setPassword(e.target.value)
+      }
   const errors = {
-    nic: "Invalid login, please try again",
+    email: "Invalid login, please try again",
     pass: "Invalid login, please try again"
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     //Prevent page reload
     event.preventDefault();
-  
-    var { nic, pass } = document.forms[0];
-  
-    // Find user login info
-    const userData = database.find((user) => user.username === nic.value);
-  
+    await userSignin({'email':email,'password':password})
     // Compare user info
-    if (userData) {
-      if (userData.password !== pass.value) {
-        // Invalid password
-        setErrorMessages({ name: "pass", message: errors.pass });
-      } else {
-        setIsSubmitted(true);
-      }
-    } else {
-      // Username not found
-      setErrorMessages({ name: "nic", message: errors.nic });
-    }
+    
   };
+
+  async function userSignin(values) {
+    try {
+      const [code,res] = await api.user.signIn(values);
+    
+      if (code === 201) {
+        console.log(res)
+        setAuthorizationKey(res.token);
+        // setUserObjectInLocal(res.data.user);
+        navigate('/');
+      } else {
+        setErrorMessages({ type: 'error', message: res });
+        setErrorOccured(true);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      setErrorMessages({ type: 'error', message:'server error' });
+      setErrorOccured(true);
+      setIsLoading(false);
+    }
+  }
 
   // Generate JSX code for error message
   const renderErrorMessage = (name) =>
@@ -85,19 +96,21 @@ export default function SignInSide() {
   // JSX code for login form
 const renderForm = (
   <div>
+     <SnackBarComponent open={errorOccured} message={errorMessages.message} type='error'  setOpen={setErrorOccured}   />
     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1, color: 'black' }}>
             {renderErrorMessage("pass")}
-            {renderErrorMessage("nic")}
+            {renderErrorMessage("email")}
 
             <TextField sx={{ color: 'black' }}
               margin="normal"
               required
-              type='text'
+              type='email'
               fullWidth
-              id="nic"
+              id="email"
               label="National Identity Card"
-              name="nic"
-              //autoComplete="nic"
+              name="email"
+              onChange={handleEmail}
+              //autoComplete="email"
               autoFocus />
 
              
@@ -110,6 +123,7 @@ const renderForm = (
               label="Password"
               type="password"
               id="pass"
+              onChange={handlePassword}
               //autoComplete="current-password"
                />
               

@@ -7,7 +7,8 @@ export default {
     return resolver(axiosClient.post('/farmer/register', data));
   },
   signIn(data) {
-    return resolver(axiosClient.post('/auth', data));
+    
+    return resolver(axiosClient.post('/signin', data));
   },
   
 };
