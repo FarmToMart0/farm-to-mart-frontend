@@ -46,11 +46,13 @@ export default function BuyItemShoppingCard(props) {
       sx={{
         display: 'flex',
         flexWrap: 'wrap',
-        my:4,
+        
         '& > :not(style)': {
           m: 1,
           width: '60%',
-          height: '100%',
+          mt:10
+          
+          
         },
       }}
       style={{display:'flex', justifyContent:'center', alignItems:'center'}}
