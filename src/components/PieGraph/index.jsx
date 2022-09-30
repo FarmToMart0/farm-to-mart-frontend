@@ -1,29 +1,24 @@
-
-
 import { Doughnut } from 'react-chartjs-2';
 import { Box, Card, CardContent, CardHeader, Divider, Typography, useTheme } from '@mui/material';
-import LaptopMacIcon from '@mui/icons-material/LaptopMac';
-import PhoneIcon from '@mui/icons-material/Phone';
-import TabletIcon from '@mui/icons-material/Tablet';
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
 export default function TestCom (props) {
   const theme = useTheme();
-  const supData = [63, 15, 22,40];
+  const supData = [63000,50000,10000,12000];
   const supColors = ['#3F51B5', '#e53935', '#FB8C00','#00FFAB','#15133C','#F9D923','#FF5F00'].slice(0,supData.length)
 
   const data = {
     datasets: [
       {
         data: supData,
-        backgroundColor: supColors,
+        backgroundColor: ['#019267','#2D31FA','#FB8C00','#E60965'],
         borderWidth: 8,
         borderColor: '#FFFFFF',
         hoverBorderColor: '#FFFFFF'
       }
     ],
-    labels: ['Vegetable', 'Paddy', 'Grails','Eggs',]
+    labels: ['Paddy','Vegetable',  'Grains','Fruits',]
   };
 
   const options = {
@@ -47,33 +42,34 @@ export default function TestCom (props) {
       titleFontColor: theme.palette.text.primary
     }
   };
+  const Total = 63+50+10+12
 
   const devices = [
     {
-      title: 'Desktop',
-      value: 63,
-      color: '#3F51B5'
+      title: 'Paddy',
+      value: Math.round(6300/Total),
+      color: '#019267'
     },
     {
-      title: 'Tablet',
-      value: 15,
-      color: '#e53935'
+      title: 'Vegetable',
+      value: Math.round(5000/Total),
+      color: '#2D31FA'
     },
     {
-      title: 'Mobile',
-      value: 23,
+      title: 'Grains',
+      value: Math.round(1000/Total),
       color: '#FB8C00'
     },
     {
-      title: 'Mobile',
-      value: 23,
-      color: '#00FFAB'
+      title: 'fruits',
+      value: Math.round(1200/Total),
+      color: '#E60965'
     }
   ];
 
   return (
-    <div {...props} style={{  boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px', marginBottom:40,marginTop:7, padding:20,height:698}}>
-      <h1 style={{display:'flex', justifyContent:'center', alignItems:'center',color:'#42C2FF',marginTop:30,marginBottom:70}}> Harvest Distibution </h1>
+    <div {...props} style={{  boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px', marginBottom:40,marginTop:7, padding:10,height:510,width:'100%'}}>
+      <h1 style={{display:'flex', justifyContent:'center', alignItems:'center',color:'#42C2FF',marginTop:10,marginBottom:20}}> Harvest Distibution </h1>
       <Divider />
       
         <Box

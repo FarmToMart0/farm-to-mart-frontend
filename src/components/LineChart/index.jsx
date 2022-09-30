@@ -62,7 +62,7 @@ function LineGraph() {
       <h1 style={{display:'flex', justifyContent:'center', alignItems:'center',color:'#42C2FF',marginBottom:30}}>Harvest Distribution Between 2012 And 2021</h1>
       <LineChart
           width={800}
-          height={600}
+          height={400}
           data={data}
           margin={{
             top: 5,

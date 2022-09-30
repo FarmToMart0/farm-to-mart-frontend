@@ -32,7 +32,7 @@ function BarGraph() {
           pv: 4300,
         },
       ];
-  return (<div  >
+  return (<div  style={{  boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px', marginBottom:40,marginTop:7, padding:10,height:510,width:'100%'}}>
     
     
         <BarChart
