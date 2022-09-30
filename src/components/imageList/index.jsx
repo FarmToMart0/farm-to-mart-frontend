@@ -1,30 +1,60 @@
-import * as React from 'react';
+import  React,{useState} from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import { ImageListItemBar } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function StandardImageList(props) {
-  const itemData = props.itemData;
-//   const itemData = [
-//     'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-// 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-// 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
-//   ]
+function srcset(image, width, height, rows = 1, cols = 1) {
+    return {
+      src: `${image}?w=${width * cols}&h=${height * rows}&fit=crop&auto=format`,
+      srcSet: `${image}?w=${width * cols}&h=${
+        height * rows
+      }&fit=crop&auto=format&dpr=2 2x`,
+    };
+  }
+
+export default function ImageCollection({itemData}) {
 
   return (
-    <ImageList sx={{ width: '100%', height: 450 }} cols={5} rowHeight={164}>
-      {itemData.map((item) => (
-        <ImageListItem key={item}>
-          <img
-            src={`${item}?w=164&h=164&fit=crop&auto=format`}
-            srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-            
-            loading="lazy"
-          />
-        </ImageListItem>
-      ))}
+    <ImageList
+      sx={{
+        width: 500,
+        
+        // Promote the list into its own layer in Chrome. This costs memory, but helps keeping high FPS.
+        transform: 'translateZ(0)',
+      }}
+      rowHeight={200}
+      gap={1}
+    >
+      {itemData.map((item) => {
+        const cols = item.featured ? 2 : 1;
+        const rows = item.featured ? 2 : 1;
+
+        return (
+          <ImageListItem  key={item.img} cols={cols} rows={rows}>
+            <img
+              {...srcset(item.img, 250, 200, rows, cols)}
+             
+              loading="lazy"
+            />
+            <ImageListItemBar
+              
+              position="top"
+              actionIcon={
+                <IconButton
+                onClick={()=>{console.log('Sumeela')}}
+                  sx={{ color: 'white' }}
+                  
+                >
+                  <DeleteIcon />
+                </IconButton>
+              }
+              actionPosition="left"
+            />
+          </ImageListItem>
+        );
+      })}
     </ImageList>
   );
 }
-
-
-
