@@ -19,8 +19,17 @@ function Dashboard() {
         <Grid item xs={8} style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
           <LineGraph />
         </Grid>
+
         <Grid item xs={4} style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
         <PieGraph/>
+        </Grid>
+
+        <Grid item xs={4} style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+          <PieGraph/>
+        </Grid>
+
+        <Grid item xs={8} style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <BarGraph/>
         </Grid>
         
       </Grid>

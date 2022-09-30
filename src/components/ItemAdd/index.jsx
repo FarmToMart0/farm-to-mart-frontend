@@ -5,10 +5,11 @@ import {Stack,Grid,Button,Typography,Paper,CircularProgress,TextField,Autocomple
 import * as yup from 'yup';
 import { color } from '@mui/system';
 import Switch from '@mui/material/Switch';
-import ImageList from '../ImageList';
-import ImageCollection from '../ImageList';
+import ImageList from '../imageList';
+import ImageCollection from '../imageList/index';
 import axios from 'axios';
 import {Image} from 'cloudinary-react';
+
 
 const validationSchema = yup.object().shape({
   name: yup.string().required().label('Product Name'),
