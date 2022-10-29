@@ -5,21 +5,23 @@ import {Stack,Grid,Button,Typography,Paper,CircularProgress,TextField,Autocomple
 import * as yup from 'yup';
 import { color } from '@mui/system';
 import Switch from '@mui/material/Switch';
-
 import ImageCollection from '../imageList/index';
 import axios from 'axios';
 import {Image} from 'cloudinary-react';
-
-
 const validationSchema = yup.object().shape({
   name: yup.string().required().label('Product Name'),
   quantity: yup.number().required().min(1).label('Product Quantity'),
   price: yup.number().required().min(1).label('Unit price of product'),
   bid: yup.number().required().min(1).label('Initial bid of product'),
   description: yup.string().required().label('Description'),
-  delivery: yup.array().length().min(1).label('Delivery option'),
-  payment: yup.array().length().min(1).label('Payment option'),
+  // delivery: yup.array().length().min(1).label('Delivery option'),
+  // payment: yup.array().length().min(1).label('Payment option'),
 });
+
+
+
+
+
 const Input = styled('input')({
   display: 'none',
 });
@@ -40,9 +42,11 @@ export default function ItemAdd() {
   const [loadingProductAdd, setLoadingProductAdd] = useState(false);
   const [loadingVariantAdd, setLoadingVariantAdd] = useState(false);
   const [selectedDeliveryOption,setSelectedDeliveryOption]=useState([])
+  const [selectCategory,setSelectCategory]=useState()
   const [selectedPayementOption,setSelectedPayementOption]=useState([])
   const [initialValues, setInitialValues] = useState({
     name: 'Beans',
+    category:'',
     quantity: '1000kg',
     description: '',
     price:'',
@@ -105,12 +109,21 @@ style={{
     return (
       <Paper margin={2} elevation={20} >
       <React.Fragment>
-         <Card  sx={{ minWidth: 275 }}>
+         <Card  sx={{ minWidth: 600 }}>
       <CardContent color='white'>
         <Stack direction="column" spacing={3} alignItems="center">
          
           <Typography color='text.default' variant="h5">Add Product</Typography>
-
+          <Autocomplete
+      disablePortal
+      id="combo-box-demo"
+      options={['Vegetables','Grains','Fruits']}
+      onChange={(event,value)=>{
+        setSelectCategory(value);
+      }}
+      sx={{ width: 500 }}
+      renderInput={(params) => <TextField {...params} label="Movie" />}
+    />
           <TextField
             label="Product Name"
             variant="outlined"

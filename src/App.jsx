@@ -15,7 +15,7 @@ import GSOHome from './pages/gsoHome/index';
 import FarmerSignUp from './pages/farmer/SignUp/index';
 import BuyerSignUp from './pages/buyerSignUp/index';
 
-import Market from './pages/Market/index';
+import Market from './pages/market/index';
 
 
 

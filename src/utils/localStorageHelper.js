@@ -1,5 +1,6 @@
 import {  TOKEN_KEY, USER_DETAILS } from '../constants';
 
+
 export function setAuthorizationKey(token) {
   const key = `Bearer ${token}`;
   localStorage.setItem(TOKEN_KEY, key);
