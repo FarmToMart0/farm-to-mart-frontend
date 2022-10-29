@@ -11,4 +11,5 @@ export default {
     return resolver(axiosClient.post('/signin', data));
   },
   
+  
 };
