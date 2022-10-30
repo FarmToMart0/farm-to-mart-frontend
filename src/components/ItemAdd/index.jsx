@@ -122,7 +122,7 @@ style={{
         setSelectCategory(value);
       }}
       sx={{ width: 500 }}
-      renderInput={(params) => <TextField {...params} label="Movie" />}
+      renderInput={(params) => <TextField {...params} label="Category" />}
     />
           <TextField
             label="Product Name"
@@ -139,7 +139,7 @@ style={{
   <Grid sx={{ml:15}}  item xs={3}>
     
       <TextField
-            label="Quantity"
+            label="Quantity(Kg)"
             variant="outlined"
             helperText={errors.quantity}
             
