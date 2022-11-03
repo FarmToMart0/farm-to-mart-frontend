@@ -1,6 +1,6 @@
 export const FARMER_SECTIONS = {
     DASHBOARD: 'dashboard',
-    
+    HARVESTDASHBOARD:'harvestdashboard',
     ORDERS: 'orders',
     SALES:'sales',
     
