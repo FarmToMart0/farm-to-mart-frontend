@@ -44,7 +44,7 @@ export default function ImageCollection({itemData,doDelete}) {
               actionIcon={
                 <IconButton
                 onClick={()=>{
-                  doDelete(item.img)
+                  console.log('Sumeela')
                   }}
                   sx={{ color: 'white' }}
                   
