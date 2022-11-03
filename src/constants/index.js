@@ -1,20 +1,33 @@
 export const FARMER_SECTIONS = {
     DASHBOARD: 'dashboard',
-    MYREQUESTS:'myrequests',
-    FINDTRANSPORTER:'findtransporter',
+    HARVESTDASHBOARD:'harvestdashboard',
     ORDERS: 'orders',
     SALES:'sales',
-    CART:'addcart',
-    TRANSACTIONS:'transactions',
+    
+    
     REVIEWS:'reviews',
     MYCROP:'mycrop',
-      ADDCROP:'addcrop',
-      EDITCROP:'editcrop',
-      DELETECROP:'deletecrop',
-      VIEWPRICES:'viewprices',
-      SENDREQUESTS: 'sendrequests',
-      TRANSPORTERS: 'transporters',
-      ADDTRANSPORTER: 'addtransporter',
-      VIEWTRANSPORTER: 'viewtransporter',
+     
      
    };
+
+   export const GSO_SECTIONS = {
+    DASHBOARD: 'dashboard',
+    FARMERDETAILS: 'farmerDetails',
+   
+     
+     
+   };
+
+   export const MO_SECTIONS = {
+    DASHBOARD: 'dashboard',
+    GSOMANAGE: 'managegso',
+   
+     
+     
+   };
+
+  export const HOST_URL = 'http://localhost:9000/api';
+
+export const TOKEN_KEY = 'FARMETOMART_TOKEN';
+export const USER_DETAILS = 'USER_DETAILS';

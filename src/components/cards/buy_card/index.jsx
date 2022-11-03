@@ -20,6 +20,7 @@ import { Stack } from '@mui/system';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import { useNavigate } from "react-router-dom";
 
 
 const ExpandMore = styled((props) => {
@@ -33,15 +34,6 @@ const ExpandMore = styled((props) => {
     }),
   }));
 
-  const Item = styled(Paper)(({ theme }) => ({
-    // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    // ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }));
-
-
 
 export default function ItemCard(props) {
     const farmer_id = props.id;
@@ -53,6 +45,11 @@ export default function ItemCard(props) {
     const handleExpandClick = () => {
       setExpanded(!expanded);
     };
+
+    const navigate = useNavigate();
+    function handleBuy(){
+      navigate('/buyer/market/checkout')
+    }
   return (
     
     <Card sx={{ maxWidth: 345 ,background:'#e8e9ec',boxShadow: 'rgba(0, 0, 0, 0.24) 3px 5px 10px'}}>
@@ -89,7 +86,7 @@ export default function ItemCard(props) {
           <ShareIcon style={{margin:'0 10 0 0'}}/>
         </IconButton>
 
-        <Button variant="contained" color="success">
+        <Button variant="contained" color="success" onClick={handleBuy}>
         <ShoppingBagIcon style={{margin:'0 10 0 0'}}/> Buy
       </Button>
 

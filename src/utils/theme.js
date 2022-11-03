@@ -3,10 +3,15 @@ const theme = createTheme({
     palette: {
         type: 'light',
         primary: {
+         
           main: '#128C7E',
+
         // main: '#075E54',
         
     
+        },
+        action:{
+          hover:'#A3EBB1'
         },
         secondary: {
           main: '#25D366',
@@ -24,7 +29,8 @@ const theme = createTheme({
         
        
       },
+
+    
       
-     
   });
   export default theme;
