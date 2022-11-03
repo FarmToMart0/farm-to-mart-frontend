@@ -5,14 +5,14 @@ Chart.register(...registerables);
 
 export default function TestCom (props) {
   const theme = useTheme();
-  const supData = [63000,50000,10000,12000];
+  const supData = [63000,50000,10000,12000,4800];
   const supColors = ['#3F51B5', '#e53935', '#FB8C00','#00FFAB','#15133C','#F9D923','#FF5F00'].slice(0,supData.length)
 
   const data = {
     datasets: [
       {
         data: supData,
-        backgroundColor: ['#019267','#2D31FA','#FB8C00','#E60965'],
+        backgroundColor: ['#019267','#2D31FA','#FB8C00','#E60965','#1CD6CE'],
         borderWidth: 8,
         borderColor: '#FFFFFF',
         hoverBorderColor: '#FFFFFF'
@@ -42,7 +42,7 @@ export default function TestCom (props) {
       titleFontColor: theme.palette.text.primary
     }
   };
-  const Total = 63+50+10+12
+  const Total = 63+50+10+12+48
 
   const devices = [
     {
@@ -64,6 +64,11 @@ export default function TestCom (props) {
       title: 'fruits',
       value: Math.round(1200/Total),
       color: '#E60965'
+    },
+    {
+      title: 'Eggs',
+      value: Math.round(4800/Total),
+      color: '#1CD6CE'
     }
   ];
 

@@ -23,7 +23,7 @@ const arr = [
   { label: 'Eggs'},
 ]
 
-const listOfItems = [{id:'nuwan', price:12,type:'bid'},{id:'jaye',price:23,type:'buy'}]
+const listOfItems = [{id:'nuwan', price:12,type:'bid'},{id:'jaye',price:23,type:'buy'},{id:'Sirimal',price:203,type:'buy'}]
 const category1 = "Crop Type"
 const categoty2 = "Base Amount of Harvest" 
 
@@ -35,11 +35,11 @@ export default function Market() {
 
   return (
     
-    <div >
+    <div style={{marginTop:60}}>
         <Navbar/>
     <React.Fragment >
       <CssBaseline />
-      <Container   style= {{backgroundColor:'' ,borderRadius: '30px',boxShadow: 'rgb(38, 57, 77) 0px 20px 30px -10px',paddingBottom:10,paddingTop:10,marginTop:15}}>
+      <Container   style= {{backgroundColor:'' ,borderRadius: '30px',paddingBottom:10,paddingTop:10,marginTop:15}}>
         <Box sx={{ width: '100%' ,marginTop:5}}>
 
       {/* SEARCH PANEL */}

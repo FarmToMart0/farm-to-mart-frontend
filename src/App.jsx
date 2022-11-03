@@ -14,8 +14,10 @@ import DetailsCard from './components/details_card/index';
 import GSOHome from './pages/gsoHome/index';
 import FarmerSignUp from './pages/farmer/SignUp/index';
 import BuyerSignUp from './pages/buyerSignUp/index';
+import Dash from './pages/F-Dashboard/index'
 
 import Market from './pages/Market/index';
+import Sales from './components/sales_products/index'
 
 
 
@@ -69,6 +71,8 @@ function App() {
     <Route path='/gso/home' element={<GSOHome/>}/>
     <Route path='/farmer/signup' element={<FarmerSignUp/>}/>
     <Route path='/buyer/signup' element={<BuyerSignUp/>}/>
+    <Route path='/dash' element={<Dash/>}/>
+    <Route path='/sale' element={<Sales/>}/>
  
 
     {/* ==================Buyer================ */}
