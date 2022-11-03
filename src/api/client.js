@@ -20,7 +20,7 @@ axiosClient.interceptors.request.use(function (config) {
 export async function resolver(axiosResponse) {
   try {
     const response = await axiosResponse;
-   
+    console.log('data',response.data)
     return [response.data.statusCode, response.data.data];
   } catch (e) {
     const response = e.response;

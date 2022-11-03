@@ -1,15 +1,18 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { styled } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import {Stack,Grid,Button,Typography,Paper,CircularProgress,TextField,Autocomplete,CssBaseline,Card,CardContent} from '@mui/material';
 import * as yup from 'yup';
 import { color } from '@mui/system';
 import Switch from '@mui/material/Switch';
 import ImageCollection from '../imageList/index';
+import SnackBarComponent from '../../components/Snackbars';
 import axios from 'axios';
+import api  from "../../api"
 import {Image} from 'cloudinary-react';
 const validationSchema = yup.object().shape({
-  name: yup.string().required().label('Product Name'),
+  productName: yup.string().required().label('Product productName'),
   quantity: yup.number().required().min(1).label('Product Quantity'),
   price: yup.number().required().min(1).label('Unit price of product'),
   bid: yup.number().required().min(1).label('Initial bid of product'),
@@ -25,7 +28,8 @@ const validationSchema = yup.object().shape({
 const Input = styled('input')({
   display: 'none',
 });
-export default function ItemAdd() {
+export default function ItemAdd(props) {
+  const navigate = useNavigate();
   const [imageList,setImageList]=useState(
     [
     
@@ -35,48 +39,170 @@ export default function ItemAdd() {
   const [checked, setChecked] = React.useState(true);
 
   const handleChangeBiding = (event) => {
+
     setChecked(event.target.checked);
   };
-
+  const [errorOccured, setErrorOccured] = useState(false)
+  const [errorMessage, setErrorMessage] = useState({ type: '', message: '' });
+  const [productId,setProductId]= useState()
   const [imageFiles, setImageFiles] = useState([]);
   const [loadingProductAdd, setLoadingProductAdd] = useState(false);
+  const [loadingImageAdd, setLoadingImageAdd] = useState(false);
   const [loadingVariantAdd, setLoadingVariantAdd] = useState(false);
   const [selectedDeliveryOption,setSelectedDeliveryOption]=useState([])
-  const [selectCategory,setSelectCategory]=useState()
+  const [selectCategory,setSelectCategory]=useState('')
   const [selectedPayementOption,setSelectedPayementOption]=useState([])
+  const [valuesArray,setValuesArray]=useState([])
   const [initialValues, setInitialValues] = useState({
-    name: 'Beans',
-    category:'',
-    quantity: '1000kg',
+    productName: '',
+    quantity: '',
     description: '',
     price:'',
     bid:'',
-    delivery:[],
-    payment:[]
-  
   });
-  const [productAdded, setProductAdded] = useState(null);
+
+ 
+ 
+   useEffect(()=>{
+    
+    if (props.edit==1) {
+      setSelectCategory(props.editProduct[0].category)
+      setProductId(props.editProduct[0]._id)
+      setSelectedPayementOption(props.editProduct[0].paymentOption)
+      setSelectedDeliveryOption(props.editProduct[0].deliveryOption)
+      setChecked(props.editProduct[0].biddingEnable)
+      setImageList(props.editProduct[0].images)
+      setInitialValues({productName:props.editProduct[0].productName,description:props.editProduct[0].description,quantity:props.editProduct[0].quantity,price:props.editProduct[0].unitPrice,bid:props.editProduct[0].initialBid})
+      setValuesArray({productName:props.editProduct[0].productName,description:props.editProduct[0].description,quantity:props.editProduct[0].quantity,price:props.editProduct[0].unitPrice,bid:props.editProduct[0].initialBid})
+      
+    }
+   },[])
+ 
+  
+ 
   const [productAddSuccesfully, setProductAddedSuccesfully] = useState(false);
   
-
+  const [imageAddSuccesfully, setImageAddedSuccesfully] = useState(false);
   
+const handleSave = async (values)=>{
+  try {
+    setLoadingProductAdd(true)
+    
+      const [code,res] = await api.farmer.updateProduct({_id:productId,'category':selectCategory,'productName':values.productName,'quantity':values.quantity,'unitPrice':values.price,'initialBid':values.bid,'description':values.description,'biddingEnable':checked,'paymentOption':selectedPayementOption,'deliveryOption':selectedDeliveryOption,'images':imageList});
+      if (code === 201) {
+        setLoadingProductAdd(false);
+        setProductAddedSuccesfully(false);
+        props.formShow[0]=false
+        props.getProducts()
+        navigate('/farmer/dash/sales')
+
+        setErrorMessage({ type: 'success', message: res });
+        setErrorOccured(true);
+        // setUserObjectInLocal(res.data.user);
+       
+       
+      }if (code ==400) {
+        setLoadingProductAdd(false);
+        setProductAddedSuccesfully(true)
+        setErrorMessage({ type: 'error', message: res });
+        setErrorOccured(true);
+      } else {
+        setLoadingProductAdd(false);
+        setProductAddedSuccesfully(true)
+        setErrorMessage({ type: 'error', message: res });
+        setErrorOccured(true);
+      }
+     
+    } catch (error) {
+      setLoadingProductAdd(false);
+      setProductAddedSuccesfully(false)
+      setErrorMessage({ type: 'error', message:'server error' });
+      setErrorOccured(true);
+     
+    }
+}
+  const doSubmit =async(values)=>{
+    try {
+      setLoadingProductAdd(true)
+      const [code,res] = await api.farmer.addProduct({'category':selectCategory,'productName':values.productName,'quantity':values.quantity,'unitPrice':values.price,'initialBid':values.bid,'description':values.description,'biddingEnable':checked,'paymentOption':selectedPayementOption,'deliveryOption':selectedDeliveryOption,'images':imageList.map((item)=>{return item.img})});
+    
+      if (code === 201) {
+        setLoadingProductAdd(false);
+        setProductAddedSuccesfully(false)
+        props.formShow[0]=false
+       
+        navigate('/farmer/dash/sales')
+        setErrorMessage({ type: 'success', message: res });
+        setErrorOccured(true);
+        // setUserObjectInLocal(res.data.user);
+       
+       
+      }if (code ==400) {
+        setLoadingProductAdd(false);
+        setProductAddedSuccesfully(true)
+        setErrorMessage({ type: 'error', message: res });
+        setErrorOccured(true);
+      } else {
+        setLoadingProductAdd(false);
+        setProductAddedSuccesfully(true)
+        setErrorMessage({ type: 'error', message: res });
+        setErrorOccured(true);
+      }
+     
+    } catch (error) {
+      setLoadingProductAdd(false);
+      setProductAddedSuccesfully(false)
+      setErrorMessage({ type: 'error', message:'server error' });
+      setErrorOccured(true);
+     
+    }
+  
+  }
+  const deleteFunc = (id) => {
+    
+    const arr = imageList.filter((item)=>{
+      if (item.img!=id) {
+        return item
+      }
+
+    })
+    setImageList(arr);
+    }
+
+
   const handleChangeImage = (event) => {
-    // const files = Array.from(event.target.files);
+    // const files = .from(event.target.files);
     // setImageFiles(files);
+    setLoadingImageAdd(true)
+    const img = event.target.files[0];
+    if (!img.name.match(/\.(jpg|jpeg|png|gif)$/)) {
+      setErrorMessage('error','File type is not matched')
+      setErrorOccured(true)
+      setLoadingImageAdd(false);
+      return false;
+    }
+
+
     
     const formData = new FormData();
-    formData.append('file',event.target.files[0]);
+    formData.append('file',img);
     formData.append('upload_preset','xfj3iupf');
-    axios.post("https://api.cloudinary.com/v1_1/dnrpcuqvr/image/upload",formData).
+try {
+  axios.post("https://api.cloudinary.com/v1_1/dnrpcuqvr/image/upload",formData).
     then((res)=>{
+    
+    setImageList([...imageList,{ img: res.data.secure_url}])
+    setLoadingImageAdd(false)
 
-    setImageList([...imageList,{ img: res.data.secure_url,
-    title: 'img',
-    rows: 2,
-    cols: 2,}])
-
-    console.log('sumeela',res.data.secure_url)
-    })
+   
+    }
+    
+    )
+} catch (error) {
+  setLoadingImageAdd(false)
+}
+    
+    
   };
   return (
   
@@ -99,7 +225,14 @@ style={{
   enableReinitialize={true}
   validationSchema={validationSchema}
   onSubmit={(values) => {
-    // createProduct(values);
+    if (props.edit==0) {
+      setValuesArray(values)
+      doSubmit(values)
+    }if (props.edit==1) {
+      setValuesArray(values)
+      handleSave(values)
+    }
+    
   }}
 >
   {(formikProps) => {
@@ -109,6 +242,8 @@ style={{
     return (
       <Paper margin={2} elevation={20} >
       <React.Fragment>
+      <SnackBarComponent open={errorOccured} message={errorMessage.message} type={errorMessage.type}  setOpen={setErrorOccured}/>
+
          <Card  sx={{ minWidth: 600 }}>
       <CardContent color='white'>
         <Stack direction="column" spacing={3} alignItems="center">
@@ -117,7 +252,9 @@ style={{
           <Autocomplete
       disablePortal
       id="combo-box-demo"
+
       options={['Vegetables','Grains','Fruits']}
+      value={selectCategory}
       onChange={(event,value)=>{
         setSelectCategory(value);
       }}
@@ -125,14 +262,14 @@ style={{
       renderInput={(params) => <TextField {...params} label="Category" />}
     />
           <TextField
-            label="Product Name"
+            label="Product productName"
             variant="outlined"
-            helperText={errors.name}
+            helperText={errors.productName}
             
-            error={touched.name && Boolean(errors.name)}
+            error={touched.productName && Boolean(errors.productName)}
             style={{ width: 500 }}
-            value={values.name}
-            onChange={handleChange('name')}
+            value={values.productName}
+            onChange={handleChange('productName')}
             InputLabelProps={{ shrink: true }}
           />
           <Grid container   spacing={2}>
@@ -204,19 +341,18 @@ style={{
             filterSelectedOptions
             sx={{ width: 500 }}
             onChange={(event, value) => {
-            
+
               setSelectedDeliveryOption(value)
             }}
             renderInput={(params) => (
               <TextField
-
                 {...params}
                 label="Available Delivery Options"
                 placeholder="Delivery Options"
                 helperText={errors.delivery}
                 InputLabelProps={{ shrink: true }}
                 error={touched.delivery && Boolean(errors.delivery)}
-                onChange={handleChange('delivery')}
+                
                 variant="outlined"
               />
             )}
@@ -277,9 +413,9 @@ style={{
                       variant="contained"
                       color="success"
                       component="span"
-                      disabled={productAddSuccesfully || loadingProductAdd}
+                      disabled={imageAddSuccesfully || loadingImageAdd}
                     >
-                     Add Images
+                     {loadingImageAdd ? <CircularProgress /> : 'Add Image'}
                     </Button>
                   </label>
                 </React.Fragment>
@@ -287,17 +423,29 @@ style={{
   
 </Grid>
          
-<ImageCollection itemData={imageList}/>
+<ImageCollection itemData={imageList} doDelete={deleteFunc}/>
 
-                <Button
+                {props.edit==0 && <Button
                   variant="contained"
                   color="secondary"
                   sx={{ width: 300 }}
                   onClick={handleSubmit}
-                  disabled={productAddSuccesfully || loadingProductAdd}
+                  disabled={loadingProductAdd}
                 >
                   {loadingProductAdd ? <CircularProgress /> : 'Create Product'}
                 </Button>
+                
+              }{
+                props.edit==1 && <Button
+                variant="contained"
+                color="secondary"
+                sx={{ width: 300 }}
+                onClick={handleSubmit}
+                disabled={ loadingProductAdd}
+              >
+                {loadingProductAdd ? <CircularProgress /> : 'Save'}
+              </Button>
+              }
        
         </Stack>
         </CardContent>

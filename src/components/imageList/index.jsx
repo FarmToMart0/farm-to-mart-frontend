@@ -14,7 +14,7 @@ function srcset(image, width, height, rows = 1, cols = 1) {
     };
   }
 
-export default function ImageCollection({itemData}) {
+export default function ImageCollection({itemData,doDelete}) {
 
   return (
     <ImageList
@@ -43,7 +43,9 @@ export default function ImageCollection({itemData}) {
               position="top"
               actionIcon={
                 <IconButton
-                onClick={()=>{console.log('Sumeela')}}
+                onClick={()=>{
+                  doDelete(item.img)
+                  }}
                   sx={{ color: 'white' }}
                   
                 >
