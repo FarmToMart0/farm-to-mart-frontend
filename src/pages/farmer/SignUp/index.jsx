@@ -56,7 +56,7 @@ export default function SignUp() {
       firstName: "",
       lastName: "",
       address: "",
-      phone: "",
+      mobile: "",
       gsdName: "",
       district:'',
       gsdCode: "",
@@ -72,7 +72,7 @@ export default function SignUp() {
     firstName: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
     lastName: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
     address: Joi.string().required(),
-    phone: Joi.string().length(10).regex(/^[0-9]+$/, 'given').required(),
+    mobile: Joi.string().length(10).regex(/^[0-9]+$/, 'given').required(),
     gsdName: Joi.string().required(),
     gsdCode: Joi.string().required(),
     email: Joi.string().email().required(),
@@ -241,13 +241,13 @@ export default function SignUp() {
               <TextField
                 required
                 fullWidth
-                id="phone"
+                id="mobile"
                 type="tel"
                 label="Mobile Number"
-                name="phone"
-                value={farmer.phone}
+                name="mobile"
+                value={farmer.mobile}
                 onChange={handleSave}
-                autoComplete="phone" />
+                autoComplete="mobile" />
 
               {errors.mobile && (
                 <Alert sx={{ mt: '1vw', mb: '1vw' }} severity="error">Invalid Mobile Number</Alert>)}
@@ -394,7 +394,7 @@ export default function SignUp() {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="/admin/login" variant="body2">
+              <Link href="/login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
