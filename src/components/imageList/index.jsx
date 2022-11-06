@@ -14,7 +14,7 @@ function srcset(image, width, height, rows = 1, cols = 1) {
     };
   }
 
-export default function ImageCollection({itemData,doDelete}) {
+export default function ImageCollection({itemData}) {
 
   return (
     <ImageList
@@ -23,7 +23,7 @@ export default function ImageCollection({itemData,doDelete}) {
         
         // Promote the list into its own layer in Chrome. This costs memory, but helps keeping high FPS.
         transform: 'translateZ(0)',
-      }}``
+      }}
       rowHeight={200}
       gap={1}
     >
@@ -43,9 +43,7 @@ export default function ImageCollection({itemData,doDelete}) {
               position="top"
               actionIcon={
                 <IconButton
-                onClick={()=>{
-                  console.log('Sumeela')
-                  }}
+                onClick={()=>{console.log('Sumeela')}}
                   sx={{ color: 'white' }}
                   
                 >
