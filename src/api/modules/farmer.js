@@ -13,6 +13,16 @@ export default {
   },
   updateProduct(data){
     return resolver(axiosClient.put(`/product/update`,data))
+  },
+  getOngoingMycrops(data){
+    return resolver(axiosClient.get(`/farmer/getmycrops/990910820V`))
+  },
+  getCompletedMycrops(){
+    return resolver(axiosClient.get(`/farmer/getcompletedmycrops/990910820V`))
+  },
+  updateHarvestedData(data){
+    
+    return resolver(axiosClient.put(`/farmer/updateharvest/${data[1]}`,data[0]))
   }
   
   

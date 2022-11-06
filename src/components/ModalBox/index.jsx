@@ -48,7 +48,7 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function ModalBox({handleClickOpen,handleClose,open,children}) {
+export default function ModalBox({handleClickOpen,handleClose,open,children,title,buttonName}) {
  
 
   return (
@@ -60,14 +60,14 @@ export default function ModalBox({handleClickOpen,handleClose,open,children}) {
         open={open}
       >
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Modal title
+          {title}
         </BootstrapDialogTitle>
         <DialogContent dividers>
        {children}
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose}>
-            Save changes
+            {buttonName}
           </Button>
         </DialogActions>
       </BootstrapDialog>
