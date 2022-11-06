@@ -23,7 +23,7 @@ export default function ImageCollection({itemData,doDelete}) {
         
         // Promote the list into its own layer in Chrome. This costs memory, but helps keeping high FPS.
         transform: 'translateZ(0)',
-      }}
+      }}``
       rowHeight={200}
       gap={1}
     >
