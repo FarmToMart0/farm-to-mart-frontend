@@ -10,7 +10,7 @@ import ItemAdd from '../../components/ItemAdd/index'
 import ProductManage from '../../pages/farmer/ProductManage/index';
 import OrderPage from './../../pages/farmer/Orders/index';
 import TabPaneMyCrops from '../../pages/farmer/MyCrops';
-import MapComponent from '../../components/MapComponent';
+import MapComponent from '../../components/map/index';
 
 import SalaseDashBoard from '../../pages/farmer/SalesDashBoard';
 
