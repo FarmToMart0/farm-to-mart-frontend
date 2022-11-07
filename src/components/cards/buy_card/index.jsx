@@ -36,10 +36,11 @@ const ExpandMore = styled((props) => {
 
 
 export default function ItemCard(props) {
-    const farmer_id = props.id;
-    const price = props.price;
-    const description = props.des;
-    const more_details = props.more;
+    // const item_id,farmer_name = props.id;
+    // const price = props.price;
+    // const description = props.des;
+    // const more_details = props.more;
+    const {item_id,farmer_name,price,more_details,date,transport,payment,image} = props.item
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -64,13 +65,13 @@ export default function ItemCard(props) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={farmer_id}
-        subheader="September 14, 2016"
+        title={farmer_name}
+        subheader={date}
       />
       <CardMedia
         component="img"
         height="194"
-        image="https://img.freepik.com/free-photo/healthy-vegetables-wooden-table_1150-38014.jpg?w=2000"
+        image={image}
         alt="Paella dish"
       />
       <CardContent>
@@ -79,12 +80,7 @@ export default function ItemCard(props) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon style={{margin:'0 10 0 0'}}/>
-        </IconButton>
+        
 
         <Button variant="contained" color="success" onClick={handleBuy}>
         <ShoppingBagIcon style={{margin:'0 10 0 0'}}/> Buy
@@ -105,13 +101,11 @@ export default function ItemCard(props) {
         <Stack direction="row">
         {/* <Item> <LocalShippingIcon style={{margin:'5'}} ></LocalShippingIcon></Item> */}
         <LocalShippingIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
-        <Typography paragraph style={{color:'black'}}>  Method: </Typography> 
-        </Stack>
-
+        <Typography paragraph style={{color:'black'}}>  Tranport: {transport}</Typography> </Stack>
         <Stack direction="row">
         {/* <Item> <LocalShippingIcon style={{margin:'5'}} ></LocalShippingIcon></Item> */}
         <PaymentIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
-        <Typography paragraph style={{color:'black'}}>  Method: </Typography> 
+        <Typography paragraph style={{color:'black'}}>  Online Payment:{payment} </Typography> 
         </Stack>
         </Stack>
         
