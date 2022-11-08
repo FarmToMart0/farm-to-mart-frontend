@@ -15,35 +15,36 @@ import {ref,get,child} from "firebase/database"
 
 
 export default function SimplePaper() {
-
-
-  const db = firebaseapp.startFirebase()
-
-  useEffect(()=>{
-    getBid()
-  })
-
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const { item_id, base_price } = location.state;
-  const buyer_id = "poi890k"
+  const db = firebaseapp.startFirebase()
+  const { item_id, base_price } = location.state;
+  const buyer_id = "poi890"
 	const [your_bid, setYour_bid] = useState(0);
 	const [temp_your_bid, setTemp_your_bid] = useState(0);
 	const [current_bid, setCurrent_bid] = useState(0);
   const [bidWon,setBidWon] = useState(true)
+  useEffect(()=>{
+    getBid()
+  })
+
+
+
+
 
 	const placeBid = (e) => {
 		e.preventDefault();
-		console.log({ temp_your_bid, current_bid, base_price });
+		
 		if (temp_your_bid >= current_bid) {
+			
 			if (temp_your_bid >= base_price) {
 				const response = api.setBidding({
 					bid_item: item_id,
 					currnt_bid: temp_your_bid,
 					buyer_id: buyer_id,
 				});
-        setYour_bid(temp_your_bid)
+        setCurrent_bid(temp_your_bid)
         setTemp_your_bid(0)
         getBid(item_id)
 			} else {
@@ -63,8 +64,7 @@ export default function SimplePaper() {
         const currnt_bid = snapshot.val().currnt_bid
         const player_id = snapshot.val().buyer_id;
         setCurrent_bid(currnt_bid)
-        console.log(player_id)
-        console.log(buyer_id)
+        
         if(player_id === buyer_id){
           setBidWon(false)
         }else{
