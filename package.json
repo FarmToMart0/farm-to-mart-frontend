@@ -28,7 +28,7 @@
     "date-fns": "^2.29.3",
     "dayjs": "^1.11.5",
     "fast-equals": "^4.0.3",
-    "firebase": "^9.10.0",
+    "firebase": "^9.13.0",
     "formik": "^2.2.9",
     "formik-material-ui": "^4.0.0-alpha.2",
     "formik-mui": "^5.0.0-alpha.0",

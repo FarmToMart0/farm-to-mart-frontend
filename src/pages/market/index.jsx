@@ -23,7 +23,9 @@ const arr = [
   { label: 'Eggs'},
 ]
 
-const listOfItems = [{id:'nuwan', price:12,type:'bid'},{id:'jaye',price:23,type:'buy'}]
+const listOfItems = [{item_id:'6789',farmer_name:'nuwanBro', price:1200,type:'bid',date:"2022/10/12",transport:"Available",payment:"Not Available",more_details:"Prices can't be negociated",image:"https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"},
+{item_id:'12345',farmer_name:'nuwan', price:1000,type:'bid',date:"2022/10/12",transport:"Available",payment:"Not Available",more_details:"Prices can't be negociated",image:"https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"},
+{item_id:'1234',farmer_name:'nuwanJay', price:123,type:'buy',date:"2022/10/12",transport:" Not Available",payment:"Available",more_details:"Prices can be negociated",image:"https://img.freepik.com/free-photo/healthy-vegetables-wooden-table_1150-38014.jpg?w=2000"}]
 const category1 = "Crop Type"
 const categoty2 = "Base Amount of Harvest" 
 
@@ -80,10 +82,10 @@ export default function Market() {
       <Grid container sx = {{marginTop:1.5,marginBottom:6}} rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
 
       { listOfItems.map((item,index)=>
-        item.type == 'buy' ? <Grid item xs={3} key={index}>
-      <Buy_card id={item.id} price ={item.price} />
+        item.type == 'buy' ? <Grid item xs={3} key={item.item_id}>
+      <Buy_card item = {item} />
       </Grid> : <Grid item xs={3} key={index}>
-      <Bid_card id={item.id} price ={item.price} />
+      <Bid_card item = {item} />
       </Grid> 
        )}
         
@@ -99,3 +101,5 @@ export default function Market() {
     </div>
   );
 }
+
+
