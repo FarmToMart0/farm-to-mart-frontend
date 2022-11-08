@@ -12,6 +12,18 @@ export default {
   },
   getRejectedOrder(id){
     return resolver(axiosClient.get(`/order/getrejectedorders/${id}`))
+  },
+  markAsPaid(id){
+    return resolver(axiosClient.get(`/order/markaspaid/${id}`))
+  },
+  markAsDelivered(id){
+    return resolver(axiosClient.get(`/order/markasdelivered/${id}`))
+  },
+  markAsRejected(id){
+    return resolver(axiosClient.get(`/order/markasrejected/${id}`))
+  },
+  unDoRejectedOrder(id){
+    return resolver(axiosClient.get(`/order/undorejectedorder/${id}`))
   }
   
   

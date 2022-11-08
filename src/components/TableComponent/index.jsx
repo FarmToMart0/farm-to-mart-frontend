@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useEffect} from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,12 +11,13 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { Button,Stack, Chip } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { color } from '@mui/system';
-import FormDialog from './../DialogComponent/index';
 import Typography from '@mui/material/Typography';
-import { Grid,TextField} from '@mui/material';
+import { Grid} from '@mui/material';
 import ModalBox from '../ModalBox';
 import UndoIcon from '@mui/icons-material/Undo';
+import api from '../../api'
+
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -42,24 +43,26 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 
-export default function CustomizedTables({columns,itemData}) {
-    const [openDialogBox, setOpenDialog] = React.useState(false);
+export default function CustomizedTables({columns,itemData,handleClickRecieved,handleClickDelivereded,handleClickRejected,handleClickUnDoRejected}) {
+   
     const [openModal, setOpenModal] = React.useState(false);
+    const [selectedProduct, setSelectedProduct] = React.useState({});
 
-    const handleClickOpenModal = () => {
+    const handleClickOpenModal = (item) => {
+      
+      setSelectedProduct(item);
       setOpenModal(true);
     };
     const handleCloseModal = () => {
+      
       setOpenModal(false);
     };
 
-  const handleClickOpenDialog = () => {
-    setOpenDialog(true);
-  };
+  
 
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
+  
+
+
   
   return (
     <TableContainer component={Paper}>
@@ -70,49 +73,71 @@ export default function CustomizedTables({columns,itemData}) {
   <Typography variant="h6" gutterBottom >Crop Type</Typography>
   </Grid>
   <Grid item xs={8}>
-  <Typography>Beans</Typography>
+  <Typography>{selectedProduct?.product?.productName}</Typography>
   </Grid>
   <Grid item xs={4}>
   <Typography variant="h6" gutterBottom >Needed Amount</Typography>
   </Grid>
   <Grid item xs={8}>
-  <Typography>1000Kg</Typography>
+  <Typography>{selectedProduct?.amount+' Kg'}</Typography>
+  </Grid>
+  <Grid item xs={4}>
+  <Typography variant="h6" gutterBottom >Ordered Date</Typography>
+  </Grid>
+  <Grid item xs={8}>
+  <Typography>{selectedProduct?.date}</Typography>
+  </Grid>
+  <Grid item xs={4}>
+  <Typography variant="h6" gutterBottom >Selling Method</Typography>
+  </Grid>
+  <Grid item xs={8}>
+  <Stack direction='row' spacing={2}><Typography>{selectedProduct?.isFromBiding ? "Bidding": "Direct Selling"}</Typography> </Stack>
   </Grid>
   <Grid item xs={4}>
   <Typography variant="h6" gutterBottom >Total Price</Typography>
   </Grid>
   <Grid item xs={8}>
-  <Stack direction='row' spacing={2}><Typography>20000 LKR</Typography> <Chip color='secondary' label="Not Paid" /></Stack>
+  <Stack direction='row' spacing={2}><Typography>{selectedProduct?.totalPrice+" LKR"}</Typography> <Chip color='secondary' label={selectedProduct?.paymentStatus} /></Stack>
   </Grid>
   <Grid item xs={4}>
   <Typography variant="h6" gutterBottom >Description</Typography>
   </Grid>
   <Grid item xs={8}>
-  <Typography>are thoseFresh things</Typography>
+  <Typography>{selectedProduct?.description}</Typography>
   </Grid>
   <Grid item xs={4}>
   <Typography variant="h6" gutterBottom >Delivery Method</Typography>
   </Grid>
   <Grid item xs={8}>
-  <Typography>Farm Pickup</Typography>
+  <Typography>{selectedProduct?.deliveryMethod}</Typography>
+  </Grid>
+  <Grid item xs={4}>
+  <Typography variant="h6" gutterBottom >Payment Method</Typography>
+  </Grid>
+  <Grid item xs={8}>
+  <Typography>{selectedProduct?.paymentMethod}</Typography>
+  </Grid>
+  <Grid item xs={4}>
+  <Typography variant="h6" gutterBottom >Buyer Name</Typography>
+  </Grid>
+  <Grid item xs={8}>
+  <Typography>{selectedProduct?.buyer?.firstName+' '+selectedProduct?.buyer?.lastName}</Typography>
+  </Grid>
+  <Grid item xs={4}>
+  <Typography variant="h6" gutterBottom >Buyer Address</Typography>
+  </Grid>
+  <Grid item xs={8}>
+  <Typography>{selectedProduct?.buyer?.address}</Typography>
+  </Grid>
+  <Grid item xs={4}>
+  <Typography variant="h6" gutterBottom >Phone Number</Typography>
+  </Grid>
+  <Grid item xs={8}>
+  <Typography>{selectedProduct?.buyer?.phone}</Typography>
   </Grid>
 </Grid>
        </ModalBox>
-        <FormDialog openDialog={openDialogBox}  handleClose={handleCloseDialog}>
-        <Stack alignSelf='center' direction='row' spacing={3}>
-      
-      <TextField
-       
-        autoFocus
-        margin="dense"
-        id="name"
-        label="Amount in LKR"
-        type="email"
         
-        variant="standard"
-      />
-      </Stack>
-        </FormDialog>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
@@ -131,28 +156,28 @@ export default function CustomizedTables({columns,itemData}) {
               
               <StyledTableCell align="left">{row.product.productName}</StyledTableCell>
               
-              <StyledTableCell align="left"><Button onClick={handleClickOpenModal} size='small' variant="outlined" startIcon={<RemoveRedEyeIcon/>}>
+              <StyledTableCell align="left"><Button onClick={()=>handleClickOpenModal(row)} size='small' variant="outlined" startIcon={<RemoveRedEyeIcon/>}>
         View
       </Button></StyledTableCell>
 
 
        <StyledTableCell align="left">
-                {row.paymentStatus=='notpaid' && <Button onClick={()=>{handleClickOpenDialog()}} size='small' variant="outlined" startIcon={<CheckCircleIcon/>}>
+                {row.paymentStatus=='notpaid' && <Button onClick={()=>{handleClickRecieved(row.id)}} size='small' variant="outlined" startIcon={<CheckCircleIcon/>}>
         Mark As Recieved
-      </Button>}{row.paymentStatus != 'notpaid' && <Chip color='success' icon={<CheckCircleIcon />} label="Paid" variant="outlined" />}
+      </Button>}{row.paymentStatus == 'paid' && <Chip color='success' icon={<CheckCircleIcon />} label="Paid" variant="outlined" />}
       </StyledTableCell>
 
       <StyledTableCell align="left"><Stack  direction="row" spacing={2}>
-              {row.orderStatus=='place' && <Button onClick={()=>{handleClickOpenDialog()}} color='info' size='small' variant="outlined" startIcon={<CheckCircleIcon/>} >
+              {row.orderStatus=='place' && <Button onClick={()=>{handleClickDelivereded(row.id)}} color='info' size='small' variant="outlined" startIcon={<CheckCircleIcon/>} >
         Mark As Delivered
       </Button> }{
-      row.orderStatus=='place' && <Button size='small' color='error' variant="outlined" startIcon={<CancelIcon/>}>
+      row.orderStatus=='place' && <Button size='small' onClick={()=>{handleClickRejected(row.id)}} color='error' variant="outlined" startIcon={<CancelIcon/>}>
         Reject
       </Button>}
       {row.orderStatus=='delivered' && < Chip color='success' icon={<CheckCircleIcon />} label="Delivered" variant="outlined" />}
       {row.orderStatus=='rejected' && < Chip color='error' icon={<CancelIcon />} label="Rejected" variant="outlined" />}
       {
-      row.orderStatus=='rejected' && <Button size='small' color='info' variant="outlined" startIcon={<UndoIcon/>}>
+      row.orderStatus=='rejected' && <Button size='small' onClick={()=>{handleClickUnDoRejected(row.id)}} color='info' variant="outlined" startIcon={<UndoIcon/>}>
         Undo
       </Button>}
       </Stack>
