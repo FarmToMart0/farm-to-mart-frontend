@@ -7,12 +7,13 @@ function MapSL() {
 
   return (
     <div className="App">
-        {/* <SVGMap onChange={(e)=>{
-            console.log(e)
-        }} locationClassName="location" className="mysvg" map={World} /> */}
-       <SVGMap onLocationClick={(e)=>{
+       <SVGMap 
+       onLocationClick={(e)=>{
             console.log('e',e.target.id,e.target.getAttribute('name'),e.target.ariaLabel)
-        }} onLocationMouseOver={()=>{}} onLocationMouseMove={()=>{}} onLocationMouseOut={()=>{
+            }
+          }
+            
+            onLocationMouseOver={()=>{}} onLocationMouseMove={()=>{}} onLocationMouseOut={()=>{
 
         }} locationClassName="location" className="mysvg" map={World} />
     </div>

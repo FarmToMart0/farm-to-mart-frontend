@@ -15,16 +15,28 @@ import GSOHome from './pages/gsoHome/index';
 import FarmerSignUp from './pages/farmer/SignUp/index';
 import BuyerSignUp from './pages/buyerSignUp/index';
 
-import Market from './pages/Market/index';
+import Market from './pages/market/index';
 
 
 
 import ShoppingCard from '././pages/shoppingCard/index'
 import Card2 from './components/signup_button/index';
 
+import Item from './pages/shoppingCard/index'
+import Bid from '././pages/Bidding'
+import PieGraph from './components/PieGraph/index' 
+import BarGraph from './components/BarGraph/index'
+import LineGraph from './components/LineChart/index'
+import Dashboard from './pages/F-Dashboard/index'
+import GraphCard from './components/graphCard/index'
 import Payment from './pages/Payment/index'
 
+
+
+
+
 import { BrowserRouter } from 'react-router-dom';
+import ItemAdd from './pages/home/index';
 import GSOLayout from './layouts/GSOLayout';
 import MainOfficerLayout from './layouts/MainOfficerLayout/index';
 import Bidding from './pages/Bidding/index';
@@ -38,7 +50,7 @@ function App() {
     <Route path="/farmer/dash/:page" element={<FarmerLayout/>}/>
     <Route path="/buyer/market" element={<Market/>}/>
     <Route path="/buyer/market/bidding" element={<Bidding/>}/>
-    {/* <Route path="/buyer/market/checkout" element={<ShoppingCard/>}/> */}
+    <Route path="/buyer/market/checkout" element={<ShoppingCard/>}/>
     <Route path="/buyer/market/checkout/payment" element={<Payment/>} exact />
     <Route path="/gso/dash/:page" element={<GSOLayout/>}/>
     <Route path="/mainofficer/dash/:page" element={<MainOfficerLayout/>}/>

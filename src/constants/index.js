@@ -27,7 +27,7 @@ export const FARMER_SECTIONS = {
      
    };
 
-  export const HOST_URL = 'http://localhost:5000/api';
+  export const HOST_URL = 'http://localhost:9000/api';
 
 export const TOKEN_KEY = 'FARMETOMART_TOKEN';
 export const USER_DETAILS = 'USER_DETAILS';
