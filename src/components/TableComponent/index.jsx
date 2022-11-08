@@ -16,6 +16,7 @@ import FormDialog from './../DialogComponent/index';
 import Typography from '@mui/material/Typography';
 import { Grid,TextField} from '@mui/material';
 import ModalBox from '../ModalBox';
+import UndoIcon from '@mui/icons-material/Undo';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -59,6 +60,7 @@ export default function CustomizedTables({columns,itemData}) {
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
+  
   return (
     <TableContainer component={Paper}>
        <ModalBox open={openModal} handleClose={handleCloseModal} handleClickOpen={handleClickOpenModal}>
@@ -127,7 +129,7 @@ export default function CustomizedTables({columns,itemData}) {
                 {row.date}
               </StyledTableCell>
               
-              <StyledTableCell align="left">{row.product}</StyledTableCell>
+              <StyledTableCell align="left">{row.product.productName}</StyledTableCell>
               
               <StyledTableCell align="left"><Button onClick={handleClickOpenModal} size='small' variant="outlined" startIcon={<RemoveRedEyeIcon/>}>
         View
@@ -135,21 +137,24 @@ export default function CustomizedTables({columns,itemData}) {
 
 
        <StyledTableCell align="left">
-                {row.paymentStatus=='notPaid' && <Button onClick={()=>{handleClickOpenDialog()}} size='small' variant="outlined" startIcon={<CheckCircleIcon/>}>
+                {row.paymentStatus=='notpaid' && <Button onClick={()=>{handleClickOpenDialog()}} size='small' variant="outlined" startIcon={<CheckCircleIcon/>}>
         Mark As Recieved
-      </Button>}{row.paymentStatus != 'notPaid' && <Chip color='success' icon={<CheckCircleIcon />} label="Paid" variant="outlined" />}
+      </Button>}{row.paymentStatus != 'notpaid' && <Chip color='success' icon={<CheckCircleIcon />} label="Paid" variant="outlined" />}
       </StyledTableCell>
 
       <StyledTableCell align="left"><Stack  direction="row" spacing={2}>
-              {row.orderStatus=='pending' && <Button onClick={()=>{handleClickOpenDialog()}} size='small' variant="outlined" startIcon={<CheckCircleIcon/>} >
+              {row.orderStatus=='place' && <Button onClick={()=>{handleClickOpenDialog()}} color='info' size='small' variant="outlined" startIcon={<CheckCircleIcon/>} >
         Mark As Delivered
-      </Button> &&
-      row.orderStatus=='pending' && <Button size='small' color='error' variant="outlined" startIcon={<CancelIcon/>}>
+      </Button> }{
+      row.orderStatus=='place' && <Button size='small' color='error' variant="outlined" startIcon={<CancelIcon/>}>
         Reject
       </Button>}
       {row.orderStatus=='delivered' && < Chip color='success' icon={<CheckCircleIcon />} label="Delivered" variant="outlined" />}
       {row.orderStatus=='rejected' && < Chip color='error' icon={<CancelIcon />} label="Rejected" variant="outlined" />}
-      
+      {
+      row.orderStatus=='rejected' && <Button size='small' color='info' variant="outlined" startIcon={<UndoIcon/>}>
+        Undo
+      </Button>}
       </Stack>
       </StyledTableCell>
      

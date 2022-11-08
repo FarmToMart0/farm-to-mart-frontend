@@ -71,6 +71,7 @@ export default function ItemAdd(props) {
       setSelectedPayementOption(props.editProduct[0].paymentOption)
       setSelectedDeliveryOption(props.editProduct[0].deliveryOption)
       setChecked(props.editProduct[0].biddingEnable)
+     
       setImageList(props.editProduct[0].images)
       setInitialValues({productName:props.editProduct[0].productName,description:props.editProduct[0].description,quantity:props.editProduct[0].quantity,price:props.editProduct[0].unitPrice,bid:props.editProduct[0].initialBid})
       setValuesArray({productName:props.editProduct[0].productName,description:props.editProduct[0].description,quantity:props.editProduct[0].quantity,price:props.editProduct[0].unitPrice,bid:props.editProduct[0].initialBid})
@@ -161,7 +162,7 @@ const handleSave = async (values)=>{
   const deleteFunc = (id) => {
     
     const arr = imageList.filter((item)=>{
-      if (item.img!=id) {
+      if (item!=id) {
         return item
       }
 
@@ -191,7 +192,7 @@ try {
   axios.post("https://api.cloudinary.com/v1_1/dnrpcuqvr/image/upload",formData).
     then((res)=>{
     
-    setImageList([...imageList,{ img: res.data.secure_url}])
+    setImageList([...imageList, res.data.secure_url])
     setLoadingImageAdd(false)
 
    

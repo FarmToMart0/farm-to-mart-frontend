@@ -13,31 +13,36 @@ import TabPaneMyCrops from '../../pages/farmer/MyCrops';
 import MapComponent from '../../components/map/index';
 
 import SalaseDashBoard from '../../pages/farmer/SalesDashBoard';
+import MyRequets from '../../pages/farmer/myRequests';
+import Dashboard from './../../pages/F-Dashboard/index';
 
 const drawerWidth = 240;
 
 export default function FarmerLayout() {
-  
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(true);
   const [openPane, setOpenPane] = React.useState();
   const location = useLocation();
 
   React.useEffect(() => {
-    const params = location.pathname.split('/');
-  
+    const params = location.pathname.split('/');  
     if (params.length === 4) {
       const subComponent = params[3];
       switch (subComponent) {
         case FARMER_SECTIONS.DASHBOARD:
           setOpenPane( <SalaseDashBoard/>);
-          break;
-        
+          break;     
+          case FARMER_SECTIONS.FDASHBOARD:
+          setOpenPane( <Dashboard/>);
+          break;        
         case FARMER_SECTIONS.MYCROP:
          setOpenPane(<TabPaneMyCrops/>)
           break;
         case FARMER_SECTIONS.SALES:
           setOpenPane(<ProductManage/>)
+          break;
+          case FARMER_SECTIONS.BID:
+          setOpenPane(<MyRequets/>)
           break;
         case FARMER_SECTIONS.ORDERS:
           setOpenPane(<OrderPage/>)

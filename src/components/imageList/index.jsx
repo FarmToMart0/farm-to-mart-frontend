@@ -14,7 +14,7 @@ function srcset(image, width, height, rows = 1, cols = 1) {
     };
   }
 
-export default function ImageCollection({itemData}) {
+export default function ImageCollection({itemData,doDelete}) {
 
   return (
     <ImageList
@@ -32,9 +32,9 @@ export default function ImageCollection({itemData}) {
         const rows = item.featured ? 2 : 1;
 
         return (
-          <ImageListItem  key={item.img} cols={cols} rows={rows}>
+          <ImageListItem  key={item} cols={cols} rows={rows}>
             <img
-              {...srcset(item.img, 250, 200, rows, cols)}
+              {...srcset(item, 250, 200, rows, cols)}
              
               loading="lazy"
             />
@@ -43,7 +43,7 @@ export default function ImageCollection({itemData}) {
               position="top"
               actionIcon={
                 <IconButton
-                onClick={()=>{console.log('Sumeela')}}
+                onClick={()=>{doDelete(item)}}
                   sx={{ color: 'white' }}
                   
                 >

@@ -31,6 +31,16 @@ export default function FarmerListItems() {
     <React.Fragment>
       <ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.DASHBOARD)}>
         <ListItemIcon>
+      <Tooltip title="Dashboard">
+        <DashboardIcon color="secondary" />
+      </Tooltip>
+        </ListItemIcon>
+        <ListItemText primary="Dashboard" />
+      </ListItemButton>
+      <Divider/>
+
+      <ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.FDASHBOARD)}>
+        <ListItemIcon>
       <Tooltip title="Sales Dashboard">
         <DashboardIcon color="secondary" />
       </Tooltip>
@@ -70,7 +80,7 @@ export default function FarmerListItems() {
         Operations
       </ListSubheader> */}
 
-      <ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.MYREQUESTS)}>
+      <ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.BID)}>
         <ListItemIcon>
           <Tooltip title="My Requests">
         <ChatIcon color="secondary" />

@@ -1,10 +1,10 @@
 export const FARMER_SECTIONS = {
     DASHBOARD: 'dashboard',
-    
+    FDASHBOARD: 'fdashboard',
     ORDERS: 'orders',
     SALES:'sales',
     
-    
+    BID:"bids",
     REVIEWS:'reviews',
     MYCROP:'mycrop',
      
