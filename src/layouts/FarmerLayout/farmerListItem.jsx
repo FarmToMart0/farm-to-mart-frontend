@@ -28,78 +28,57 @@ export default function FarmerListItems() {
     navigate(`/farmer/dash/${page}`);
   }
   return (
-    <React.Fragment>
-      <ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.DASHBOARD)}>
+    
+      <><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.DASHBOARD)}>
+      <ListItemIcon>
+        <Tooltip title="Dashboard">
+          <DashboardIcon color="secondary" />
+        </Tooltip>
+      </ListItemIcon>
+      <ListItemText primary="Dashboard" />
+    </ListItemButton><Divider /><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.FDASHBOARD)}>
         <ListItemIcon>
-      <Tooltip title="Dashboard">
-        <DashboardIcon color="secondary" />
-      </Tooltip>
+          <Tooltip title="Sales Dashboard">
+            <DashboardIcon color="secondary" />
+          </Tooltip>
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
-      </ListItemButton>
-      <Divider/>
-
-      <ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.FDASHBOARD)}>
+      </ListItemButton><Divider /><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.MYCROP)}>
         <ListItemIcon>
-      <Tooltip title="Sales Dashboard">
-        <DashboardIcon color="secondary" />
-      </Tooltip>
-        </ListItemIcon>
-        <ListItemText primary="Dashboard" />
-      </ListItemButton>
-      <Divider/>
-      
-
-      <ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.MYCROP)}>
-        <ListItemIcon>
-        <Tooltip title="My Crops">
-        <AssignmentIcon  color="secondary" />
-      </Tooltip>          
+          <Tooltip title="My Crops">
+            <AssignmentIcon color="secondary" />
+          </Tooltip>
         </ListItemIcon>
         <ListItemText primary="My Crops" />
-      </ListItemButton>
-      <Divider/>
-      <ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.SALES)}>
+      </ListItemButton><Divider /><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.SALES)}>
         <ListItemIcon>
-          <Tooltip title="Sales"><ReceiptIcon color="secondary" /></Tooltip>          
+          <Tooltip title="Sales"><ReceiptIcon color="secondary" /></Tooltip>
         </ListItemIcon>
         <ListItemText primary="Sales" />
-      </ListItemButton>
-      <Divider/>
-      <ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.ORDERS)}>
+      </ListItemButton><Divider /><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.ORDERS)}>
         <ListItemIcon>
           <Tooltip title="Orders">
-          <ViewListIcon color="secondary" />
+            <ViewListIcon color="secondary" />
           </Tooltip>
         </ListItemIcon>
         <ListItemText primary="Orders" />
-      </ListItemButton>
-      <Divider/>
-      {/* <Divider sx={{ my: 1 }} /> */}
-      {/* <ListSubheader component="div" inset>
-        Operations
-      </ListSubheader> */}
-
-      <ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.BID)}>
+      </ListItemButton><Divider /><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.BID)}>
         <ListItemIcon>
           <Tooltip title="My Requests">
-        <ChatIcon color="secondary" />
+            <ChatIcon color="secondary" />
           </Tooltip>
         </ListItemIcon>
         <ListItemText primary="My Requests" />
-      </ListItemButton>
-      <Divider/>
-      <ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.REVIEWS)}>
+      </ListItemButton><Divider /><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.REVIEWS)}>
         <ListItemIcon>
           <Tooltip title="Reviews">
-          <RateReview  color="secondary" />
+            <RateReview color="secondary" />
           </Tooltip>
         </ListItemIcon>
         <ListItemText primary="Reviews" />
-      </ListItemButton>
-      <Divider/>
+      </ListItemButton><Divider /></>
       
 
-    </React.Fragment>
+  
   );
 }

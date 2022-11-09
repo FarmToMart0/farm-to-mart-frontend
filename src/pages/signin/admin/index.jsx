@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import CircularProgress from '@mui/material/CircularProgress';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -17,12 +19,11 @@ import ResponsiveAppBar from '../../../components/navbar';
 import Footer from '../../../components/Footer';
 import Alert from '@mui/material/Alert';
 import api from  '../../../api'
-import {
-  setAuthorizationKey,
+import { loggingRequest } from '../../../reducers/modules/user';
+import {setAuthorizationKey, setUserObjectInLocal} from '../../../utils/localStorageHelper';
 
-} from '../../../utils/localStorageHelper';
+
 import SnackBarComponent from '../../../components/Snackbars';
-
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -35,18 +36,15 @@ function Copyright(props) {
     </Typography>
   );
 }
-
-
-
 export default function SignInSide() {
   const [errorOccured, setErrorOccured] = useState(false)
   const [errorMessages, setErrorMessages] = useState({});
   const [isLoading, setIsLoading] = useState(false)
+  const dispatch = useDispatch();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const navigate = useNavigate();
   const [email,setEmail] =useState('');
   const [password,setPassword]=useState('')
-  
   const handleEmail =(e)=>{
       setEmail(e.target.value)
   }
@@ -57,32 +55,29 @@ export default function SignInSide() {
     email: "Invalid login, please try again",
     pass: "Invalid login, please try again"
   };
-
   const handleSubmit = async (event) => {
     //Prevent page reload
     event.preventDefault();
     await userSignin({'email':email,'password':password})
-    // Compare user info
-    
+    // Compare user info 
   };
-
   async function userSignin(values) {
+    setIsLoading(true)
     try {
       const [code,res] = await api.user.signIn(values);
-    
       if (code === 201) {
-        console.log(res)
+        console.log('user data',res);
         setAuthorizationKey(res.token);
-        // setUserObjectInLocal(res.data.user);
-        console.log(res.userRole);
+        setUserObjectInLocal(res);
+        dispatch(loggingRequest(res));
         switch (res.userRole) {
           
           case 'FARMER':
             navigate('/farmer/dash/dashboard')
             break;
-            case 'BUYER':
-              navigate('/buyer/market')
-              break;
+          case 'BUYER':
+            navigate('/buyer/market')
+            break;
           default:
             break;
         }
@@ -151,7 +146,7 @@ const renderForm = (
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+            {isLoading ? <CircularProgress /> : 'Sign In'}
             </Button>
             <Grid container>
               <Grid item xs>
