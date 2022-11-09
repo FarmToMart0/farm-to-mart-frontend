@@ -9,14 +9,15 @@ import background from "../../assets/images/bg4.jpg"
 import FormDialog from "../../components/DialogComponent";
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
-
+import { useSelector, useDispatch } from 'react-redux';
 
 
 
 export default function HomePage(props) {
+ const user = useSelector((state) => state?.user);
  const [isLoading,setIsLoading]=useState(false);
  const [openDialog,setOpenDialog]=useState(false);
-  const navigate = useNavigate();
+ const navigate = useNavigate();
 const handle =()=>{
 
 }
@@ -46,14 +47,14 @@ setOpenDialog(true)
       <Chip label="AS BUYER" variant="outlined" onClick={handleBuyer} />
     </Stack>
       </FormDialog >
-            <NavBar/>     
+            <NavBar isLogin={user.auth}/>     
       <CssBaseline />
     
-      <div style={{ maxWidth: 'auto',   minHeight:630, backgroundImage: `url(${background})`,
+      <div style={{ maxWidth: 'auto',   minHeight:660, backgroundImage: `url(${background})`,
   backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundColor:'#f5f9fb', 
   }}>
     {/* backgroundSize:'150vh', backgroundPosition:'right', */}
-  <div style={{ width:'47%',   minHeight:630,   background: 'rgba(255, 255, 255, 0.6)', paddingLeft:100, paddingTop:150,
+  <div style={{ width:'50%',   minHeight:660,   background: 'rgba(255, 255, 255, 0.6)', paddingLeft:100, paddingTop:170,
   }} >
     <div style={{ paddingTop:18, paddingLeft:5,
   }}>
@@ -65,24 +66,41 @@ setOpenDialog(true)
               color: "#074C0E", 
               fontSize: {xs: '24px', md: '22px'},
               fontWeight: {xs: 600, md: 500}
-           
-            
               
             }} >
-                Welcome to 'FarmToMart'. 
+              
             </Typography>
             </div>
-      <Typography variant="h2" sx={{
+            <div style={{ paddingTop:18, paddingLeft:5,
+  }}>
+            <Typography  variant="h2" sx={{
               fontWeight:600,
               display: { xs: 'none', md: 'flex' },
               fontFamily: "'Poppins', sans-serif",
-              color: "#075E54", 
+              
+              color: "#075E54",
+               
               
               
             // color: "primary", 
            
               
-            }}style={{ lineHeight: "70px" }} >FarmToMart is<br/> Agriculture Market Place and<br/> Data center <br/> 
+            }}style={{ lineHeight: "70px",alignContent:"center", }}>
+            FarmToMart 
+            </Typography>
+            </div>
+      <Typography variant="h3" sx={{
+              fontWeight:500,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: "'Poppins', sans-serif",
+              color: "#075E54",
+               
+              
+              
+            // color: "primary", 
+           
+              
+            }}style={{ lineHeight: "70px",alignContent:"center", }} > Agriculture Market Place<br/> & Data center <br/> 
             </Typography>
             
             
@@ -114,4 +132,3 @@ setOpenDialog(true)
 
 
 }
-   
