@@ -25,7 +25,7 @@ export default function ReviewCard() {
         action={
             <Rating name="read-only" value='3' readOnly />
           }
-        title="Sumeela baba"
+        title="Sumeela "
         subheader="September 14, 2016"
       />
       
