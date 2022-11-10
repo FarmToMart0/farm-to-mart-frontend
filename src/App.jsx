@@ -19,16 +19,16 @@ import Market from './pages/Market/index';
 
 
 
-// import ShoppingCard from '././pages/shoppingCard/index'
-// import Card2 from './components/signup_button/index';
+import ShoppingCard from '././pages/shoppingCard/index'
+import Card2 from './components/signup_button/index';
 
-// import Item from './pages/shoppingCard/index'
-// import Bid from '././pages/Bidding'
-// import PieGraph from './components/PieGraph/index' 
-// import BarGraph from './components/BarGraph/index'
-// import LineGraph from './components/LineChart/index'
-// import Dashboard from './pages/F-Dashboard/index'
-// import GraphCard from './components/graphCard/index'
+import Item from './pages/shoppingCard/index'
+import Bid from '././pages/Bidding'
+import PieGraph from './components/PieGraph/index' 
+import BarGraph from './components/BarGraph/index'
+import LineGraph from './components/LineChart/index'
+import Dashboard from './pages/F-Dashboard/index'
+import GraphCard from './components/graphCard/index'
 import Payment from './pages/Payment/index'
 
 
@@ -40,7 +40,7 @@ import ItemAdd from './pages/home/index';
 import GSOLayout from './layouts/GSOLayout';
 import MainOfficerLayout from './layouts/MainOfficerLayout/index';
 import Bidding from './pages/Bidding/index';
-import ShoppingCard from './pages/shoppingCard/index';
+// import ShoppingCard from './pages/shoppingCard/index';
 function App() {
   
   return (
@@ -73,9 +73,9 @@ function App() {
 
     {/* ==================Buyer================ */}
     
-      {/* <Route path="/card2" element={<Card2 /> }exact />
+      <Route path="/card2" element={<Card2 /> }exact />
     
-      <Route path="/market" element={<Market/>} exact />
+      {/* <Route path="/market" element={<Market/>} exact />
       <Route path="/shopping" element={<ShoppingCard/>} exact />
       <Route path="/farmer/dash/:page" element={<FarmerLayout/>}/>
       <Route path="/item" element={<Item/>} exact />

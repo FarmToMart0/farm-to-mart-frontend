@@ -27,10 +27,7 @@ export default function FarmerLayout() {
     const params = location.pathname.split('/');
   
     if (params.length === 4) {
-      
       const subComponent = params[3];
-     
-    
       switch (subComponent) {
         case FARMER_SECTIONS.DASHBOARD:
           setOpenPane( <SalaseDashBoard/>);
@@ -45,8 +42,8 @@ export default function FarmerLayout() {
         case FARMER_SECTIONS.ORDERS:
           setOpenPane(<OrderPage/>)
           break;
-        case FARMER_SECTIONS.TRANSACTIONS:
-          setOpenPane()
+        case FARMER_SECTIONS.REVIEWS:
+          setOpenPane(<MapComponent/>)
           break;
      
         default:

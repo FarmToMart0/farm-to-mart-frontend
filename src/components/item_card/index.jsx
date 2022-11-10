@@ -13,11 +13,11 @@ export default function ItemCard(props) {
         
         width: 300,
         height: 300,
-        backgroundColor: '#fafafa',
-        boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px',
+        backgroundColor: '',
+        boxShadow: 'rgba(0, 0, 0, 0.15) 0px 0px 0px',
         '&:hover': {
-        boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
-        backgroundColor: '#f5f5f5',
+        boxShadow: 'rgba(0, 0, 0, 0.15) 0px 3px 5px',
+        backgroundColor: '#fafafa',
         
         },
       }}
