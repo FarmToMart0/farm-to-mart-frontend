@@ -14,7 +14,11 @@ function srcset(image, width, height, rows = 1, cols = 1) {
     };
   }
 
-export default function ImageCollection({itemData}) {
+  const itemData = ['https://image.shutterstock.com/image-photo/grain-auger-combine-pouring-soy-260nw-1842422164.jpg',
+  'https://images.pexels.com/photos/1268101/pexels-photo-1268101.jpeg?auto=compress&cs=tinysrgb&w=600']
+
+
+export default function ImageCollection(itemData) {
 
   return (
     <ImageList
@@ -27,12 +31,12 @@ export default function ImageCollection({itemData}) {
       rowHeight={200}
       gap={1}
     >
-      {itemData.map((item) => {
+      {itemData.map((item,index) => {
         const cols = item.featured ? 2 : 1;
         const rows = item.featured ? 2 : 1;
 
         return (
-          <ImageListItem  key={item.img} cols={cols} rows={rows}>
+          <ImageListItem  key={index} cols={cols} rows={rows}>
             <img
               {...srcset(item.img, 250, 200, rows, cols)}
              

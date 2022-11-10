@@ -50,7 +50,7 @@ function App() {
     <Route path="/farmer/dash/:page" element={<FarmerLayout/>}/>
     <Route path="/buyer/market" element={<Market/>}/>
     <Route path="/buyer/market/bidding" element={<Bidding/>}/>
-    {/* <Route path="/buyer/market/checkout" element={<ShoppingCard/>}/> */}
+    <Route path="/buyer/market/checkout" element={<ShoppingCard/>}/>
     <Route path="/buyer/market/checkout/payment" element={<Payment/>} exact />
     <Route path="/gso/dash/:page" element={<GSOLayout/>}/>
     <Route path="/mainofficer/dash/:page" element={<MainOfficerLayout/>}/>
