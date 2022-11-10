@@ -8,13 +8,10 @@ import SidePanel from '../../components/SidePanel';
 import ProductManage from '../../pages/farmer/ProductManage/index';
 import OrderPage from './../../pages/farmer/Orders/index';
 import TabPaneMyCrops from '../../pages/farmer/MyCrops';
-import MapComponent from '../../components/map/index';
-
 import SalaseDashBoard from '../../pages/farmer/SalesDashBoard';
 import MyRequets from '../../pages/farmer/myRequests';
-import Dashboard from './../../pages/F-Dashboard/index';
 import ReviewCard from '../../pages/farmer/Reviews/card';
-import DataCenter from './../../pages/farmer/DataCenter/index';
+import DataCenter from '../../pages/farmer/Datacenter';
 
 
 const drawerWidth = 240;

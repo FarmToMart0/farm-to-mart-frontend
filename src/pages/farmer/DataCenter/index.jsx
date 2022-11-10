@@ -16,8 +16,7 @@ import {
 // project import
 import OrdersTable from './TopHarvestedCrops';
 import IncomeAreaChart from './HarvestedAreaChart';
-import MonthlyBarChart from './MonthlyBarChart';
-import ReportAreaChart from './ReportAreaChart';
+import MonthlyBarChart from './HarvetedLand';
 
 import MainCard from './MainCard';
 
@@ -65,7 +64,7 @@ const DataCenter = () => {
     }
     return (
         <><Stack
-        margin={4}
+        marginTop={4}
             direction="row"
             divider={<Divider orientation="vertical" flexItem />}
             spacing={2}
