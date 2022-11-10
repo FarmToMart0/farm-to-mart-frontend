@@ -27,7 +27,7 @@ export default function MainOfficerListItems() {
       <ListItemButton onClick={() => routeToPage(MO_SECTIONS.DASHBOARD)}>
         <ListItemIcon>
       <Tooltip title="Sales Dashboard">
-        <DashboardIcon color="secondary" />
+        <DashboardIcon color="primary" />
       </Tooltip>
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
@@ -38,7 +38,7 @@ export default function MainOfficerListItems() {
       <ListItemButton onClick={() => routeToPage(MO_SECTIONS.GSOMANAGE)}>
         <ListItemIcon>
         <Tooltip title="Crop Details">
-        <AssignmentIcon  color="secondary" />
+        <AssignmentIcon  color="primary" />
       </Tooltip>          
         </ListItemIcon>
         <ListItemText primary="GSO Manage" />

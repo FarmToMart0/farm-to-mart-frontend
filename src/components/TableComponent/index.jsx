@@ -148,13 +148,13 @@ export default function CustomizedTables({columns,itemData,handleClickRecieved,h
           </TableRow>
         </TableHead>
         <TableBody>
-          {itemData.map((row) => (
+          {itemData?.map((row) => (
             <StyledTableRow key={row.id}>
               <StyledTableCell component="th" scope="row">
                 {row.date}
               </StyledTableCell>
               
-              <StyledTableCell align="left">{row.product.productName}</StyledTableCell>
+              <StyledTableCell align="left">{row?.product?.productName}</StyledTableCell>
               
               <StyledTableCell align="left"><Button onClick={()=>handleClickOpenModal(row)} size='small' variant="outlined" startIcon={<RemoveRedEyeIcon/>}>
         View
@@ -162,22 +162,22 @@ export default function CustomizedTables({columns,itemData,handleClickRecieved,h
 
 
        <StyledTableCell align="left">
-                {row.paymentStatus=='notpaid' && <Button onClick={()=>{handleClickRecieved(row.id)}} size='small' variant="outlined" startIcon={<CheckCircleIcon/>}>
+                {row?.paymentStatus=='notpaid' && <Button onClick={()=>{handleClickRecieved(row?.id)}} size='small' variant="outlined" startIcon={<CheckCircleIcon/>}>
         Mark As Recieved
-      </Button>}{row.paymentStatus == 'paid' && <Chip color='success' icon={<CheckCircleIcon />} label="Paid" variant="outlined" />}
+      </Button>}{row?.paymentStatus == 'paid' && <Chip color='success' icon={<CheckCircleIcon />} label="Paid" variant="outlined" />}
       </StyledTableCell>
 
       <StyledTableCell align="left"><Stack  direction="row" spacing={2}>
-              {row.orderStatus=='place' && <Button onClick={()=>{handleClickDelivereded(row.id)}} color='info' size='small' variant="outlined" startIcon={<CheckCircleIcon/>} >
+              {row?.orderStatus=='place' && <Button onClick={()=>{handleClickDelivereded(row?.id)}} color='info' size='small' variant="outlined" startIcon={<CheckCircleIcon/>} >
         Mark As Delivered
       </Button> }{
-      row.orderStatus=='place' && <Button size='small' onClick={()=>{handleClickRejected(row.id)}} color='error' variant="outlined" startIcon={<CancelIcon/>}>
+      row?.orderStatus=='place' && <Button size='small' onClick={()=>{handleClickRejected(row?.id)}} color='error' variant="outlined" startIcon={<CancelIcon/>}>
         Reject
       </Button>}
-      {row.orderStatus=='delivered' && < Chip color='success' icon={<CheckCircleIcon />} label="Delivered" variant="outlined" />}
-      {row.orderStatus=='rejected' && < Chip color='error' icon={<CancelIcon />} label="Rejected" variant="outlined" />}
+      {row?.orderStatus=='delivered' && < Chip color='success' icon={<CheckCircleIcon />} label="Delivered" variant="outlined" />}
+      {row?.orderStatus=='rejected' && < Chip color='error' icon={<CancelIcon />} label="Rejected" variant="outlined" />}
       {
-      row.orderStatus=='rejected' && <Button size='small' onClick={()=>{handleClickUnDoRejected(row.id)}} color='info' variant="outlined" startIcon={<UndoIcon/>}>
+      row?.orderStatus=='rejected' && <Button size='small' onClick={()=>{handleClickUnDoRejected(row?.id)}} color='info' variant="outlined" startIcon={<UndoIcon/>}>
         Undo
       </Button>}
       </Stack>

@@ -13,6 +13,9 @@ import MapComponent from '../../components/map/index';
 import SalaseDashBoard from '../../pages/farmer/SalesDashBoard';
 import MyRequets from '../../pages/farmer/myRequests';
 import Dashboard from './../../pages/F-Dashboard/index';
+import ReviewCard from '../../pages/farmer/Reviews/card';
+import DataCenter from './../../pages/farmer/DataCenter/index';
+
 
 const drawerWidth = 240;
 
@@ -31,7 +34,7 @@ export default function FarmerLayout() {
           setOpenPane( <SalaseDashBoard/>);
           break;     
           case FARMER_SECTIONS.FDASHBOARD:
-          setOpenPane( <Dashboard/>);
+          setOpenPane( <DataCenter/>);
           break;        
         case FARMER_SECTIONS.MYCROP:
          setOpenPane(<TabPaneMyCrops/>)
@@ -46,7 +49,7 @@ export default function FarmerLayout() {
           setOpenPane(<OrderPage/>)
           break;
         case FARMER_SECTIONS.REVIEWS:
-          setOpenPane(<MapComponent/>)
+          setOpenPane(<ReviewCard/>)
           break;
      
         default:

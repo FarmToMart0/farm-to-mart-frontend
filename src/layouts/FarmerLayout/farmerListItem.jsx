@@ -32,47 +32,47 @@ export default function FarmerListItems() {
       <><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.DASHBOARD)}>
       <ListItemIcon>
         <Tooltip title="Dashboard">
-          <DashboardIcon color="secondary" />
+          <DashboardIcon color="primary" />
         </Tooltip>
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItemButton><Divider /><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.FDASHBOARD)}>
         <ListItemIcon>
           <Tooltip title="Sales Dashboard">
-            <DashboardIcon color="secondary" />
+            <DashboardIcon color="primary" />
           </Tooltip>
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItemButton><Divider /><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.MYCROP)}>
         <ListItemIcon>
           <Tooltip title="My Crops">
-            <AssignmentIcon color="secondary" />
+            <AssignmentIcon color="primary" />
           </Tooltip>
         </ListItemIcon>
         <ListItemText primary="My Crops" />
       </ListItemButton><Divider /><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.SALES)}>
         <ListItemIcon>
-          <Tooltip title="Sales"><ReceiptIcon color="secondary" /></Tooltip>
+          <Tooltip title="Sales"><ReceiptIcon color="primary" /></Tooltip>
         </ListItemIcon>
         <ListItemText primary="Sales" />
       </ListItemButton><Divider /><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.ORDERS)}>
         <ListItemIcon>
           <Tooltip title="Orders">
-            <ViewListIcon color="secondary" />
+            <ViewListIcon color="primary" />
           </Tooltip>
         </ListItemIcon>
         <ListItemText primary="Orders" />
       </ListItemButton><Divider /><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.BID)}>
         <ListItemIcon>
           <Tooltip title="My Requests">
-            <ChatIcon color="secondary" />
+            <ChatIcon color="primary" />
           </Tooltip>
         </ListItemIcon>
         <ListItemText primary="My Requests" />
       </ListItemButton><Divider /><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.REVIEWS)}>
         <ListItemIcon>
           <Tooltip title="Reviews">
-            <RateReview color="secondary" />
+            <RateReview color="primary" />
           </Tooltip>
         </ListItemIcon>
         <ListItemText primary="Reviews" />

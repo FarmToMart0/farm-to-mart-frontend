@@ -62,7 +62,7 @@ function Row(props) {
         <TableCell component="th" scope="row">
           {row.productName}
         </TableCell>
-        <TableCell align="right">{new Date(row.date).getFullYear()+'-'+new Date(row.date).getMonth()+1+'-'+new Date(row.date).getDate()}</TableCell>
+        <TableCell align="right">{new Date(row.date).getFullYear()+'-'+new Date(row.date).getMonth()+'-'+new Date(row.date).getDate()}</TableCell>
         
         <TableCell align="right"><Button variant="outlined" onClick={()=>{props.openForm([true,row._id,1])}}  startIcon={<EditIcon  />}>
         Edit
@@ -159,8 +159,10 @@ Row.propTypes = {
 export default function ProductList({openProductAddForm,dataList,handleChangeFilter,handleRemove}) {
 
   return (
-    <Container>
+    <Container sx={{mt:3}}>
+      
       <SearchBarField placeHolder="Search product here" handleSearch={handleChangeFilter}/>
+ 
     <TableContainer  sx={{color:'primary'}} component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>

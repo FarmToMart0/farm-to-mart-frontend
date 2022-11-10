@@ -13,8 +13,6 @@ import MapSL from '../../components/map';
 function Dashboard() {
   return (
     <div>
-        <Navbar/>
-
       <Box sx={{ flexGrow: 1, mt:10 }}>
       <Grid container spacing={2} sx={{pr:10}}>
         <Grid item xs={8} style={{display:'flex', justifyContent:'center', alignItems:'center'}}>

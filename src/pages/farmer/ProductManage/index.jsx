@@ -3,9 +3,12 @@ import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import ItemAdd from '../../../components/ItemAdd/index';
-import { CssBaseline } from '@mui/material';
+import { CssBaseline, Typography } from '@mui/material';
 import ProductList from '../../../components/ProductList';
-import api from '../../../api'
+import api from '../../../api';
+import AddIcon from '@mui/icons-material/Add';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import Button from '@mui/material/Button';
 
 
 function ProductManage(props) {
@@ -61,13 +64,17 @@ React.useEffect(() => {
     return (
        <div> 
         <CssBaseline/> 
-    <Box  sx={{m:5}} elevation={24}  square >
+    <Box  sx={{ml:1,mt:1}} elevation={0}  square >
    {manageAddProdct[2]==0 && <Box  sx={{ '& > :not(style)': { m: 1 } }}>
  
-  <Fab variant="extended" size="medium" color="secondary" aria-label="add" onClick={()=>{setManageAddProduct([true,0,0])}}>
+  {/* <Fab variant="extended" size="medium" color="secondary" aria-label="add" onClick={()=>{setManageAddProduct([true,0,0])}}>
     <NavigationIcon sx={{ mr: 1 }} />
     Add Item
-  </Fab>
+  </Fab> */}
+  <Button variant="contained" color="success" startIcon={<AddCircleIcon />} onClick={()=>{setManageAddProduct([true,0,0])}}>
+  Add Item
+</Button>
+
   </Box>}
 </Box>
 

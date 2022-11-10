@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -6,7 +7,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
-
+import Logout from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Avatar, Dialog, DialogTitle, Divider, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
@@ -14,10 +15,22 @@ import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import StoreIcon from '@mui/icons-material/Store';
 import { blue, red, green } from '@mui/material/colors';
+import axios from 'axios';
+import Button from '@mui/material/Button';
 
+import PaidIcon from '@mui/icons-material/Paid';
+import CarCrashIcon from '@mui/icons-material/CarCrash';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import SellIcon from '@mui/icons-material/Sell';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function NotificationIcon(Props) {
-  
+import AgricultureIcon from '@mui/icons-material/Agriculture';
+// import NotificationIcon from './index';
+
+export default function NotificationIcon() {
+  const user = useSelector((state) => state?.user);
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -27,9 +40,63 @@ export default function NotificationIcon(Props) {
     setAnchorEl(null);
   };
 
-  React.useEffect(() => {
+  const notificationData = {
+    "farmer": {
+      "notification": [
+        "Your Fund has been released",
+        "Your transport request is accepted",
+        "Your transport request is rejected",
+        "Your stock sell successfully",
+        "Your stock rejected by the buyer", 
+      ],
+      "icon":[
+        <PaidIcon/>,
+        <DirectionsCarIcon/>,
+        <CarCrashIcon/>,
+        <SellIcon/>,
+        <StorefrontIcon/>,
+
+      ]
+    },
+   
+    "stockBuyer": {
+      "notification": [
+        "Your fund is released",
+        "Farmer request are available",
+        "You win the bid",
+      ],
+      "icon":[
+        <PaidIcon/>,
+        <AgricultureIcon/>,
+        <StorefrontIcon/>,
+
+      ],
+    },
+   
+  };
+
+  const [notification, setNotification] = React.useState({
+    userType:"farmer", notification:[{alert:1,time:"12:00PM"},
+    {alert:2,time:"12:00AM"}]});
   
+  React.useEffect(() => {
+    if(user.auth){
+      const interval = setInterval(() => {
+        // axios.get('/api/users/notifications/'+ user.email).then(res => {
+        //   setNotification(res.data.data);
+        // });
+      }, 2000);
+  
+      return () => clearInterval(interval);
+    }
+    
   }, []);
+
+  const clearNotification = () => {
+    // axios.put('/api/users/notifications/clear/'+ user.email).then(res => {
+    //   console.log('notification cleared');
+    // });
+  };
 
   return (
     <React.Fragment>
@@ -87,49 +154,33 @@ export default function NotificationIcon(Props) {
       >
          <DialogTitle>Notifications</DialogTitle>
          <Divider/>
-        <MenuItem>
-        <ListItem>
-            <ListItemAvatar>
-              <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
-                <PersonIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Your order is ready!" secondary="10:50 AM"/>
-        </ListItem>
-        </MenuItem>
         
-        <MenuItem>
-        <ListItem autoFocus>
-          <ListItemAvatar>
-            <Avatar sx={{ bgcolor: red[100], color: red[600] }}>
-              <EmailIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="We sent you an email. Check it out!" secondary="10:50 AM"/>
-      </ListItem>
-      </MenuItem>
-
+        {console.log(notificationData)}
+        
+        {
+        notification.notification.map((item, index) => {
+          return (
+            <MenuItem>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
+                    {notificationData[notification.userType].icon[item.alert]}
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary={notificationData[notification.userType].notification[item.alert]} secondary={item.time}/>
+              </ListItem>
+            </MenuItem>
+          );
+        })}
+      
       <MenuItem>
-       <ListItem autoFocus>
-          <ListItemAvatar>
-            <Avatar sx={{ bgcolor: green[100], color: green[600] }}>
-              <StoreIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Nearby shops are open!" secondary="10:50 AM"/>
-        </ListItem>
-        </MenuItem>
-
-        <MenuItem>
-        <ListItem autoFocus>
-          <ListItemAvatar>
-            <Avatar sx={{ bgcolor: green[100], color: green[600] }}>
-              <StoreIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Nearby shops are open!" secondary="10:50 AM"/>
-        </ListItem>
-        </MenuItem>
+      <Typography align='center'>
+    <Button onClick={clearNotification} variant="contained" startIcon={<DeleteIcon />}>
+          Read all notifications
+      </Button> 
+  </Typography>
+      
+      </MenuItem>
         
       </Menu>
     </React.Fragment>

@@ -71,7 +71,6 @@ export default function ItemAdd(props) {
       setSelectedPayementOption(props.editProduct[0].paymentOption)
       setSelectedDeliveryOption(props.editProduct[0].deliveryOption)
       setChecked(props.editProduct[0].biddingEnable)
-     
       setImageList(props.editProduct[0].images)
       setInitialValues({productName:props.editProduct[0].productName,description:props.editProduct[0].description,quantity:props.editProduct[0].quantity,price:props.editProduct[0].unitPrice,bid:props.editProduct[0].initialBid})
       setValuesArray({productName:props.editProduct[0].productName,description:props.editProduct[0].description,quantity:props.editProduct[0].quantity,price:props.editProduct[0].unitPrice,bid:props.editProduct[0].initialBid})
@@ -162,7 +161,7 @@ const handleSave = async (values)=>{
   const deleteFunc = (id) => {
     
     const arr = imageList.filter((item)=>{
-      if (item!=id) {
+      if (item.img!=id) {
         return item
       }
 
@@ -192,7 +191,7 @@ try {
   axios.post("https://api.cloudinary.com/v1_1/dnrpcuqvr/image/upload",formData).
     then((res)=>{
     
-    setImageList([...imageList, res.data.secure_url])
+    setImageList([...imageList,{ img: res.data.secure_url}])
     setLoadingImageAdd(false)
 
    
@@ -213,8 +212,8 @@ try {
 <div
 style={{
   maxWidth: 800,
-  marginLeft: 'auto',
-  marginRight: 'auto',
+  marginLeft: '10%',
+
   paddingTop: 10,
 }}
 >
@@ -241,7 +240,7 @@ style={{
       formikProps;
 
     return (
-      <Paper margin={2} elevation={20} >
+      <Paper margin={0} elevation={0} >
       <React.Fragment>
       <SnackBarComponent open={errorOccured} message={errorMessage.message} type={errorMessage.type}  setOpen={setErrorOccured}/>
 
@@ -259,7 +258,7 @@ style={{
       onChange={(event,value)=>{
         setSelectCategory(value);
       }}
-      sx={{ width: 500 }}
+      sx={{ width: 700 }}
       renderInput={(params) => <TextField {...params} label="Category" />}
     />
           <TextField
@@ -268,13 +267,13 @@ style={{
             helperText={errors.productName}
             
             error={touched.productName && Boolean(errors.productName)}
-            style={{ width: 500 }}
+            style={{ width: 700 }}
             value={values.productName}
             onChange={handleChange('productName')}
             InputLabelProps={{ shrink: true }}
           />
           <Grid container   spacing={2}>
-  <Grid sx={{ml:15}}  item xs={3}>
+  <Grid sx={{ml:3}}  item xs={3.6}>
     
       <TextField
             label="Quantity(Kg)"
@@ -282,33 +281,33 @@ style={{
             helperText={errors.quantity}
             
             error={touched.quantity && Boolean(errors.quantity) }
-            style={{ width: 100 }}
+            style={{ width: 225 }}
             value={values.quantity}
             onChange={handleChange('quantity')}
             InputLabelProps={{ shrink: true }}
           />
   </Grid>
-  <Grid item xs={3}>
+  <Grid item xs={3.6}>
      <TextField
             label="Unit Price"
             variant="outlined"
             helperText={errors.price}
             
             error={touched.price && Boolean(errors.price)}
-            style={{ width: 100 }}
+            style={{ width: 225 }}
             value={values.price}
             onChange={handleChange('price')}
             InputLabelProps={{ shrink: true }}
           />
   </Grid>
-  <Grid item xs={3}>
+  <Grid item xs={3.5}>
      <TextField
             label="Initial Bid"
             variant="outlined"
             helperText={errors.bid}
             
             error={touched.bid && Boolean(errors.bid)}
-            style={{ width: 100 }}
+            style={{ width: 225 }}
             value={values.bid}
             onChange={handleChange('bid')}
             InputLabelProps={{ shrink: true }}
@@ -323,7 +322,7 @@ style={{
             helperText={errors.description}
             
             error={touched.description && Boolean(errors.description)}
-            style={{ width: 500 }}
+            style={{ width: 700 }}
             value={values.description}
             onChange={handleChange('description')}
             InputLabelProps={{ shrink: true }}
@@ -340,7 +339,7 @@ style={{
             getOptionLabel={(option) => option}
             options={['Farm pickup','Delivery Service']}
             filterSelectedOptions
-            sx={{ width: 500 }}
+            sx={{ width: 700 }}
             onChange={(event, value) => {
 
               setSelectedDeliveryOption(value)
@@ -367,7 +366,7 @@ style={{
             getOptionLabel={(option) => option}
             options={['Online Payment','Cash on delivery','Shop pichup payment']}
             filterSelectedOptions
-            sx={{ width: 500 }}
+            sx={{ width: 700 }}
             onChange={(event, value) => {
           
               setSelectedPayementOption(value)
@@ -386,7 +385,7 @@ style={{
             )}
           />
           <Grid container spacing={2}>
-  <Grid ml={16} item xs={8}>
+  <Grid ml={5} item xs={8}>
      <Stack direction='row' spacing={2}>
             <Typography>Bidding Enable</Typography>
           <Switch
@@ -400,7 +399,7 @@ style={{
   
 </Grid>
 <Grid container spacing={2}>
-  <Grid ml={16} item xs={8}>
+  <Grid ml={4} mt={0} item xs={8}>
   <React.Fragment>
                   <label htmlFor="contained-button-file">
                     <Input
@@ -411,7 +410,7 @@ style={{
                       onChange={handleChangeImage}
                     />
                     <Button
-                      variant="contained"
+                      variant="outlined"
                       color="success"
                       component="span"
                       disabled={imageAddSuccesfully || loadingImageAdd}
@@ -428,8 +427,8 @@ style={{
 
                 {props.edit==0 && <Button
                   variant="contained"
-                  color="secondary"
-                  sx={{ width: 300 }}
+                  color="success"
+                  sx={{ width: "40%",paddingTop:'15px',paddingBottom:'15px' } }
                   onClick={handleSubmit}
                   disabled={loadingProductAdd}
                 >
