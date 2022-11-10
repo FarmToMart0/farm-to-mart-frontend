@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react'
+import { useDispatch,useSelector } from 'react-redux';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
@@ -30,6 +31,7 @@ const Input = styled('input')({
 });
 export default function ItemAdd(props) {
   const navigate = useNavigate();
+  const user = useSelector((state) => state?.user);
   const [imageList,setImageList]=useState(
     [
     
@@ -88,7 +90,7 @@ const handleSave = async (values)=>{
   try {
     setLoadingProductAdd(true)
     
-      const [code,res] = await api.farmer.updateProduct({_id:productId,'category':selectCategory,'productName':values.productName,'quantity':values.quantity,'unitPrice':values.price,'initialBid':values.bid,'description':values.description,'biddingEnable':checked,'paymentOption':selectedPayementOption,'deliveryOption':selectedDeliveryOption,'images':imageList});
+      const [code,res] = await api.farmer.updateProduct({_id:productId,'category':selectCategory,'farmer':user.id,'productName':values.productName,'quantity':values.quantity,'unitPrice':values.price,'initialBid':values.bid,'description':values.description,'biddingEnable':checked,'paymentOption':selectedPayementOption,'deliveryOption':selectedDeliveryOption,'images':imageList});
       if (code === 201) {
         setLoadingProductAdd(false);
         setProductAddedSuccesfully(false);

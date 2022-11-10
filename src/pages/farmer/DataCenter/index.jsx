@@ -55,9 +55,12 @@ const DataCenter = () => {
     const [district,setDistrict] =useState('Matara')
     const [cropType,setCropType] =useState('Matara')
     const [tableData,setTabledata] = useState([{id:1,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:2,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:3,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:4,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:5,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:6,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:7,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:8,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:9,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:10,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"}])
-
+    const [year, setYear] = useState('2022')
     const handleChangeDistrict =(event)=>{
         setDistrict(event.target.value);
+    }
+    const handleChangeYear =(event)=>{
+        setYear(event.target.value);
     }
     const handleChangeCropType =(event)=>{
         setCropType(event.target.value);
@@ -115,8 +118,19 @@ const DataCenter = () => {
                 {/* row 3 */}
                 <Grid item xs={12} md={7} lg={8}>
                     <Grid container alignItems="center" justifyContent="space-between">
+
                         <Grid item>
-                            <Typography variant="h5">Top Harvested Crops</Typography>
+                        <Stack
+        marginTop={4}
+            direction="row"
+           
+            spacing={2}
+        >
+            
+           <Typography variant="h5">Top Harvested Crops</Typography>
+            <SelectingInputField lable={"year"} handleChangeValue={handleChangeYear} value={year} valuesArray={years} />
+        </Stack>
+                            
                         </Grid>
                         <Grid item />
                     </Grid>
