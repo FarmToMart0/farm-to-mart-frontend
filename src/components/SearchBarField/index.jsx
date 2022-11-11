@@ -10,7 +10,7 @@ export default function SearchBarField({placeHolder,handleSearch}) {
   return (
     <Paper
       component="form"
-      sx={{ml:'61%', p: '2px 4px', display: 'flex', alignItems: 'center', width: 450 ,backgroundColor:'secondary'}}
+      sx={{ml:'61%', p: '2px 4px', display: 'flex', alignItems: 'center', width: 450 ,backgroundColor:'red'}}
     >
       
       <InputBase

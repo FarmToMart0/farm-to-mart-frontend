@@ -9,7 +9,7 @@ import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
+import { grey, red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -36,11 +36,8 @@ const ExpandMore = styled((props) => {
 
 
 export default function ItemCard(props) {
-    // const item_id,farmer_name = props.id;
-    // const price = props.price;
-    // const description = props.des;
-    // const more_details = props.more;
-    const {item_id,farmer_name,price,more_details,date,transport,payment,image} = props.item
+
+    const {item_id,product_name,price,more_details,date,transport,payment,image} = props.item
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -49,14 +46,14 @@ export default function ItemCard(props) {
 
     const navigate = useNavigate();
     function handleBuy(){
-      navigate('/buyer/market/checkout')
+      navigate('/buyer/market/checkout',{state:{item_id:item_id,unit_price:price,transport:transport,payment:payment,product_name:product_name}})
     }
   return (
     
-    <Card sx={{ maxWidth: 345 ,background:'#e8e9ec',boxShadow: 'rgba(0, 0, 0, 0.24) 3px 5px 10px'}}>
+    <Card sx={{ maxWidth: 345 ,background:'#FFFFFF',boxShadow: 'rgba(0, 0, 0, 0.24) 3px 5px 10px', borderRadius: '15px'}}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+          <Avatar sx={{ bgcolor: grey[500] }} aria-label="recipe">
             
           </Avatar>
         }
@@ -65,7 +62,7 @@ export default function ItemCard(props) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={farmer_name}
+        title= <span style={{fontSize:20,color:"#004600"}}><b>{product_name} </b></span>
         subheader={date}
       />
       <CardMedia
@@ -109,7 +106,7 @@ export default function ItemCard(props) {
         </Stack>
         </Stack>
         
-          
+        <hr></hr>
           <Typography paragraph style={{color:'black'}}>
             {more_details}
           </Typography>

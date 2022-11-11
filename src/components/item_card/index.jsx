@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 
 
 export default function ItemCard(props) {
+ const {unit_price,product_name} = props.left_card_details;
 
   
 
@@ -23,11 +24,11 @@ export default function ItemCard(props) {
       }}
     >
         <div >
-        <h1 style={{padding:10, color:'#007476'}}>Paddy</h1>
+        <h1 style={{padding:10, color:'#007476'}}>{product_name}</h1>
         
         <div style={{
         paddingLeft:30}}>
-            <h3> Unit Price : 120 Rs/Kg</h3>
+            <h3> Unit Price : {unit_price} Rs/Kg</h3>
             <h3>Quantity : <Box
                     component="form"
                     sx={{

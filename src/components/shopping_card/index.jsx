@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
-import {useNavigate}  from 'react-router-dom'
+import { useNavigate, useLocation } from "react-router-dom";
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { Stack } from '@mui/system';
@@ -16,13 +16,22 @@ import Alert from '@mui/material/Alert';
 
 export default function BuyItemShoppingCard(props) {
   const navigate = useNavigate()
+  const location = useLocation();
   
   const [totValue, setTotValue] = useState(0);
   const [inputValue, setInputValue] = useState(0);
-  const deliveryMethods = props.deliveryMethods;
-  const paymentMethods = props.paymentMethods;
-  // const itemData = props.itemData;
 
+  const { item_id, unit_price,payment,transport,product_name } = location.state;
+  const left_card_details = {unit_price,product_name}
+
+  const handleBuyOrder = ()=>{
+    if(transport === "Available"){
+      navigate('/buyer/market/checkout/payment',{state:{transport:true, payment:payment}})
+    }else{
+      navigate('/buyer/market/checkout/payment',{state:{transport:false, payment:payment}})
+    }
+    
+  }
   const itemData = [
     {
       img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
@@ -44,47 +53,24 @@ export default function BuyItemShoppingCard(props) {
       img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
       title: 'Hats',
     },
-    {
-      img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62',
-      title: 'Honey',
-    },
-    {
-      img: 'https://images.unsplash.com/photo-1516802273409-68526ee1bdd6',
-      title: 'Basketball',
-    },
-    {
-      img: 'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
-      title: 'Fern',
-    },
-    {
-      img: 'https://images.unsplash.com/photo-1597645587822-e99fa5d45d25',
-      title: 'Mushrooms',
-    },
-    {
-      img: 'https://images.unsplash.com/photo-1567306301408-9b74779a11af',
-      title: 'Tomato basil',
-    },
-    {
-      img: 'https://images.unsplash.com/photo-1471357674240-e1a485acb3e1',
-      title: 'Sea star',
-    },
-    {
-      img: 'https://images.unsplash.com/photo-1589118949245-7d38baf380d6',
-      title: 'Bike',
-    },
+    
+    
   ];
-  
 
   function getInputAmount(value){
     
     setInputValue(value);
   }
   
+    useEffect(()=>{
+      // call method for getting images fromserver
+    })
 
     useEffect(()=>{
     
-      setTotValue(Math.round(inputValue*props.unitPrice*100)/100)
-      console.log(inputValue)
+  
+      setTotValue((inputValue*unit_price).toFixed(2))
+      
     },[inputValue])
 
 
@@ -98,7 +84,7 @@ export default function BuyItemShoppingCard(props) {
         display: 'flex',
         flexWrap: 'wrap',
         marginBottom:10,
-        my:4,
+        my:1,
         '& > :not(style)': {
           m: 1,
           width: '100%',
@@ -126,9 +112,9 @@ export default function BuyItemShoppingCard(props) {
       
       <Paper elevation={1}  style={{display:'flex', justifyContent:'center', alignItems:'center', padding:20,marginBottom:20}}> 
         
-
+      
         {/* ======================= Left Card ============================= */}
-        <ItemCard  getInputAmount = {getInputAmount}/>
+        <ItemCard  getInputAmount = {getInputAmount} left_card_details ={left_card_details} />
         {/* ============================ End Left Card ========================= */}
         <Box
       sx={{
@@ -156,7 +142,7 @@ export default function BuyItemShoppingCard(props) {
             <LocalShippingIcon sx={{mx:3}}/>
 
             <ul style={{margin:0}}>
-            {deliveryMethods.map((item)=><li key={item}>{item}</li>)}
+            <b>Tranport : </b>{transport}
             </ul>
             
             </Stack>
@@ -164,7 +150,7 @@ export default function BuyItemShoppingCard(props) {
             <Stack direction="row" style={{marginTop:15}}> 
             <PaymentIcon sx={{mx:3}}/>
             <ul style={{margin:0}}>
-            {paymentMethods.map((item)=><li key={item}>{item}</li>)}
+            <b>Online Payment : </b>{payment}
             </ul>
             </Stack>
             
@@ -188,25 +174,20 @@ export default function BuyItemShoppingCard(props) {
     </Stack>
       
     </Box>
-      {/* const itemData = [
-  
-'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
 
-
-
- ]; */}
 
     {/* ===========================Image component====================== */}
+  <div style={{display:"flex", alignItem:"center",justifyContent:"center"}}>
+  <ImageList images = {itemData} />
   
-    <ImageList images = {itemData}/>
+  </div>
+    
 
 {/* ===========================End ofImage component====================== */}
-    
+      
       </Paper>
       
-      <Button  onClick={()=>{navigate('/buyer/market/checkout/payment')}} variant="contained" startIcon={<ShoppingCartIcon style={{height:50}}/>}>
+      <Button  style={{width:"56%", marginBottom:0}}  onClick={handleBuyOrder} variant="contained" startIcon={<ShoppingCartIcon style={{height:50}}/>}>
         BUY
       </Button>
     </Box>

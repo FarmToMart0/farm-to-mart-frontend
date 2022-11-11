@@ -8,7 +8,7 @@ export default function AddressForm() {
   
   return (
     <div>
-      <Typography variant="h6" gutterBottom>
+      <Typography  gutterBottom>
         Delivery address
       </Typography>
       <Grid container spacing={3}>
