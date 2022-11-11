@@ -55,16 +55,7 @@ const DataCenter = () => {
     const [districtList,setDistrictList]= useState([])
     const [tableData,setTabledata] = useState([{id:1,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:2,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:3,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:4,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:5,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:6,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:7,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:8,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:9,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:10,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"}])
     const [year, setYear] = useState('2022')
-    const [series,setSeries]=useState([
-        {
-            name: 'Expected Amount',
-            data: []
-        },
-        {
-            name: 'Harvested Amount',
-            data:  [] 
-        }
-    ]);
+    const [series,setSeries]=useState([ ]);
     const handleChangeDistrict =(event)=>{
         setDistrict(event.target.value);
     }
@@ -80,6 +71,19 @@ const DataCenter = () => {
             const [code,res] = await api.farmer.getHarvestdetails(district,crop)
             if (code==201) {
                setYears(res.map((item)=>{return item._id.year}))   
+
+               const totalharvest = res.map((item)=>{item.totalHarvest})
+               const totalexpected = res.map((item)=>{item.totalexpected})
+               setSeries([
+                {
+                    name: 'Expected Amount',
+                    data: totalexpected
+                },
+                {
+                    name: 'Harvested Amount',
+                    data:  totalharvest
+                }
+            ])
             }else{
                 console.log(code,res)
             }
