@@ -30,23 +30,14 @@ const areaChartOptions = {
 
 // ==============================|| INCOME AREA CHART ||============================== //
 
-const IncomeAreaChart = ({ years }) => {
+const IncomeAreaChart = ({ years, series }) => {
     const theme = useTheme();
     const slot ='month'
     const { primary, secondary } = theme.palette.text;
     const line = theme.palette.divider;
 
     const [options, setOptions] = useState(areaChartOptions);
-    const [series, setSeries] = useState([
-        {
-            name: 'Expected Amount',
-            data: [0, 86, 28, 115, 48, 210, 136]
-        },
-        {
-            name: 'Harvested Amount',
-            data: [0, 43, 14, 56, 24, 105, 68]
-        }
-    ]);
+    
     useEffect(() => {
         setOptions((prevState) => ({
             ...prevState,
@@ -97,16 +88,7 @@ const IncomeAreaChart = ({ years }) => {
  
 
     useEffect(() => {
-        setSeries([
-            {
-                name: 'Expected Amount',
-                data: [76, 85, 101, 98, 87, 105, 91, 114, 94, 86, 115, 35]
-            },
-            {
-                name: 'Harvested Amount',
-                data:  [110, 60, 150, 35, 60, 36, 26, 45, 65, 52, 53, 41] 
-            }
-        ]);
+        
     }, [slot]);
 
     return <ReactApexChart options={options} series={series} type="area" height={450} />;

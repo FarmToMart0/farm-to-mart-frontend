@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect} from 'react';
 
 // material-ui
 import {
@@ -17,15 +17,11 @@ import {
 import OrdersTable from './TopHarvestedCrops';
 import IncomeAreaChart from './HarvestedAreaChart';
 import MonthlyBarChart from './HarvetedLand';
-
 import MainCard from './MainCard';
-
-
-// assets
-import { GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
 import SelectingInputField from './SelectInputField';
 import CategoryOverview from './CategoryOverview';
-
+import api from '../../../api'
+import { useSelector } from 'react-redux';
 
 
 // avatar style
@@ -50,12 +46,25 @@ const actionSX = {
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
 const DataCenter = () => {
-    const [value, setValue] = useState('today');
-    const [years, setYears] = useState([2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022]);
-    const [district,setDistrict] =useState('Matara')
-    const [cropType,setCropType] =useState('Matara')
+    const user = useSelector((state) => state?.user);
+  
+    const [years, setYears] = useState([]);
+    const [district,setDistrict] =useState(user.district);
+    const [cropList,setCropList] =useState([]);
+    const [cropType,setCropType] =useState('');
+    const [districtList,setDistrictList]= useState([])
     const [tableData,setTabledata] = useState([{id:1,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:2,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:3,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:4,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:5,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:6,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:7,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:8,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:9,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:10,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"}])
     const [year, setYear] = useState('2022')
+    const [series,setSeries]=useState([
+        {
+            name: 'Expected Amount',
+            data: []
+        },
+        {
+            name: 'Harvested Amount',
+            data:  [] 
+        }
+    ]);
     const handleChangeDistrict =(event)=>{
         setDistrict(event.target.value);
     }
@@ -65,6 +74,60 @@ const DataCenter = () => {
     const handleChangeCropType =(event)=>{
         setCropType(event.target.value);
     }
+      
+    async function getHarvestDetails(district,crop){
+        try {
+            const [code,res] = await api.farmer.getHarvestdetails(district,crop)
+            if (code==201) {
+               setYears(res.map((item)=>{return item._id.year}))   
+            }else{
+                console.log(code,res)
+            }
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    async function getTopHarvestDetails(district,year){
+        try {
+            const [code,res] = await api.farmer.getToHarvestedCrops(district,year)
+            if (code==201) {
+                setTabledata(res); 
+            }else{
+                console.log(code,res)
+            }
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function getAllListDetailst() {
+        try {
+            const [code,res] = await api.farmer.getCropTypeList()
+            if (code==201) {
+                setCropList(res);
+                setCropType(res[0])
+            }else{
+                console.log(code,res)
+            }
+            const [code1,res1]= await api.farmer.getDistrictList()
+            if (code1==201) {
+                setDistrictList(res1)
+                setDistrict(user?.district)
+            }else{
+                console.log(code,res)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    useEffect(() =>{
+         getAllListDetailst();
+         getHarvestDetails(district,cropType);
+         getTopHarvestDetails(district,year);
+         
+    },[])
     return (
         <><Stack
         marginTop={4}
@@ -72,8 +135,8 @@ const DataCenter = () => {
             divider={<Divider orientation="vertical" flexItem />}
             spacing={2}
         >
-            <SelectingInputField lable={"District"} handleChangeValue={handleChangeDistrict} value={district} valuesArray={["Matara", "Galle", "Hambanthota", "Anuradhapura", "Polonnaruwa"]} />
-            <SelectingInputField lable={"Crop Type"} handleChangeValue={handleChangeCropType} value={cropType} valuesArray={["Beans", "Paddy", "Pampkin", "Banana", "Mango"]} />
+            <SelectingInputField lable={"District"} handleChangeValue={handleChangeDistrict} value={district} valuesArray={districtList} />
+            <SelectingInputField lable={"Crop Type"} handleChangeValue={handleChangeCropType} value={cropType? cropType:"Beans"} valuesArray={cropList} />
         </Stack><Grid marginTop={0} container rowSpacing={4.5} columnSpacing={2.75}>
 
 
@@ -91,7 +154,7 @@ const DataCenter = () => {
                     </Grid>
                     <MainCard content={false} sx={{ mt: 1.5 }}>
                         <Box sx={{ pt: 1, pr: 2 }}>
-                            <IncomeAreaChart years={years} />
+                            <IncomeAreaChart series={series} years={years} />
                         </Box>
                     </MainCard>
                 </Grid>

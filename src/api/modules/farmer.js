@@ -23,6 +23,21 @@ export default {
   updateHarvestedData(data){
     
     return resolver(axiosClient.put(`/farmer/updateharvest/${data[1]}`,data[0]))
+  },
+  getHarvestdetails(ditrict,crop){
+    return resolver(axiosClient.get(`/farmer/harvestdetails/${ditrict}/${crop}`))
+  },
+  getToHarvestedCrops(district,year){
+    return resolver(axiosClient.get(`/farmer/topharvestedcrops/${district}/${year}`))
+  },
+  getCategorySummary(district,year){
+    return resolver(axiosClient.get(`/farmer/averagecropcategory/${district}/${year}`))
+  },
+  getCropTypeList(){
+    return resolver(axiosClient.get(`/farmer/uniquecrops`))
+  },
+  getDistrictList(){
+    return resolver(axiosClient.get(`/farmer/uniquedistrict`))
   }
   
   
