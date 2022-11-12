@@ -6,15 +6,21 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import validator from 'validator';
+import Container from '@mui/material/Container';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 export default function PaymentForm(props) {
-  const {
-    paymentValidated,
-    setPaymentValidated,
-    setCardDetails,
-    paymentMethod,
-    setPaymentMethod,
-  } = props;
+  const [paymentValidated, setPaymentValidated] = useState(false);
+  const [cardDetails, setCardDetails] = useState({
+    nameOnCard: '',
+    cardNumber: '',
+    expiryDate: '',
+    cvv: '',
+  });
+  const [paymentMethod, setPaymentMethod] = useState('CARD');
+  
   const [nameOnTheCard, setNameOnTheCard] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCvv] = useState('');
@@ -65,6 +71,14 @@ export default function PaymentForm(props) {
   }, [nameOnTheCard, expiryDate, cvv, cardNumber]);
 
   return (
+    <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+    <Paper
+          variant="outlined"
+          sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
+        >
+        <Typography component="h1" variant="h4" align="center">
+            Checkout
+          </Typography>
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         Payment method
@@ -73,7 +87,7 @@ export default function PaymentForm(props) {
         <FormControlLabel
           control={
             <Checkbox
-              defaultChecked
+              
               checked={paymentMethod === 'CARD'}
               onChange={(event, checked) => {
                 if (checked) {
@@ -159,5 +173,10 @@ export default function PaymentForm(props) {
         </Grid>
       )}
     </React.Fragment>
+    <Button  style={{width:"100%",marginTop:25}}   variant="contained" endIcon={<ArrowForwardIosIcon/>}>
+        NEXT
+      </Button>
+    </Paper>
+    </Container>
   );
 }
