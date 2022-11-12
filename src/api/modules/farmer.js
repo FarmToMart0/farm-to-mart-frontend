@@ -31,6 +31,7 @@ export default {
     return resolver(axiosClient.get(`/farmer/topharvestedcrops/${district}/${year}`))
   },
   getCategorySummary(district,year){
+   
     return resolver(axiosClient.get(`/farmer/averagecropcategory/${district}/${year}`))
   },
   getCropTypeList(){
@@ -38,6 +39,9 @@ export default {
   },
   getDistrictList(){
     return resolver(axiosClient.get(`/farmer/uniquedistrict`))
+  },
+  getYearstList(district){
+    return resolver(axiosClient.get(`/farmer/uniqueyears/${district}`))
   }
   
   

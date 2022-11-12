@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import LineGraph from '../../components/LineChart/index'
-import MapSL from '../../components/map';
+
 
 function Dashboard() {
   return (
@@ -20,7 +20,7 @@ function Dashboard() {
         </Grid>
 
         <Grid item xs={4} style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-        <MapSL/>
+        
         </Grid>
 
         <Grid item xs={4} style={{display:'flex', justifyContent:'center', alignItems:'center'}}>

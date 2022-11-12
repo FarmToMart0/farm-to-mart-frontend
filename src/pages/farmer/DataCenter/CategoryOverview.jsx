@@ -1,25 +1,15 @@
+import { useEffect,useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Box, Card, CardContent, CardHeader, Divider, Typography, useTheme } from '@mui/material';
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
-export default function CategoryOverview (props) {
+export default function CategoryOverview ({categoryData}) {
   const theme = useTheme();
-  const supData = [63000,50000,10000,12000];
-  const supColors = ['#3F51B5', '#e53935', '#FB8C00','#00FFAB','#15133C','#F9D923','#FF5F00'].slice(0,supData.length)
-
-  const data = {
-    datasets: [
-      {
-        data: supData,
-        backgroundColor: ['#019267','#2D31FA','#FB8C00','#E60965'],
-        borderWidth: 8,
-        borderColor: '#FFFFFF',
-        hoverBorderColor: '#FFFFFF'
-      }
-    ],
-    labels: ['Paddy','Vegetable',  'Grains','Fruits',]
-  };
+ 
+  const supColors = ['#3F51B5', '#e53935', '#FB8C00','#00FFAB','#15133C','#F9D923','#FF5F00'].slice(0,categoryData.length)
+ 
+  
 
   const options = {
     animation: false,
@@ -42,34 +32,22 @@ export default function CategoryOverview (props) {
       titleFontColor: theme.palette.text.primary
     }
   };
-  const Total = 63+50+10+12
-
-  const devices = [
+console.log('dog',categoryData)
+const data = {
+  datasets: [
     {
-      title: 'Paddy',
-      value: Math.round(6300/Total),
-      color: '#019267'
-    },
-    {
-      title: 'Vegetable',
-      value: Math.round(5000/Total),
-      color: '#2D31FA'
-    },
-    {
-      title: 'Grains',
-      value: Math.round(1000/Total),
-      color: '#FB8C00'
-    },
-    {
-      title: 'fruits',
-      value: Math.round(1200/Total),
-      color: '#E60965'
+      data: categoryData.map(item=>{return item.value}),
+      backgroundColor: ['#2D31FA','#FB8C00','#E60965'],
+      borderWidth: 8,
+      borderColor: '#FFFFFF',
+      hoverBorderColor: '#FFFFFF'
     }
-  ];
-
+  ],
+  labels: ['Vegetable',  'Grains','Fruits']
+};
   return (
-    <div {...props} style={{  boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px', marginBottom:40,marginTop:7, padding:10,height:510,width:'100%'}}>
-      <h1 style={{display:'flex', justifyContent:'center', alignItems:'center',color:'#42C2FF',marginTop:10,marginBottom:20}}> Harvest Distibution </h1>
+    <div  style={{  boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px', marginBottom:40,marginTop:7, padding:10,height:510,width:'100%'}}>
+      <h1 style={{display:'flex', justifyContent:'center', alignItems:'center',color:'#42C2FF',marginTop:10,marginBottom:20}}> Category Distibution </h1>
       <Divider />
       
         <Box
@@ -91,7 +69,7 @@ export default function CategoryOverview (props) {
             pt: 2
           }}
         >
-          {devices.map(({
+          {categoryData.map(({
             color,
             title,
             value

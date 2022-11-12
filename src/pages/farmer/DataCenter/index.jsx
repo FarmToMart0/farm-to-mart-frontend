@@ -24,23 +24,6 @@ import api from '../../../api'
 import { useSelector } from 'react-redux';
 
 
-// avatar style
-const avatarSX = {
-    width: 36,
-    height: 36,
-    fontSize: '1rem'
-};
-
-// action style
-const actionSX = {
-    mt: 0.75,
-    ml: 1,
-    top: 'auto',
-    right: 'auto',
-    alignSelf: 'flex-start',
-    transform: 'none'
-};
-
 
 
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
@@ -49,31 +32,98 @@ const DataCenter = () => {
     const user = useSelector((state) => state?.user);
   
     const [years, setYears] = useState([]);
-    const [district,setDistrict] =useState(user.district);
+    const [sum, setSum] = useState(0);
+    const [yearsForTable, setYearsForTable] = useState([]);
+    const [categorySummary,setCategorySummary] = useState([]);
+    const [district,setDistrict] =useState('');
     const [cropList,setCropList] =useState([]);
-    const [cropType,setCropType] =useState('');
+    const [cropType,setCropType] =useState('Paddy');
     const [districtList,setDistrictList]= useState([])
-    const [tableData,setTabledata] = useState([{id:1,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:2,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:3,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:4,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:5,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:6,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:7,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:8,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:9,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"},{id:10,cropType:"Paddy",harvestedAmount:"10000000",expectedAmount:"120000",land:"10000"}])
-    const [year, setYear] = useState('2022')
+    const [tableData,setTabledata] = useState([])
+    const [yearForTable, setYearForTable] = useState('2022')
     const [series,setSeries]=useState([ ]);
-    const handleChangeDistrict =(event)=>{
+    const [landData,setLandData] =useState([]);
+    const handleChangeDistrict = async (event)=>{
         setDistrict(event.target.value);
+        // await getHarvestDetails(event.target.value,cropType)
     }
     const handleChangeYear =(event)=>{
-        setYear(event.target.value);
+        setYearForTable(event.target.value);
     }
-    const handleChangeCropType =(event)=>{
+    const handleChangeCropType = async (event)=>{
+        
         setCropType(event.target.value);
+        // await getHarvestDetails(district,event.target.value)
     }
-      
+    async function getYears(district) {
+        try {
+            const [code,res] =await api.farmer.getYearstList(district)
+            if (code==201) {
+                setYearsForTable(res.map((item)=>{return item._id.year}));
+
+            }
+            
+        } catch (error) {
+            console.log(error)
+            
+        }
+    }
+
+    async function getAverageCategory(district,year) {
+        try {
+            const [code,res] = await api.farmer.getCategorySummary(district,year);
+            
+            if (code ==201) {
+               
+                var total = 0
+                
+                res.forEach(element => {
+                    total = total+ element.totalHarvest;
+                }); 
+                
+                var devices = [ ];
+
+                res.forEach(element => {
+                    if (element._id=='vegetable' ) {
+                    devices.push({
+                        title: 'vegetable',
+                        value:Math.round((element.totalHarvest/total)*100),
+                       
+                        color: '#2D31FA'
+                    })
+                    
+                    }else if(element._id=='grains'){
+                        devices.push({
+                        title: 'grains',
+                        value: Math.round((element.totalHarvest/total)*100),
+                        color: '#2D31FA'
+                    })
+                    }else if(element._id=='fruits'){
+                        devices.push({
+                        title: 'fruits',
+                        value:Math.round((element.totalHarvest/total)*100),
+                        color: '#2D31FA'
+                    })
+                    }
+                  
+                });
+                console.log('devices',devices)
+                setCategorySummary(devices);
+            }    
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
     async function getHarvestDetails(district,crop){
         try {
-            const [code,res] = await api.farmer.getHarvestdetails(district,crop)
+            const [code,res] = await api.farmer.getHarvestdetails(district,crop);
             if (code==201) {
-               setYears(res.map((item)=>{return item._id.year}))   
-
-               const totalharvest = res.map((item)=>{item.totalHarvest})
-               const totalexpected = res.map((item)=>{item.totalexpected})
+               setYears(res.map((item)=>{return item._id.year}));
+               const totalharvest = res.map((item)=>{return item.totalHarvest})
+               const totalexpected = res.map((item)=>{return item.totalExpected})
+               const totalLand = res.map((item)=>{return item.totalLand})
+               
                setSeries([
                 {
                     name: 'Expected Amount',
@@ -82,8 +132,12 @@ const DataCenter = () => {
                 {
                     name: 'Harvested Amount',
                     data:  totalharvest
-                }
+                },
             ])
+            setLandData([{
+                name:"Harvested Area",
+                data: totalLand
+            }]);
             }else{
                 console.log(code,res)
             }
@@ -127,11 +181,25 @@ const DataCenter = () => {
         }
     }
     useEffect(() =>{
-         getAllListDetailst();
-         getHarvestDetails(district,cropType);
-         getTopHarvestDetails(district,year);
-         
-    },[])
+        getAllListDetailst();    
+   },[])
+   
+    useEffect(() =>{
+        getHarvestDetails(district? district: user.district,cropType);
+    },[district,cropType])
+
+    useEffect(() =>{
+        getYears(district? district: user.district);    
+   },[district])
+    useEffect(() =>{
+
+       getTopHarvestDetails(district? district: user.district,yearForTable);
+       
+        
+   },[yearForTable])
+   useEffect(() =>{
+    getAverageCategory(district,yearForTable); 
+   },[yearForTable,district])
     return (
         <><Stack
         marginTop={4}
@@ -140,7 +208,7 @@ const DataCenter = () => {
             spacing={2}
         >
             <SelectingInputField lable={"District"} handleChangeValue={handleChangeDistrict} value={district} valuesArray={districtList} />
-            <SelectingInputField lable={"Crop Type"} handleChangeValue={handleChangeCropType} value={cropType? cropType:"Beans"} valuesArray={cropList} />
+            <SelectingInputField lable={"Crop Type"} handleChangeValue={handleChangeCropType} value={cropType} valuesArray={cropList} />
         </Stack><Grid marginTop={0} container rowSpacing={4.5} columnSpacing={2.75}>
 
 
@@ -150,7 +218,7 @@ const DataCenter = () => {
                 <Grid item xs={12} md={7} lg={8}>
                     <Grid container alignItems="center" justifyContent="space-between">
                         <Grid item>
-                            <Typography variant="h5">Comparison Of Harvested and Expected Amount in Past Years</Typography>
+                            <Typography variant="h5">Comparison Of Harvested and Expected Amount of {cropType} in Past Years in {district}</Typography>
                         </Grid>
                         <Grid item>
 
@@ -165,20 +233,18 @@ const DataCenter = () => {
                 <Grid item xs={12} md={5}  lg={4}>
                     <Grid container alignItems="center" justifyContent="space-between">
                         <Grid item>
-                            <Typography variant="h5">Statistics of Growing Area in {district} </Typography>
+                            <Typography variant="h5">Statistics of Growing Area in {district} district  </Typography>
                         </Grid>
                         <Grid item />
                     </Grid>
                     <MainCard sx={{ mt: 2 }} content={false}>
                         <Box sx={{ p: 3, pb: 0 }}>
                             <Stack spacing={2}>
-                                <Typography sx={{display:'hide'}} variant="h6" color="textSecondary">
-                                Growing Area
-                                </Typography>
+                                
 
                             </Stack>
                         </Box>
-                        <MonthlyBarChart years={years} />
+                        <MonthlyBarChart series={landData} years={years} />
                     </MainCard>
                 </Grid>
 
@@ -195,7 +261,7 @@ const DataCenter = () => {
         >
             
            <Typography variant="h5">Top Harvested Crops</Typography>
-            <SelectingInputField lable={"year"} handleChangeValue={handleChangeYear} value={year} valuesArray={years} />
+            <SelectingInputField lable={"year"} handleChangeValue={handleChangeYear} value={yearForTable} valuesArray={yearsForTable} />
         </Stack>
                             
                         </Grid>
@@ -214,7 +280,7 @@ const DataCenter = () => {
                     </Grid>
                     <MainCard sx={{ mt: 2 }} content={false}>
                         
-                        <CategoryOverview/>
+                        <CategoryOverview   categoryData={categorySummary} />
                     </MainCard>
                 </Grid>
 

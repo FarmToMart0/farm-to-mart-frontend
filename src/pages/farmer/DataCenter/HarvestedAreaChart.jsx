@@ -7,26 +7,7 @@ import { useTheme } from '@mui/material/styles';
 // third-party
 import ReactApexChart from 'react-apexcharts';
 
-// chart options
-const areaChartOptions = {
-    chart: {
-        height: 450,
-        type: 'area',
-        toolbar: {
-            show: false
-        }
-    },
-    dataLabels: {
-        enabled: false
-    },
-    stroke: {
-        curve: 'smooth',
-        width: 2
-    },
-    grid: {
-        strokeDashArray: 0
-    }
-};
+
 
 // ==============================|| INCOME AREA CHART ||============================== //
 
@@ -36,15 +17,31 @@ const IncomeAreaChart = ({ years, series }) => {
     const { primary, secondary } = theme.palette.text;
     const line = theme.palette.divider;
 
-    const [options, setOptions] = useState(areaChartOptions);
-    
-    useEffect(() => {
-        setOptions((prevState) => ({
-            ...prevState,
+   
+   const options ={
+            chart: {
+                height: 450,
+                type: 'area',
+                toolbar: {
+                    show: true
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'smooth',
+                width: 2
+            },
+            grid: {
+                strokeDashArray: 0
+            },
             colors: [theme.palette.primary.main, theme.palette.primary[700]],
             xaxis: {
                 categories: years,
-                       
+                axisTicks: {
+                    show: true
+                },
                 labels: {
                     style: {
                         colors: [
@@ -82,14 +79,10 @@ const IncomeAreaChart = ({ years, series }) => {
             tooltip: {
                 theme: 'light'
             }
-        }));
-    }, [primary, secondary, line, theme, slot]);
+        }
+    ;
 
  
-
-    useEffect(() => {
-        
-    }, [slot]);
 
     return <ReactApexChart options={options} series={series} type="area" height={450} />;
 };

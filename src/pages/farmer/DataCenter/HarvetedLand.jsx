@@ -10,40 +10,11 @@ import ReactApexChart from 'react-apexcharts';
 
 // ==============================|| MONTHLY BAR CHART ||============================== //
 
-const MonthlyBarChart = ({years}) => {
+const MonthlyBarChart = ({years,series}) => {
+
     // chart options
 const barChartOptions = {
-    chart: {
-        type: 'bar',
-        height: 365,
-        toolbar: {
-            show: false
-        }
-    },
-    plotOptions: {
-        bar: {
-            columnWidth: '45%',
-            borderRadius: 4
-        }
-    },
-    dataLabels: {
-        enabled: false
-    },
-    xaxis: {
-        categories: years,
-        axisBorder: {
-            show: false
-        },
-        axisTicks: {
-            show: false
-        }
-    },
-    yaxis: {
-        show: false
-    },
-    grid: {
-        show: false
-    }
+
 };
 
 
@@ -52,32 +23,67 @@ const barChartOptions = {
     const { primary, secondary } = theme.palette.text;
     const info = theme.palette.info.light;
 
-    const [series] = useState([
-        {
-            name:"Harvested Area",
-            data: [80, 95, 70, 42, 65, 55, 78, 65, 55, 78, 55, 78]
-        }
-    ]);
+   
 
-    const [options, setOptions] = useState(barChartOptions);
-
-    useEffect(() => {
-        setOptions((prevState) => ({
-            ...prevState,
-            colors: [info],
-            xaxis: {
-                labels: {
-                    style: {
-                        colors: [secondary, secondary, secondary, secondary, secondary, secondary, secondary]
-                    }
+   
+const options ={
+            chart: {
+                type: 'bar',
+                height: 365,
+                toolbar: {
+                    show: true
                 }
             },
+            plotOptions: {
+                bar: {
+                    columnWidth: '45%',
+                    borderRadius: 4
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            xaxis: {
+                categories: years,
+                axisTicks: {
+                    show: true
+                },
+                labels: {
+                    style: {
+                        colors: [
+                            secondary,
+                            secondary,
+                            secondary,
+                            secondary,
+                            secondary,
+                            secondary,
+                            secondary,
+                            secondary,
+                            secondary,
+                            secondary,
+                            secondary,
+                            secondary
+                        ]
+                    }
+                },
+                axisBorder: {
+                    show: true,
+                    color: 'none'
+                },
+                tickAmount:  11 
+            },
+            yaxis: {
+                show: true
+            },
+            grid: {
+                show: true
+            },
+            colors: [info],
+            
             tooltip: {
                 theme: 'light'
             }
-        }));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [primary, info, secondary]);
+        }
 
     return (
         <div id="chart">

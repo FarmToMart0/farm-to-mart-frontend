@@ -14,18 +14,7 @@ function createData(trackingNo, name, fat, carbs, protein) {
     return { trackingNo, name, fat, carbs, protein };
 }
 
-const rows = [
-    createData( 'Camera Lens', 40, 2, 40570),
-    createData( 'Laptop', 300, 0, 180139),
-    createData( 'Mobile', 355, 1, 90989),
-    createData( 'Handset', 50, 1, 10239),
-    createData( 'Computer Accessories', 100, 1, 83348),
-    createData( 'TV', 99, 0, 410780),
-    createData( 'Keyboard', 125, 2, 70999),
-    createData( 'Mouse', 89, 2, 10570),
-    createData( 'Desktop', 185, 1, 98063),
-    createData( 'Chair', 100, 0, 14001)
-];
+
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -205,7 +194,7 @@ export default function OrderTable({tableData}) {
                                     <TableCell align="left">{row.harvestedAmount}</TableCell>
                                     <TableCell align="rigleftht">{row.expectedAmount}</TableCell>
                                     <TableCell align="left">
-                                        {row.land}
+                                        {row.landArea}
                                     </TableCell>
                                     <TableCell align="left">
                                        
