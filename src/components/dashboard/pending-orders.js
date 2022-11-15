@@ -25,7 +25,7 @@ export const PendingOrders = (props) => (
             color="textPrimary"
             variant="h4"
           >
-            75.5%
+            {props.pendingOrders}%
           </Typography>
         </Grid>
         <Grid item>
@@ -42,7 +42,7 @@ export const PendingOrders = (props) => (
       </Grid>
       <Box sx={{ pt: 3 }}>
         <LinearProgress
-          value={75.5}
+          value={props.pendingOrders}
           variant="determinate"
         />
       </Box>

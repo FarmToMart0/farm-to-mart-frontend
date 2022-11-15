@@ -42,6 +42,9 @@ export default {
   },
   getYearstList(district){
     return resolver(axiosClient.get(`/farmer/uniqueyears/${district}`))
+  },
+  getReviews(id){
+    return resolver(axiosClient.get(`/reviews/${id}`))
   }
   
   

@@ -26,6 +26,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     loggingRequest: (state, action) => {
+      console.log('pay', action.payload)
       state.auth = true;
       state.id = action.payload?._id;
       state.firstName = action.payload?.firstName;

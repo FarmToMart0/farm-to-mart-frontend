@@ -117,7 +117,7 @@ async function getMyCropTask(nic) {
     let [code,res]=await api.farmer.getOngoingMycrops(nic);
     if (code ===201) {
 
-      setOrderData(res.map((item)=>{return {'id':item._id,isEdit:false,startedDate:new Date(item.startingDateOfGrowing).getFullYear()+'-'+new Date(item.startingDateOfGrowing).getMonth()+1 +'-'+new Date(item.startingDateOfGrowing).getDate(),expectedDate:new Date(item.expectingDateOfHarvest).getFullYear()+'-'+new Date(item.expectedDate).getMonth()+1 +'-'+new Date(item.expectingDateOfHarvest).getDate(),cropType:item.cropType,landArea:`${item.landArea} ha` , location:item.location, harvestedAmount:`${item.harvestedAmount}Kg`,expectedAmount:`${item.expectedAmount}Kg`,harvestedDate:new Date(item.harvestedDate).getFullYear()+'-'+(parseInt(new Date(item.harvestedDate).getMonth())+1) +'-'+new Date(item.harvestedDate).getDate()}})) 
+      setOrderData(res.map((item)=>{return {'id':item._id,isEdit:false,startedDate:new Date(item.startingDateOfGrowing).getFullYear()+'-'+new Date(item.startingDateOfGrowing).getMonth()+1 +'-'+new Date(item.startingDateOfGrowing).getDate(),expectedDate:new Date(item.expectingDateOfHarvest).getFullYear()+'-'+new Date(item.expectingDateOfHarvest).getMonth()+1 +'-'+new Date(item.expectingDateOfHarvest).getDate(),cropType:item.cropType,landArea:`${item.landArea} ha` , location:item.location, harvestedAmount:`${item.harvestedAmount}Kg`,expectedAmount:`${item.expectedAmount}Kg`,harvestedDate:new Date(item.harvestedDate).getFullYear()+'-'+(parseInt(new Date(item.harvestedDate).getMonth())+1) +'-'+new Date(item.harvestedDate).getDate()}})) 
     }
   } catch (error) {
     console.log(error)

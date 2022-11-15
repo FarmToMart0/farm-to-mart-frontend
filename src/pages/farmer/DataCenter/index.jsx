@@ -219,6 +219,7 @@ const DataCenter = () => {
                     <Grid container alignItems="center" justifyContent="space-between">
                         <Grid item>
                             <Typography variant="h5">Comparison Of Harvested and Expected Amount of {cropType} in Past Years in {district}</Typography>
+                            <Typography variant="caption" display="block" gutterBottom>Yields are measured in tonnes </Typography>
                         </Grid>
                         <Grid item>
 
@@ -234,6 +235,7 @@ const DataCenter = () => {
                     <Grid container alignItems="center" justifyContent="space-between">
                         <Grid item>
                             <Typography variant="h5">Statistics of Growing Area in {district} district  </Typography>
+                            <Typography  variant="caption" display="block" gutterBottom>Area ismeasured in hectare </Typography>
                         </Grid>
                         <Grid item />
                     </Grid>

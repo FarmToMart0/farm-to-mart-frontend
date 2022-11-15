@@ -126,7 +126,8 @@ const handleSave = async (values)=>{
   const doSubmit =async(values)=>{
     try {
       setLoadingProductAdd(true)
-      const [code,res] = await api.farmer.addProduct({'category':selectCategory,'productName':values.productName,'quantity':values.quantity,'unitPrice':values.price,'initialBid':values.bid,'description':values.description,'biddingEnable':checked,'paymentOption':selectedPayementOption,'deliveryOption':selectedDeliveryOption,'images':imageList.map((item)=>{return item.img})});
+      console.log('user',user);
+      const [code,res] = await api.farmer.addProduct({'category':selectCategory,'farmer':user.id,'productName':values.productName,'quantity':values.quantity,'unitPrice':values.price,'initialBid':values.bid,'description':values.description,'biddingEnable':checked,'paymentOption':selectedPayementOption,'deliveryOption':selectedDeliveryOption,'images':imageList.map((item)=>{return item.img})});
     
       if (code === 201) {
         setLoadingProductAdd(false);
@@ -163,7 +164,7 @@ const handleSave = async (values)=>{
   const deleteFunc = (id) => {
     
     const arr = imageList.filter((item)=>{
-      if (item.img!=id) {
+      if (item!=id) {
         return item
       }
 
@@ -193,7 +194,7 @@ try {
   axios.post("https://api.cloudinary.com/v1_1/dnrpcuqvr/image/upload",formData).
     then((res)=>{
     
-    setImageList([...imageList,{ img: res.data.secure_url}])
+    setImageList([...imageList, res.data.secure_url])
     setLoadingImageAdd(false)
 
    

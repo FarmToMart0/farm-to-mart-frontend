@@ -22,7 +22,7 @@ export const TotalProfit = (props) => (
             color="textPrimary"
             variant="h4"
           >
-            10
+            {props.ongoingBiddingCount}
           </Typography>
         </Grid>
         <Grid item>
