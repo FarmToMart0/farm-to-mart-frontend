@@ -26,12 +26,12 @@ const arr = [
   { label: 'Eggs'},
 ]
 
-const listOfItems = [{item_id:'6789',product_name:'Beans', price:1200,type:'bid',date:"2022/10/12",transport:"Available",payment:"Not Available",more_details:"Prices can't be negociated",image:"https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"},
-{item_id:'12345',product_name:'Lemon', price:1000,type:'buy',date:"2022/10/12",transport:"Available",payment:"Not Available",more_details:"Prices can't be negociated",image:"https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"},
-{item_id:'12345',product_name:'Papaya', price:1000,type:'bid',date:"2022/10/12",transport:"Available",payment:"Not Available",more_details:"Prices can't be negociated",image:"https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"},
-{item_id:'12345',product_name:'Potato', price:1000,type:'buy',date:"2022/10/12",transport:"Available",payment:"Not Available",more_details:"Prices can't be negociated",image:"https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"},
-{item_id:'12345',product_name:'Cocunut', price:1000,type:'bid',date:"2022/10/12",transport:"Available",payment:"Not Available",more_details:"Prices can't be negociated",image:"https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"},
-{item_id:'1234',product_name:'Eggs', price:123,type:'buy',date:"2022/10/12",transport:" Not Available",payment:"Available",more_details:"Prices can be negociated",image:"https://img.freepik.com/free-photo/healthy-vegetables-wooden-table_1150-38014.jpg?w=2000"}]
+const listOfItems = [{item_id:'6789',product_name:'Beans', price:350,type:'bid',date:"2022/10/12",transport:"Available",payment:"Not Available",more_details:"Prices can't be negociated",image:"https://cdn.xxl.thumbs.canstockphoto.com/fresh-green-beans-background-moist-with-water-stock-photo_csp0953104.jpg"},
+{item_id:'1234',product_name:'Lemon', price:300,type:'buy',date:"2022/10/12",transport:"Available",payment:"Not Available",more_details:"Prices can't be negociated",image:"https://cdn.britannica.com/84/188484-050-F27B0049/lemons-tree.jpg"},
+{item_id:'12346',product_name:'Papaya', price:120,type:'bid',date:"2022/10/12",transport:"Available",payment:"Not Available",more_details:"Prices can't be negociated",image:"https://cdn.xxl.thumbs.canstockphoto.com/papaya-papaya-tree-in-the-orchard-of-thailand-picture_csp19495873.jpg"},
+{item_id:'12345',product_name:'Potato', price:90,type:'buy',date:"2022/10/12",transport:"Available",payment:"Not Available",more_details:"Prices can't be negociated",image:"https://cdn.xxl.thumbs.canstockphoto.com/produce-potato-stock-photograph_csp0051109.jpg"},
+{item_id:'1234',product_name:'Cocunut', price:700,type:'bid',date:"2022/10/12",transport:"Available",payment:"Not Available",more_details:"Prices can't be negociated",image:"https://cdn.xxl.thumbs.canstockphoto.com/coconuts-clusters-of-coconuts-close-up-hanging-on-palm-tree-pictures_csp13524285.jpg"},
+{item_id:'12347',product_name:'Eggs', price:320,type:'buy',date:"2022/10/12",transport:"Available",payment:"Available",more_details:"Prices can be negociated",image:"https://cdn.xxl.thumbs.canstockphoto.com/eggs-on-straw-white-and-brown-eggs-on-a-bed-of-straw-closeup-picture_csp0450257.jpg"}]
 const category1 = "Crop Type"
 const categoty2 = "Base Amount of Harvest" 
 

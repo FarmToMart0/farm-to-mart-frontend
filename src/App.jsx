@@ -16,10 +16,9 @@ import FarmerSignUp from './pages/farmer/SignUp/index';
 import BuyerSignUp from './pages/buyerSignUp/index';
 
 import Market from './pages/market/index';
-import Adderss from './components/payment/address/index';
-import Pay from './components/payment/payment/index';
-import Review from './components/payment/review/index';
 
+import Success from './pages/OrderComplete/index' ;
+// import Success from './components/order_complete' ;
 
 
 import ShoppingCard from '././pages/shoppingCard/index'
@@ -57,9 +56,9 @@ function App() {
     <Route path="/buyer/market/checkout/payment" element={<Payment/>} exact />
     <Route path="/gso/dash/:page" element={<GSOLayout/>}/>
     <Route path="/mainofficer/dash/:page" element={<MainOfficerLayout/>}/>
-    <Route path="/address" element={<Adderss/>}/>
-    <Route path="/pay" element={<Pay/>}/>
-    <Route path="/review" element={<Review/>}/>
+
+    <Route path="/buyer/market/checkout/payment/complete" element={<Success/>}/>
+
     
 
     {/* <Route path="/home" element={<Home/>} exact /> */}

@@ -16,75 +16,54 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Review(props) {
+  console.log(props)
+  const navigate = useNavigate()
+  const address = props.details.address.address[0]
+  const payment = props.details.payment.payment
+  
 
-    const labels = {
-        
-        1: 'Useless',
-        
-        2: 'Poor',
-        
-        3: 'Ok',
-        
-        4: 'Good',
-        
-        5: 'Excellent',
-      };
+  const [comments,setComments] = useState("")
+  
+  
 
-      const [value, setValue] = React.useState(2);
-  const [hover, setHover] = React.useState(-1);
-  const addresses = ['matara','galle']
-    const {
-    cardDetails,
-    paymentMethod,
-    setComments,
-    deliveryMethod,
-    setDeliveryMethod,
-  } = props;
+  var deliveryMethod = ""
+  var paymentMethod = ""
 
-  function getLabelText(value) {
-    return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
+  var buyer = ""
+  if (address === "FARM_PICKUP"){
+    deliveryMethod =  'PICK_UP_FARM';
+    
+  }else{
+    deliveryMethod = 'DELIVERY' ;
+    buyer = address[0]
   }
- 
 
-  const [deliveryTime, setDeliveryTime] = useState(5);
+  if(payment === "Available"){
+    paymentMethod = "card"
+  }else{
+    paymentMethod = "Pay on Delivery"
+  }
 
-//   React.useEffect(() => {
-//     if (user && cart) {
-//       if (user?.district === 'Colombo') {
-//         if (
-//           cart?.checkoutProduct?.quantityInStock < cart?.checkoutProduct?.items
-//         ) {
-//           setDeliveryTime(8);
-//         } else {
-//           setDeliveryTime(5);
-//         }
-//       } else {
-//         if (
-//           cart?.checkoutProduct?.quantityInStock < cart?.checkoutProduct?.items
-//         ) {
-//           setDeliveryTime(10);
-//         } else {
-//           setDeliveryTime(7);
-//         }
-//       }
-//     }
-//   }, [user, cart]);
+  
 
-//   const addresses = [
-//     user?.addressLine1,
-//     user?.addressLine2,
-//     user?.city,
-//     user?.district,
-//     user?.postalCode,
-//   ];
 
-  const payments = [
-    { name: 'Card holder', detail: cardDetails?.nameOnCard },
-    { name: 'Card number', detail: cardDetails?.cardNumber },
-    { name: 'Expiry date', detail: cardDetails?.expiryDate },
-  ];
+  const handleConfirm = () =>{
+    
+    if(payment === "Available"){
+      props.stateSet("Confirmed")
+      
+      
+    }else{
+      navigate('/buyer/market/checkout/payment/complete')
+    }
+    
+  }
+  
+
+
 
   return (
     <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
@@ -99,60 +78,24 @@ export default function Review(props) {
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
-      <Typography variant="h6" gutterBottom>
-        Select your delivery method
-      </Typography>
+
      
-      <FormGroup>
-        <FormControlLabel
-          control={
-            <Checkbox
-              defaultChecked
-              checked={deliveryMethod === 'DELIVERY'}
-              onChange={(event, checked) => {
-                if (checked) {
-                  setDeliveryMethod('DELIVERY');
-                } else {
-                  setDeliveryMethod('STORE_PICKUP');
-                }
-              }}
-            />
-          }
-          label="Delivery to house"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={deliveryMethod === 'STORE_PICKUP'}
-              onChange={(event, checked) => {
-                if (checked) {
-                  setDeliveryMethod('STORE_PICKUP');
-                } else {
-                  setDeliveryMethod('DELIVERY');
-                }
-              }}
-            />
-          }
-          label="Store pickup"
-        />
-      </FormGroup>
+      
       <List disablePadding>
         <ListItem key='jh' sx={{ py: 1, px: 0 }}>
           <ListItemText
-            primary='hghg'
-            secondary='ghghh'
+            primary={props.details.product}
+            
           />
           <Typography variant="body2">
-            {'$' +
-              parseFloat(78) *
-                parseInt(45)}
+            {'Rs : ' + Number(props.details.amount).toFixed(2)}
           </Typography>
         </ListItem>
 
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            {234}
+            {props.details.price}
           </Typography>
         </ListItem>
       </List>
@@ -163,79 +106,48 @@ export default function Review(props) {
         fullWidth
         onChange={(event) => setComments(event.target.value)}
       />
-<div>
-<h3> Rate the farmer</h3>
-<Box
-      sx={{
-        width: 200,
-        display: 'flex',
-        alignItems: 'center',
-      }}
-    >
 
-    {/* ============================= rating */}
-    
-      <Rating
-        name="hover-feedback"
-        value={value}
-        precision={1}
-        getLabelText={getLabelText}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-        onChangeActive={(event, newHover) => {
-          setHover(newHover);
-        }}
-        emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-      />
-      {value !== null && (
-        <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
-      )}
-    </Box>
-</div>
-
-
-    {/* ========================== rate over */}
 
 
       <Grid container spacing={2}>
         {deliveryMethod === 'DELIVERY' && (
           <Grid item xs={12} sm={6}>
             <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-              Shipping
+              <b>Delivery</b>
             </Typography>
             <Typography gutterBottom>
-              {'nj' + ' ' + 'nh'}
+              {buyer}
             </Typography>
 
-            <Typography gutterBottom>{addresses.join(', ')}</Typography>
+            <Typography gutterBottom>{address[1]}</Typography>
+            <Typography gutterBottom>Postal Code:{address[4]}</Typography>
+            <Typography gutterBottom>City:{address[2]}</Typography>
+            <Typography gutterBottom>Province:{address[3]}</Typography>
+            
           </Grid>
         )}
+
+        {deliveryMethod === 'PICK_UP_FARM' && (
+          <Grid item xs={12} sm={6}>
+            <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
+              <b>Pick up from farm</b>
+            </Typography>
+            
+            
+          </Grid>
+        )}
+
         <Grid item container direction="column" xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-            Payment details
-          </Typography>
-          {paymentMethod === 'CARD' ? (
-            <Grid container>
-              {payments.map((payment) => (
-                <React.Fragment key={payment.name}>
-                  <Grid item xs={6}>
-                    <Typography gutterBottom>{payment.name}</Typography>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Typography gutterBottom>{payment.detail}</Typography>
-                  </Grid>
-                </React.Fragment>
-              ))}
-            </Grid>
-          ) : (
-            <Typography>Pay on Delivery</Typography>
-          )}
+          
+          {paymentMethod === 'Pay on Delivery'  &&(
+            <Typography variant="h6" gutterBottom sx={{ mt: 2 }}> <b>Pay on Delivery</b></Typography>
+          ) }
         </Grid>
+
       </Grid>
     </React.Fragment>
-    <Button  style={{width:"100%",marginTop:25}}   variant="contained" endIcon={<ArrowForwardIosIcon/>}>
-        Complete Order
+    <Button  style={{width:"100%",marginTop:25}}   variant="contained" endIcon={<ArrowForwardIosIcon/>} onClick={handleConfirm}>
+        Confirm Order
       </Button>
     </Paper>
     </Container>

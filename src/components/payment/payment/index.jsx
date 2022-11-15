@@ -10,8 +10,11 @@ import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function PaymentForm(props) {
+  
+  const navigate = useNavigate()
   const [paymentValidated, setPaymentValidated] = useState(false);
   const [cardDetails, setCardDetails] = useState({
     nameOnCard: '',
@@ -70,7 +73,28 @@ export default function PaymentForm(props) {
     }
   }, [nameOnTheCard, expiryDate, cvv, cardNumber]);
 
+
+  const handleNext = ()=>{
+    
+    
+    const data =[nameOnTheCard, expiryDate, cvv, cardNumber]
+    if(paymentMethod ==="CARD"){
+     
+      props.paymentSet(data)
+    }else{
+      props.paymentSet("CASH_ON_DELIVERY")
+    }
+
+    navigate('/buyer/market/checkout/payment/complete')
+  }
+
+
+
+
+
+
   return (
+
     <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
     <Paper
           variant="outlined"
@@ -173,7 +197,7 @@ export default function PaymentForm(props) {
         </Grid>
       )}
     </React.Fragment>
-    <Button  style={{width:"100%",marginTop:25}}   variant="contained" endIcon={<ArrowForwardIosIcon/>}>
+    <Button  style={{width:"100%",marginTop:25}}   variant="contained" endIcon={<ArrowForwardIosIcon/> } onClick = {handleNext}>
         NEXT
       </Button>
     </Paper>

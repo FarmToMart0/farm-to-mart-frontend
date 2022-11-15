@@ -25,11 +25,9 @@ export default function BuyItemShoppingCard(props) {
   const left_card_details = {unit_price,product_name}
 
   const handleBuyOrder = ()=>{
-    if(transport === "Available"){
-      navigate('/buyer/market/checkout/payment',{state:{transport:true, payment:payment}})
-    }else{
-      navigate('/buyer/market/checkout/payment',{state:{transport:false, payment:payment}})
-    }
+    
+      navigate('/buyer/market/checkout/payment',{state:{transport:transport, payment:payment, product:product_name,price:totValue,amount:inputValue}})
+    
     
   }
   const itemData = [

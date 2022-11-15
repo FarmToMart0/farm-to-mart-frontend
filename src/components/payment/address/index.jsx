@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -7,9 +7,38 @@ import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
-export default function AddressForm() {
+
+export default function AddressForm(props) {
+  const [transport, setTransport] = useState('DELIVERY');
+  const [name,setName] = useState("")
+  const [address,setAddress] = useState("")
+  const [city,setCity] = useState("")
+  const [province,setProvince] = useState("")
+  const [postalCode,setPostalCode] = useState("")
   
+
+  const handleNext=()=>{
+    const data =[name,address,city,province,postalCode]
+  //  data.forEach(element => {
+  //   if (element === ""){
+        
+  //   }
+  //  });
+    if(transport ==="DELIVERY"){
+      props.addressSet(data)
+    }else{
+      props.addressSet("FARM_PICKUP")
+    }
+    }
+    
+    
+
+  
+
   return (
     <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
     <Paper
@@ -19,8 +48,47 @@ export default function AddressForm() {
         <Typography component="h1" variant="h4" align="center">
             Checkout
           </Typography>
+          <React.Fragment>
+          <FormGroup>
+        <FormControlLabel
+          control={
+            <Checkbox
+              
+              checked={transport === 'DELIVERY'}
+              onChange={(event, checked) => {
+                if (checked) {
+                  setTransport('DELIVERY');
+                } else {
+                  setTransport('FARM_PICKUP');
+                }
+              }}
+            />
+          }
+          label="Delivery"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={transport === 'FARM_PICKUP'}
+              onChange={(event, checked) => {
+                if (checked) {
+                  setTransport('FARM_PICKUP');
+                } else {
+                  setTransport('DELIVERY');
+                }
+              }}
+            />
+          }
+          label="Farm Pickup"
+        />
+      </FormGroup>
 
-      <Typography  gutterBottom>
+
+
+
+
+      
+      {transport === "DELIVERY" && (<><Typography  gutterBottom>
         Delivery address
       </Typography>
       <Grid container spacing={3}>
@@ -28,7 +96,8 @@ export default function AddressForm() {
           <TextField
             required
             id="fullName"
-           
+           value={name}
+           onChange={(e)=>setName(e.target.value)}
             InputLabelProps={{ shrink: true }}
             name="fullName"
             label="Full name"
@@ -43,9 +112,10 @@ export default function AddressForm() {
             required
             id="address1"
             name="address1"
-            
+            value={address}
+           onChange={(e)=>setAddress(e.target.value)}
             InputLabelProps={{ shrink: true }}
-            label="Address line 1"
+            label="Address"
             fullWidth
             autoComplete="shipping address-line1"
             variant="standard"
@@ -57,7 +127,8 @@ export default function AddressForm() {
             required
             id="city"
             name="city"
-            
+            value={city}
+           onChange={(e)=>setCity(e.target.value)}
             InputLabelProps={{ shrink: true }}
             label="City"
             fullWidth
@@ -70,8 +141,9 @@ export default function AddressForm() {
             id="state"
             name="state"
             label="Province"
+            value={province}
+           onChange={(e)=>setProvince(e.target.value)}
             InputLabelProps={{ shrink: true }}
-            
             fullWidth
             variant="standard"
           />
@@ -81,7 +153,8 @@ export default function AddressForm() {
             required
             id="postal"
             name="postal"
-            
+            value={postalCode}
+           onChange={(e)=>setPostalCode(e.target.value)}
             InputLabelProps={{ shrink: true }}
             label="Postal code"
             fullWidth
@@ -90,11 +163,14 @@ export default function AddressForm() {
           />
         </Grid>
       </Grid>
-      <Button  style={{width:"100%",marginTop:25}}   variant="contained" endIcon={<ArrowForwardIosIcon/>}>
+      </>)}
+      </React.Fragment>
+      <Button  style={{width:"100%",marginTop:25}}   variant="contained" endIcon={<ArrowForwardIosIcon/>} onClick = {handleNext}>
         NEXT
       </Button>
       </Paper>
       
     </Container>
+    
   );
 }
