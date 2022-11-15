@@ -32,23 +32,23 @@ export default function BuyItemShoppingCard(props) {
   }
   const itemData = [
     {
-      img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
+      img: 'https://cdn.xxl.thumbs.canstockphoto.com/fresh-green-beans-background-moist-with-water-stock-photo_csp0953104.jpg',
       title: 'Breakfast',
     },
     {
-      img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
+      img: 'https://cdn.xxl.thumbs.canstockphoto.com/eggs-on-straw-white-and-brown-eggs-on-a-bed-of-straw-closeup-picture_csp0450257.jpg',
       title: 'Burger',
     },
     {
-      img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
+      img: 'https://cdn.xxl.thumbs.canstockphoto.com/coconuts-clusters-of-coconuts-close-up-hanging-on-palm-tree-pictures_csp13524285.jpg',
       title: 'Camera',
     },
     {
-      img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
+      img: 'https://cdn.xxl.thumbs.canstockphoto.com/produce-potato-stock-photograph_csp0051109.jpg',
       title: 'Coffee',
     },
     {
-      img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
+      img: 'https://cdn.xxl.thumbs.canstockphoto.com/papaya-papaya-tree-in-the-orchard-of-thailand-picture_csp19495873.jpg',
       title: 'Hats',
     },
     
