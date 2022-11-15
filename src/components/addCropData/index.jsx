@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Joi from "joi-browser";
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -17,21 +18,35 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import AdminNavbar from '../admin_navbar/index';
+import api from  '../../api'
+import SnackBarComponent from '../Snackbars';
 
 export default function AddCropData() {
+  const [errorOccured, setErrorOccured] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [crop, setCrop] = useState({
+    category: "",
     cropType: "",
-    cropName: "",
-    startDate: "",
-    estiHarvest: "",
+    startingDateOfGrowing: "",
+    expectingDateOfHarvest: "",
+    landArea: 0,
+    expectedAmount: 0,
+    district: "",
+    location: "",
+
   });
 
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
   const schema = {
+    category: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
     cropType: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
-    cropName: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
-    startDate: Joi.date().iso().required(),
-    estiHarvest: Joi.string().required()
+    startingDateOfGrowing: Joi.date().iso().required(),
+    expectingDateOfHarvest: Joi.date().iso().required(),
+    landArea: Joi.number().required(),
+    expectedAmount: Joi.number().required(),
+    district: Joi.string().required(),
+    location: Joi.string().required() 
   };
 
   const handleSave = (event) => {
@@ -49,6 +64,24 @@ export default function AddCropData() {
     setErrors(errorData);
   };
 
+  const handleExpectedAmountChange = (event) => {
+    setCrop(previousState => {
+      return { ...previousState, expectedAmount: event.target.value }
+    })
+  }; 
+
+  const handleDistrictChange = (event) => {
+    setCrop(previousState => {
+      return { ...previousState, district: event.target.value }
+    })
+  }; 
+
+  const handleLandAreaChange = (event) => {
+    setCrop(previousState => {
+      return { ...previousState, la: event.target.value }
+    })
+  };
+
   const validateProperty = (event) => {
     const { name, value } = event.target;
     const obj = { [name]: value };
@@ -59,13 +92,14 @@ export default function AddCropData() {
     
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const result = Joi.validate(crop,
       schema, { abortEarly: false });
     const { error } = result;
     if (!error) {
       console.log("Submitted");
+      await addCropData(crop);
     } else {
       const errorData = {};
       for (let item of error.details) {
@@ -80,12 +114,30 @@ export default function AddCropData() {
  
   };
 
+  async function addCropData(values) {
+    try {
+      const [code,res] = await api.gso.addCropData(values);
+      if (code === 201) {     
+        navigate('/gso/home');
+      } else {
+        setErrors({ type: 'error', message: res });
+        setErrorOccured(true);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      setErrors({ type: 'error', message:'server error' });
+      setErrorOccured(true);
+      setIsLoading(false);
+    }
+  }
+
 
   return (
       <div>
         <Container component="main" maxWidth="" sx={{width:'70%', background:'white', boxShadow: 
         '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )', borderRadius:'5px', mb: '5vw'}}>
         <CssBaseline />
+        <SnackBarComponent open={errorOccured} message={errors.message} type='error'  setOpen={setErrorOccured}   />
         <Box
           sx={{
             marginTop: 8,
@@ -104,16 +156,16 @@ export default function AddCropData() {
                 <TextField
                   required
                   fullWidth
-                  id="cropType"
+                  id="category"
                   type="text"
                   label="Crop Type"
-                  name="cropType"
-                  value={crop.cropType}
+                  name="category"
+                  value={crop.category}
                   onChange={handleSave}
                   autoFocus
                 />
 
-                {errors.cropType && (
+                {errors.category && (
                 <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid Crop type</Alert>)}
               </Grid>
 
@@ -121,16 +173,16 @@ export default function AddCropData() {
                 <TextField
                   required
                   fullWidth
-                  id="cropName"
+                  id="cropType"
                   type="text"
                   label="Crop Name"
-                  name="cropName"
-                  value={crop.cropName}
+                  name="cropType"
+                  value={crop.cropType}
                   onChange={handleSave}
                   autoComplete="crop-name"
                 />
 
-                {errors.cropName && (
+                {errors.cropType && (
                 <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid Crop Name</Alert>)}
               </Grid>
               
@@ -138,15 +190,17 @@ export default function AddCropData() {
                 <TextField
                   required
                   fullWidth
-                  id="cropArea"
-                  type="text"
+                  id="landArea"
+                  type="number"
                   label="Growing Land Size"
-                  name="cropArea"
+                  name="landArea"
                   autoComplete="land-size"
                   InputProps={{
                     endAdornment: <InputAdornment position="end">Acre</InputAdornment>,
                     inputMode: 'numeric', pattern: '[0-9]*'
                   }}
+                  value={crop.landArea}
+                  onChange={handleLandAreaChange}
                 />
               </Grid>
 
@@ -155,21 +209,44 @@ export default function AddCropData() {
               <FormHelperText id="outlined-weight-helper-text" sx={{ml:'5px', fontSize:'1rem'}}>Start Date of Growing</FormHelperText>
                 <OutlinedInput
                     required
-                    id="startDate"
-                    name='startDate'
+                    id="startingDateOfGrowing"
+                    name='startingDateOfGrowing'
                     type = 'date'
                     aria-describedby="outlined-weight-helper-text"
                     inputProps={{
                     'aria-label': 'weight',
                     }}
 
-                    value={crop.startDate}
+                    value={crop.startingDateOfGrowing}
                     onChange={handleSave}
                 />
                 
                 </FormControl>
 
-                {errors.startDate && (
+                {errors.startingDateOfGrowing && (
+                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid Date</Alert>)}
+              </Grid>
+
+              <Grid item xs={12}>
+              <FormControl variant="outlined" sx={{width:'100%'}}>
+              <FormHelperText id="outlined-weight-helper-text" sx={{ml:'5px', fontSize:'1rem'}}>Expecting Date of Harvesting</FormHelperText>
+                <OutlinedInput
+                    required
+                    id="expectingDateOfHarvest"
+                    name='expectingDateOfHarvest'
+                    type = 'date'
+                    aria-describedby="outlined-weight-helper-text"
+                    inputProps={{
+                    'aria-label': 'weight',
+                    }}
+
+                    value={crop.expectingDateOfHarvest}
+                    onChange={handleSave}
+                />
+                
+                </FormControl>
+
+                {errors.expectingDateOfHarvest && (
                 <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid Date</Alert>)}
               </Grid>
 
@@ -177,40 +254,78 @@ export default function AddCropData() {
                 <TextField
                   required
                   fullWidth
-                  id="estiHarvest"
-                  //type="number"
-                  label="Estimated Harvest (kg / Quantity of fruits)"
-                  name="estiHarvest"
-                  value={crop.estiHarvest}
-                  onChange={handleSave}
+                  id="expectedAmount"
+                  type="number"
+                  label="Estimated Harvest (kg)"
+                  name="expectedAmount"
+                  value={crop.expectedAmount}
+                  onChange={handleExpectedAmountChange}
                   autoComplete="est-harvest"
                 />
-                <FormHelperText id="outlined-weight-helper-text" sx={{ml:'5px', fontSize:'0.8rem'}}>*Clearly mention the unit</FormHelperText>
-
-                {errors.estiHarvest && (
-                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid Harvest Quantity</Alert>)}
+                {/* <FormHelperText id="outlined-weight-helper-text" sx={{ml:'5px', fontSize:'0.8rem'}}>*Clearly mention the unit</FormHelperText> */}
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} sm={12}>
+                <FormControl required sx={{ m: 1, minWidth: "100%", margin:'0'}}>
+                    <InputLabel id="demo-simple-select-required-label">District</InputLabel>
+                    <Select
+                    labelId="district"	
+                    id="district"
+                    value={crop.district}
+                    label="District *"
+                    onChange={handleDistrictChange}
+                    >
+                    <MenuItem value={"Colombo"}>Colombo</MenuItem>
+                    <MenuItem value={"Gampaha"}>Gampaha</MenuItem>
+                    <MenuItem value={"Kalutara"}>Kalutara</MenuItem>
+                    <MenuItem value={"Kandy}"}>Kandy</MenuItem>
+                    <MenuItem value={"Matale"}>Matale</MenuItem>
+                    <MenuItem value={"Nuwara Eliya"}>Nuwara Eliya</MenuItem>
+                    <MenuItem value={"Galle"}>Galle</MenuItem>
+                    <MenuItem value={"Matara"}>Matara</MenuItem>
+                    <MenuItem value={"Hambantota"}>Hambantota</MenuItem>
+                    <MenuItem value={"Jaffna"}>Jaffna</MenuItem>
+                    <MenuItem value={"Kilinochchi"}>Kilinochchi</MenuItem>
+                    <MenuItem value={"Mannar"}>Mannar</MenuItem>
+                    <MenuItem value={"Vavuniya"}>Vavuniya</MenuItem>
+                    <MenuItem value={"Mullaitivu"}>Mullaitivu</MenuItem>
+                    <MenuItem value={"Batticaloa"}>Batticaloa</MenuItem>
+                    <MenuItem value={"Ampara"}>Ampara</MenuItem>
+                    <MenuItem value={"Trincomalee"}>Trincomalee</MenuItem>
+                    <MenuItem value={"Kurunegala"}>Kurunegala</MenuItem>
+                    <MenuItem value={"Puttalam"}>Puttalam</MenuItem>
+                    <MenuItem value={"Anuradhapura"}>Anuradhapura</MenuItem>
+                    <MenuItem value={"Polonnaruwa"}>Polonnaruwa</MenuItem>
+                    <MenuItem value={"Badulla"}>Badulla</MenuItem>
+                    <MenuItem value={"Moneragala"}>Moneragala</MenuItem>
+                    <MenuItem value={"Ratnapura"}>Ratnapura</MenuItem>
+                    <MenuItem value={"Kegalle"}>Kegalle</MenuItem>
+                    </Select>
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="est-time"
-                  type="number"
-                  label="Estimated Time Period to Harvest"
-                  name="est-time"
-                  autoComplete="est-time"
-                  InputProps={{
-                    endAdornment: <InputAdornment position="end">Months</InputAdornment>,
-                    inputMode: 'numeric', pattern: '[0-9]*'
-                  }}
+                  id="location"
+                  type="text"
+                  label="Address"
+                  name="location"
+                  value={crop.location}
+                  onChange={handleSave}
+                  autoComplete="crop-name"
                 />
+
+                {errors.location && (
+                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid Crop Name</Alert>)}
               </Grid>
               
             </Grid>
             <Button
               type="submit"
               fullWidth
+              disabled={isLoading}
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >

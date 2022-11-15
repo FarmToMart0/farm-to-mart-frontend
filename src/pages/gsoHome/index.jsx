@@ -1,5 +1,7 @@
 import * as React from 'react';
+import { useState } from 'react';
 import TextField from '@mui/material/TextField';
+import { useNavigate } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -9,55 +11,65 @@ import AddFarmer from '../../components/add_farmer/index';
 import FarmerProfile from '../../components/farmer_details/index';
 import DetailsCard from '../../components/details_card/index';
 import CropDataForm from '../../components/addCropData/index';
-
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import gsoHome from '../../assets/images/gsoHome.jpg';
 
 export default function GSOHome() {
+  const navigate = useNavigate();
+  const handleSearch = (e) => {
+
+    
+      navigate('../../gso/farmer-details/')
+  
+  };
+
+  const [nic, setNic] = '';
+
   return (
     <div>
-  
+      <AdminNavbar />
     <div style={{margin: 'auto',
         width: '70%',
         padding: '10px', }}>
             
-        <Stack spacing={2} sx={{padding:'5vw', width: '100%', textAlign:'center', mb: 0, paddingRight: 0, paddingLeft: 0, paddingBottom: '3vw'}}>
-      <Autocomplete
-        freeSolo
-        id="free-solo-2-demo"
-        disableClearable
-        options={farmerNics.map((option) => option.nic)}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Enter Farmer's National Identity Card Number"
-            InputProps={{
-              ...params.InputProps,
-              type: 'search', endAdornment: <InputAdornment position="end">
-                <SearchIcon />
-              </InputAdornment>,
-            }}
-
-            sx = {{textAlign: 'center'}}
-          />
-        )}
+      <Box component="form" sx={{ mt: 3, mb: 3}} onSubmit={handleSearch}>
+      <TextField
+        required
+        fullWidth
+        id="nic"
+        type="text"
+        label="Enter Farmer's NIC"
+        name="nic"
+        autoFocus
       />
-    </Stack>
+
+      <Button
+        type="submit"
+        id="submit"
+        fullWidth
+        //disabled={isLoading}
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+      >
+        Search
+      </Button>
+      </Box>
+
+      <img style={{width: '100%', height: '100%'}} src={gsoHome} alt="gsoHome" />
+      
     
     </div>
     
-    <AddFarmer />
+    {/* <AddFarmer />
     <FarmerProfile />
-    <CropDataForm />
+    <CropDataForm /> */}
     
     </div>
     
   );
 }
 
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const farmerNics = [
-    { nic: '123456789V' },
-    { nic: '937654321V' },
-    { nic: '123056789V' },
-    { nic: '987654321V' },
-    { nic: '123756789V' },
-];
+
