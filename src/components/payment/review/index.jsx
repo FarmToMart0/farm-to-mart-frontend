@@ -17,6 +17,9 @@ import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
 import { useNavigate, useLocation } from "react-router-dom";
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rokkitt:wght@1200&display=swap');
+</style>
 
 export default function Review(props) {
   console.log(props)
@@ -66,12 +69,14 @@ export default function Review(props) {
 
 
   return (
-    <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+    <Container component="main" maxWidth="sm" sx={{ mb: 4 ,mt:12}}>
     <Paper
           variant="outlined"
           sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
         >
         <Typography component="h1" variant="h4" align="center">
+        <p style={{fontSize:50, margin:5,fontFamily: "Rokkitt, serif", color:"#006400"}}> Farm<span style={{fontWeight:'bold',fontStyle:'italic',color:"#002800"}}>2</span>Mart  </p>
+
             Checkout
           </Typography>
     <React.Fragment>
@@ -101,7 +106,7 @@ export default function Review(props) {
       </List>
       <TextField
         multiline
-        rows={5}
+        rows={3}
         label="Order comments"
         fullWidth
         onChange={(event) => setComments(event.target.value)}
@@ -147,8 +152,15 @@ export default function Review(props) {
       </Grid>
     </React.Fragment>
     <Button  style={{width:"100%",marginTop:25}}   variant="contained" endIcon={<ArrowForwardIosIcon/>} onClick={handleConfirm}>
+        
         Confirm Order
       </Button>
+      <Typography variant="body2" color="text.secondary" align="center" sx={{mt:3}}>
+        {'Copyright © Farm2Mart '}
+        
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
     </Paper>
     </Container>
   );

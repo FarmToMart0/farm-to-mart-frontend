@@ -11,6 +11,7 @@ import ImageList from '../../components/buyer_image_pre/index';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import PaymentIcon from '@mui/icons-material/Payment';
 import Alert from '@mui/material/Alert';
+import api from '../../api/modules/buyer'
 
 
 

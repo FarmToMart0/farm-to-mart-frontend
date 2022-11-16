@@ -1,4 +1,5 @@
-import * as React from 'react';
+
+import React, { useState,useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -13,6 +14,8 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import SearchField from '../../components/auto_com_search/index';
 import TextFiled from '../../components/text_field/index';
+import api from "../../api/modules/buyer";
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Rokkitt:wght@1200&display=swap');
 </style>
@@ -25,8 +28,15 @@ const arr = [
   { label: 'Beans'}, 
   { label: 'Eggs'},
 ]
+// const listOfItems = api.getMarketProducts();
 
-const listOfItems = [{item_id:'6789',product_name:'Beans', price:350,type:'bid',date:"2022/10/12",transport:"Available",payment:"Not Available",more_details:"Prices can't be negociated",image:"https://cdn.xxl.thumbs.canstockphoto.com/fresh-green-beans-background-moist-with-water-stock-photo_csp0953104.jpg"},
+
+
+  
+// const [res,code] = getMarketData()
+
+
+const listOfItems1 = [{item_id:'6789',product_name:'Beans', price:350,type:'bid',date:"2022/10/12",transport:"Available",payment:"Not Available",more_details:"Prices can't be negociated",image:"https://cdn.xxl.thumbs.canstockphoto.com/fresh-green-beans-background-moist-with-water-stock-photo_csp0953104.jpg"},
 {item_id:'1234',product_name:'Lemon', price:300,type:'buy',date:"2022/10/12",transport:"Available",payment:"Not Available",more_details:"Prices can't be negociated",image:"https://cdn.britannica.com/84/188484-050-F27B0049/lemons-tree.jpg"},
 {item_id:'12346',product_name:'Papaya', price:120,type:'bid',date:"2022/10/12",transport:"Available",payment:"Not Available",more_details:"Prices can't be negociated",image:"https://cdn.xxl.thumbs.canstockphoto.com/papaya-papaya-tree-in-the-orchard-of-thailand-picture_csp19495873.jpg"},
 {item_id:'12345',product_name:'Potato', price:90,type:'buy',date:"2022/10/12",transport:"Available",payment:"Not Available",more_details:"Prices can't be negociated",image:"https://cdn.xxl.thumbs.canstockphoto.com/produce-potato-stock-photograph_csp0051109.jpg"},
@@ -40,6 +50,21 @@ const categoty2 = "Base Amount of Harvest"
 
 
 export default function Market() {
+  const [listOfItems, setListOfItems] = useState([]);
+  const getMarketData = async () =>{ 
+    const [res,code] = await api.getMarketProducts()
+    if(res == 201){
+      console.log(code)
+      setListOfItems(code)
+    }
+    
+    return (res,code) }
+
+    useEffect(()=>{
+      getMarketData()
+    },[])
+  
+
 
   return (
     

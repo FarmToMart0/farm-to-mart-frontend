@@ -14,13 +14,6 @@ function PaymentPage() {
     <div>
         <Navbar/>
         <Payment data={data} details={details}/>
-
-        <Typography variant="body2" color="text.secondary" align="center">
-        {'Copyright © Farm2Mart '}
-        
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
     </div>
   )
 }

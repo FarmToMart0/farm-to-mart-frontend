@@ -7,6 +7,7 @@ import StarIcon from '@mui/icons-material/Star';
 import Rating from '@mui/material/Rating';
 import Button from '@mui/material/Button';
 import { useNavigate, useLocation } from "react-router-dom";
+import Typography from '@mui/material/Typography';
 
 
 
@@ -93,6 +94,13 @@ export default function SimplePaper() {
     <Button variant="contained" style={{margin:20}} onClick={()=>{
          navigate('/buyer/market/')
     }}>Submit</Button>
+
+<Typography variant="body2" color="text.secondary" align="center">
+        {'Copyright © Farm2Mart '}
+        
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
                 </Stack>
             </Box>
              

@@ -11,6 +11,10 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rokkitt:wght@1200&display=swap');
+</style>
+
 
 export default function AddressForm(props) {
   const [transport, setTransport] = useState('DELIVERY');
@@ -40,12 +44,20 @@ export default function AddressForm(props) {
   
 
   return (
-    <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+    <Container component="main" maxWidth="sm" sx={{ mb: 10,mt:12  }}>
     <Paper
           variant="outlined"
-          sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
+          sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 }}}
         >
+        {/* <Typography component="h1" variant="h4" align="center">
+
+        L<p style={{fontSize:50, margin:5,fontFamily: "Rokkitt, serif", color:"#006400"}}> Farm<span style={{fontWeight:'bold',fontStyle:'italic',color:"#002800"}}>2</span>Mart  </p>
+
+        </Typography> */}
+
         <Typography component="h1" variant="h4" align="center">
+        <p style={{fontSize:50, margin:5,fontFamily: "Rokkitt, serif", color:"#006400"}}> Farm<span style={{fontWeight:'bold',fontStyle:'italic',color:"#002800"}}>2</span>Mart  </p>
+
             Checkout
           </Typography>
           <React.Fragment>
@@ -168,7 +180,14 @@ export default function AddressForm(props) {
       <Button  style={{width:"100%",marginTop:25}}   variant="contained" endIcon={<ArrowForwardIosIcon/>} onClick = {handleNext}>
         NEXT
       </Button>
+      <Typography variant="body2" color="text.secondary" align="center" sx={{mt:3}}>
+        {'Copyright © Farm2Mart '}
+        
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
       </Paper>
+      
       
     </Container>
     

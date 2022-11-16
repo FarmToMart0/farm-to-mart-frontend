@@ -65,7 +65,7 @@ export default function ItemCard(props) {
           </IconButton>
         }
         title= <span style={{fontSize:20,color:"#004600"}}><b>{product_name} </b></span>
-        subheader={date}
+        subheader={date.slice(0,10)}
       />
       <CardMedia
         component="img"
