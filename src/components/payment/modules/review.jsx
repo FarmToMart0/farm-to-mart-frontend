@@ -68,7 +68,7 @@ export default function Review(props) {
       <Typography variant="h6" gutterBottom>
         Select your delivery method
       </Typography>
-      <Typography color="red">{`Estimated Delivery time : ${deliveryTime} days`}</Typography>
+     
       <FormGroup>
         <FormControlLabel
           control={
