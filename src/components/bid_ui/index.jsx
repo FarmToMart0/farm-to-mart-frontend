@@ -11,7 +11,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import api from "../../api/modules/buyer";
 import firebaseapp from "../../api/firebase"
-import {ref,get,child} from "firebase/database"
+import {ref,get,child} from "firebase/database" 
 
 
 export default function SimplePaper() {
@@ -28,10 +28,6 @@ export default function SimplePaper() {
   useEffect(()=>{
     getBid()
   },[])
-
-
-
-
 
 	const placeBid = (e) => {
 		e.preventDefault();

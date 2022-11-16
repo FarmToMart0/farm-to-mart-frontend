@@ -10,9 +10,9 @@ export default function ComboBox(props) {
       disablePortal
       id="combo-box-demo"
       options={crops}
-      sx={{ width: 300}}
-      color="red" 
-      renderInput={(params) => <TextField {...params} label={category} />}
+      sx={{ width: 350}}
+      style={{boxShadow: "rgba(99, 99, 99, 0.2) 0 2 8 0", color:"red"}}
+      renderInput={(params) => <TextField {...params} label={category}  style={{backgroundColor:"#FFFFFF" , fontWeight:"bold" }}/>}
     />
   );
 }
