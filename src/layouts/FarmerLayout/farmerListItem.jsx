@@ -9,11 +9,13 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import { useNavigate } from 'react-router-dom';
 import { FARMER_SECTIONS } from '../../constants';
 import ChatIcon from '@mui/icons-material/Chat';
+import StoreIcon from '@mui/icons-material/Store';
 import RateReview from '@mui/icons-material/RateReview';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import Tooltip from '@mui/material/Tooltip';
-
+import AddBusinessIcon from '@mui/icons-material/AddBusiness';
+import SellIcon from '@mui/icons-material/Sell';
 
 export default function FarmerListItems() {
   const navigate = useNavigate();
@@ -25,30 +27,30 @@ export default function FarmerListItems() {
     
       <><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.DASHBOARD)}>
       <ListItemIcon>
-        <Tooltip title="Dashboard">
-          <DashboardIcon color="primary" />
+        <Tooltip title="Market Dashboard">
+          <StoreIcon color="primary" />
         </Tooltip>
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+      <ListItemText primary="Market Dashboard" />
     </ListItemButton><Divider /><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.FDASHBOARD)}>
         <ListItemIcon>
-          <Tooltip title="Sales Dashboard">
+          <Tooltip title="Crop Dashboard">
             <DashboardIcon color="primary" />
           </Tooltip>
         </ListItemIcon>
-        <ListItemText primary="Dashboard" />
+        <ListItemText primary="Crop Dashboard" />
       </ListItemButton><Divider /><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.MYCROP)}>
         <ListItemIcon>
-          <Tooltip title="My Crops">
+          <Tooltip title="Crop Updates">
             <AssignmentIcon color="primary" />
           </Tooltip>
         </ListItemIcon>
-        <ListItemText primary="My Crops" />
+        <ListItemText primary="Crop Updates" />
       </ListItemButton><Divider /><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.SALES)}>
         <ListItemIcon>
-          <Tooltip title="Sales"><ReceiptIcon color="primary" /></Tooltip>
+          <Tooltip title="Market Manage"><AddBusinessIcon color="primary" /></Tooltip>
         </ListItemIcon>
-        <ListItemText primary="Sales" />
+        <ListItemText primary="Market Manage" />
       </ListItemButton><Divider /><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.ORDERS)}>
         <ListItemIcon>
           <Tooltip title="Orders">
@@ -58,11 +60,11 @@ export default function FarmerListItems() {
         <ListItemText primary="Orders" />
       </ListItemButton><Divider /><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.BID)}>
         <ListItemIcon>
-          <Tooltip title="My Requests">
-            <ChatIcon color="primary" />
+          <Tooltip title="Bidding">
+            <SellIcon color="primary" />
           </Tooltip>
         </ListItemIcon>
-        <ListItemText primary="My Requests" />
+        <ListItemText primary="Bidding" />
       </ListItemButton><Divider /><ListItemButton onClick={() => routeToPage(FARMER_SECTIONS.REVIEWS)}>
         <ListItemIcon>
           <Tooltip title="Reviews">

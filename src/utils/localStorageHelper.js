@@ -7,6 +7,7 @@ export function setAuthorizationKey(token) {
 }
 
 export function setUserObjectInLocal(user) {
+ 
   const userString = JSON.stringify(user);
   localStorage.setItem(USER_DETAILS, userString);
 }

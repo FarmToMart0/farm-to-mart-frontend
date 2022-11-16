@@ -75,8 +75,10 @@ export default function MyCropTable({rows,columns, tab,handleClickEdit,updateHar
     try {
       
       const [code,res] = await api.farmer.updateHarvestedData([harvesteddata,selectedProduct.id]);
+    
       if (code ===201) {
         doRefresh()
+
         setErrorMessage({ type: 'success', message:'successfully updated harvest details' });
         setErrorOccured(true);
       }
@@ -84,6 +86,7 @@ export default function MyCropTable({rows,columns, tab,handleClickEdit,updateHar
         setErrorMessage({ type: 'error', message:res });
         setErrorOccured(true);
       }
+      
     } catch (error) {
       setErrorMessage({ type: 'error', message:'server error' });
       setErrorOccured(true);
@@ -128,6 +131,7 @@ export default function MyCropTable({rows,columns, tab,handleClickEdit,updateHar
     let harvestData = { ...harvesteddata };
     harvestData[name] = value;
     setHarvestedData(harvestData);
+    
     setErrors(errorData);
     
   }
@@ -357,6 +361,7 @@ const validateProperty = (event) => {
                     name='harvestedDate'
                     type = 'date'
                     aria-describedby="outlined-weight-helper-text"
+                    
                     inputProps={{
                     'aria-label': 'weight',
                     }}

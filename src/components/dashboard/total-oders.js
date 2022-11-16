@@ -26,7 +26,7 @@ export const TotalOrders = (props) => (
             color="textPrimary"
             variant="h4"
           >
-            50
+            {props.totalOrders}
           </Typography>
         </Grid>
         <Grid item>
@@ -55,7 +55,7 @@ export const TotalOrders = (props) => (
             mr: 1
           }}
         >
-          16%
+          {props.totalOrdersSinceLastMonth}%
         </Typography>
         <Typography
           color="textSecondary"

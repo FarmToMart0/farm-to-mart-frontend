@@ -62,7 +62,7 @@ function Row(props) {
         <TableCell component="th" scope="row">
           {row.productName}
         </TableCell>
-        <TableCell align="right">{new Date(row.date).getFullYear()+'-'+new Date(row.date).getMonth()+'-'+new Date(row.date).getDate()}</TableCell>
+        <TableCell align="right">{new Date(row.updatedAt).getFullYear()+'-'+(parseInt(new Date(row.updatedAt).getMonth())+1)+'-'+new Date(row.updatedAt).getDate()}</TableCell>
         
         <TableCell align="right"><Button variant="outlined" onClick={()=>{props.openForm([true,row._id,1])}}  startIcon={<EditIcon  />}>
         Edit
