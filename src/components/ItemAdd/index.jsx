@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import { useDispatch,useSelector } from 'react-redux';
+import dayjs from 'dayjs';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
@@ -7,11 +8,12 @@ import {Stack,Grid,Button,Typography,Paper,CircularProgress,TextField,Autocomple
 import * as yup from 'yup';
 import { color } from '@mui/system';
 import Switch from '@mui/material/Switch';
-import ImageCollection from '../imageList/index';
+import ImageCollection from '../ImageList/index';
 import SnackBarComponent from '../../components/Snackbars';
 import axios from 'axios';
 import api  from "../../api"
 import {Image} from 'cloudinary-react';
+import ResponsiveDateTimePickers from './../DateTimePicker/index';
 const validationSchema = yup.object().shape({
   productName: yup.string().required().label('Product productName'),
   quantity: yup.number().required().min(1).label('Product Quantity'),
@@ -38,7 +40,7 @@ export default function ItemAdd(props) {
     ]
     );
     const [img,setImg]=useState([])
-  const [checked, setChecked] = React.useState(true);
+  const [checked, setChecked] = React.useState(false);
 
   const handleChangeBiding = (event) => {
 
@@ -62,12 +64,16 @@ export default function ItemAdd(props) {
     price:'',
     bid:'',
   });
-
- 
+  const [endDate, setEndDate] = useState(null);
+  const handleChangeDate = (e)=>{
+    
+    setEndDate(e['$d']);
+  }
  
    useEffect(()=>{
     
     if (props.edit==1) {
+      setEndDate(props.editProduct[0]?.biddingEndin)
       setSelectCategory(props.editProduct[0].category)
       setProductId(props.editProduct[0]._id)
       setSelectedPayementOption(props.editProduct[0].paymentOption)
@@ -88,9 +94,10 @@ export default function ItemAdd(props) {
   
 const handleSave = async (values)=>{
   try {
+    
     setLoadingProductAdd(true)
     
-      const [code,res] = await api.farmer.updateProduct({_id:productId,'category':selectCategory,'farmer':user.id,'productName':values.productName,'quantity':values.quantity,'unitPrice':values.price,'initialBid':values.bid,'description':values.description,'biddingEnable':checked,'paymentOption':selectedPayementOption,'deliveryOption':selectedDeliveryOption,'images':imageList});
+      const [code,res] = await api.farmer.updateProduct({_id:productId,biddingEndin:endDate,'category':selectCategory,'farmer':user.id,'productName':values.productName,'quantity':values.quantity,'unitPrice':values.price,'initialBid':values.bid,'description':values.description,'biddingEnable':checked,'paymentOption':selectedPayementOption,'deliveryOption':selectedDeliveryOption,'images':imageList});
       if (code === 201) {
         setLoadingProductAdd(false);
         setProductAddedSuccesfully(false);
@@ -127,7 +134,7 @@ const handleSave = async (values)=>{
     try {
       setLoadingProductAdd(true)
       console.log('user',user);
-      const [code,res] = await api.farmer.addProduct({'category':selectCategory,'farmer':user.id,'productName':values.productName,'quantity':values.quantity,'unitPrice':values.price,'initialBid':values.bid,'description':values.description,'biddingEnable':checked,'paymentOption':selectedPayementOption,'deliveryOption':selectedDeliveryOption,'images':imageList.map((item)=>{return item.img})});
+      const [code,res] = await api.farmer.addProduct({'category':selectCategory,biddingEndin:endDate,'farmer':user.id,'productName':values.productName,'quantity':values.quantity,'unitPrice':values.price,'initialBid':values.bid,'description':values.description,'biddingEnable':checked,'paymentOption':selectedPayementOption,'deliveryOption':selectedDeliveryOption,'images':imageList});
     
       if (code === 201) {
         setLoadingProductAdd(false);
@@ -401,6 +408,16 @@ style={{
   </Grid>
   
 </Grid>
+{checked && <Grid container spacing={2}>
+  <Grid ml={5} item xs={8}>
+     <Stack direction='row' spacing={2}>
+            <Typography>Due date for bidding</Typography>
+          <ResponsiveDateTimePickers endDate={endDate} handleDate={handleChangeDate} />
+
+          </Stack>
+  </Grid>
+  
+</Grid>}
 <Grid container spacing={2}>
   <Grid ml={4} mt={0} item xs={8}>
   <React.Fragment>

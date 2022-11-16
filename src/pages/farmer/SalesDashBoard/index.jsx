@@ -22,7 +22,13 @@ function SalaseDashBoard () {
   const [salseOverView,setSalesOverView]=useState(0);
   const [labeles,setLables]=useState([]);
   const [data,setData]=useState([]);
+  const [orderOrverview,setOrderOverView]=useState([])
 
+
+  var total =0
+  orderOrverview.forEach(element => {
+    total =total+element.totalAmount;
+  });
   async function getAllDetails(id) {
     try {
       const [code1,res1] = await api.order.getOngoingBiddingCount(id)
@@ -67,6 +73,8 @@ function SalaseDashBoard () {
         }
       }))
       setData(res7.map(item=>{return item.totalSales}))
+      const [code8,res8] = await api.order.getOrderOrverView(user?.id);
+      setOrderOverView(res8.map(item=>{return {totalAmount:item.totalAmount,productName:item.details[0].productName}}));
 
 
 
@@ -74,6 +82,9 @@ function SalaseDashBoard () {
       console.log(error)
     }
   }
+console.log('pppppp',total)
+
+  
 
   useEffect(()=>{
     getAllDetails(user?.id)
@@ -151,7 +162,7 @@ return(
             xl={3}
             xs={12}
           >
-            <OrderOverView sx={{ height: '100%' }} />
+            <OrderOverView total={total} orderData ={orderOrverview} sx={{ height: '100%' }} />
           </Grid>
           
           

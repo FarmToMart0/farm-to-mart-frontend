@@ -7,7 +7,7 @@ const userObj = userString ? JSON.parse(userString) : null;
 const initialState = {
   auth: userObj ? true : false,
   id: userObj?._id,
-  firstName: userObj?.firsName,
+  firstName: userObj?.firstName,
   lastName: userObj?.lastName,
   email: userObj?.email,
   nic: userObj?.nic,
@@ -18,7 +18,7 @@ const initialState = {
   gsd_code: userObj?.gsdCode,
   city: userObj?.city,
   district: userObj?.district,
-  userRole: userObj?.useRole,
+  userRole: userObj?.userRole,
 };
 
 export const userSlice = createSlice({
@@ -26,7 +26,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     loggingRequest: (state, action) => {
-      console.log('pay', action.payload)
+      
       state.auth = true;
       state.id = action.payload?._id;
       state.firstName = action.payload?.firstName;

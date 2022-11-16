@@ -27,7 +27,7 @@ export default function SimplePaper() {
   const [bidWon,setBidWon] = useState(true)
   useEffect(()=>{
     getBid()
-  })
+  },[])
 
 
 
@@ -59,7 +59,7 @@ export default function SimplePaper() {
   const getBid =()=>{
     const dbRef = ref(db)
     const bid_item = item_id
-    get(child(dbRef,'bidding/'+bid_item)).then((snapshot)=>{
+    get(child(dbRef,'bidding/'+bid_item)).onSnapshot((snapshot)=>{
       if(snapshot.exists()){
         const currnt_bid = snapshot.val().currnt_bid
         const player_id = snapshot.val().buyer_id;

@@ -11,7 +11,7 @@ import TabPaneMyCrops from '../../pages/farmer/MyCrops';
 import SalaseDashBoard from '../../pages/farmer/SalesDashBoard';
 import MyRequets from '../../pages/farmer/myRequests';
 import ReviewCard from '../../pages/farmer/Reviews/card';
-import DataCenter from '../../pages/farmer/Datacenter';
+import DataCenter from '../../pages/farmer/DataCenter/index';
 
 
 const drawerWidth = 240;

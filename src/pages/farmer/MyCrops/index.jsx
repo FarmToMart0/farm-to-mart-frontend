@@ -8,12 +8,13 @@ import CustomizedTables from '../../../components/TableComponent';
 import api from '../../../api'
 import MyCropTable from './Table/index';
 import SnackBarComponent from '../../../components/Snackbars';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function TabPaneMyCrops(props) {
   const [errorMessage, setErrorMessage] = useState({ type: '', message: '' });
   const [errorOccured, setErrorOccured] = useState(false);
   const [value, setValue] = React.useState('1');
- 
+  const user = useSelector((state) => state?.user);
   const [orderData, setOrderData] = React.useState([]);
   const [completedTask,setCompletedTask] = React.useState([]);
   const handleClickEdit=(id)=>{
@@ -117,7 +118,8 @@ async function getMyCropTask(nic) {
     let [code,res]=await api.farmer.getOngoingMycrops(nic);
     if (code ===201) {
 
-      setOrderData(res.map((item)=>{return {'id':item._id,isEdit:false,startedDate:new Date(item.startingDateOfGrowing).getFullYear()+'-'+new Date(item.startingDateOfGrowing).getMonth()+1 +'-'+new Date(item.startingDateOfGrowing).getDate(),expectedDate:new Date(item.expectingDateOfHarvest).getFullYear()+'-'+new Date(item.expectingDateOfHarvest).getMonth()+1 +'-'+new Date(item.expectingDateOfHarvest).getDate(),cropType:item.cropType,landArea:`${item.landArea} ha` , location:item.location, harvestedAmount:`${item.harvestedAmount}Kg`,expectedAmount:`${item.expectedAmount}Kg`,harvestedDate:new Date(item.harvestedDate).getFullYear()+'-'+(parseInt(new Date(item.harvestedDate).getMonth())+1) +'-'+new Date(item.harvestedDate).getDate()}})) 
+      setOrderData(res.map((item)=>{
+        return {'id':item._id,isEdit:false,startedDate:new Date(item.startingDateOfGrowing).getFullYear()+'-'+(parseInt(new Date(item.startingDateOfGrowing).getMonth())+1) +'-'+new Date(item.startingDateOfGrowing).getDate(),expectedDate:new Date(item.expectingDateOfHarvest).getFullYear()+'-'+(parseInt(new Date(item.expectingDateOfHarvest).getMonth())+1) +'-'+new Date(item.expectingDateOfHarvest).getDate(),cropType:item.cropType,landArea:`${item.landArea} ha` , location:item.location, harvestedAmount:`${item.harvestedAmount}Kg`,expectedAmount:`${item.expectedAmount}Kg`,harvestedDate:new Date(item.harvestedDate).getFullYear()+'-'+(parseInt(new Date(item.harvestedDate).getMonth())+1) +'-'+new Date(item.harvestedDate).getDate()}})) 
     }
   } catch (error) {
     console.log(error)
@@ -125,10 +127,11 @@ async function getMyCropTask(nic) {
 }
 
 useEffect(()=>{
-  getMyCropTask('990910820V')
-  getCompletedMyCropTask('990910820V')
+  getMyCropTask(user?.nic)
+  getCompletedMyCropTask(user?.nic)
     
 },[])
+console.log('orderData',orderData)
 
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>

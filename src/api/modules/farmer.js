@@ -45,6 +45,12 @@ export default {
   },
   getReviews(id){
     return resolver(axiosClient.get(`/reviews/${id}`))
+  },
+  pushNotification(data){
+    return resolver(axiosClient.post(`/bidding/notification`,data))
+  },
+  notify(id){
+    return resolver(axiosClient.get(`/farmer/notify/${id}`));
   }
   
   

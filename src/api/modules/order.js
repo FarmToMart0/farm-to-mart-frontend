@@ -47,6 +47,9 @@ export default {
   },
   getOngoingBiddingCount(id){
     return resolver(axiosClient.get(`/product/ongoingbiddingcount/${id}`))
+  },
+  getOrderOrverView(id){
+    return resolver(axiosClient.get(`/order/ordersoverview/${id}`))
   }
   
   

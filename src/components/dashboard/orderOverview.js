@@ -13,14 +13,14 @@ export const OrderOverView = (props) => {
   const data = {
     datasets: [
       {
-        data: [63, 15, 22],
+        data: props.orderData.map(item=>{return item.totalAmount}),
         backgroundColor: ['#3F51B5', '#e53935', '#FB8C00'],
         borderWidth: 8,
         borderColor: '#FFFFFF',
         hoverBorderColor: '#FFFFFF'
       }
     ],
-    labels: ['Beans', 'Long beans', 'Brinjals']
+    labels: props.orderData.map(item=>{return item.productName}),
   };
 
   const options = {
@@ -44,27 +44,13 @@ export const OrderOverView = (props) => {
       titleFontColor: theme.palette.text.primary
     }
   };
-
-  const devices = [
-    {
-      title: 'Beans',
-      value: 63,
-      icon: LaptopMacIcon,
-      color: '#3F51B5'
-    },
-    {
-      title: 'Long Beans',
-      value: 15,
-      icon: TabletIcon,
-      color: '#E53935'
-    },
-    {
-      title: 'Brinjals',
-      value: 23,
-      icon: PhoneIcon,
-      color: '#FB8C00'
-    }
-  ];
+  console.log('lllll',props.orderData)
+const devices = props.orderData.map(item=>{return  {
+  title: item.productName,
+  value: item.totalAmount,
+  color: '#3F51B5'
+}})
+  
 
   return (
     <Card {...props}>
@@ -90,8 +76,7 @@ export const OrderOverView = (props) => {
           }}
         >
           {devices.map(({
-            color,
-            icon: Icon,
+            
             title,
             value
           }) => (
@@ -102,7 +87,7 @@ export const OrderOverView = (props) => {
                 textAlign: 'center'
               }}
             >
-              <Icon color="action" />
+             
               <Typography
                 color="textPrimary"
                 variant="body1"
@@ -110,10 +95,10 @@ export const OrderOverView = (props) => {
                 {title}
               </Typography>
               <Typography
-                style={{ color }}
+                
                 variant="h4"
               >
-                {value}
+                {Math.round((value/props.total)*100) }
                 %
               </Typography>
             </Box>
