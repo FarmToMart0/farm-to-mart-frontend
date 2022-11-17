@@ -10,10 +10,8 @@ export default {
     
     return resolver(axiosClient.post('/signin', data));
   },
-  getDetails(data){
-    return resolver(axiosClient.post('user/user-details',data))
+  
+  getFDetails(data){
+    return resolver(axiosClient.post('gso/user-details',data))
   }
-  
-  
-  
 };
