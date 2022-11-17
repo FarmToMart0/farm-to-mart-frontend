@@ -124,7 +124,7 @@ export default function AddFarmer() {
       const [code,res] = await api.farmer.addFarmerbyGso(values);
     
       if (code === 201) {     
-        navigate('/gso/home');
+        navigate('/gso/success');
       } else {
         setErrors({ type: 'error', message: res });
         setErrorOccured(true);
@@ -141,7 +141,10 @@ export default function AddFarmer() {
   
   return (
       <div>
-        <Container component="main" maxWidth="" sx={{background:'white',width:'70%', boxShadow: 
+        <Typography component="h5" variant="h3" color='secondary' sx={{mt: 3, mb: 3, fontSize: '1rem', fontWeight: 'bold', textAlign: 'center'}}>
+            There is no farmer registered under the nic. Please fill the details to register the farmer.
+          </Typography>
+        <Container component="main" maxWidth="" sx={{background:'white',width:'100%', boxShadow: 
         '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )', borderRadius:'10px', mb: '5vw', mt:0}}>
         <CssBaseline />
         <SnackBarComponent open={errorOccured} message={errors.message} type='error'  setOpen={setErrorOccured}   />
@@ -153,6 +156,8 @@ export default function AddFarmer() {
             alignItems: 'center',
           }}
         >
+          
+
           <Typography component="h1" variant="h5" color='primary' sx={{mt: 3, mb: 3, fontSize: '2rem', fontWeight: 'bold'}}>
             Farmer Registration
           </Typography>

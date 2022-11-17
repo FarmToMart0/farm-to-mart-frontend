@@ -10,5 +10,19 @@ export default {
 
 	addCropData(data){
 		return resolver(axiosClient.post("/gso/add-crop-details", data));
+	},
+
+	checkFarmerAvailability(data){
+		return resolver(axiosClient.post("/gso/check-availability-farmer", data));
+	},
+
+	checkGsoAvailability(data){
+		return resolver(axiosClient.post("/main-officer/check-availability-gso", data));
+	},
+
+	removeFarmer(data){
+		return resolver(axiosClient.put("gso/remove-farmer", data))
 	}
+
+
 };	

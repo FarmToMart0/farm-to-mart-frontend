@@ -16,17 +16,36 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import gsoHome from '../../assets/images/gsoHome.jpg';
+import api from '../../api';
 
 export default function GSOHome() {
   const navigate = useNavigate();
-  const handleSearch = (e) => {
+  const [nic, setNic] = useState('');
+  const [favailability, setFavailability] = useState(false); 
+  const [clicked, setClicked] = useState(false);
+  const [farmer, setFarmer] = useState([]);
 
-    
-      navigate('../../gso/farmer-details/')
-  
+  const handleSearch = async (e) => {
+    setClicked(true);
+    try{
+      const [code, res] = await api.gso.checkFarmerAvailability({"nic": nic})
+      if(code === 201){
+        if (res){
+          setFavailability(true);
+          
+          console.log(clicked);
+          console.log(nic)
+          setFarmer(res);
+          
+        }
+      }
+
+    }catch(error){
+      console.log(error);
+    }
   };
 
-  const [nic, setNic] = '';
+  
 
   return (
     <div>
@@ -35,7 +54,7 @@ export default function GSOHome() {
         width: '70%',
         padding: '10px', }}>
             
-      <Box component="form" sx={{ mt: 3, mb: 3}} onSubmit={handleSearch}>
+      <Box component="form" sx={{ mt: 3, mb: 3}} >
       <TextField
         required
         fullWidth
@@ -43,22 +62,27 @@ export default function GSOHome() {
         type="text"
         label="Enter Farmer's NIC"
         name="nic"
+        onChange={(e) => setNic(e.target.value)}
         autoFocus
       />
 
       <Button
-        type="submit"
-        id="submit"
+        //id="submit"
         fullWidth
         //disabled={isLoading}
         variant="contained"
+        onClick={handleSearch}
         sx={{ mt: 3, mb: 2 }}
       >
         Search
       </Button>
       </Box>
+      
+      {!favailability && !clicked && <img style={{width: '100%', height: '100%'}} src={gsoHome} alt="gsoHome" />}
 
-      <img style={{width: '100%', height: '100%'}} src={gsoHome} alt="gsoHome" />
+      {favailability && clicked && <DetailsCard farmerDetails={farmer} />}
+
+      {clicked && !favailability && <AddFarmer />}
       
     
     </div>

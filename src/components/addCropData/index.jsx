@@ -21,10 +21,12 @@ import AdminNavbar from '../admin_navbar/index';
 import api from  '../../api'
 import SnackBarComponent from '../Snackbars';
 
-export default function AddCropData() {
+export default function AddCropData({farmersNic}) {
+  //console.log(farmersNic)
   const [errorOccured, setErrorOccured] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [crop, setCrop] = useState({
+    farmerNic: farmersNic,
     category: "",
     cropType: "",
     startingDateOfGrowing: "",
@@ -39,6 +41,7 @@ export default function AddCropData() {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const schema = {
+    farmerNic: Joi.required(),
     category: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
     cropType: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
     startingDateOfGrowing: Joi.date().iso().required(),
@@ -78,7 +81,7 @@ export default function AddCropData() {
 
   const handleLandAreaChange = (event) => {
     setCrop(previousState => {
-      return { ...previousState, la: event.target.value }
+      return { ...previousState, landArea: event.target.value }
     })
   };
 
@@ -134,7 +137,7 @@ export default function AddCropData() {
 
   return (
       <div>
-        <Container component="main" maxWidth="" sx={{width:'70%', background:'white', boxShadow: 
+        <Container component="main" maxWidth="" sx={{width:'100%', background:'white', boxShadow: 
         '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )', borderRadius:'5px', mb: '5vw'}}>
         <CssBaseline />
         <SnackBarComponent open={errorOccured} message={errors.message} type='error'  setOpen={setErrorOccured}   />
@@ -250,7 +253,7 @@ export default function AddCropData() {
                 <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid Date</Alert>)}
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
