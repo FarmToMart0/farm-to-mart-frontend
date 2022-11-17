@@ -94,14 +94,26 @@ export default function Market() {
 
 			<React.Fragment>
 				<CssBaseline />
-				<Container
+				<Box
+				sx={{
+					display: 'flex',
+					flexWrap: 'wrap',
+					justifyContent: 'center',
+					alignItems: 'center',
+					width: '100%'
+				}}>
+
+				<Paper
+					elevation={5}
 					style={{
 						backgroundColor: "#E5F6DF",
 						borderRadius: "30px",
 						marginTop: 75,
-						paddingTop: 0,
+					
+						padding: 40
+						// boxShadow: "rgba(0, 0, 0, 0.12) 5px 6px 8px, rgba(0, 0, 0, 0.24) 5px 6px 7px"
 					}}>
-					<Box sx={{ width: "100%", marginTop: 5 }}>
+					<Box sx={{ width: "100%" }}>
 						{/* SEARCH PANEL */}
 
 						<Box
@@ -200,7 +212,8 @@ export default function Market() {
 							</React.Fragment>
 						)}
 					</Box>
-				</Container>
+				</Paper>
+				</Box>
 			</React.Fragment>
 		</div>
 	);
