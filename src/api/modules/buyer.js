@@ -11,8 +11,10 @@ export default {
 		return resolver(axiosClient.post("bidding/setbid", data));
 	},
 	//calling getting market products endpoint
-	getMarketProducts(){
-		return resolver(axiosClient.get("product/marketproduct"));
+	getMarketProducts(data){
+		console.log(data[0]);
+		console.log(data[1]);
+		return resolver(axiosClient.get(`product/marketproduct?district=${data[0]}&type=${data[1]}`));
 	},
 
 	getItemImages(id){

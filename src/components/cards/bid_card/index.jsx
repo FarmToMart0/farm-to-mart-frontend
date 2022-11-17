@@ -21,6 +21,7 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import GavelIcon from '@mui/icons-material/Gavel';
 import { useNavigate } from "react-router-dom";
+import PlaceIcon from '@mui/icons-material/Place';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -37,7 +38,7 @@ const ExpandMore = styled((props) => {
 export default function ItemCard(props) {
     
     
-    const {item_id,product_name,price,more_details,date,transport,payment,image,min_bid} = props.item
+    const {item_id,product_name,price,more_details,date,transport,payment,image,min_bid,district} = props.item
     
     const [expanded, setExpanded] = React.useState(false);
 
@@ -107,6 +108,13 @@ export default function ItemCard(props) {
         <PaymentIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
         <Typography paragraph style={{color:'black'}}>  Online Payment:{payment} </Typography> 
         </Stack>
+
+        <Stack direction="row">
+        {/* <Item> <LocalShippingIcon style={{margin:'5'}} ></LocalShippingIcon></Item> */}
+        <PlaceIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
+        <Typography paragraph style={{color:'black'}}>  District:{district} </Typography> 
+        </Stack>
+
         </Stack>
         <hr></hr>
           <Typography paragraph style={{color:'black'}}>
