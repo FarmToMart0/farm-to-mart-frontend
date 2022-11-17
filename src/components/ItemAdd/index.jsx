@@ -8,7 +8,7 @@ import {Stack,Grid,Button,Typography,Paper,CircularProgress,TextField,Autocomple
 import * as yup from 'yup';
 import { color } from '@mui/system';
 import Switch from '@mui/material/Switch';
-import ImageCollection from '../ImageList/index';
+import ImageCollection from '../imageList/index';
 import SnackBarComponent from '../../components/Snackbars';
 import axios from 'axios';
 import api  from "../../api"
