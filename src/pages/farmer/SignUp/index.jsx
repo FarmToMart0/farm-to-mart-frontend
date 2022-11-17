@@ -157,10 +157,10 @@ export default function SignUp() {
     
       if (code === 201) {
         console.log(res)
-        setAuthorizationKey(res.token);
-        // setUserObjectInLocal(res.data.user);
+        // setAuthorizationKey(res.token);
+        // // setUserObjectInLocal(res.data.user);
        
-        navigate('/farmer/dash/dashboard');
+        // navigate('/farmer/dash/dashboard');
       } else {
         setErrorMessage({ type: 'error', message: res });
         setErrorOccured(true);

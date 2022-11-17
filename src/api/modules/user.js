@@ -10,6 +10,9 @@ export default {
     
     return resolver(axiosClient.post('/signin', data));
   },
+  verify(token){
+    return resolver(axiosClient.get(`/signin/verify/${token}`))
+  }
   
   
   

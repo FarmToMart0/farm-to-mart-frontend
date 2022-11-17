@@ -42,6 +42,7 @@ import ItemAdd from './pages/home/index';
 import GSOLayout from './layouts/GSOLayout';
 import MainOfficerLayout from './layouts/MainOfficerLayout/index';
 import Bidding from './pages/Bidding/index';
+import FarmerVerification from './pages/FarmerVerification/index';
 // import ShoppingCard from './pages/shoppingCard/index';
 function App() {
   
@@ -67,6 +68,7 @@ function App() {
     <Route path="/" element={<Home/>} exact />
 
     <Route path="/login" element={<Login/>} />
+    <Route path="/verify/:token" element={<FarmerVerification/>} />
     <Route path="/main-officer/add-gso" element={<AddGSOPage/>} />
     <Route path="/gso/add-crop-data" element={<AddCropData/>} />
     <Route path="/main-officer/show-gso" element={<ShowGSO/>} />
