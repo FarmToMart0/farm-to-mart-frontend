@@ -42,6 +42,7 @@ import ItemAdd from './pages/home/index';
 import GSOLayout from './layouts/GSOLayout';
 import MainOfficerLayout from './layouts/MainOfficerLayout/index';
 import Bidding from './pages/Bidding/index';
+import Pay from './components/payment/payment/index'
 // import ShoppingCard from './pages/shoppingCard/index';
 function App() {
   
@@ -58,6 +59,7 @@ function App() {
     <Route path="/mainofficer/dash/:page" element={<MainOfficerLayout/>}/>
 
     <Route path="/buyer/market/checkout/payment/complete" element={<Success/>}/>
+    <Route path="/pay" element={<Pay/>}/>
 
     
 

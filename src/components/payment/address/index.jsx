@@ -10,6 +10,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import {Helmet} from 'react-helmet';
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Rokkitt:wght@1200&display=swap');
@@ -44,10 +45,14 @@ export default function AddressForm(props) {
   
 
   return (
-    <Container component="main" maxWidth="sm" sx={{ mb: 10,mt:12  }}>
+    
+    <Container component="main" maxWidth="sm" sx={{ mb:-5,mt:10  }}>
+    <Helmet>
+      <style>{"body {overflow:hidden}"}</style>
+    </Helmet>
     <Paper
           variant="outlined"
-          sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 }}}
+          sx={{ my: { xs: 3, md: 6 }, py: { xs: 2, md: 3 }, px: { xs: 2, md: 3 } }}
         >
         {/* <Typography component="h1" variant="h4" align="center">
 
