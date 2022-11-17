@@ -3,7 +3,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 
 export default function StandardImageList(props) {
-    const itemData = props.images;
+    var itemData = props.images;
   return (
     <ImageList sx={{ width: "90%", height: "100%"}} cols={5} rowHeight={190} style={{ overflow: "hidden",display:'flex', justifyContent:'center', alignItems:'center' }}>
       {itemData.map((item) => (

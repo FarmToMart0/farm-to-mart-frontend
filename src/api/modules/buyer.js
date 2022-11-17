@@ -13,5 +13,11 @@ export default {
 	//calling getting market products endpoint
 	getMarketProducts(){
 		return resolver(axiosClient.get("product/marketproduct"));
+	},
+
+	getItemImages(id){
+		
+		
+		return resolver(axiosClient.get(`product/image/${id}`));
 	}
 };
