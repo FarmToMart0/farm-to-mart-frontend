@@ -1,4 +1,4 @@
-import * as React from 'react';
+import  React,{useState,useEffect} from 'react';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -12,6 +12,8 @@ import { Box } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import bg from "../../../assets/images/bg4.jpg";
 import Stack from '@mui/material/Stack';
+import Timer from './../../../components/Timer/index';
+
 
 
 const Img = styled('img')({
@@ -35,7 +37,10 @@ const ExpandMore = styled((props) => {
 
  
 export default function BidDetailCard() {
- 
+ const [biddindDetails,setBiddingDetails]= useState([{productName: 'Carrot',biddingCount:15,winner:'Sumeela Madusankha',currentBid:'50000',date:'12 Nov 2022 | 16.00 PM', endDate:'11/21/2022'},{productName: 'Beans',biddingCount:10,winner:'Jagath Madusankha',currentBid:'80000',date:'15 Nov 2022 | 12.08 PM',endDate:'11/18/2022'}])
+
+
+
   return (
     <Paper
       sx={{
@@ -46,9 +51,11 @@ export default function BidDetailCard() {
         
       }}
     >
-      <Grid container spacing={2}>
-        <Grid item>
-          <ButtonBase sx={{ width: 128, height: 128 }}>
+      {biddindDetails.map(item=>{
+        return <div>
+          <Grid container spacing={2}>
+        <Grid item md={4}  xs={12} sm container>
+          <ButtonBase sx={{ width: '100%', height: '80%' }}>
             <Img alt="complex" src={bg} />
           </ButtonBase>
         </Grid>
@@ -56,20 +63,20 @@ export default function BidDetailCard() {
           <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
               <Typography gutterBottom  fontSize='20px' component="div">
-                <b>Carrot</b>
+                <b>{item.productName}</b>
               </Typography>
               <Typography variant="body2" color="text.secondary">
-               Bids : 15
+               Bids : {item.biddingCount}
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
-                Current Bid :<b> LKR 500.00</b>
+                Current Bid :<b> LKR {item.biddingCount}</b>
               </Typography>
               <Stack direction="row" spacing={2}>
        <Typography fontSize='16px' color="text.primary">
-              Sumeela Madhusankha
+              {item.winner}
              </Typography>
        <Typography fontSize='13px' color="text.secondary" paddingTop='3px'>
-              12 Nov 2022 | 16.00 PM
+              {item.date}
              </Typography>
         
       </Stack>
@@ -78,7 +85,7 @@ export default function BidDetailCard() {
             </Grid>
             
           </Grid>
-          <Grid item>
+          <Grid item  >
           <Box
       sx={{
         width: 'auto',
@@ -96,13 +103,15 @@ export default function BidDetailCard() {
              Ends in:
             </Typography>
             <Typography fontSize='22px' color='black' component="div">
-             5 hours 23 mins
+             <Timer date={item.endDate}/>
              <br/>
             </Typography>
             </Box>
           </Grid>
         </Grid>
       </Grid>
+        </div>
+      })}
     </Paper>
   );
 }

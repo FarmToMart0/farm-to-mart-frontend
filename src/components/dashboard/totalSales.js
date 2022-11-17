@@ -4,6 +4,7 @@ import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material'
 import MoneyIcon from '@mui/icons-material/Money';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 export const TotalSales = (props) => (
+  
   <Card
     sx={{ height: '100%' }}
     {...props}
@@ -26,7 +27,7 @@ export const TotalSales = (props) => (
             color="textSecondary"
             variant="h4"
           >
-            100000 LKR
+            {props.totalSales} LKR
           </Typography>
         </Grid>
         <Grid item>
@@ -56,7 +57,7 @@ export const TotalSales = (props) => (
           }}
           variant="body2"
         >
-          20%
+          {(props.salesSinceLastMonth)}%
         </Typography>
         <Typography
           color="textSecondary"

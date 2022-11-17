@@ -9,7 +9,7 @@ import api from '../../../api';
 import AddIcon from '@mui/icons-material/Add';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Button from '@mui/material/Button';
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function ProductManage(props) {
   const [manageAddProdct, setManageAddProduct] = useState([false,0,0]);
@@ -65,17 +65,28 @@ React.useEffect(() => {
        <div> 
         <CssBaseline/> 
     <Box  sx={{ml:1,mt:1}} elevation={0}  square >
-   {manageAddProdct[2]==0 && <Box  sx={{ '& > :not(style)': { m: 1 } }}>
+   {
+   !manageAddProdct[0] && <Box  sx={{ '& > :not(style)': { m: 1 } }}>
  
-  {/* <Fab variant="extended" size="medium" color="secondary" aria-label="add" onClick={()=>{setManageAddProduct([true,0,0])}}>
-    <NavigationIcon sx={{ mr: 1 }} />
-    Add Item
-  </Fab> */}
-  <Button variant="contained" color="success" startIcon={<AddCircleIcon />} onClick={()=>{setManageAddProduct([true,0,0])}}>
+ 
+ <Button variant="contained" color="success" startIcon={<AddCircleIcon />} onClick={()=>{setManageAddProduct([true,0,0])}}>
   Add Item
 </Button>
 
-  </Box>}
+  </Box>
+  
+  }
+  {
+   manageAddProdct[0] && <Box  sx={{ '& > :not(style)': { m: 1 } }}>
+ 
+ 
+ <Button variant="contained" color="success" startIcon={<ArrowBackIcon />} onClick={()=>{setManageAddProduct([false,0,0])}}>
+  Product List
+</Button>
+
+  </Box>
+  
+  }
 </Box>
 
 {manageAddProdct[0] && <ItemAdd getProducts={getAllProducts} formShow={manageAddProdct} editProduct={product} edit={manageAddProdct[2]}/>}
