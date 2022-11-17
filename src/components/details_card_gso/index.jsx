@@ -6,8 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Container } from '@mui/system';
-import FarmerDetails from '../farmer_details/index';
-import api from '../../api';
+import GSODetails from '../gsoDetails/index';
 
 
 const bull = (
@@ -21,30 +20,9 @@ const bull = (
 
 
 
-export default function OutlinedCard({farmerDetails}) {
+export default function OutlinedCard({gsoDetails}) {
 
   const [click, setClick] = useState(false);
-  const [user, setUser] = useState([]);
-
-  const handleSeeMore = async (e) => {
-    console.log({farmerDetails})
-    setClick(true);
-    try{
-      const [code, res] = await api.user.getDetails({farmerDetails})
-      console.log(res)
-      if(code === 201){
-        if (res){
-          console.log(res)
-          setUser(res);
-          
-        }
-      }
-
-    }catch(error){
-      console.log(error);
-    }
-  };
-
   return (
     <>
     {!click && <Container component="main" maxWidth="" sx={{background:'rgb(245, 245, 245)',width:'100%',borderRadius:'10px', mb: '5vw', mt:0, boxShadow: 
@@ -54,21 +32,23 @@ export default function OutlinedCard({farmerDetails}) {
           
         <CardContent>
             <Typography component="h1" variant="h5" color='primary' sx={{mt: 2, fontWeight: 'bold', fontSize: '1.8rem'}}>
-                {farmerDetails.gsdName}
+                {gsoDetails.gsoName}
             </Typography>
             <Typography component="h2" variant="h5" color='secondary' sx={{mt: 2, fontWeight: 'bold', fontSize: '1.5rem'}}>
-                {farmerDetails.gsdCode}
+                {gsoDetails.gsoCode}
             </Typography>
             <Typography component="h3" variant="h5" color='secondary' sx={{mt: 2, fontWeight: 'bold', fontSize: '1.2rem', color: 'black'}}>
-                {farmerDetails.firstName}  {farmerDetails.lastName}
+                {gsoDetails.firstName}  {gsoDetails.lastName}
             </Typography>
             <Typography component="h3" variant="h5" color='secondary' sx={{mt: 2, fontWeight: 'bold', fontSize: '1.2rem', color: 'black'}}>
-                {farmerDetails.nic}  
+                {gsoDetails.nic}  
             </Typography>
         </CardContent>
         <CardActions sx={{float: 'right'}}>
             <div style={{ marginTop: '-5vw'}}>
-                <Button size="small" onClick={handleSeeMore}>See More</Button>
+                <Button size="small" onClick={() => {
+                    setClick(true);
+                }}>See More</Button>
             </div>
           
         </CardActions>
@@ -78,7 +58,7 @@ export default function OutlinedCard({farmerDetails}) {
 
     </Container>}
 
-    {click && <FarmerDetails farmerDetails={farmerDetails} userDetails = {user} /> }
+    {click && <GSODetails gsoDetails={gsoDetails}/> }
     </>
 
   );

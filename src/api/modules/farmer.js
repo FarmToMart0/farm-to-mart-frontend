@@ -43,6 +43,7 @@ export default {
   getYearstList(district){
     return resolver(axiosClient.get(`/farmer/uniqueyears/${district}`))
   },
+  
   getReviews(id){
     return resolver(axiosClient.get(`/reviews/${id}`))
   },
@@ -54,5 +55,7 @@ export default {
   }
   
   
-  
+  addFarmerbyGso(data) {
+		return resolver(axiosClient.post("/gso/register-farmer", data));
+	},
 };

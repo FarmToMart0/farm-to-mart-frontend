@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Joi from "joi-browser";
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,34 +15,39 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
-
+import api from  '../../api'
+import SnackBarComponent from '../Snackbars';
 
 export default function AddFarmer() {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorOccured, setErrorOccured] = useState(false);
+  const [errors, setErrors] = useState({});
 
-  const [district, setDistrict] = useState('');
   const [farmer, setFarmer] = useState({
     firstName: "",
     lastName: "",
     address: "",
-    mobile: "",
-    gsoDevision: "",
-    gsoCode: "",
+    phone: "",
+    gsdName: "",
+    district: "",
+    gsdCode: "",
     email: "",
     nic:"",
     password:"",
     confPassword:""
   });
 
-  const [errors, setErrors] = useState({});
   const schema = {
     firstName: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
     lastName: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
     address: Joi.string().required(),
-    mobile: Joi.string().length(10).regex(/^[0-9]+$/, 'given').required(),
-    gsoDevision: Joi.string().required(),
-    gsoCode: Joi.string().required(),
+    phone: Joi.string().length(10).regex(/^[0-9]+$/, 'given').required(),
+    gsdName: Joi.string().required(),
+    gsdCode: Joi.string().required(),
     email: Joi.string().email().required(),
     nic: Joi.string().required(),
+    district: Joi.string().required(),
     password: Joi.string()
     .min(8)
     .max(25)
@@ -66,7 +72,10 @@ export default function AddFarmer() {
   };
 
   const handleDistrictChange = (event) => {
-    setDistrict(event.target.value)
+    
+    setFarmer(previousState => {
+      return { ...previousState, district: event.target.value }
+    })
   }; 
 
   const validateProperty = (event) => {
@@ -88,13 +97,14 @@ export default function AddFarmer() {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const result = Joi.validate(farmer,
       schema, { abortEarly: false });
     const { error } = result;
     if (!error) {
       console.log("Submitted");
+      await registerFarmer(farmer); 
     } else {
       const errorData = {};
       for (let item of error.details) {
@@ -109,13 +119,35 @@ export default function AddFarmer() {
  
   };
 
+  async function registerFarmer(values) {
+    try {
+      const [code,res] = await api.farmer.addFarmerbyGso(values);
+    
+      if (code === 201) {     
+        navigate('/gso/success');
+      } else {
+        setErrors({ type: 'error', message: res });
+        setErrorOccured(true);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      setErrors({ type: 'error', message:'server error' });
+      setErrorOccured(true);
+      setIsLoading(false);
+    }
+  }
+
 
   
   return (
       <div>
-        <Container component="main" maxWidth="" sx={{background:'white',width:'70%', boxShadow: 
+        <Typography component="h5" variant="h3" color='secondary' sx={{mt: 3, mb: 3, fontSize: '1rem', fontWeight: 'bold', textAlign: 'center'}}>
+            There is no farmer registered under the nic. Please fill the details to register the farmer.
+          </Typography>
+        <Container component="main" maxWidth="" sx={{background:'white',width:'100%', boxShadow: 
         '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )', borderRadius:'10px', mb: '5vw', mt:0}}>
         <CssBaseline />
+        <SnackBarComponent open={errorOccured} message={errors.message} type='error'  setOpen={setErrorOccured}   />
         <Box
           sx={{
             marginTop: 0,
@@ -124,6 +156,8 @@ export default function AddFarmer() {
             alignItems: 'center',
           }}
         >
+          
+
           <Typography component="h1" variant="h5" color='primary' sx={{mt: 3, mb: 3, fontSize: '2rem', fontWeight: 'bold'}}>
             Farmer Registration
           </Typography>
@@ -181,16 +215,16 @@ export default function AddFarmer() {
                 <TextField
                   required
                   fullWidth
-                  id="mobile"
+                  id="phone"
                   type="tel"
                   label="Mobile Number"
-                  name="mobile"
-                  value={farmer.mobile}
+                  name="phone"
+                  value={farmer.phone}
                   onChange={handleSave}
-                  autoComplete="mobile"
+                  autoComplete="phone"
                 />
 
-                {errors.mobile && (
+                {errors.phone && (
                 <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid Mobile Number</Alert>)}
               </Grid>
 
@@ -200,7 +234,7 @@ export default function AddFarmer() {
                     <Select
                     labelId="district"	
                     id="district"
-                    value={district}
+                    value={farmer.district}
                     label="District *"
                     onChange={handleDistrictChange}
                     >
@@ -236,15 +270,15 @@ export default function AddFarmer() {
                 <TextField
                   required
                   fullWidth
-                  id="gsoDevision"
+                  id="gsdName"
                   label="GoviJana Seva Devision"
-                  name="gsoDevision"
-                  value={farmer.gsoDevision}
+                  name="gsdName"
+                  value={farmer.gsdName}
                   onChange={handleSave}
                   autoComplete="gso-devision"
                 />
 
-                {errors.gsoDevision && (
+                {errors.gsdName && (
                 <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid GoviJana Seva Devision</Alert>)}
               </Grid>
 
@@ -252,15 +286,15 @@ export default function AddFarmer() {
                 <TextField
                   required
                   fullWidth
-                  id="gsoCode"
+                  id="gsdCode"
                   label="GoviJana Seva Devision Code"
-                  name="gsoCode"
-                  value={farmer.gsoCode}
+                  name="gsdCode"
+                  value={farmer.gsdCode}
                   onChange={handleSave}
                   autoComplete="gso-code"
                 />
 
-                {errors.gsoCode && (
+                {errors.gsdCode && (
                 <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid GoviJana Seva Devision Code</Alert>)}
               </Grid>
 
@@ -333,6 +367,7 @@ export default function AddFarmer() {
               type="submit"
               fullWidth
               variant="contained"
+              disabled={isLoading}
               sx={{ mt: 3, mb: 2, height: '2.5rem'}}
             >
               Register Farmer

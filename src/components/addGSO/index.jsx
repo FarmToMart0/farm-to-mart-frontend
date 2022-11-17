@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Joi from "joi-browser";
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,15 +15,20 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
+import api from  '../../api'
+import SnackBarComponent from '../Snackbars';
 
 
 export default function AddGSO() {
-  const [district, setDistrict] = useState('');
+  const [errorOccured, setErrorOccured] = useState(false);
+  //const [errorMessage, setErrorMessage] = useState({ type: '', message: '' });
+  const [isLoading, setIsLoading] = useState(false);
   const [gso, setGSO] = useState({
     firstName: "",
     lastName: "",
     mobile: "",
-    gsoDevision: "",
+    district: "",
+    gsoName: "",
     gsoCode: "",
     email: "",
     nic:"",
@@ -31,14 +37,16 @@ export default function AddGSO() {
   });
 
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
   const schema = {
     firstName: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
     lastName: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
     mobile: Joi.string().length(10).regex(/^[0-9]+$/, 'given').required(),
-    gsoDevision: Joi.string().required(),
+    gsoName: Joi.string().required(),
     gsoCode: Joi.string().required(),
     email: Joi.string().email().required(),
     nic: Joi.string().required(),
+    district: Joi.string().required(),
     password: Joi.string()
     .min(8)
     .max(25)
@@ -63,7 +71,9 @@ export default function AddGSO() {
   };
 
   const handleDistrictChange = (event) => {
-    setDistrict(event.target.value)
+    setGSO(previousState => {
+      return { ...previousState, district: event.target.value }
+    })
   }; 
 
   const validateProperty = (event) => {
@@ -86,13 +96,14 @@ export default function AddGSO() {
   };
 
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const result = Joi.validate(gso,
       schema, { abortEarly: false });
     const { error } = result;
     if (!error) {
       console.log("Submitted");
+      await registerGso(gso);
     } else {
       const errorData = {};
       for (let item of error.details) {
@@ -107,12 +118,33 @@ export default function AddGSO() {
  
   };
 
+  async function registerGso(values) {
+    
+    
+    try {
+      const [code,res] = await api.gso.registerGso(values);
+    
+      if (code === 201) {     
+        navigate('/main-officer/show-gso');
+      } else {
+        setErrors({ type: 'error', message: res });
+        setErrorOccured(true);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      setErrors({ type: 'error', message:'server error' });
+      setErrorOccured(true);
+      setIsLoading(false);
+    }
+  }
+
   
   return (
       <div>
         <Container component="main" maxWidth="" sx={{background:'white',width:'70%', boxShadow: 
         '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )', borderRadius:'10px', mb: '5vw', mt:0}}>
         <CssBaseline />
+        <SnackBarComponent open={errorOccured} message={errors.message} type='error'  setOpen={setErrorOccured}   />
         <Box
           sx={{
             marginTop: 0,
@@ -182,7 +214,7 @@ export default function AddGSO() {
                     <Select
                     labelId="district"
                     id="district"
-                    value={district}
+                    value={gso.district}
                     label="District *"
                     onChange={handleDistrictChange}
                     >
@@ -218,15 +250,15 @@ export default function AddGSO() {
                 <TextField
                   required
                   fullWidth
-                  id="gsoDevision"
+                  id="gsoName"
                   label="GoviJana Seva Devision"
                   type="text"
-                  name="gsoDevision"
-                  value={gso.gsoDevision}
+                  name="gsoName"
+                  value={gso.gsoName}
                   onChange={handleSave}
                   autoComplete="gso-devision"
                 />
-                {errors.gsoDevision && (
+                {errors.gsoName && (
                 <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid GoviJana Seva Devision</Alert>)}
               </Grid>
               <Grid item xs={12} sm={4}>
@@ -315,6 +347,7 @@ export default function AddGSO() {
             <Button
               type="submit"
               fullWidth
+              disabled={isLoading}
               variant="contained"
               sx={{ mt: 3, mb: 2, height: '2.5rem'}}
             >
