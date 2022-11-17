@@ -19,7 +19,6 @@ import gsoHome from '../../assets/images/gsoHome.jpg';
 import api from '../../api';
 
 export default function GSOHome() {
-  const navigate = useNavigate();
   const [nic, setNic] = useState('');
   const [favailability, setFavailability] = useState(false); 
   const [clicked, setClicked] = useState(false);
