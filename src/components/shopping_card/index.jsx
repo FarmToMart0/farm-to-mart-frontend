@@ -40,10 +40,9 @@ export default function BuyItemShoppingCard(props) {
 	};
 
 	const getImages = async (item_id) => {
-    
-		var [res,code] = await api.getItemImages(item_id.trim());
-		console.log(code.slice(0,5))
-		setItemData(code.slice(0,3));
+		var [res, code] = await api.getItemImages(item_id.trim());
+		console.log(code.slice(0, 5));
+		setItemData(code.slice(0, 3));
 	};
 
 	const itemData1 = [
@@ -74,7 +73,7 @@ export default function BuyItemShoppingCard(props) {
 
 	useEffect(() => {
 		getImages(item_id);
-	},[]);
+	}, []);
 
 	return (
 		<div>
@@ -116,6 +115,8 @@ export default function BuyItemShoppingCard(props) {
 										sx={{
 											display: "flex",
 											flexWrap: "wrap",
+											justifyContent: "center",
+												alignItems: "center",
 											"& > :not(style)": {
 												m: 1,
 												width: "100%",
@@ -128,8 +129,9 @@ export default function BuyItemShoppingCard(props) {
 												display: "flex",
 												justifyContent: "center",
 												alignItems: "center",
-												padding: 20,
-												marginBottom: 20,
+												marginTop:40,
+												marginBottom: 10,
+												width: '70%'
 											}}>
 											{/* ======================= Left Card ============================= */}
 											<ItemCard
@@ -139,14 +141,17 @@ export default function BuyItemShoppingCard(props) {
 											{/* ============================ End Left Card ========================= */}
 											<Box
 												sx={{
+													marginTop: 3,
+													marginLeft: 1,
+													padding: 1,
 													width: 300,
 													height: 300,
 													backgroundColor: "",
 													boxShadow: "rgba(0, 0, 0, 0.15) 0px 0px 0px",
-													"&:hover": {
-														boxShadow: "rgba(0, 0, 0, 0.15) 0px 3px 5px",
-														backgroundColor: "#fafafa",
-													},
+													// "&:hover": {
+													// 	boxShadow: "rgba(0, 0, 0, 0.15) 0px 3px 5px",
+													// 	backgroundColor: "#fafafa",
+													// },
 												}}>
 												<div>
 													<div
@@ -206,6 +211,7 @@ export default function BuyItemShoppingCard(props) {
 							display: "flex",
 							alignItem: "center",
 							justifyContent: "center",
+							marginBottom:-20
 						}}>
 						<ImageList images={itemData} />
 					</div>
@@ -214,10 +220,10 @@ export default function BuyItemShoppingCard(props) {
 				</Paper>
 
 				<Button
-					style={{ width: "56%", marginBottom: 0 }}
+					style={{ width: 180, marginBottom: 0 }}
 					onClick={handleBuyOrder}
 					variant='contained'
-					startIcon={<ShoppingCartIcon style={{ height: 50 }} />}>
+					startIcon={<ShoppingCartIcon style={{ height: 40 }} />}>
 					BUY
 				</Button>
 			</Box>

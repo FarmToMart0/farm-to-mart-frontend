@@ -12,6 +12,8 @@ import SalaseDashBoard from '../../pages/farmer/SalesDashBoard';
 import MyRequets from '../../pages/farmer/myRequests';
 import ReviewCard from '../../pages/farmer/Reviews/card';
 import DataCenter from '../../pages/farmer/DataCenter/index';
+// import DataCenter from '../../pages/farmer/Datacenter';
+
 
 
 const drawerWidth = 240;
@@ -31,7 +33,7 @@ export default function FarmerLayout() {
           setOpenPane( <SalaseDashBoard/>);
           break;     
           case FARMER_SECTIONS.FDASHBOARD:
-          setOpenPane( <DataCenter/>);
+          // setOpenPane( <DataCenter/>);
           break;        
         case FARMER_SECTIONS.MYCROP:
          setOpenPane(<TabPaneMyCrops/>)

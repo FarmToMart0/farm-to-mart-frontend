@@ -21,6 +21,7 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { useNavigate } from "react-router-dom";
+import PlaceIcon from '@mui/icons-material/Place';
 
 
 const ExpandMore = styled((props) => {
@@ -37,7 +38,7 @@ const ExpandMore = styled((props) => {
 
 export default function ItemCard(props) {
 
-    const {item_id,product_name,price,more_details,date,transport,payment,image} = props.item
+    const {item_id,product_name,price,more_details,date,transport,payment,image,district} = props.item
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -99,11 +100,19 @@ export default function ItemCard(props) {
         {/* <Item> <LocalShippingIcon style={{margin:'5'}} ></LocalShippingIcon></Item> */}
         <LocalShippingIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
         <Typography paragraph style={{color:'black'}}>  Tranport: {transport}</Typography> </Stack>
+        
         <Stack direction="row">
         {/* <Item> <LocalShippingIcon style={{margin:'5'}} ></LocalShippingIcon></Item> */}
         <PaymentIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
         <Typography paragraph style={{color:'black'}}>  Online Payment:{payment} </Typography> 
         </Stack>
+
+        <Stack direction="row">
+        {/* <Item> <LocalShippingIcon style={{margin:'5'}} ></LocalShippingIcon></Item> */}
+        <PlaceIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
+        <Typography paragraph style={{color:'black'}}>  District:{district} </Typography> 
+        </Stack>
+
         </Stack>
         
         <hr></hr>

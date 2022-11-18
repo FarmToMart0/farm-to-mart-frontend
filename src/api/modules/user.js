@@ -22,6 +22,9 @@ export default {
   },
   checkExpiried(data){
     return resolver(axiosClient.post(`signin/check-expiried`,data))
+  },
+  getDetails(data){
+    return resolver(axiosClient.post('user/user-details',data))
   }
   
   

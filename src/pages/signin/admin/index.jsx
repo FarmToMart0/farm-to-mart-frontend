@@ -124,7 +124,7 @@ const renderForm = (
               type='email'
               fullWidth
               id="email"
-              label="National Identity Card"
+              label="Email"
               name="email"
               onChange={handleEmail}
               //autoComplete="email"
@@ -158,13 +158,13 @@ const renderForm = (
             >
             {isLoading ? <CircularProgress /> : 'Sign In'}
             </Button>
-            <Grid container>
+            {/* <Grid container>
               <Grid item xs>
                 <Link onClick={()=>{navigate('/forgotpassword')}} variant="body2" color='#12877a'>
                   Forgot password?
                 </Link>
               </Grid>
-            </Grid>
+            </Grid> */}
             <Copyright sx={{ mt: 5 }} />
           </Box>
   </div>
@@ -177,21 +177,31 @@ const renderForm = (
 
 
   return (
-   <><ResponsiveAppBar /><Grid container component="main" sx={{ height: '100%', width: '80%', margin: 'auto', mt: '5vw', mb: '2vw' }}>
+   <><ResponsiveAppBar />
+   <div style = {{borderRadius: "10px"}}>
+
+   
+   <Grid container component="main" sx={{ height: '100%', width: '80%', margin: 'auto', mt: '6vw', mb: '1.5vw'}}>
       <CssBaseline />
-      <Grid
-        item
+      <Grid item
         xs={false}
         sm={4}
         md={7}
+        component={Paper}
+        elevation={12}
+        square
         sx={{
           backgroundImage: 'url(https://res.cloudinary.com/dnrpcuqvr/image/upload/v1664302241/Farm2Mart/ehchrv00rpxnz2uuc09b.jpg)',
           backgroundRepeat: 'no-repeat',
           backgroundColor: (t) => t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+          borderRadius: "10px 0 0 10px",
+          
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-        }} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square backgroundColor='#ffffff'>
+        }} >
+      </Grid>
+      
+      <Grid item xs={12} sm={8} md={5}  component={Paper} elevation={4} square backgroundColor='#ffffff' sx={{borderRadius: "0px 10px 10px 0"}}>
         <Box
           sx={{
             my: 8,
@@ -211,6 +221,7 @@ const renderForm = (
         </Box>
       </Grid>
     </Grid>
+    </div>
     <Footer/>
     </>
  

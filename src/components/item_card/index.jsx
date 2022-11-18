@@ -11,16 +11,19 @@ export default function ItemCard(props) {
   return (
     <Box
       sx={{
-        
+        marginTop:3,
+        marginRight:1,
         width: 300,
         height: 300,
         backgroundColor: '',
+        padding: 1,
         boxShadow: 'rgba(0, 0, 0, 0.15) 0px 0px 0px',
-        '&:hover': {
-        boxShadow: 'rgba(0, 0, 0, 0.15) 0px 3px 5px',
-        backgroundColor: '#fafafa',
+        // '&:hover': {
+        // boxShadow: 'rgba(0, 0, 0, 0.15) 0px 3px 5px',
+        // backgroundColor: '#fafafa',
+       
         
-        },
+        // },
       }}
     >
         <div >
