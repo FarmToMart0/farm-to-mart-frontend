@@ -119,13 +119,11 @@ export default function AddGSO() {
   };
 
   async function registerGso(values) {
-    
-    
     try {
       const [code,res] = await api.gso.registerGso(values);
     
       if (code === 201) {     
-        navigate('/main-officer/show-gso');
+        navigate('/main-officer/success-register-gso');
       } else {
         setErrors({ type: 'error', message: res });
         setErrorOccured(true);

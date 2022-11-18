@@ -24,7 +24,13 @@ export default {
 		return resolver(axiosClient.put("gso/remove-farmer", data))
 	},
 
+	removeGso(data){
+		console.log(data, "gso module")
+		return resolver(axiosClient.put("main-officer/remove-gso", data))
+	},
+
 	updateGso(data){
+		
 		return resolver(axiosClient.put("main-officer/edit-gso",data))
 	}
 

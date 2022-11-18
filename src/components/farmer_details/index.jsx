@@ -77,10 +77,10 @@ export default function Home({userDetails, farmerDetails}) {
                         </div>
 
                         <Typography component="h1" variant="h5" color='primary' sx={{mt: 2, fontWeight: 'bold', fontSize: '1.5rem', textAlign: 'center'}}>
-                            {farmerDetails.firstName} {farmerDetails.lastnName}
+                            {farmerDetails.firstName} {farmerDetails.lastName}
                         </Typography>
                         <Typography component="h2" variant="h5" color='secondary' sx={{mt: 2, fontWeight: 'bold', fontSize: '1.3rem', textAlign: 'center'}}>
-                            {farmerDetails.gsoName} {farmerDetails.gsoCode}
+                            {farmerDetails.gsdName} {farmerDetails.gsdCode}
                         </Typography>
 
                         <Grid container spacing={2} sx={{mt: '1.5vw'}}>
@@ -88,7 +88,7 @@ export default function Home({userDetails, farmerDetails}) {
                                 Full Name
                             </Grid>
                             <Grid item xs={12} md={8} sx={{fontSize: '1.2rem'}}>
-                                : {farmerDetails.firstName} {farmerDetails.lastnName}
+                                : {farmerDetails.firstName} {farmerDetails.lastName}
                             </Grid>
 
                             <Grid item xs={12} md={4} sx={{fontSize: '1.2rem', fontWeight: 'bold'}}>

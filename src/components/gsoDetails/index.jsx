@@ -19,7 +19,7 @@ import Alert from '@mui/material/Alert';
 
 
 export default function Home({userDetails, gsoDetails}) {
-    console.log(gsoDetails, "gso")
+    // console.log(gsoDetails, "gso")
     const [isEdit, setIsEdit] = useState(false);
     const [errorOccured, setErrorOccured] = useState(false);
     const [errors, setErrors] = useState({});
@@ -91,7 +91,7 @@ export default function Home({userDetails, gsoDetails}) {
         try {
           const [code,res] = await api.gso.updateGso(values);
           if (code === 201) {     
-            navigate('/main-officer/success');
+            navigate('/main-officer/success-update-gso');
           } else {
             setErrors({ type: 'error', message: res });
             setErrorOccured(true);
@@ -103,6 +103,24 @@ export default function Home({userDetails, gsoDetails}) {
           setIsLoading(false);
         }
       }
+    const handleRemove = async (e) => {
+        
+        try{
+            console.log(gsoDetails)
+            const [code,res] = await api.gso.removeGso(gsoDetails)
+            console.log(code, res, "code, res")
+            if (code === 201) {     
+                navigate('/main-officer/success-remove-gso');
+            } else {
+                setErrors({ type: 'error', message: res });
+                setErrorOccured(true);
+            }
+
+        }catch(error){
+            setErrors({ type: 'error', message:'server error' });
+            setErrorOccured(true);
+        }
+    };
     
 
 
@@ -139,7 +157,7 @@ export default function Home({userDetails, gsoDetails}) {
                         <div style={
                             {float: 'right', marginTop: '1vw'}
                         }>
-                            <Button variant="outlined" sx={{margin: 0, fontWeight: 'bold', fontSize: '1rem', color: 'red', float: 'right', width: '25%'}}>
+                            <Button variant="outlined" onClick={handleRemove} sx={{margin: 0, fontWeight: 'bold', fontSize: '1rem', color: 'red', float: 'right', width: '25%'}}>
                             Remove Officer  <hr/> <DeleteIcon/> </Button>
                         </div>
 

@@ -17,6 +17,9 @@ import BuyerSignUp from './pages/buyerSignUp/index';
 import SuccessReg from './pages/registrationSucess/index';
 import SuccessCrop from './pages/addCropSucess/index';
 import SuccessRemoveFarmer from './pages/farmerRemoveSuccess/index';
+import SuccessRegGso from './pages/gsoRegSucces';
+import SuccessRemoveGso from './pages/gsoRemoveSuccess';
+import SuccessUpdateGso from './pages/gsoUpdatesuccess';
 
 import Market from './pages/market/index';
 
@@ -81,6 +84,9 @@ function App() {
     <Route path='/gso/success-register-farmer' element={<SuccessReg/>}/>
     <Route path='/gso/success-add-crop' element={<SuccessCrop/>}/>
     <Route path='/gso/success-remove-farmer' element={<SuccessRemoveFarmer/>}/>
+    <Route path='/main-officer/success-register-gso' element={<SuccessRegGso/>}/>
+    <Route path='/main-officer/success-remove-gso' element={<SuccessRemoveGso/>}/>
+    <Route path='/main-officer/success-update-gso' element={<SuccessUpdateGso/>}/>
 
     {/* ==================Buyer================ */}
     
