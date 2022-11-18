@@ -33,7 +33,7 @@ export default function FarmerLayout() {
           setOpenPane( <SalaseDashBoard/>);
           break;     
           case FARMER_SECTIONS.FDASHBOARD:
-          // setOpenPane( <DataCenter/>);
+          setOpenPane( <DataCenter/>);
           break;        
         case FARMER_SECTIONS.MYCROP:
          setOpenPane(<TabPaneMyCrops/>)
