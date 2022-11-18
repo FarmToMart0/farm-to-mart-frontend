@@ -100,11 +100,6 @@ export default function GSOHome() {
       
     
     </div>
-    
-    {/* <AddFarmer />
-    <FarmerProfile />
-    <CropDataForm /> */}
-    
     </div>
     
   );

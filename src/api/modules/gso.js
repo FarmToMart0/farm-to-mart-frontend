@@ -22,6 +22,10 @@ export default {
 
 	removeFarmer(data){
 		return resolver(axiosClient.put("gso/remove-farmer", data))
+	},
+
+	updateGso(data){
+		return resolver(axiosClient.put("main-officer/edit-gso",data))
 	}
 
 

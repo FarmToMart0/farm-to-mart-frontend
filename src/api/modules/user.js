@@ -12,6 +12,10 @@ export default {
   },
   getFDetails(data){
     return resolver(axiosClient.post('gso/user-details',data))
+  },
+
+  getGDetails(data){
+    return resolver(axiosClient.post('main-officer/user-details',data))
   }
 };
   

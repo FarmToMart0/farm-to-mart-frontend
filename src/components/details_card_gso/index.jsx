@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Container } from '@mui/system';
 import GSODetails from '../gsoDetails/index';
+import api from  '../../api'
 
 
 const bull = (
@@ -23,6 +24,28 @@ const bull = (
 export default function OutlinedCard({gsoDetails}) {
 
   const [click, setClick] = useState(false);
+
+  const [user, setUser] = useState([]);
+
+  const handleSeeMore = async (e) => {
+    
+    try{
+      const [code, res] = await api.user.getGDetails({gsoDetails})
+      //console.log(res)
+      if(code === 201){
+        if (res){
+          //console.log(res)
+          setUser(res);
+          
+        }
+      }
+      setClick(true);
+
+    }catch(error){
+      console.log(error);
+    }
+  };
+
   return (
     <>
     {!click && <Container component="main" maxWidth="" sx={{background:'rgb(245, 245, 245)',width:'100%',borderRadius:'10px', mb: '5vw', mt:0, boxShadow: 
@@ -46,9 +69,7 @@ export default function OutlinedCard({gsoDetails}) {
         </CardContent>
         <CardActions sx={{float: 'right'}}>
             <div style={{ marginTop: '-5vw'}}>
-                <Button size="small" onClick={() => {
-                    setClick(true);
-                }}>See More</Button>
+                <Button size="small" onClick={handleSeeMore}>See More</Button>
             </div>
           
         </CardActions>
@@ -58,7 +79,7 @@ export default function OutlinedCard({gsoDetails}) {
 
     </Container>}
 
-    {click && <GSODetails gsoDetails={gsoDetails}/> }
+    {click && <GSODetails gsoDetails={gsoDetails} userDetails = {user}/> }
     </>
 
   );
