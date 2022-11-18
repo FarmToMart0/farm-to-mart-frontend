@@ -11,12 +11,17 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import {Helmet} from 'react-helmet';
+import Auto_Complete from '../../auto_com_search/index'
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Rokkitt:wght@1200&display=swap');
 </style>
 
-
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 export default function AddressForm(props) {
   const [transport, setTransport] = useState('DELIVERY');
   const [name,setName] = useState("")
@@ -24,21 +29,65 @@ export default function AddressForm(props) {
   const [city,setCity] = useState("")
   const [province,setProvince] = useState("")
   const [postalCode,setPostalCode] = useState("")
+
+  const [open, setOpen] = React.useState(false);
+
+  // functions for handle error msg
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const provinces = [
+    { label: "Central Sri Lanka" },
+    { label: "East Sri Lanka" },
+    { label: "Northcentral Sri Lanka" },
+    { label: "North Sri Lanka" },
+    { label: "Northwest Sri Lanka" },
+    { label: "Sabaragamuwa" },
+    { label: "South Sri Lanka" },
+    { label: "Uva" },
+    { label: "West Sri Lanka" },
+  ]
   
 
+  //handle next button
   const handleNext=()=>{
     const data =[name,address,city,province,postalCode]
-  //  data.forEach(element => {
-  //   if (element === ""){
-        
-  //   }
-  //  });
+    var count = 0
+   data.every(element => {
+    if (element === ""){
+      
+      return false
+    }
+    count+=1
+    return true
+   });
+  
     if(transport ==="DELIVERY"){
-      props.addressSet(data)
+      if(count == 5){
+        props.addressSet(data)
+      }else{
+        handleClick()
+      }
+     
     }else{
       props.addressSet("FARM_PICKUP")
     }
     }
+
+    //select province
+  const handleProvince =(pro)=>{
+    setProvince(pro)
+   
+  }
     
     
 
@@ -47,6 +96,11 @@ export default function AddressForm(props) {
   return (
     
     <Container component="main" maxWidth="sm" sx={{ mb:-5,mt:10  }}>
+    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+    <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+          All the fileds are required
+        </Alert>
+      </Snackbar>
     <Helmet>
       <style>{"body {overflow:hidden}"}</style>
     </Helmet>
@@ -154,7 +208,7 @@ export default function AddressForm(props) {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
+          {/* <TextField
             id="state"
             name="state"
             label="Province"
@@ -163,7 +217,8 @@ export default function AddressForm(props) {
             InputLabelProps={{ shrink: true }}
             fullWidth
             variant="standard"
-          />
+          /> */}
+          <Auto_Complete width = {250} category='Province' cropItems={provinces} handleSelection={handleProvince}/>
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField

@@ -160,12 +160,14 @@ export default function Market() {
 											category='District'
 											handleSelection={handleDistrict}
 											initiaiState = "Matara"
+											width = {350}
 										/>
 										<SearchField
 											cropItems={arrType}
 											category='Crop Type'
 											handleSelection={handleCropType}
 											initiaiState ="Vegetables"
+											width = {350}
 										/>
 									</Stack>
 								</div>

@@ -42,7 +42,7 @@ import ItemAdd from './pages/home/index';
 import GSOLayout from './layouts/GSOLayout';
 import MainOfficerLayout from './layouts/MainOfficerLayout/index';
 import Bidding from './pages/Bidding/index';
-import Pay from './components/payment/payment/index'
+import Pay from './components/payment/address/index'
 // import ShoppingCard from './pages/shoppingCard/index';
 function App() {
   
