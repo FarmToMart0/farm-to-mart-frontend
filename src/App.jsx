@@ -33,6 +33,8 @@ import Dashboard from './pages/F-Dashboard/index'
 import GraphCard from './components/graphCard/index'
 import Payment from './pages/Payment/index'
 
+import Test from './components/orderReview'
+
 
 
 
@@ -60,6 +62,7 @@ function App() {
 
     <Route path="/buyer/market/checkout/payment/complete" element={<Success/>}/>
     <Route path="/pay" element={<Pay/>}/>
+    <Route path="/test" element={<Test/>}/>
 
     
 

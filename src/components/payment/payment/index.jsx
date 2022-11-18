@@ -105,7 +105,7 @@ export default function PaymentForm(props) {
 
   const handleNext = ()=>{
     const data = [nameOnTheCard, expiryDate, cvv, cardNumber]
-    console.log("paymentValidated")
+    
     
       if(paymentMethod ==="CARD"){
        

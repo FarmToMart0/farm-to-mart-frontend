@@ -4,15 +4,24 @@ import Review from './review/index';
 import Typography from '@mui/material/Typography';
 import React, { useState, useEffect } from 'react';
 
-
+//transport, payment,product,price,amount,unitPrice
   export default function Checkout(props){
-    const {transport,payment} = props.data;
+    const {transport,payment,product,price,unitPrice} = props.data;
+    console.log(transport,payment,product,price,unitPrice);
     const [address,setAddress] = useState([])
     const [paymentDetails,setPaymentDetails] = useState([])
     const[buyer_state,setBuyer_state] = useState("NotConfirmed")
-    var method =""
+    const [finalize, setFinalize] = useState(false)
+    console.log(finalize);
     const details = props.details
+    var method = ""
    
+    // set final state
+    const setFinalState = (argue) =>{
+        setFinalize(argue)
+    }
+
+
     const stateSet =(state) =>{
       
       setBuyer_state(state)
@@ -39,9 +48,8 @@ import React, { useState, useEffect } from 'react';
     }
 
     
-useEffect(()=>{
-      console.log(buyer_state === "Confirmed")
-    },[buyer_state])
+
+    
    
     if(transport === "Available" && address.length == 0 ){
       
@@ -56,9 +64,16 @@ useEffect(()=>{
     
     else{
       
-      details.address = {address}
+      if(transport === 'Not Available' && payment === 'Not Available'){
+        
+        details.test = "noAdd"
+      }else{
+        details.address = {address}
       details.payment = {payment}
-      return <Review details = {props.details} stateSet={stateSet}/>
+      details.test = "yesAdd"
+      }
+      
+      return <Review details = {props.details} stateSet={stateSet} setFinalState={setFinalState}/>
 
     }
    
