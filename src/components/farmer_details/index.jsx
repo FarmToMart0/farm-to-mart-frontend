@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState,useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Container  from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -31,25 +32,8 @@ import api from  '../../api'
 
 export default function Home({userDetails, farmerDetails}) {
     const [click, setClick] = useState(false);
-    
-
-    // const farmerDetails = 
-    //     {
-    //         first_name : 'Piyumi Chan',
-    //         last_name : 'Mahaarachchi',
-    //         address : 'Pawani, Meda Mawatha, Ella Road, Kurundugaha, Elpitiya',
-    //         mobile : '0765867087',
-    //         district: 'Galle',
-    //         gso : 'Elpitiya',
-    //         gso_code : 'E-009',
-    //         email : 'mpiyumichaan@gmail.com',
-    //         nic : '988460222V',
-    //         crop_details: [{crop_id: 1, crop_type: 'Paddy', crop_name: 'Samba', crop_area: '10', start_date: '2022-10-12', estimated_harvest: '1000', harvest: '900', estimated_time: '3 months', harvest_date: '2022-12-12'},
-    //         {crop_id: 2, crop_type: 'Paddy', crop_name: 'Kekule', crop_area: '10', start_date: '2022-10-12', estimated_harvest: '1000', harvest: '900', estimated_time: '3 months', harvest_date: '2022-12-12'}]
-    
-    //     }
-    
-        const [open, setOpen] = React.useState(false);
+    const navigate = useNavigate();
+    const [open, setOpen] = React.useState(false);
 
     const handleClick = () => {
         setOpen(!open);
@@ -58,6 +42,7 @@ export default function Home({userDetails, farmerDetails}) {
         console.log({farmerDetails})
         try{
             await api.gso.removeFarmer({farmerDetails})
+            navigate('/gso/success-remove-farmer');
 
         }catch(error){
             console.log(error);

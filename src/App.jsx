@@ -14,6 +14,9 @@ import DetailsCard from './components/details_card/index';
 import GSOHome from './pages/gsoHome/index';
 import FarmerSignUp from './pages/farmer/SignUp/index';
 import BuyerSignUp from './pages/buyerSignUp/index';
+import SuccessReg from './pages/registrationSucess/index';
+import SuccessCrop from './pages/addCropSucess/index';
+import SuccessRemoveFarmer from './pages/farmerRemoveSuccess/index';
 
 import Market from './pages/market/index';
 
@@ -75,7 +78,9 @@ function App() {
     <Route path='/gso/register-farmer' element={<AddFarmer/>} />
     <Route path='/farmer/signup' element={<FarmerSignUp/>}/>
     <Route path='/buyer/signup' element={<BuyerSignUp/>}/>
- 
+    <Route path='/gso/success-register-farmer' element={<SuccessReg/>}/>
+    <Route path='/gso/success-add-crop' element={<SuccessCrop/>}/>
+    <Route path='/gso/success-remove-farmer' element={<SuccessRemoveFarmer/>}/>
 
     {/* ==================Buyer================ */}
     
