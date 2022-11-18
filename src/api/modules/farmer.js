@@ -53,7 +53,7 @@ export default {
   notify(id){
     return resolver(axiosClient.get(`/farmer/notify/${id}`));
   }
-  
+  ,
   
   addFarmerbyGso(data) {
 		return resolver(axiosClient.post("/gso/register-farmer", data));
