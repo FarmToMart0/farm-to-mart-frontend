@@ -6,6 +6,7 @@ import NavBar from '../../components/navbar'
 import { CssBaseline } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 function FarmerVerification() {
+    const user = useSelector((state) => state?.user);
     const location = useLocation();
     const navigate = useNavigate()
     const [token,setToken]=useState();
@@ -17,7 +18,7 @@ useEffect(()=>{
     setToken(params[2])
 
 },[])
-    const user = useSelector((state) => state?.user);
+    
     return (
         <><NavBar isLogin={user?.auth} />
         <CssBaseline/>

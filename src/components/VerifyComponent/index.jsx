@@ -9,7 +9,9 @@ import Container from "@mui/material/Container";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import api from "../../api";
 import { useNavigate } from "react-router-dom";
-import { setAuthorizationKey } from "../../utils/localStorageHelper";
+import { setAuthorizationKey,setUserObjectInLocal } from "../../utils/localStorageHelper";
+import { loggingRequest } from '../../reducers/modules/user';
+import { useSelector, useDispatch } from 'react-redux';
 
 function Copyright(props) {
   return (
@@ -30,17 +32,25 @@ function Copyright(props) {
 }
 
 export default function VerifyComponent(props) {
+  const user = useSelector((state) => state?.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSubmit = async (token) => {
     try {
       const [code, res] = await api.user.verify(token);
       if (code == 201) {
+        
         if (res.userRole == "FARMER") {
           setAuthorizationKey(res.token);
+          setUserObjectInLocal(res);
+          dispatch(loggingRequest(res));
           navigate("/farmer/dash/dashboard");
         }
         if (res.userRole == "BUYER") {
           setAuthorizationKey(res.token);
+          setUserObjectInLocal(res);
+          dispatch(loggingRequest(res));
+          navigate("/");
         }
       }
     } catch (error) {}

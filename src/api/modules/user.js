@@ -12,6 +12,16 @@ export default {
   },
   verify(token){
     return resolver(axiosClient.get(`/signin/verify/${token}`))
+  },
+
+  forgotPassword(data){
+    return resolver(axiosClient.post(`signin/forgotpassword`,data))
+  },
+  resetPassword(data){
+    return resolver(axiosClient.post(`signin/reset-password`,data))
+  },
+  checkExpiried(data){
+    return resolver(axiosClient.post(`signin/check-expiried`,data))
   }
   
   

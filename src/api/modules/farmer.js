@@ -5,8 +5,8 @@ export default {
   addProduct(data) {
     return resolver(axiosClient.post('/product/add', data));
   },
-  getProduct(){
-    return resolver(axiosClient.get('/product/getproduct'));
+  getProduct(id){
+    return resolver(axiosClient.get(`/product/getproduct/${id}`));
   },
   deleteProduct(id){
     return resolver(axiosClient.get(`/product/${id}`))

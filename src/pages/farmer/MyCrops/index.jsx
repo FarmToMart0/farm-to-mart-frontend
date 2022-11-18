@@ -9,6 +9,7 @@ import api from '../../../api'
 import MyCropTable from './Table/index';
 import SnackBarComponent from '../../../components/Snackbars';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export default function TabPaneMyCrops(props) {
   const [errorMessage, setErrorMessage] = useState({ type: '', message: '' });
@@ -17,6 +18,7 @@ export default function TabPaneMyCrops(props) {
   const user = useSelector((state) => state?.user);
   const [orderData, setOrderData] = React.useState([]);
   const [completedTask,setCompletedTask] = React.useState([]);
+  const navigate = useNavigate()
   const handleClickEdit=(id)=>{
    
  var temp =completedTask.map((item)=>{
@@ -127,11 +129,17 @@ async function getMyCropTask(nic) {
 }
 
 useEffect(()=>{
+  if (!user?.auth ) {
+    navigate('/login')
+}
+if(user?.userRole!='FARMER'){
+  navigate('/')
+}
   getMyCropTask(user?.nic)
   getCompletedMyCropTask(user?.nic)
     
 },[])
-console.log('orderData',orderData)
+
 
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>

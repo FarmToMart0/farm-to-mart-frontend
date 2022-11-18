@@ -3,6 +3,7 @@ import NavBar from '../../components/navbar/index'
 import SignUp from '../../components/signUp/Up/index'
 import {signUpWithGoogle} from '../../firebase'
 
+
 function SignUpFun() {
 
   return (
