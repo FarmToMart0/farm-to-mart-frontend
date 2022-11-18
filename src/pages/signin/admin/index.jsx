@@ -151,6 +151,7 @@ const renderForm = (
               label="Remember me" />
 
             <Button
+            id='sign-in-btn'
               type="submit"
               fullWidth
               variant="contained"
