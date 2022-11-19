@@ -32,7 +32,10 @@ export default {
 	updateGso(data){
 		
 		return resolver(axiosClient.put("main-officer/edit-gso",data))
-	}
+	},
 
+	getCropDetails(id){
+		return resolver(axiosClient.get(`gso/get-crop-details/${id}`))
+	}
 
 };	
