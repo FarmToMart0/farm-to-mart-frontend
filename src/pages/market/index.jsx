@@ -70,6 +70,7 @@ export default function Market() {
 
 	// the array containing products
 	const [listOfItems, setListOfItems] = useState([]);
+	const newArrayList = listOfItems.filter(elemant=>elemant.remainAmount > 0)
 	
 
 	const getMarketData = async () => {
@@ -184,13 +185,13 @@ export default function Market() {
 
 						{/* end of search panel */}
 
-						{listOfItems.length != 0 ? (
+						{newArrayList.length != 0 ? (
 							<Grid
 								container
 								sx={{ marginTop: 1.5, marginBottom: 6 }}
 								rowSpacing={3}
 								columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-								{listOfItems.map((item, index) =>
+								{newArrayList.map((item, index) =>
 									item.type == "buy" ? (
 										<Grid item xs={3} key={item.item_id}>
 											<Buy_card item={item} />

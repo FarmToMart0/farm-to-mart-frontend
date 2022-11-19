@@ -24,6 +24,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function SimplePaper() {
+
 	const user = useSelector((state) => state?.user);
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -32,7 +33,8 @@ export default function SimplePaper() {
 
 	//incoming all data
 	const bidDataFromCard = location.state;
-	console.log(bidDataFromCard);
+	
+	
 	
 	
 	
@@ -48,23 +50,36 @@ export default function SimplePaper() {
 	const [bidLeaderId, setBidLeaderId] = useState("")
 	const [your_bid, setYour_bid] = useState(0);
 	const [checkBid, setCheckBid] = useState(false);
-	const [bidLead, setBidLead] = useState(false);
+	const [isBidOver, setIsBidOver] = useState(false);
 	const [current_bid, setCurrent_bid] = useState(0);
 
 	//notification details
 	const [message, setMessage] = useState("")
 	const [msgType, setMsgType] = useState("") //"success", error"
-
+	const [bidEndingTime, setBidEndingTime] = useState(	new Date(bidDataFromCard.bidEndTime))
+	const [currentTime,setCurrentTime] = useState("")
+	var iterrator =  new Date()
 	useEffect(() => {
 		getBidData();
 	}, []);
 
+	useEffect(() => {
+		if (new Date(bidDataFromCard.bidEndTime) <= new Date()){
+			setIsBidOver(true)
+		}
+		
+	}, [iterrator]);
+
+
+
 	// submit bid order function
 
 	const handleBidOrder =() =>{
-		navigate("/buyer/market/checkout/payment", {
-			state:bidDataFromCard
-		});
+		bidDataFromCard.totValue = current_bid * bidDataFromCard.remainAmount  
+		bidDataFromCard.amount = bidDataFromCard.remainAmount  
+			navigate("/buyer/market/checkout/payment", {
+				state: bidDataFromCard,
+			});
 	}
 
 	//display Notification
@@ -313,7 +328,7 @@ export default function SimplePaper() {
 										alignItems: "center",
 										justifyContent: "center",
 									}}>
-									{bidLead ? (
+									{isBidOver ? (
 										<h1>Bid is Over</h1>
 									) : (
 										<Button
@@ -338,7 +353,8 @@ export default function SimplePaper() {
 							}}>
 							Market
 						</Button>
-						{bidLead && (
+						{isBidOver && (
+							// buy product button
 							<Button
 								variant='contained'
 								sx={{ width: "10%", ml: 57.5 }}
