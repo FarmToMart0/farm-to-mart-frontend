@@ -58,4 +58,7 @@ export default {
   addFarmerbyGso(data) {
 		return resolver(axiosClient.post("/gso/register-farmer", data));
 	},
+  getOngoingBidding(id){
+    return resolver(axiosClient.get(`/product/ongoingbidding/${id}`))
+  }
 };
