@@ -24,5 +24,10 @@ export default {
 
 	placeOrder(data){
 		return resolver(axiosClient.post(`order/placeorder`,data))
+	},
+
+	updateProduct(data){
+		return resolver(axiosClient.post(`order/updateproduct`,data))
 	}
+	
 };
