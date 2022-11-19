@@ -32,20 +32,6 @@ const Input = styled('input')({
   display: 'none',
 });
 export default function ItemAdd(props) {
-  const navigate = useNavigate();
-  const user = useSelector((state) => state?.user);
-  const [imageList,setImageList]=useState(
-    [
-    
-    ]
-    );
-    const [img,setImg]=useState([])
-  const [checked, setChecked] = React.useState(false);
-
-  const handleChangeBiding = (event) => {
-
-    setChecked(event.target.checked);
-  };
   const [errorOccured, setErrorOccured] = useState(false)
   const [errorMessage, setErrorMessage] = useState({ type: '', message: '' });
   const [productId,setProductId]= useState()
@@ -55,7 +41,7 @@ export default function ItemAdd(props) {
   const [loadingVariantAdd, setLoadingVariantAdd] = useState(false);
   const [selectedDeliveryOption,setSelectedDeliveryOption]=useState([])
   const [selectCategory,setSelectCategory]=useState('')
-  const [selectedPayementOption,setSelectedPayementOption]=useState([])
+  const [selectedPayementOption,setSelectedPayementOption]=useState(['Cash on delivery'])
   const [valuesArray,setValuesArray]=useState([])
   const [initialValues, setInitialValues] = useState({
     productName: '',
@@ -65,6 +51,36 @@ export default function ItemAdd(props) {
     bid:'',
   });
   const [endDate, setEndDate] = useState(null);
+  const navigate = useNavigate();
+  const user = useSelector((state) => state?.user);
+  const [imageList,setImageList]=useState(
+    [
+    
+    ]
+    );
+    const [img,setImg]=useState([])
+  const [checked, setChecked] = React.useState(false);
+  const [onlinePayment, setOnlinePayment] = React.useState(false);
+
+
+  const handleChangeBiding = (event) => {
+
+    setChecked(event.target.checked);
+  };
+  const handleChangePayemnt = (event) => {
+
+    setOnlinePayment(event.target.checked);
+    setSelectedPayementOption((pre)=>{
+      if (onlinePayment) {
+        return['Cash on delivery']
+      }
+      return[
+        ...pre,
+        "Online Payment"
+      ]
+    })
+  };
+ 
   const handleChangeDate = (e)=>{
     
     setEndDate(e['$d']);
@@ -77,6 +93,9 @@ export default function ItemAdd(props) {
       setSelectCategory(props.editProduct[0].category)
       setProductId(props.editProduct[0]._id)
       setSelectedPayementOption(props.editProduct[0].paymentOption)
+      if (props.editProduct[0].paymentOption.length > 1) {
+        setOnlinePayment(true)
+      }
       setSelectedDeliveryOption(props.editProduct[0].deliveryOption)
       setChecked(props.editProduct[0].biddingEnable)
       setImageList(props.editProduct[0].images)
@@ -186,7 +205,7 @@ const handleSave = async (values)=>{
     setLoadingImageAdd(true)
     const img = event.target.files[0];
     if (!img.name.match(/\.(jpg|jpeg|png|gif)$/)) {
-      setErrorMessage('error','File type is not matched')
+      setErrorMessage({type:'error',message:'File type is not matched'})
       setErrorOccured(true)
       setLoadingImageAdd(false);
       return false;
@@ -312,6 +331,8 @@ style={{
   </Grid>
   <Grid item xs={3.5}>
      <TextField
+             disabled={checked? false:true}
+
             label="Initial Bid"
             variant="outlined"
             helperText={errors.bid}
@@ -367,33 +388,18 @@ style={{
               />
             )}
           />
-
-<Autocomplete
-            multiple
-            id="combo-box-demo"
-            value={selectedPayementOption}
-            
-            getOptionLabel={(option) => option}
-            options={['Online Payment','Cash on delivery','Shop pichup payment']}
-            filterSelectedOptions
-            sx={{ width: 700 }}
-            onChange={(event, value) => {
-          
-              setSelectedPayementOption(value)
-            }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Available Payment Options"
-                placeholder="Payment Options"
-                helperText={errors.payment}
-                InputLabelProps={{ shrink: true }}
-                error={touched.payment && Boolean(errors.payment)}
-                onChange={handleChange('payment')}
-                variant="outlined"
-              />
-            )}
-          />
+<Grid container spacing={2}>
+<Grid ml={5} item xs={8}>
+     <Stack direction='row' spacing={2}>
+            <Typography>Online Payment Available</Typography>
+          <Switch
+      checked={onlinePayment}
+      onChange={handleChangePayemnt}
+      inputProps={{ 'aria-label': 'controlled' }}
+    />
+</Stack>
+  </Grid>
+  </Grid>
           <Grid container spacing={2}>
   <Grid ml={5} item xs={8}>
      <Stack direction='row' spacing={2}>

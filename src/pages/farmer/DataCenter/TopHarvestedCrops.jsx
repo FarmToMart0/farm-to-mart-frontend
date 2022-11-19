@@ -56,14 +56,14 @@ const headCells = [
         id: '2',
         align: 'left',
         disablePadding: false,
-        label: 'Harvested Amount'
+        label: 'Harvested Amount (Kg)'
     },
     {
         id: '3',
         align: 'left',
         disablePadding: false,
 
-        label: 'Expected Amount'
+        label: 'Expected Amount(Kg)'
     },
     {
         id: '4',
