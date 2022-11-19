@@ -86,7 +86,7 @@ function App() {
     <Route path='/farmer/signup' element={<FarmerSignUp/>}/>
     <Route path='/buyer/signup' element={<BuyerSignUp/>}/>
     <Route path='/dash' element={<Dash/>}/>
-    <Route path='/sale' element={<Sales/>}/>
+  
  
 
     {/* ==================Buyer================ */}

@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid';
 import LineGraph from '../../components/LineChart/index'
 
 
-function Dashboard() {
+function HarvestDashboard() {
   return (
     <div>
       <Box sx={{ flexGrow: 1, mt:10 }}>
