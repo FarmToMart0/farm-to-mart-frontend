@@ -7,7 +7,7 @@ export default function ComboBox(props) {
 	const category = props.category;
 	const [val, setVal] = React.useState(props.initiaiState);
 	React.useEffect(() => {
-		console.log(val);
+		
 	}, [val]);
 
 	return (
