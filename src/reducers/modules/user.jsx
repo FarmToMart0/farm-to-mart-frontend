@@ -46,7 +46,7 @@ export const userSlice = createSlice({
     },
 
     logOutRequest: (state) => {
-        state.auth = true;
+        state.auth = false;
         state.id = '';
         state.firstName = '';
         state.lastName = '';

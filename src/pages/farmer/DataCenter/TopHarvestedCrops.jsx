@@ -183,18 +183,18 @@ export default function OrderTable({tableData}) {
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     aria-checked={isItemSelected}
                                     tabIndex={-1}
-                                    key={row.id}
+                                    key={row._id}
                                     selected={isItemSelected}
                                 >
                                     <TableCell component="th" id={labelId} scope="row" align="left">
                                         <Link color="secondary" component={RouterLink} to="">
-                                            {row.cropType}
+                                            {row._id}
                                         </Link>
                                     </TableCell>
-                                    <TableCell align="left">{row.harvestedAmount}</TableCell>
-                                    <TableCell align="rigleftht">{row.expectedAmount}</TableCell>
+                                    <TableCell align="left">{row.totalHarvested}</TableCell>
+                                    <TableCell align="rigleftht">{row.totalExpected}</TableCell>
                                     <TableCell align="left">
-                                        {row.landArea}
+                                        {row.totalLand}
                                     </TableCell>
                                     <TableCell align="left">
                                        

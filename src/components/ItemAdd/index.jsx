@@ -8,6 +8,10 @@ import {Stack,Grid,Button,Typography,Paper,CircularProgress,TextField,Autocomple
 import * as yup from 'yup';
 import { color } from '@mui/system';
 import Switch from '@mui/material/Switch';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+
 import ImageCollection from '../ImageList/index';
 import SnackBarComponent from '../../components/Snackbars';
 import axios from 'axios';
@@ -81,14 +85,14 @@ export default function ItemAdd(props) {
   };
  
   const handleChangeDate = (e)=>{
+    setEndDate(e);
     
-    setEndDate(e['$d']);
   }
  
    useEffect(()=>{
     
     if (props.edit==1) {
-      setEndDate(props.editProduct[0]?.biddingEndin)
+      setEndDate(props.editProduct[0]?.biddingEndin);
       setSelectCategory(props.editProduct[0].category)
       setProductId(props.editProduct[0]._id)
       setSelectedPayementOption(props.editProduct[0].paymentOption)
@@ -116,6 +120,7 @@ const handleSave = async (values)=>{
     setLoadingProductAdd(true)
     
       const [code,res] = await api.farmer.updateProduct({_id:productId,biddingEndin:endDate,'category':selectCategory,'farmer':user.id,'productName':values.productName,'quantity':values.quantity,'unitPrice':values.price,'initialBid':values.bid,'description':values.description,'biddingEnable':checked,'paymentOption':selectedPayementOption,'deliveryOption':selectedDeliveryOption,'images':imageList});
+      console.log(endDate)
       if (code === 201) {
         setLoadingProductAdd(false);
         setProductAddedSuccesfully(false);
@@ -417,7 +422,26 @@ style={{
   <Grid ml={5} item xs={8}>
      <Stack direction='row' spacing={2}>
             <Typography>Due date for bidding</Typography>
-          <ResponsiveDateTimePickers endDate={endDate} handleDate={handleChangeDate} />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <Stack spacing={3}>
+        
+        <DateTimePicker
+          label="Ending Time"
+          renderInput={(params) => <TextField {...params} />}
+          value={endDate}
+          onChange={(newValue) => {
+            setEndDate(newValue);
+            
+          }
+          
+        
+}
+        minDateTime={dayjs(Date.now())}
+        
+         
+        />
+      </Stack>
+    </LocalizationProvider>
 
           </Stack>
   </Grid>
