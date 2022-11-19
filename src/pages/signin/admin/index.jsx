@@ -80,6 +80,12 @@ export default function SignInSide() {
           case 'BUYER':
             navigate('/buyer/market')
             break;
+          case 'GSO':
+            navigate('/gso/home')
+            break;
+          case 'MAINOFFICER':
+            navigate('/main-officer/home')
+            break
           default:
             break;
         }
@@ -106,6 +112,7 @@ export default function SignInSide() {
     <Alert icon={false} sx={{ mt: '1vw', mb: '1vw' }} severity="error">{errorMessages.message}</Alert>
   );
 useEffect(()=>{
+  
   if (user?.auth ) {
     navigate('/')
 }
@@ -151,6 +158,7 @@ const renderForm = (
               label="Remember me" />
 
             <Button
+            id='sign-in-btn'
               type="submit"
               fullWidth
               variant="contained"

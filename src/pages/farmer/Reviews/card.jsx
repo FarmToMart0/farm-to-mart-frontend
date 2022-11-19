@@ -12,14 +12,17 @@ import IconButton from '@mui/material/IconButton';
 import Rating from '@mui/material/Rating';
 import api from '../../../api'
 import { useSelector } from 'react-redux';
+import Loader from '../../../components/Loader';
 export default function ReviewCard() {
    const user = useSelector((state) => state?.user);
    const [revies,setReviews]= useState([]);
+   const [isLoading,setIsLoading]= useState(true);
    async function getReviewsList(id) {
      try {
       const [code,res] = await api.farmer.getReviews(id);
       if (code ==201) {
         setReviews(res)
+        setIsLoading(false)
        
       }
      } catch (error) {
@@ -31,7 +34,8 @@ getReviewsList(user?.id);
    },[])
   return (
     <div>
-      <Box sx={{marginTop:5, minWidth: '95%', paddingRight:'10%', paddingLeft:'5%' }}>
+      {!isLoading ?  <div>
+        <Box sx={{marginTop:5, minWidth: '95%', paddingRight:'10%', paddingLeft:'5%' }}>
      {revies.map(item=>{
       return (
         
@@ -61,6 +65,8 @@ getReviewsList(user?.id);
      })
      }
      </Box>
+      </div> :  <Loader/>
+      }
     </div>
   );
 }

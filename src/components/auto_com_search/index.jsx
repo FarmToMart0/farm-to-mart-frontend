@@ -19,8 +19,9 @@ export default function ComboBox(props) {
 			onChange={(e) => {
 		
 				props.handleSelection(e.target.childNodes[0].data);
+				setVal(e.target.childNodes[0].data)
 			}}
-			sx={{ width: 350 }}
+			sx={{ width: props.width }}
 			style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0 2 8 0", color: "red" }}
 			renderInput={(params) => {
 				return (

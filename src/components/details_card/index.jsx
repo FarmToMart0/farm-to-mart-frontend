@@ -30,7 +30,7 @@ export default function OutlinedCard({farmerDetails}) {
     console.log({farmerDetails})
     setClick(true);
     try{
-      const [code, res] = await api.user.getDetails({farmerDetails})
+      const [code, res] = await api.user.getFDetails({farmerDetails})
       console.log(res)
       if(code === 201){
         if (res){

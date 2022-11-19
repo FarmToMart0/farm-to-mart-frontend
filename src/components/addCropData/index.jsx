@@ -121,7 +121,7 @@ export default function AddCropData({farmersNic}) {
     try {
       const [code,res] = await api.gso.addCropData(values);
       if (code === 201) {     
-        navigate('/gso/home');
+        navigate('/gso/success-add-crop');
       } else {
         setErrors({ type: 'error', message: res });
         setErrorOccured(true);

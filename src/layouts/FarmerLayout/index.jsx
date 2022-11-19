@@ -13,6 +13,7 @@ import MyRequets from '../../pages/farmer/myRequests';
 import ReviewCard from '../../pages/farmer/Reviews/card';
 import DataCenter from '../../pages/farmer/DataCenter/index';
 // import DataCenter from '../../pages/farmer/Datacenter';
+import HarvestDashboard from './../../pages/F-Dashboard/index';
 
 
 
@@ -29,6 +30,9 @@ export default function FarmerLayout() {
     if (params.length === 4) {
       const subComponent = params[3];
       switch (subComponent) {
+        case FARMER_SECTIONS.HARVESTDASHBOARD:
+          setOpenPane( <HarvestDashboard/>);
+          break;
         case FARMER_SECTIONS.DASHBOARD:
           setOpenPane( <SalaseDashBoard/>);
           break;     

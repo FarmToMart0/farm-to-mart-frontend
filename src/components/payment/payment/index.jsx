@@ -11,12 +11,37 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useNavigate, useLocation } from "react-router-dom";
+import Stack from '@mui/material/Stack';
+
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Rokkitt:wght@1200&display=swap');
 </style>
 
 export default function PaymentForm(props) {
+
+  //notifications
+  const [open, setOpen] = React.useState(false);
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
+  const handleClick = () => {
+    
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  //notifications
   
   const navigate = useNavigate()
   const [paymentValidated, setPaymentValidated] = useState(false);
@@ -79,17 +104,31 @@ export default function PaymentForm(props) {
 
 
   const handleNext = ()=>{
+    const data = [nameOnTheCard, expiryDate, cvv, cardNumber]
     
     
-    const data =[nameOnTheCard, expiryDate, cvv, cardNumber]
-    if(paymentMethod ==="CARD"){
+      if(paymentMethod ==="CARD"){
+       
+        if (paymentValidated ){
+          props.paymentSet(data)
+          navigate('/buyer/market/checkout/payment/complete')
+        }else{
+          handleClick()
+          
+          
+        }
      
-      props.paymentSet(data)
-    }else{
-      props.paymentSet("CASH_ON_DELIVERY")
-    }
-
-    navigate('/buyer/market/checkout/payment/complete')
+       
+      }else{
+        props.paymentSet("CASH_ON_DELIVERY")
+        navigate('/buyer/market/checkout/payment/complete')
+      }
+    
+      
+    
+    
+    
+    
   }
 
 
@@ -100,6 +139,11 @@ export default function PaymentForm(props) {
   return (
 
     <Container component="main" maxWidth="sm" sx={{ mb: 4,mt:15 }}>
+    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+    <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+          All the fileds are required
+        </Alert>
+      </Snackbar>
     <Paper
           variant="outlined"
           sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}

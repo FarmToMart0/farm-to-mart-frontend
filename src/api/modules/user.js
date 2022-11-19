@@ -23,10 +23,13 @@ export default {
   checkExpiried(data){
     return resolver(axiosClient.post(`signin/check-expiried`,data))
   },
-  getDetails(data){
-    return resolver(axiosClient.post('user/user-details',data))
+  
+  getFDetails(data){
+    return resolver(axiosClient.post('gso/user-details',data))
+  },
+
+  getGDetails(data){
+    return resolver(axiosClient.post('main-officer/user-details',data))
   }
-  
-  
-  
 };
+  
