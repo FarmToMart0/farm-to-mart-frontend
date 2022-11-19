@@ -22,12 +22,5 @@ export default {
 		return resolver(axiosClient.get(`product/image/${id}`));
 	},
 
-	placeOrder(data){
-		return resolver(axiosClient.post(`order/placeorder`,data))
-	},
-
-	updateProduct(data){
-		return resolver(axiosClient.post(`order/updateproduct`,data))
-	}
 	
 };

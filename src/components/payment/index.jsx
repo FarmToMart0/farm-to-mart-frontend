@@ -4,7 +4,7 @@ import Review from "./review/index";
 import Complete from "../order_complete/index";
 import Typography from "@mui/material/Typography";
 import React, { useState, useEffect } from "react";
-import API from "../../api/modules/buyer";
+import API from "../../api/modules/order";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -38,12 +38,17 @@ export default function Checkout(props) {
 		allData.rating = ratings;
 		allData.buyer = buyer_id;
 		allData.paymentDetails = paymentDetails;
-
-		// const [res,code] = API.placeOrder(allData)
-		console.log(address);
-		console.log(paymentDetails);
+		const item_id = allData.item_id
+		const remainQuantity = allData.remainAmount - allData.amount
+		
+		console.log(allData.remainAmount);
+		console.log(remainQuantity);
+		console.log(item_id);
+		
+		
 		API.placeOrder(allData);
-
+		API.updateProduct({product:item_id,remainQuantity:remainQuantity})
+		
 		navigate("/buyer/market");
 	};
 
