@@ -22,7 +22,20 @@ export default {
 
 	removeFarmer(data){
 		return resolver(axiosClient.put("gso/remove-farmer", data))
-	}
+	},
 
+	removeGso(data){
+		console.log(data, "gso module")
+		return resolver(axiosClient.put("main-officer/remove-gso", data))
+	},
+
+	updateGso(data){
+		
+		return resolver(axiosClient.put("main-officer/edit-gso",data))
+	},
+
+	getCropDetails(id){
+		return resolver(axiosClient.get(`gso/get-crop-details/${id}`))
+	}
 
 };	

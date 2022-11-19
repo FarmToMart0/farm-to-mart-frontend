@@ -5,14 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export default function MyRequets() {
   const navigate = useNavigate()
   const user = useSelector((state) => state?.user);
-  useEffect(()=>{
-    if (!user?.auth ){
-      navigate('/login')
-  }
-  if(user?.userRole!='FARMER'){
-    navigate('/')
-}
-  },[])
+ 
   return (
     <BidDetailCard/>
    

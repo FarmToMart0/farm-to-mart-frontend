@@ -21,17 +21,18 @@ export default function HomeMainOfficer() {
   const [gso, setGso] = useState([]);
 
   const handleSearch = async (e) => {
-    setClicked(true);
+    
     try{
       const [code, res] = await api.gso.checkGsoAvailability({"nic": nic})
       if(code === 201){
         if (res){
           setFavailability(true);
-          
-          console.log(clicked);
-          console.log(nic)
+          setClicked(true);
           setGso(res);
           
+        }else{
+          setFavailability(false);
+          setClicked(true);
         }
       }
 
@@ -49,7 +50,7 @@ export default function HomeMainOfficer() {
         width: '70%',
         padding: '10px', }}>
             
-      <Box component="form" sx={{ mt: 3, mb: 3}} >
+      <Box component="" sx={{ mt: 3, mb: 3}} >
       <TextField
         required
         fullWidth
@@ -57,7 +58,10 @@ export default function HomeMainOfficer() {
         type="text"
         label="Enter Govijana Seva Officer's NIC"
         name="nic"
-        onChange={(e) => setNic(e.target.value)}
+        onChange={(e) => {
+          setFavailability(false);
+          setClicked(false);
+          setNic(e.target.value)}}
         autoFocus
       />
 
@@ -80,12 +84,7 @@ export default function HomeMainOfficer() {
       {clicked && !favailability && <AddGSO />}
       
     
-    </div>
-    
-    {/* <AddFarmer />
-    <FarmerProfile />
-    <CropDataForm /> */}
-    
+    </div>    
     </div>
     
   );
