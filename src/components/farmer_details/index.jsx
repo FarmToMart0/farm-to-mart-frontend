@@ -18,6 +18,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
+import { Divider } from '@mui/material';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import DraftsIcon from '@mui/icons-material/Drafts';
 import SendIcon from '@mui/icons-material/Send';
@@ -30,15 +31,134 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CropForm from '../addCropData/index';
 import api from  '../../api'
 
+const CustomizedListItem = ({ crop }) => {
+    const [ open, setOpen ] = useState(false)
+    const handleClick = () => {
+        setOpen(!open)
+    }
+    
+    return (
+        <div>
+           <ListItem button key={crop._id} onClick={handleClick}>
+                                            <ListItemIcon>
+                                                <ArrowForwardIcon sx={{fontSize: '1rem', color: '#25D366'}}/>
+                                            </ListItemIcon>
+                                            
+                                                <ListItemText sx={{ color: 'black'}} primary={ <Typography sx={{color: 'black', fontWeight: 'bold', fontSize: '1.2rem'}}> {crop.cropType} - Start Date of Growing: {crop.startingDateOfGrowing} </Typography>} />
+                                                {open ? <ExpandLess /> : <ExpandMore />}
+                                            
+                                            
+                                           
+                                        </ListItem><Collapse key ={crop.id} in={open} timeout="auto" unmountOnExit>
+                                                <List component="div" disablePadding>
+
+                                                <ListItem button sx={{ pl: 4 }}>
+                                                        <Grid container spacing={2}>
+                                                            <Grid item xs={12} md={4}>
+                                                            <ListItemText  primary={<Typography sx={{color: 'black', fontWeight: '', fontSize: '1rem'}}>Crop Type</Typography>} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={8}>
+                                                            <ListItemText primary={<Typography sx={{color: 'black', fontSize: '1rem'}}>: {crop.category}</Typography>} />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </ListItem>
+
+                                                    <ListItem button sx={{ pl: 4 }}>
+                                                        <Grid container spacing={2}>
+                                                            <Grid item xs={12} md={4}>
+                                                            <ListItemText  primary={<Typography sx={{color: 'black', fontWeight: '', fontSize: '1rem'}}>Crop Name</Typography>} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={8} >
+                                                            <ListItemText primary={<Typography sx={{color: 'black', fontSize: '1rem'}}>: {crop.cropType}</Typography>} />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </ListItem>
+
+                                                    <ListItem button  sx={{ pl: 4 }}>
+                                                        <Grid container spacing={2}>
+                                                            <Grid item xs={12} md={4}>
+                                                            <ListItemText  primary={<Typography sx={{color: 'black', fontWeight: '', fontSize: '1rem'}}>Growing Area</Typography>} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={8} >
+                                                            <ListItemText primary={<Typography sx={{color: 'black', fontSize: '1rem'}}>: {crop.landArea} acres</Typography>} />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </ListItem>
+
+                                                    <ListItem button sx={{ pl: 4 }}>
+                                                        <Grid container spacing={2}>
+                                                            <Grid item xs={12} md={4}>
+                                                            <ListItemText  primary={<Typography sx={{color: 'black', fontWeight: '', fontSize: '1rem'}}>Start Date of Growing</Typography>} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={8} >
+                                                            <ListItemText primary={<Typography sx={{color: 'black', fontSize: '1rem'}}>: {crop.startingDateOfGrowing}</Typography>} />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </ListItem>
+
+                                                    <ListItem button sx={{ pl: 4 }}>
+                                                        <Grid container spacing={2}>
+                                                            <Grid item xs={12} md={4}>
+                                                            <ListItemText  primary={<Typography sx={{color: 'black', fontWeight: '', fontSize: '1rem'}}>Estimated Harvest</Typography>} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={8} >
+                                                            <ListItemText primary={<Typography sx={{color: 'black', fontSize: '1rem'}}>: {crop.expectedAmount} Kg</Typography>} />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </ListItem>
+
+                                                    <ListItem button sx={{ pl: 4 }}>
+                                                        <Grid container spacing={2}>
+                                                            <Grid item xs={12} md={4}>
+                                                            <ListItemText  primary={<Typography sx={{color: 'black', fontWeight: '', fontSize: '1rem'}}>Final Harvest</Typography>} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={8} >
+                                                            <ListItemText primary={<Typography sx={{color: 'black', fontSize: '1rem'}}>: {crop.harvestedAmount}</Typography>} />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </ListItem>
+
+                                                    <ListItem button  sx={{ pl: 4 }}>
+                                                        <Grid container spacing={2}>
+                                                            <Grid item xs={12} md={4}>
+                                                            <ListItemText  primary={<Typography sx={{color: 'black', fontWeight: '', fontSize: '1rem'}}>Estimated Date to Harvest</Typography>} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={8} >
+                                                            <ListItemText primary={<Typography sx={{color: 'black', fontSize: '1rem'}}>: {crop.expectingDateOfHarvest} </Typography>} />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </ListItem>
+
+                                                    <ListItem button sx={{ pl: 4 }}>
+                                                        <Grid container spacing={2}>
+                                                            <Grid item xs={12} md={4}>
+                                                            <ListItemText  primary={<Typography sx={{color: 'black', fontWeight: '', fontSize: '1rem'}}>Final Harvest Date</Typography>} />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={8} >
+                                                            <ListItemText primary={<Typography sx={{color: 'black', fontSize: '1rem'}}>: {crop.harvestedDate} </Typography>} />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </ListItem>
+
+                                                    
+
+                                                    
+                                                </List>
+                                            </Collapse>
+            <Divider />
+        </div>
+    )
+}
+
 export default function Home({userDetails, farmerDetails}) {
     const [click, setClick] = useState(false);
     const navigate = useNavigate();
-    const [open, setOpen] = React.useState(false);
+    // const [open, setOpen] = React.useState(false);
     const [cropData, setCropData] = useState([]);
 
-    const handleClick = () => {
-        setOpen(!open);
-    };
+    // const handleClick = () => {
+    //     setOpen(!open);
+    // };
     const handleRemove = async (e) => {
         console.log({farmerDetails})
         try{
@@ -185,114 +305,21 @@ export default function Home({userDetails, farmerDetails}) {
                             }>
                             
                             {cropData.map((crop) => {
+                                    
+                                    if (crop.status == "ongoing"){
+                                        crop.harvestedDate = "pending"
+                                        crop.harvestedAmount = "pending"
+                                    }
+                                    else{
+                                        crop.harvestedDate = crop.harvestedDate.slice(0,10)
+                                        crop.harvestedAmount = crop.harvestedAmount + " Kg"
+                                    }
+                                    crop.startingDateOfGrowing = crop.startingDateOfGrowing.slice(0,10)
+                                    crop.expectingDateOfHarvest = crop.expectingDateOfHarvest.slice(0,10)
+                                    console.log(crop.startingDateOfGrowing)
                                     return (
-                                        <><ListItem button key={crop._id} onClick={handleClick}>
-                                            <ListItemIcon>
-                                                <ArrowForwardIcon sx={{fontSize: '1rem', color: '#25D366'}}/>
-                                            </ListItemIcon>
-                                            
-                                                <ListItemText sx={{ color: 'black'}} primary={ <Typography sx={{color: 'black', fontWeight: 'bold', fontSize: '1.2rem'}}> {crop.cropType} - Start Date of Growing {crop.startingDateOfGrowing} </Typography>} />
-                                                {open ? <ExpandLess /> : <ExpandMore />}
-                                            
-                                            
-                                           
-                                        </ListItem><Collapse key ={crop._id} in={open} timeout="auto" unmountOnExit>
-                                                <List component="div" disablePadding>
-
-                                                <ListItem button key={crop._id} sx={{ pl: 4 }}>
-                                                        <Grid container spacing={2}>
-                                                            <Grid item xs={12} md={4}>
-                                                            <ListItemText  primary={<Typography sx={{color: 'black', fontWeight: '', fontSize: '1rem'}}>Crop Type</Typography>} />
-                                                            </Grid>
-                                                            <Grid item xs={12} md={8}>
-                                                            <ListItemText primary={<Typography sx={{color: 'black', fontSize: '1rem'}}>: {crop.category}</Typography>} />
-                                                            </Grid>
-                                                        </Grid>
-                                                    </ListItem>
-
-                                                    <ListItem button key={crop._id} sx={{ pl: 4 }}>
-                                                        <Grid container spacing={2}>
-                                                            <Grid item xs={12} md={4}>
-                                                            <ListItemText  primary={<Typography sx={{color: 'black', fontWeight: '', fontSize: '1rem'}}>Crop Name</Typography>} />
-                                                            </Grid>
-                                                            <Grid item xs={12} md={8} >
-                                                            <ListItemText primary={<Typography sx={{color: 'black', fontSize: '1rem'}}>: {crop.cropType}</Typography>} />
-                                                            </Grid>
-                                                        </Grid>
-                                                    </ListItem>
-
-                                                    <ListItem button key={crop._id} sx={{ pl: 4 }}>
-                                                        <Grid container spacing={2}>
-                                                            <Grid item xs={12} md={4}>
-                                                            <ListItemText  primary={<Typography sx={{color: 'black', fontWeight: '', fontSize: '1rem'}}>Growing Area</Typography>} />
-                                                            </Grid>
-                                                            <Grid item xs={12} md={8} >
-                                                            <ListItemText primary={<Typography sx={{color: 'black', fontSize: '1rem'}}>: {crop.landArea} acres</Typography>} />
-                                                            </Grid>
-                                                        </Grid>
-                                                    </ListItem>
-
-                                                    <ListItem button key={crop._id} sx={{ pl: 4 }}>
-                                                        <Grid container spacing={2}>
-                                                            <Grid item xs={12} md={4}>
-                                                            <ListItemText  primary={<Typography sx={{color: 'black', fontWeight: '', fontSize: '1rem'}}>Start Date of Growing</Typography>} />
-                                                            </Grid>
-                                                            <Grid item xs={12} md={8} >
-                                                            <ListItemText primary={<Typography sx={{color: 'black', fontSize: '1rem'}}>: {crop.startingDateOfGrowing}</Typography>} />
-                                                            </Grid>
-                                                        </Grid>
-                                                    </ListItem>
-
-                                                    <ListItem button key={crop._id} sx={{ pl: 4 }}>
-                                                        <Grid container spacing={2}>
-                                                            <Grid item xs={12} md={4}>
-                                                            <ListItemText  primary={<Typography sx={{color: 'black', fontWeight: '', fontSize: '1rem'}}>Estimated Harvest</Typography>} />
-                                                            </Grid>
-                                                            <Grid item xs={12} md={8} >
-                                                            <ListItemText primary={<Typography sx={{color: 'black', fontSize: '1rem'}}>: {crop.expectedAmount}</Typography>} />
-                                                            </Grid>
-                                                        </Grid>
-                                                    </ListItem>
-
-                                                    <ListItem button key={crop._id} sx={{ pl: 4 }}>
-                                                        <Grid container spacing={2}>
-                                                            <Grid item xs={12} md={4}>
-                                                            <ListItemText  primary={<Typography sx={{color: 'black', fontWeight: '', fontSize: '1rem'}}>Final Harvest</Typography>} />
-                                                            </Grid>
-                                                            <Grid item xs={12} md={8} >
-                                                            <ListItemText primary={<Typography sx={{color: 'black', fontSize: '1rem'}}>: {crop.harvestedAmount}</Typography>} />
-                                                            </Grid>
-                                                        </Grid>
-                                                    </ListItem>
-
-                                                    <ListItem button key={crop._id} sx={{ pl: 4 }}>
-                                                        <Grid container spacing={2}>
-                                                            <Grid item xs={12} md={4}>
-                                                            <ListItemText  primary={<Typography sx={{color: 'black', fontWeight: '', fontSize: '1rem'}}>Estimated Time Period to Harvest</Typography>} />
-                                                            </Grid>
-                                                            <Grid item xs={12} md={8} >
-                                                            <ListItemText primary={<Typography sx={{color: 'black', fontSize: '1rem'}}>: {crop.expectingDateOfHarvest} </Typography>} />
-                                                            </Grid>
-                                                        </Grid>
-                                                    </ListItem>
-
-                                                    <ListItem button key={crop._id} sx={{ pl: 4 }}>
-                                                        <Grid container spacing={2}>
-                                                            <Grid item xs={12} md={4}>
-                                                            <ListItemText  primary={<Typography sx={{color: 'black', fontWeight: '', fontSize: '1rem'}}>Final Harvest Date</Typography>} />
-                                                            </Grid>
-                                                            <Grid item xs={12} md={8} >
-                                                            <ListItemText primary={<Typography sx={{color: 'black', fontSize: '1rem'}}>: {crop.harvestedDate}</Typography>} />
-                                                            </Grid>
-                                                        </Grid>
-                                                    </ListItem>
-
-                                                    
-
-                                                    
-                                                </List>
-                                            </Collapse>
-                                            </>
+                                       
+                                        <CustomizedListItem key={crop._id} crop={crop} />
                                     )
                                 })}
 
