@@ -124,7 +124,7 @@ export default function AddFarmer() {
       const [code,res] = await api.farmer.addFarmerbyGso(values);
     
       if (code === 201) {     
-        navigate('/gso/success');
+        navigate('/gso/success-register-farmer');
       } else {
         setErrors({ type: 'error', message: res });
         setErrorOccured(true);

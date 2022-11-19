@@ -25,23 +25,35 @@ export default function GSOHome() {
   const [farmer, setFarmer] = useState([]);
 
   const handleSearch = async (e) => {
-    setClicked(true);
+    
     try{
+      console.log(nic)
       const [code, res] = await api.gso.checkFarmerAvailability({"nic": nic})
-      if(code === 201){
-        if (res){
+      if(code == 201){
+        if (res === "removed"){
+          setFavailability(false);
+          setClicked(true);
+        }
+        else if (res){
           setFavailability(true);
-          
-          console.log(clicked);
-          console.log(nic)
+          setClicked(true);
+          //console.log(clicked);
+          //console.log(nic)
           setFarmer(res);
           
+        }else{
+          setFavailability(false);
+          setClicked(true);
         }
+      
       }
-
+    
+    console.log(clicked);
+    console.log(favailability)
     }catch(error){
       console.log(error);
     }
+    
   };
 
   
@@ -53,7 +65,7 @@ export default function GSOHome() {
         width: '70%',
         padding: '10px', }}>
             
-      <Box component="form" sx={{ mt: 3, mb: 3}} >
+      <Box component="" sx={{ mt: 3, mb: 3}} >
       <TextField
         required
         fullWidth
@@ -61,7 +73,10 @@ export default function GSOHome() {
         type="text"
         label="Enter Farmer's NIC"
         name="nic"
-        onChange={(e) => setNic(e.target.value)}
+        onChange={(e) => {
+          setFavailability(false);
+          setClicked(false);
+          setNic(e.target.value)}}
         autoFocus
       />
 
@@ -77,19 +92,14 @@ export default function GSOHome() {
       </Button>
       </Box>
       
-      {!favailability && !clicked && <img style={{width: '100%', height: '100%'}} src={gsoHome} alt="gsoHome" />}
-
-      {favailability && clicked && <DetailsCard farmerDetails={farmer} />}
+      {(!favailability && !clicked) && <img style={{width: '100%', height: '100%'}} src={gsoHome} alt="gsoHome" />}
 
       {clicked && !favailability && <AddFarmer />}
+
+      {clicked && favailability && <DetailsCard farmerDetails={farmer} />}
       
     
     </div>
-    
-    {/* <AddFarmer />
-    <FarmerProfile />
-    <CropDataForm /> */}
-    
     </div>
     
   );
