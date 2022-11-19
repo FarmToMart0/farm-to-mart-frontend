@@ -106,6 +106,7 @@ export default function SignInSide() {
     <Alert icon={false} sx={{ mt: '1vw', mb: '1vw' }} severity="error">{errorMessages.message}</Alert>
   );
 useEffect(()=>{
+  
   if (user?.auth ) {
     navigate('/')
 }

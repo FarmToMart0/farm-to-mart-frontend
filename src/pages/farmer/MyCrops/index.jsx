@@ -105,6 +105,7 @@ await getCompletedMyCropTask()
 
 async function getCompletedMyCropTask(nic) {
     try {
+      
       let [code,res]=await api.farmer.getCompletedMycrops(nic);
       if (code ===201) {
         setCompletedTask(res.map((item)=>{return {'id':item._id,isEdit:false,startedDate:new Date(item.startingDateOfGrowing).getFullYear()+'-'+new Date(item.startingDateOfGrowing).getMonth()+1 +'-'+new Date(item.startingDateOfGrowing).getDate(),expectedDate:new Date(item.expectingDateOfHarvest).getFullYear()+'-'+new Date(item.expectingDateOfHarvest).getMonth()+1 +'-'+new Date(item.expectingDateOfHarvest).getDate(),cropType:item.cropType,landArea:`${item.landArea} ha` , location:item.location, harvestedAmount:`${item.harvestedAmount}Kg`,expectedAmount:`${item.expectedAmount}Kg`,harvestedDate:new Date(item.harvestedDate).getFullYear()+'-'+(parseInt(new Date(item.harvestedDate).getMonth())+1) +'-'+new Date(item.harvestedDate).getDate()}}))
@@ -135,6 +136,7 @@ useEffect(()=>{
 if(user?.userRole!='FARMER'){
   navigate('/')
 }
+
   getMyCropTask(user?.nic)
   getCompletedMyCropTask(user?.nic)
     

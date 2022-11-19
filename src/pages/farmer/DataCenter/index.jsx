@@ -182,12 +182,14 @@ const DataCenter = () => {
         }
     }
     useEffect(() =>{
+        
         if (!user?.auth  ) {
             navigate('/login')
         }
         if(user?.userRole!='FARMER'){
             navigate('/')
         }
+       
         getAllListDetailst();    
    },[])
    
@@ -227,6 +229,7 @@ const DataCenter = () => {
                         <Grid item>
                             <Typography variant="h5">Comparison Of Harvested and Expected Amount of {cropType} in Past Years in {district}</Typography>
                             <Typography variant="caption" display="block" gutterBottom>Yields are measured in tonnes </Typography>
+                          
                         </Grid>
                         <Grid item>
 
