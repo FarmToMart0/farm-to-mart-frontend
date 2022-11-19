@@ -29,8 +29,12 @@ export default function SimplePaper() {
 	const location = useLocation();
 
 	const db = firebaseapp.startFirebase();
+
+	//incoming all data
 	const bidDataFromCard = location.state;
-	//const { item_id, base_price,farmer,bidEndTime } = location.state;
+	console.log(bidDataFromCard);
+	
+	
 	
 	
 	// buyer details
@@ -236,7 +240,7 @@ export default function SimplePaper() {
 
 					<Stack sx={{ mx: 5 }}>
 						<p style={{ fontSize: 30, fontWeight: "bold" }}>Remaining Time</p>
-						<Chip sx={{ p: 3, py: 4 }} label=<CoundDown date={bidDataFromCard.forEachbidEndTime} /> variant='outlined' />
+						<Chip sx={{ p: 3, py: 4 }} label=<CoundDown date={bidDataFromCard.bidEndTime} /> variant='outlined' />
 					</Stack>
 				</Stack>
 				{/* start of bidding card */}

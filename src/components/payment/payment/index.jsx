@@ -122,7 +122,7 @@ export default function PaymentForm(props) {
      
        
       }else{
-        props.paymentSet("CASH_ON_DELIVERY")
+        props.paymentSet(["CASH_ON_DELIVERY"])
         // props.setFinalState(true)
         
       }

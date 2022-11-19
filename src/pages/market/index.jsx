@@ -89,6 +89,13 @@ export default function Market() {
 		getMarketData();
 	}, [district, cropType]);
 
+	useEffect(() => {
+		
+		getMarketData();
+	}, []);
+
+	
+
 	return (
 		<div style={{ display: "flex" }}>
 			<Navbar />
