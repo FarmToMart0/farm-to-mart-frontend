@@ -152,6 +152,7 @@ const CustomizedListItem = ({ crop }) => {
 
 export default function Home({userDetails, farmerDetails}) {
     const [click, setClick] = useState(false);
+    const [dataAvailability, setdataAvailability] = useState(false)
     const navigate = useNavigate();
     // const [open, setOpen] = React.useState(false);
     const [cropData, setCropData] = useState([]);
@@ -160,7 +161,7 @@ export default function Home({userDetails, farmerDetails}) {
     //     setOpen(!open);
     // };
     const handleRemove = async (e) => {
-        console.log({farmerDetails})
+        // console.log({farmerDetails})
         try{
             await api.gso.removeFarmer({farmerDetails})
             navigate('/gso/success-remove-farmer');
@@ -174,7 +175,14 @@ export default function Home({userDetails, farmerDetails}) {
         const [code, res] = await api.gso.getCropDetails(id)
         if (code === 201){
             setCropData(res)
-            console.log("Crop data",res)
+            console.log(cropData)
+            if (cropData.length != 0){
+                setdataAvailability(true)
+            }
+            else{
+                setdataAvailability(false)
+            }
+            // console.log("Crop data",res)
 
         }
     }
@@ -304,7 +312,9 @@ export default function Home({userDetails, farmerDetails}) {
                                 </ListSubheader>
                             }>
                             
-                            {cropData.map((crop) => {
+                            {console.log(dataAvailability, "abc")}
+                            
+                            {dataAvailability && cropData.map((crop) => {
                                     
                                     if (crop.status == "ongoing"){
                                         crop.harvestedDate = "pending"
@@ -316,12 +326,15 @@ export default function Home({userDetails, farmerDetails}) {
                                     }
                                     crop.startingDateOfGrowing = crop.startingDateOfGrowing.slice(0,10)
                                     crop.expectingDateOfHarvest = crop.expectingDateOfHarvest.slice(0,10)
-                                    console.log(crop.startingDateOfGrowing)
                                     return (
                                        
                                         <CustomizedListItem key={crop._id} crop={crop} />
                                     )
                                 })}
+                            
+                            {!dataAvailability && <Typography component="h5" variant="h3" color='secondary' sx={{mt: 3, mb: 3, fontSize: '1rem', fontWeight: 'bold', textAlign: 'center'}}>
+           No Crop Details in the System!
+          </Typography>}
 
                             </List>
                         
