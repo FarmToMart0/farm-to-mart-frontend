@@ -8,11 +8,10 @@ import {Stack,Grid,Button,Typography,Paper,CircularProgress,TextField,Autocomple
 import * as yup from 'yup';
 import { color } from '@mui/system';
 import Switch from '@mui/material/Switch';
-import ImageCollection from '../imageList/index';
+import ImageCollection from '../ImageList/index';
 import SnackBarComponent from '../../components/Snackbars';
 import axios from 'axios';
 import api  from "../../api"
-import {Image} from 'cloudinary-react';
 import ResponsiveDateTimePickers from './../DateTimePicker/index';
 const validationSchema = yup.object().shape({
   productName: yup.string().required().label('Product productName'),
