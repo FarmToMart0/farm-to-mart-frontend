@@ -22,6 +22,7 @@ import SelectingInputField from './SelectInputField';
 import CategoryOverview from './CategoryOverview';
 import api from '../../../api'
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -30,7 +31,7 @@ import { useSelector } from 'react-redux';
 
 const DataCenter = () => {
     const user = useSelector((state) => state?.user);
-  
+  const navigate = useNavigate()
     const [years, setYears] = useState([]);
     const [sum, setSum] = useState(0);
     const [yearsForTable, setYearsForTable] = useState([]);
@@ -181,6 +182,14 @@ const DataCenter = () => {
         }
     }
     useEffect(() =>{
+        
+        if (!user?.auth  ) {
+            navigate('/login')
+        }
+        if(user?.userRole!='FARMER'){
+            navigate('/')
+        }
+       
         getAllListDetailst();    
    },[])
    
@@ -220,6 +229,7 @@ const DataCenter = () => {
                         <Grid item>
                             <Typography variant="h5">Comparison Of Harvested and Expected Amount of {cropType} in Past Years in {district}</Typography>
                             <Typography variant="caption" display="block" gutterBottom>Yields are measured in tonnes </Typography>
+                          
                         </Grid>
                         <Grid item>
 

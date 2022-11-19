@@ -5,8 +5,8 @@ export default {
   addProduct(data) {
     return resolver(axiosClient.post('/product/add', data));
   },
-  getProduct(){
-    return resolver(axiosClient.get('/product/getproduct'));
+  getProduct(id){
+    return resolver(axiosClient.get(`/product/getproduct/${id}`));
   },
   deleteProduct(id){
     return resolver(axiosClient.get(`/product/${id}`))
@@ -43,6 +43,7 @@ export default {
   getYearstList(district){
     return resolver(axiosClient.get(`/farmer/uniqueyears/${district}`))
   },
+  
   getReviews(id){
     return resolver(axiosClient.get(`/reviews/${id}`))
   },
@@ -52,7 +53,12 @@ export default {
   notify(id){
     return resolver(axiosClient.get(`/farmer/notify/${id}`));
   }
+  ,
   
-  
-  
+  addFarmerbyGso(data) {
+		return resolver(axiosClient.post("/gso/register-farmer", data));
+	},
+  getOngoingBidding(id){
+    return resolver(axiosClient.get(`/product/ongoingbidding/${id}`))
+  }
 };

@@ -10,6 +10,22 @@ export default {
     
     return resolver(axiosClient.post('/signin', data));
   },
+  verify(token){
+    return resolver(axiosClient.get(`/signin/verify/${token}`))
+  },
+
+  forgotPassword(data){
+    return resolver(axiosClient.post(`signin/forgotpassword`,data))
+  },
+  resetPassword(data){
+    return resolver(axiosClient.post(`signin/reset-password`,data))
+  },
+  checkExpiried(data){
+    return resolver(axiosClient.post(`signin/check-expiried`,data))
+  },
+  getDetails(data){
+    return resolver(axiosClient.post('user/user-details',data))
+  }
   
   
   

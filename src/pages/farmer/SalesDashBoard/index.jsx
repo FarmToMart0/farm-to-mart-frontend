@@ -9,8 +9,10 @@ import { TotalOrders } from "../../../components/dashboard/total-oders";
 import { TotalProfit } from "../../../components/dashboard/ongoingBiding";
 import { OrderOverView } from "../../../components/dashboard/orderOverview";
 import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 function SalaseDashBoard() {
+  const navigate = useNavigate()
   const user = useSelector((state) => state?.user);
   const [totalOrders, setTotalOrders] = useState(0);
   const [totalOrdersSinceLastMonth, settotalOrdersSinceLastMonth] = useState(0);
@@ -93,6 +95,11 @@ function SalaseDashBoard() {
   console.log("pppppp", total);
 
   useEffect(() => {
+    if (!user?.auth ) {
+      navigate('/login')
+  }if(user?.userRole!='FARMER'){
+    navigate('/')
+}
     getAllDetails(user?.id);
   }, []);
 

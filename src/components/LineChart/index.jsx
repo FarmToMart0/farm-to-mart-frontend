@@ -51,7 +51,7 @@ function LineGraph() {
         },
         {
           name: 'December',
-          Haevest: 7500,
+          Haevest: 17500,
         }
       ];
   return (
@@ -59,10 +59,10 @@ function LineGraph() {
         
 
       <Stack>
-      <h1 style={{display:'flex', justifyContent:'center', alignItems:'center',color:'#42C2FF',marginBottom:30}}>Harvest Distribution Between 2012 And 2021</h1>
+      <h1 style={{display:'flex', justifyContent:'center', alignItems:'center',color:'#42C2FF',marginBottom:30}}>Harvest Distribution In 2021</h1>
       <LineChart
-          width={800}
-          height={400}
+          width={700}
+          height={375}
           data={data}
           margin={{
             top: 5,

@@ -176,7 +176,7 @@ export default function ProductList({openProductAddForm,dataList,handleChangeFil
           </TableRow>
         </TableHead>
         <TableBody>
-          {dataList.map((row) => (
+          {dataList && dataList?.map((row) => (
             <Row openForm={openProductAddForm} handleDelete={handleRemove}  key = {row._id} row={row} />
           ))}
         </TableBody>

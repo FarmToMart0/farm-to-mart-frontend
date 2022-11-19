@@ -9,6 +9,7 @@ import api from '../../../api'
 import MyCropTable from './Table/index';
 import SnackBarComponent from '../../../components/Snackbars';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export default function TabPaneMyCrops(props) {
   const [errorMessage, setErrorMessage] = useState({ type: '', message: '' });
@@ -17,6 +18,7 @@ export default function TabPaneMyCrops(props) {
   const user = useSelector((state) => state?.user);
   const [orderData, setOrderData] = React.useState([]);
   const [completedTask,setCompletedTask] = React.useState([]);
+  const navigate = useNavigate()
   const handleClickEdit=(id)=>{
    
  var temp =completedTask.map((item)=>{
@@ -103,6 +105,7 @@ await getCompletedMyCropTask()
 
 async function getCompletedMyCropTask(nic) {
     try {
+      
       let [code,res]=await api.farmer.getCompletedMycrops(nic);
       if (code ===201) {
         setCompletedTask(res.map((item)=>{return {'id':item._id,isEdit:false,startedDate:new Date(item.startingDateOfGrowing).getFullYear()+'-'+new Date(item.startingDateOfGrowing).getMonth()+1 +'-'+new Date(item.startingDateOfGrowing).getDate(),expectedDate:new Date(item.expectingDateOfHarvest).getFullYear()+'-'+new Date(item.expectingDateOfHarvest).getMonth()+1 +'-'+new Date(item.expectingDateOfHarvest).getDate(),cropType:item.cropType,landArea:`${item.landArea} ha` , location:item.location, harvestedAmount:`${item.harvestedAmount}Kg`,expectedAmount:`${item.expectedAmount}Kg`,harvestedDate:new Date(item.harvestedDate).getFullYear()+'-'+(parseInt(new Date(item.harvestedDate).getMonth())+1) +'-'+new Date(item.harvestedDate).getDate()}}))
@@ -127,11 +130,18 @@ async function getMyCropTask(nic) {
 }
 
 useEffect(()=>{
+  if (!user?.auth ) {
+    navigate('/login')
+}
+if(user?.userRole!='FARMER'){
+  navigate('/')
+}
+
   getMyCropTask(user?.nic)
   getCompletedMyCropTask(user?.nic)
     
 },[])
-console.log('orderData',orderData)
+
 
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>

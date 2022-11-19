@@ -9,11 +9,12 @@ import AddGSOPage from './components/addGSO/index';
 import AddCropData from './components/addCropData/index';
 import ShowGSO from './components/gsoDetails/index';
 import HomeMainOfficer from './pages/homeMainOfficer/index';
-
+import AddFarmer from './components/add_farmer/index';
 import DetailsCard from './components/details_card/index';
 import GSOHome from './pages/gsoHome/index';
 import FarmerSignUp from './pages/farmer/SignUp/index';
 import BuyerSignUp from './pages/buyerSignUp/index';
+import Dash from './pages/F-Dashboard/index'
 
 import Market from './pages/market/index';
 
@@ -44,7 +45,10 @@ import ItemAdd from './pages/home/index';
 import GSOLayout from './layouts/GSOLayout';
 import MainOfficerLayout from './layouts/MainOfficerLayout/index';
 import Bidding from './pages/Bidding/index';
-import Pay from './components/payment/address/index'
+import FarmerVerification from './pages/FarmerVerification/index';
+import ForgotPassword from './pages/farmer/ForgotPassword';
+import ResetPasswordUi from './pages/farmer/ResetPasswordUi/index';
+import Pay from './components/payment/payment/index'
 // import ShoppingCard from './pages/shoppingCard/index';
 function App() {
   
@@ -72,13 +76,20 @@ function App() {
     <Route path="/" element={<Home/>} exact />
 
     <Route path="/login" element={<Login/>} />
+    <Route path="/forgotpassword" element={<ForgotPassword/>} />
+    <Route path="/resetpassword/:email/:id/:token" element={<ResetPasswordUi/>} />
+    <Route path="/verify/:token" element={<FarmerVerification/>} />
     <Route path="/main-officer/add-gso" element={<AddGSOPage/>} />
+    <Route path="/main-officer/register-gso" element={<AddGSOPage/>} />
     <Route path="/gso/add-crop-data" element={<AddCropData/>} />
     <Route path="/main-officer/show-gso" element={<ShowGSO/>} />
     <Route path="/main-officer/home" element={<HomeMainOfficer/>} />
     <Route path='/gso/home' element={<GSOHome/>}/>
+    <Route path='/gso/register-farmer' element={<AddFarmer/>} />
     <Route path='/farmer/signup' element={<FarmerSignUp/>}/>
     <Route path='/buyer/signup' element={<BuyerSignUp/>}/>
+    <Route path='/dash' element={<Dash/>}/>
+  
  
 
     {/* ==================Buyer================ */}
