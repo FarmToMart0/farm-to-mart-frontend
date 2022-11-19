@@ -39,7 +39,7 @@ const ExpandMore = styled((props) => {
 export default function ItemCard(props) {
     
     
-    const {item_id,product_name,price,more_details,date,transport,payment,image,min_bid,district,remainAmount} = props.item
+    const {item_id,product_name,price,more_details,date,transport,payment,image,min_bid,district,remainAmount,farmer} = props.item
     
     const [expanded, setExpanded] = React.useState(false);
 
@@ -49,7 +49,7 @@ export default function ItemCard(props) {
 
     const navigate = useNavigate();
     function handleBid(){
-      navigate('/buyer/market/bidding',{state:{item_id:item_id,base_price:price,min_bid:min_bid}})
+      navigate('/buyer/market/bidding',{state:{item_id:item_id,base_price:price,min_bid:min_bid,farmer:farmer}})
     }
 
   return (

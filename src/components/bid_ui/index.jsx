@@ -17,21 +17,27 @@ import MuiAlert from "@mui/material/Alert";
 import { async } from "@firebase/util";
 import SendIcon from "@mui/icons-material/Send";
 import CoundDown from "../Timer/index";
+import { useSelector, useDispatch } from 'react-redux';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
 	return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
 
 export default function SimplePaper() {
+	const user = useSelector((state) => state?.user);
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	const db = firebaseapp.startFirebase();
-	const { item_id, base_price } = location.state;
+	const { item_id, base_price,farmer } = location.state;
 	
-//poi890
-	const buyer_id = "poi890";
-	const buyer_name = "NuwanJay";
+	
+	// buyer details
+	const buyer_id = user?.id
+	// const email = user?.email
+	const buyer_name = user?.firstName + user?.lastName
+	
+	
 	const timePasses = true
 
 	const [bidLeaderId, setBidLeaderId] = useState("")
@@ -59,7 +65,7 @@ export default function SimplePaper() {
 	//function for getting bid values
 
 	const getBidData = async () => {
-		const starCountRef = ref(db, "BidOrders/" + item_id);
+		const starCountRef = ref(db, "BidOrders/" +farmer+'/'+item_id);
 		onValue(starCountRef, (snapshot) => {
 			if (snapshot.exists()) {
 				setCurrent_bid(snapshot.val().bidPrice);
@@ -72,10 +78,11 @@ export default function SimplePaper() {
 	const writeBidData = (BuyerId, ProductId, BuyerName, BidPrice) => {
 		if (bidAbility()){
 			const date = new Date()
-			set(ref(db, "BidOrders/" + ProductId), {
+			set(ref(db, "BidOrders/" +farmer+'/'+ ProductId), {
 				buyerId: BuyerId,
 				buyerName: BuyerName,
 				bidPrice: BidPrice,
+				// email:email,
 				timeStamp:date.toString()
 			}).then(
 				displayNotification("Your bid successfully placed","success")

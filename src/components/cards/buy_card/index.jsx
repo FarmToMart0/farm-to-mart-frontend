@@ -39,7 +39,7 @@ const ExpandMore = styled((props) => {
 
 export default function ItemCard(props) {
 
-    const {item_id,product_name,price,more_details,date,transport,payment,image,district,remainAmount} = props.item
+    const {item_id,product_name,price,more_details,date,transport,payment,image,district,remainAmount,farmer} = props.item
     const [expanded, setExpanded] = React.useState(false);
 
     
