@@ -102,7 +102,7 @@ const handleSave = async (values)=>{
         setLoadingProductAdd(false);
         setProductAddedSuccesfully(false);
         props.formShow[0]=false
-        await props.getProducts()
+        await props.getProducts(user.id)
         navigate('/farmer/dash/sales')
 
         setErrorMessage({ type: 'success', message: res });

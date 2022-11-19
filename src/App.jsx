@@ -14,12 +14,14 @@ import DetailsCard from './components/details_card/index';
 import GSOHome from './pages/gsoHome/index';
 import FarmerSignUp from './pages/farmer/SignUp/index';
 import BuyerSignUp from './pages/buyerSignUp/index';
+import Dash from './pages/F-Dashboard/index'
 import SuccessReg from './pages/registrationSucess/index';
 import SuccessCrop from './pages/addCropSucess/index';
 import SuccessRemoveFarmer from './pages/farmerRemoveSuccess/index';
 import SuccessRegGso from './pages/gsoRegSucces';
 import SuccessRemoveGso from './pages/gsoRemoveSuccess';
 import SuccessUpdateGso from './pages/gsoUpdatesuccess';
+
 
 import Market from './pages/market/index';
 
@@ -39,6 +41,8 @@ import Dashboard from './pages/F-Dashboard/index'
 import GraphCard from './components/graphCard/index'
 import Payment from './pages/Payment/index'
 
+import Test from './components/orderReview'
+
 
 
 
@@ -48,6 +52,10 @@ import ItemAdd from './pages/home/index';
 import GSOLayout from './layouts/GSOLayout';
 import MainOfficerLayout from './layouts/MainOfficerLayout/index';
 import Bidding from './pages/Bidding/index';
+import FarmerVerification from './pages/FarmerVerification/index';
+import ForgotPassword from './pages/farmer/ForgotPassword';
+import ResetPasswordUi from './pages/farmer/ResetPasswordUi/index';
+import Pay from './components/payment/payment/index'
 // import ShoppingCard from './pages/shoppingCard/index';
 function App() {
   
@@ -64,6 +72,8 @@ function App() {
     <Route path="/mainofficer/dash/:page" element={<MainOfficerLayout/>}/>
 
     <Route path="/buyer/market/checkout/payment/complete" element={<Success/>}/>
+    <Route path="/pay" element={<Pay/>}/>
+    <Route path="/test" element={<Test/>}/>
 
     
 
@@ -73,6 +83,10 @@ function App() {
     <Route path="/" element={<Home/>} exact />
 
     <Route path="/login" element={<Login/>} />
+    <Route path="/forgotpassword" element={<ForgotPassword/>} />
+    <Route path="/resetpassword/:email/:id/:token" element={<ResetPasswordUi/>} />
+    <Route path="/verify/:token" element={<FarmerVerification/>} />
+    <Route path="/main-officer/add-gso" element={<AddGSOPage/>} />
     <Route path="/main-officer/register-gso" element={<AddGSOPage/>} />
     <Route path="/gso/add-crop-data" element={<AddCropData/>} />
     <Route path="/main-officer/show-gso" element={<ShowGSO/>} />
@@ -81,6 +95,7 @@ function App() {
     <Route path='/gso/register-farmer' element={<AddFarmer/>} />
     <Route path='/farmer/signup' element={<FarmerSignUp/>}/>
     <Route path='/buyer/signup' element={<BuyerSignUp/>}/>
+    <Route path='/dash' element={<Dash/>}/>
     <Route path='/gso/success-register-farmer' element={<SuccessReg/>}/>
     <Route path='/gso/success-add-crop' element={<SuccessCrop/>}/>
     <Route path='/gso/success-remove-farmer' element={<SuccessRemoveFarmer/>}/>

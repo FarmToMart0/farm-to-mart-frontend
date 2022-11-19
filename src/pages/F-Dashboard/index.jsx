@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid';
 import LineGraph from '../../components/LineChart/index'
 
 
-function Dashboard() {
+function HarvestDashboard() {
   return (
     <div>
       <Box sx={{ flexGrow: 1, mt:10 }}>
@@ -24,7 +24,8 @@ function Dashboard() {
         </Grid>
 
         <Grid item xs={4} style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-          <PieGraph/>
+          
+          <h1 style={{color:'#42C2FF'}}>Top Sale Products</h1>
         </Grid>
 
         <Grid item xs={8} style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
@@ -38,4 +39,4 @@ function Dashboard() {
   )
 }
 
-export default Dashboard
+export default HarvestDashboard;

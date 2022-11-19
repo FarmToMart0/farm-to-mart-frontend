@@ -1,13 +1,13 @@
 import React from 'react'
 import NavBar from '../../components/navbar/index'
-import ItemCard from '../../components/shopping_card/index'
+import Shopping_card from '../../components/shopping_card/index'
 
 function ShoppingCard() {
 
   return (
     <div>
         <NavBar/>
-          <ItemCard />
+          <Shopping_card />
     </div>
   )
 }

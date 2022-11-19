@@ -18,12 +18,20 @@ export default function HomePage(props) {
  const [isLoading,setIsLoading]=useState(false);
  const [openDialog,setOpenDialog]=useState(false);
  const navigate = useNavigate();
+
+
+ useEffect(()=>{
+  
+ },[])
 const handle =()=>{
 
 }
 const handleFarmer =()=>{
   navigate('/farmer/signup')
   handleClose()
+}
+const handleFarmerSection =()=>{
+  navigate('/farmer/dash/dashboard')
 }
 const handleSignIn =()=>{
   navigate('/login')
@@ -105,24 +113,39 @@ setOpenDialog(true)
             
             
             <div>
-            <Button
+            {!user?.auth && <><Button
               color="secondary"
               variant="contained"
-              
-              sx={{ width: 250, padding: 1, marginTop: 7 ,fontSize: 20, marginRight:4}}
+
+              sx={{ width: 200, padding: 1, marginTop: 7, fontSize: 20, marginRight: 4 }}
               onClick={handeleOpen}
             >
-             <b> Sign Up</b> 
-            </Button>
-            <Button
+              <b> Sign Up</b>
+            </Button><Button
               color="secondary"
               variant="contained"
-              
-              sx={{ width: 200, padding: 1, marginTop: 7 ,fontSize: 20, backgroundColor: "#128C7E"}}
+
+              sx={{ width: 200, padding: 1, marginTop: 7, fontSize: 20, backgroundColor: "#128C7E" }}
               onClick={handleSignIn}
             >
-             <b> LOGIN</b> 
-            </Button>
+                <b> LOGIN</b>
+              </Button></>}
+              {
+                (user?.auth && user?.userRole=='FARMER') && <>
+                <Button
+                color="secondary"
+                variant="contained"
+  
+                sx={{ width: 200, padding: 1, marginTop: 7, fontSize: 20, backgroundColor: "#128C7E" }}
+                onClick={handleFarmerSection}
+              >
+                  <b> FARMER SECTION</b>
+                </Button>
+                </>
+
+
+                
+              }
             </div>
             </div>
         </div>

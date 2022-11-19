@@ -10,8 +10,14 @@ import Button from "@mui/material/Button";
 import ImageList from "../../components/buyer_image_pre/index";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import PaymentIcon from "@mui/icons-material/Payment";
-import Alert from "@mui/material/Alert";
+
 import api from "../../api/modules/buyer";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
 export default function BuyItemShoppingCard(props) {
 	const navigate = useNavigate();
@@ -19,31 +25,61 @@ export default function BuyItemShoppingCard(props) {
 
 	const [totValue, setTotValue] = useState(0);
 	const [inputValue, setInputValue] = useState(0);
+	const [msg, setMsg] = useState("")
 
-	const { item_id, unit_price, payment, transport, product_name } =
+	//notification thsings
+
+	const [open, setOpen] = React.useState(false);
+
+	const handleClick = () => {
+	  setOpen(true);
+	};
+  
+	const handleClose = (event, reason) => {
+	  if (reason === 'clickaway') {
+		return;
+	  }
+  
+	  setOpen(false);
+	};
+	//=============
+
+	const { item_id, unit_price, payment, transport, product_name,remainAmount } =
 		location.state;
-
-	const left_card_details = { unit_price, product_name };
+	console.log((item_id, unit_price, payment, transport, product_name,remainAmount));
+	const left_card_details = { unit_price, product_name,remainAmount };
 
 	const [itemData, setItemData] = useState([]);
 
 	const handleBuyOrder = () => {
-		navigate("/buyer/market/checkout/payment", {
-			state: {
-				transport: transport,
-				payment: payment,
-				product: product_name,
-				price: totValue,
-				amount: inputValue,
-			},
-		});
+		if (inputValue <= remainAmount ){
+			if(inputValue == 0){
+				setMsg("Input amount can't be 0 kg")
+				handleClick()
+
+			}else{
+			navigate("/buyer/market/checkout/payment", {
+				state: {
+					transport: transport,
+					payment: payment,
+					product: product_name,
+					price: totValue,
+					amount: inputValue,
+					unitPrice:unit_price
+				},
+			});
+		}
+		}else{
+			setMsg("Your required amount must be less than available amount")
+			handleClick()
+		}
+		
 	};
 
 	const getImages = async (item_id) => {
-    
-		var [res,code] = await api.getItemImages(item_id.trim());
-		console.log(code.slice(0,5))
-		setItemData(code.slice(0,3));
+		var [res, code] = await api.getItemImages(item_id.trim());
+		
+		setItemData(code.slice(0, 3));
 	};
 
 	const itemData1 = [
@@ -74,10 +110,15 @@ export default function BuyItemShoppingCard(props) {
 
 	useEffect(() => {
 		getImages(item_id);
-	},[]);
+	}, []);
 
 	return (
 		<div>
+		<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+          {msg}
+        </Alert>
+      </Snackbar>
 			<Box
 				sx={{
 					display: "flex",
@@ -95,7 +136,10 @@ export default function BuyItemShoppingCard(props) {
 					justifyContent: "center",
 					alignItems: "center",
 				}}>
+				
 				<Paper
+
+
 					elevation={0}
 					sx={{ px: 5 }}
 					style={{ paddingTop: 25, marginBottom: 20 }}>
@@ -116,6 +160,8 @@ export default function BuyItemShoppingCard(props) {
 										sx={{
 											display: "flex",
 											flexWrap: "wrap",
+											justifyContent: "center",
+												alignItems: "center",
 											"& > :not(style)": {
 												m: 1,
 												width: "100%",
@@ -128,8 +174,9 @@ export default function BuyItemShoppingCard(props) {
 												display: "flex",
 												justifyContent: "center",
 												alignItems: "center",
-												padding: 20,
-												marginBottom: 20,
+												marginTop:40,
+												marginBottom: 10,
+												width: '70%'
 											}}>
 											{/* ======================= Left Card ============================= */}
 											<ItemCard
@@ -139,14 +186,17 @@ export default function BuyItemShoppingCard(props) {
 											{/* ============================ End Left Card ========================= */}
 											<Box
 												sx={{
+													marginTop: 3,
+													marginLeft: 1,
+													padding: 1,
 													width: 300,
 													height: 300,
 													backgroundColor: "",
 													boxShadow: "rgba(0, 0, 0, 0.15) 0px 0px 0px",
-													"&:hover": {
-														boxShadow: "rgba(0, 0, 0, 0.15) 0px 3px 5px",
-														backgroundColor: "#fafafa",
-													},
+													// "&:hover": {
+													// 	boxShadow: "rgba(0, 0, 0, 0.15) 0px 3px 5px",
+													// 	backgroundColor: "#fafafa",
+													// },
 												}}>
 												<div>
 													<div
@@ -206,6 +256,7 @@ export default function BuyItemShoppingCard(props) {
 							display: "flex",
 							alignItem: "center",
 							justifyContent: "center",
+							marginBottom:-20
 						}}>
 						<ImageList images={itemData} />
 					</div>
@@ -214,10 +265,10 @@ export default function BuyItemShoppingCard(props) {
 				</Paper>
 
 				<Button
-					style={{ width: "56%", marginBottom: 0 }}
+					style={{ width: 180, marginBottom: 0 }}
 					onClick={handleBuyOrder}
 					variant='contained'
-					startIcon={<ShoppingCartIcon style={{ height: 50 }} />}>
+					startIcon={<ShoppingCartIcon style={{ height: 40 }} />}>
 					BUY
 				</Button>
 			</Box>

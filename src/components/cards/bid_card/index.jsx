@@ -21,6 +21,8 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import GavelIcon from '@mui/icons-material/Gavel';
 import { useNavigate } from "react-router-dom";
+import PlaceIcon from '@mui/icons-material/Place';
+import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -37,7 +39,7 @@ const ExpandMore = styled((props) => {
 export default function ItemCard(props) {
     
     
-    const {item_id,product_name,price,more_details,date,transport,payment,image,min_bid} = props.item
+    const {item_id,product_name,price,more_details,date,transport,payment,image,min_bid,district,remainAmount,farmer} = props.item
     
     const [expanded, setExpanded] = React.useState(false);
 
@@ -47,23 +49,15 @@ export default function ItemCard(props) {
 
     const navigate = useNavigate();
     function handleBid(){
-      navigate('/buyer/market/bidding',{state:{item_id:item_id,base_price:price,min_bid:min_bid}})
+      navigate('/buyer/market/bidding',{state:{item_id:item_id,base_price:price,min_bid:min_bid,farmer:farmer}})
     }
 
   return (
     
     <Card sx={{ maxWidth: 345 ,background:'#FFFFFF',boxShadow: 'rgba(0, 0, 0, 0.24) 3px 5px 10px',borderRadius: '15px'}}>
       <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: grey[500] }} aria-label="recipe">
-            
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
+        
+        
         title= <span style={{fontSize:20,color:"#004600"}}><b>{product_name} </b></span>
         subheader={date.slice(0,10)}
       />
@@ -102,11 +96,25 @@ export default function ItemCard(props) {
         <LocalShippingIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
         <Typography paragraph style={{color:'black'}}>  Tranport: {transport}</Typography> 
         </Stack>
+
         <Stack direction="row">
         {/* <Item> <LocalShippingIcon style={{margin:'5'}} ></LocalShippingIcon></Item> */}
         <PaymentIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
         <Typography paragraph style={{color:'black'}}>  Online Payment:{payment} </Typography> 
         </Stack>
+
+        <Stack direction="row">
+        {/* <Item> <LocalShippingIcon style={{margin:'5'}} ></LocalShippingIcon></Item> */}
+        <LocalGroceryStoreIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
+        <Typography paragraph style={{color:'black'}}>  Available Stock:{remainAmount} kg </Typography> 
+        </Stack>
+
+        <Stack direction="row">
+        {/* <Item> <LocalShippingIcon style={{margin:'5'}} ></LocalShippingIcon></Item> */}
+        <PlaceIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
+        <Typography paragraph style={{color:'black'}}>  District:{district} </Typography> 
+        </Stack>
+
         </Stack>
         <hr></hr>
           <Typography paragraph style={{color:'black'}}>

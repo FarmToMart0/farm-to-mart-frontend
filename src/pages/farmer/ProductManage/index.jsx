@@ -10,21 +10,34 @@ import AddIcon from '@mui/icons-material/Add';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 function ProductManage(props) {
+  const user = useSelector((state) => state?.user);
+  const navigate = useNavigate()
   const [manageAddProdct, setManageAddProduct] = useState([false,0,0]);
  const [product,setProduct] = useState([]);
   const [searchedText, setSearchedText] = useState('');
   const [products, setAllProducts] = useState([]);
-  const getAllProducts =async ()=>{
-    let temp = await api.farmer.getProduct();
+  const getAllProducts =async (id)=>{
+    let temp = await api.farmer.getProduct(id);
     setAllProducts(temp[1]);
     
   }
-
+  React.useEffect(() => {
+    if (!user?.auth ) {
+      navigate('/login')
+  }
+  if(user?.userRole!='FARMER'){
+    navigate('/')
+}
+      
+    
+  }, []);
 
 React.useEffect(() => {
-  getAllProducts();
+
+  getAllProducts(user?.id);
     
   
 }, [manageAddProdct[0]]);
@@ -43,7 +56,7 @@ const handleChangeSearchFilter =(e)=>{
 }
 const doRemove = async(id)=>{
   let prod = await api.farmer.deleteProduct(id)
-  getAllProducts();
+  getAllProducts(user?.id);
 }
 React.useEffect(() => {
   
@@ -54,7 +67,7 @@ React.useEffect(() => {
     );
     setAllProducts(items);
   } else {
-    getAllProducts();
+    getAllProducts(user?.id);
   }
 }, [searchedText]);
 

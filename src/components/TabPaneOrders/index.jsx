@@ -6,9 +6,10 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import CustomizedTables from '../TableComponent/index';
 import api from '../../api'
+import { useSelector, useDispatch } from 'react-redux';
 import SnackBarComponent from './../Snackbars/index';
 export default function TabPane(props) {
-    
+  const user = useSelector((state) => state?.user);
   const [value, setValue] = React.useState('1');
   const [placedOrderData, setPlacedOrderData] = React.useState([]);
   const [deliveredOrderData, setDeliveredOrderData] = React.useState([]);
@@ -26,7 +27,7 @@ export default function TabPane(props) {
       
       const [code,res] = await api.order.markAsPaid(id)
       if (code==201) {
-        await getPlacedOrderList('633693db8b0ef806b4a0819e')
+        await getPlacedOrderList(user?.id)
         setErrorOccured(true)
         setErrorMessage({type:'success',message:"payment status updated succesfully"})
       }
@@ -41,7 +42,7 @@ export default function TabPane(props) {
       const [code,res] = await api.order.markAsDelivered(id)
       
       if (code==201) {
-        await getPlacedOrderList('633693db8b0ef806b4a0819e')
+        await getPlacedOrderList(user?.id)
         setErrorOccured(true)
         setErrorMessage({type:'success',message:"Delivery status updated succesfully"})
       }
@@ -55,7 +56,7 @@ export default function TabPane(props) {
     try {
       const [code,res] = await api.order.markAsRejected(id)
       if (code==201) {
-        await getPlacedOrderList('633693db8b0ef806b4a0819e')
+        await getPlacedOrderList(user?.id)
         setErrorOccured(true)
         setErrorMessage({type:'success',message:"order rejected succesfully"})
       }
@@ -69,7 +70,7 @@ export default function TabPane(props) {
     try {
       const [code,res] = await api.order.unDoRejectedOrder(id)
       if (code==201) {
-        await getPlacedOrderList('633693db8b0ef806b4a0819e')
+        await getPlacedOrderList(user?.id)
         setErrorOccured(true)
         setErrorMessage({type:'success',message:"undo rejected order  succesfully"})
       }
@@ -82,7 +83,7 @@ export default function TabPane(props) {
   
  async function getPlacedOrderList() {
   try {
-    let [code,res]=await api.order.getPlacedOrder('633693db8b0ef806b4a0819e');
+    let [code,res]=await api.order.getPlacedOrder(user?.id);
     
     if (code ==201) {
       
@@ -95,7 +96,7 @@ export default function TabPane(props) {
  }
  async function getDeliveredOrderList() {
   try {
-    let [code,res]=await api.order.getPlacedOrder('633693db8b0ef806b4a0819e');
+    let [code,res]=await api.order.getPlacedOrder(user?.id);
     
     if (code ==201) {
       setDeliveredOrderData(res.map((item)=> {return {id:item._id,date:item.orderedDate,product:item.product,amount:item.amount, paymentStatus:item.paymentStatus,orderStatus:item.orderStatus,description:item.description,paymementmethod:item.paymementmethod,isFromBiding:item.isFromBiding,farmer:item.farmer,buyer:item.buyer,deliveryMethod:item.deliveryMethod,totalPrice:item.totalPrice}}))
@@ -107,7 +108,7 @@ export default function TabPane(props) {
  }
  async function getRejectedOrderList() {
   try {
-    let [code,res]=await api.order.getPlacedOrder('633693db8b0ef806b4a0819e');
+    let [code,res]=await api.order.getPlacedOrder(user?.id);
     
     if (code ==201) {
       setRejectedOrderData(res.map((item)=> {return {id:item._id,date:new Date(item.orderedDate).getFullYear()+'-'+new Date(item.orderedDate).getMonth()+1+'-'+new Date(item.orderedDate).getDate(),product:item.product,amount:item.amount, paymentStatus:item.paymentStatus,orderStatus:item.orderStatus,description:item.description,paymementmethod:item.paymementmethod,isFromBiding:item.isFromBiding,farmer:item.farmer,buyer:item.buyer,deliveryMethod:item.deliveryMethod,totalPrice:item.totalPrice}}))
