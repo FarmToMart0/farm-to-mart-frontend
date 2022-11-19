@@ -63,7 +63,7 @@ const DataCenter = () => {
             const [code,res] =await api.farmer.getYearstList(district)
             if (code==201) {
                 setYearsForTable(res.map((item)=>{return item._id.year}));
-
+               
             }
             
         } catch (error) {
@@ -205,7 +205,7 @@ const DataCenter = () => {
    },[district])
     useEffect(() =>{
 
-       getTopHarvestDetails(district? district: user.district,yearForTable);
+       getTopHarvestDetails(district? district: user.district,yearForTable?yearForTable:2022);
        
         
    },[yearForTable])
