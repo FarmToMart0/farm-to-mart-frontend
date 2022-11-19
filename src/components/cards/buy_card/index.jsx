@@ -38,8 +38,8 @@ const ExpandMore = styled((props) => {
 
 
 export default function ItemCard(props) {
-
-    const {item_id,product_name,price,more_details,date,transport,payment,image,district,remainAmount,farmer} = props.item
+    const buyDataArray = props.item
+    //const {item_id,product_name,price,more_details,date,transport,payment,image,district,remainAmount,farmer} = props.item
     const [expanded, setExpanded] = React.useState(false);
 
     
@@ -50,25 +50,25 @@ export default function ItemCard(props) {
 
     const navigate = useNavigate();
     function handleBuy(){
-      navigate('/buyer/market/checkout',{state:{item_id:item_id,unit_price:price,transport:transport,payment:payment,product_name:product_name,remainAmount:remainAmount}})
+      navigate('/buyer/market/checkout',{state:buyDataArray})
     }
   return (
     
     <Card sx={{ maxWidth: 345 ,background:'#FFFFFF',boxShadow: 'rgba(0, 0, 0, 0.24) 3px 5px 10px', borderRadius: '15px'}}>
       <CardHeader
         
-        title= <span style={{fontSize:20,color:"#004600"}}><b>{product_name} </b></span>
-        subheader={date.slice(0,10)}
+        title= <span style={{fontSize:20,color:"#004600"}}><b>{buyDataArray.product_name} </b></span>
+        subheader={(buyDataArray.date).slice(0,10)}
       />
       <CardMedia
         component="img"
         height="194"
-        image={image}
+        image={buyDataArray.image}
         alt="Paella dish"
       />
       <CardContent>
         <Typography variant="body2"  style={{fontWeight: 'bold'}}>
-          Unit Price {price} Rs/Kg
+          Unit Price {buyDataArray.price} Rs/Kg
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -93,31 +93,31 @@ export default function ItemCard(props) {
         <Stack direction="row">
         {/* <Item> <LocalShippingIcon style={{margin:'5'}} ></LocalShippingIcon></Item> */}
         <LocalShippingIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
-        <Typography paragraph style={{color:'black'}}>  Tranport: {transport}</Typography> </Stack>
+        <Typography paragraph style={{color:'black'}}>  Tranport: {buyDataArray.transport}</Typography> </Stack>
         
         <Stack direction="row">
         {/* <Item> <LocalShippingIcon style={{margin:'5'}} ></LocalShippingIcon></Item> */}
         <PaymentIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
-        <Typography paragraph style={{color:'black'}}>  Online Payment:{payment} </Typography> 
+        <Typography paragraph style={{color:'black'}}>  Online Payment:{buyDataArray.payment} </Typography> 
         </Stack>
 
         <Stack direction="row">
         {/* <Item> <LocalShippingIcon style={{margin:'5'}} ></LocalShippingIcon></Item> */}
         <LocalGroceryStoreIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
-        <Typography paragraph style={{color:'black'}}>  Available Stock:{remainAmount} kg </Typography> 
+        <Typography paragraph style={{color:'black'}}>  Available Stock:{buyDataArray.remainAmount} kg </Typography> 
         </Stack>
 
         <Stack direction="row">
         {/* <Item> <LocalShippingIcon style={{margin:'5'}} ></LocalShippingIcon></Item> */}
         <PlaceIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
-        <Typography paragraph style={{color:'black'}}>  District:{district} </Typography> 
+        <Typography paragraph style={{color:'black'}}>  District:{buyDataArray.district} </Typography> 
         </Stack>
 
         </Stack>
         
         <hr></hr>
           <Typography paragraph style={{color:'black'}}>
-            {more_details}
+            {buyDataArray.more_details}
           </Typography>
           
         </CardContent>

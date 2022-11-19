@@ -29,7 +29,8 @@ export default function SimplePaper() {
 	const location = useLocation();
 
 	const db = firebaseapp.startFirebase();
-	const { item_id, base_price,farmer,bidEndTime } = location.state;
+	const bidDataFromCard = location.state;
+	//const { item_id, base_price,farmer,bidEndTime } = location.state;
 	
 	
 	// buyer details
@@ -54,6 +55,14 @@ export default function SimplePaper() {
 		getBidData();
 	}, []);
 
+	// submit bid order function
+
+	const handleBidOrder =() =>{
+		navigate("/buyer/market/checkout/payment", {
+			state:bidDataFromCard
+		});
+	}
+
 	//display Notification
 	const displayNotification = (message,type)=>{
 		setMessage(message)
@@ -65,7 +74,7 @@ export default function SimplePaper() {
 	//function for getting bid values
 
 	const getBidData = async () => {
-		const starCountRef = ref(db, "BidOrders/" +farmer+'/'+item_id);
+		const starCountRef = ref(db, "BidOrders/" +bidDataFromCard.farmer+'/'+bidDataFromCard.item_id);
 		onValue(starCountRef, (snapshot) => {
 			if (snapshot.exists()) {
 				setCurrent_bid(snapshot.val().bidPrice);
@@ -78,7 +87,7 @@ export default function SimplePaper() {
 	const writeBidData = (BuyerId, ProductId, BuyerName, BidPrice) => {
 		if (bidAbility()){
 			const date = new Date()
-			set(ref(db, "BidOrders/" +farmer+'/'+ ProductId), {
+			set(ref(db, "BidOrders/" +bidDataFromCard.farmer+'/'+ ProductId), {
 				buyerId: BuyerId,
 				buyerName: BuyerName,
 				bidPrice: BidPrice,
@@ -97,7 +106,7 @@ export default function SimplePaper() {
 	//function for checking bid condition
 	const bidAbility = () => {
 		if (your_bid > current_bid ) {
-			if(your_bid > base_price){
+			if(your_bid > bidDataFromCard.price){
 				
 				return true
 			}else{
@@ -116,7 +125,7 @@ export default function SimplePaper() {
 		e.preventDefault();
 		console.log(your_bid);
 		//writeBidData = (BuyerId, ProductId, BuyerName, BidPrice)
-		writeBidData(buyer_id,item_id,buyer_name,your_bid);
+		writeBidData(buyer_id,bidDataFromCard.item_id,buyer_name,your_bid);
 		
 		
 	};
@@ -227,7 +236,7 @@ export default function SimplePaper() {
 
 					<Stack sx={{ mx: 5 }}>
 						<p style={{ fontSize: 30, fontWeight: "bold" }}>Remaining Time</p>
-						<Chip sx={{ p: 3, py: 4 }} label=<CoundDown date={bidEndTime} /> variant='outlined' />
+						<Chip sx={{ p: 3, py: 4 }} label=<CoundDown date={bidDataFromCard.forEachbidEndTime} /> variant='outlined' />
 					</Stack>
 				</Stack>
 				{/* start of bidding card */}
@@ -268,7 +277,7 @@ export default function SimplePaper() {
 								<h1 style={{ margin: 2 }}> Place a Bid</h1>
 								<p style={{ margin: 3 }}>
 									{" "}
-									Initial Bid Value :{base_price} LKR
+									Initial Bid Value :{bidDataFromCard.price} LKR
 								</p>
 								{/* <TextF title={"Bidding Amount"}  style={{display:'flex',alignItems:'center',justifyContent:'center'}}/> */}
 
@@ -330,7 +339,7 @@ export default function SimplePaper() {
 								variant='contained'
 								sx={{ width: "10%", ml: 57.5 }}
 								endIcon={<SendIcon />}
-								onClick={() => {}}>
+								onClick={handleBidOrder}>
 								<span style={{ fontSize: 18 }}>Buy</span>
 							</Button>
 						)}

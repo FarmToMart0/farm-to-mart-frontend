@@ -68,11 +68,11 @@ if(props.details.test === "yesAdd" ){
 
   const handleConfirm = () =>{
     
-    if(payment === "Available"){
+   
       props.stateSet("Confirmed")
       
       
-    }
+    
     
   }
   

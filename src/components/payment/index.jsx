@@ -4,21 +4,28 @@ import Review from "./review/index";
 import Complete from "../order_complete/index";
 import Typography from "@mui/material/Typography";
 import React, { useState, useEffect } from "react";
+import API from '../../api/modules/buyer'
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 //transport, payment,product,price,amount,unitPrice
 export default function Checkout(props) {
+  let navigate = useNavigate();
+  const user = useSelector((state) => state?.user);
+  const buyer_id = user?.id
+  const allData = props.allData;
 	const { transport, payment, product, price, unitPrice } = props.data;
 
 	const [address, setAddress] = useState([]);
-  
 	const [paymentDetails, setPaymentDetails] = useState([]);
 	const [buyer_state, setBuyer_state] = useState("NotConfirmed");
 	const [finalize, setFinalize] = useState(false);
 	const [ratings, setRatings] = useState(0);
 
 	const details = props.details;
+  
 	var method = "";
-
+  console.log(buyer_state);
 	// set final state
 	const setFinalState = (argue) => {
 		setFinalize(argue);
@@ -27,7 +34,18 @@ export default function Checkout(props) {
 	//set ratings
 	const setStart = (value) => {
 		setRatings(value);
-		console.log("ratings" + ratings);
+
+		allData.address = address
+    allData.rating = ratings
+    allData.buyer = buyer_id
+    allData.paymentDetails = paymentDetails
+
+    // const [res,code] = API.placeOrder(allData)
+    console.log(API.placeOrder(allData))
+    
+      
+      navigate('/buyer/market')
+    
 	};
 
 	const stateSet = (state) => {
@@ -66,6 +84,7 @@ export default function Checkout(props) {
 
 	} else if (buyer_state === "NotConfirmed") {
 		if (transport === "Not Available" && payment === "Not Available") {
+      
 			details.test = "noAdd";
 		} else {
 			details.address = { address };
@@ -80,15 +99,5 @@ export default function Checkout(props) {
 		return <Complete setFinalState={setFinalState} setStart={setStart} />;
 	}
   
-  else if (finalize) {
-		console.log({
-			transport: transport,
-			paymentDetails: paymentDetails,
-			product: product,
-			price: price,
-			unitPrice: unitPrice,
-			ratings: ratings,
-			address: address,
-		});
-	}
+  
 }
