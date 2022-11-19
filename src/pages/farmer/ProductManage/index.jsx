@@ -109,8 +109,8 @@ React.useEffect(() => {
 </Box>
 
 {manageAddProdct[0] && <ItemAdd getProducts={getAllProducts} formShow={manageAddProdct} editProduct={product} edit={manageAddProdct[2]}/>}
-{(!manageAddProdct[0] && !isLoading) ? <ProductList  handleRemove={doRemove} handleChangeFilter={handleChangeSearchFilter} dataList={products} openProductAddForm={handleEdit} />:
-<Loader/> 
+{!manageAddProdct[0] &&   <ProductList  handleRemove={doRemove} handleChangeFilter={handleChangeSearchFilter} dataList={products} openProductAddForm={handleEdit} />
+
    
 }
 
