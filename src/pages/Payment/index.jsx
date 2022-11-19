@@ -6,9 +6,9 @@ import {  useLocation } from "react-router-dom";
 
 function PaymentPage() {
   const location = useLocation();
-  const { transport, payment,product,price,amount } = location.state;
-  const data = {transport, payment}
-  const details = {product,price,amount}
+  const { transport, payment,product,price,amount,unitPrice } = location.state;
+  const data = {transport, payment,product,price,amount,unitPrice}
+  const details = {product,price,amount,unitPrice}
   
   return (
     <div>

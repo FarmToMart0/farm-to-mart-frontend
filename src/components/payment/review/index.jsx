@@ -22,10 +22,23 @@ import { useNavigate, useLocation } from "react-router-dom";
 </style>
 
 export default function Review(props) {
-  console.log(props)
+  
   const navigate = useNavigate()
-  const address = props.details.address.address[0]
-  const payment = props.details.payment.payment
+ 
+  
+if(props.details.test === "yesAdd" ){
+  var payment = props.details.payment.payment
+  var address = props.details.address.address[0]
+}else{
+  payment ="Not Available"
+  // address ="Not Available"
+  address ="FARM_PICKUP"
+}
+
+  
+  
+  
+
   
 
   const [comments,setComments] = useState("")
@@ -60,7 +73,7 @@ export default function Review(props) {
       
       
     }else{
-      navigate('/buyer/market/checkout/payment/complete')
+      navigate('/buyer/market/checkout/payment/complete',{setFinalState:props.setFinalState})
     }
     
   }

@@ -80,6 +80,12 @@ export default function SignInSide() {
           case 'BUYER':
             navigate('/buyer/market')
             break;
+          case 'GSO':
+            navigate('/gso/home')
+            break;
+          case 'MAINOFFICER':
+            navigate('/main-officer/home')
+            break
           default:
             break;
         }

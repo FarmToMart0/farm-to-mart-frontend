@@ -17,6 +17,8 @@ import Typography from '@mui/material/Typography';
 
 export default function SimplePaper() {
     const navigate = useNavigate()
+    const location = useLocation();
+    const setFinalState = location.setFinalState;
     const labels = {
        
         1: 'Useless',
@@ -92,6 +94,7 @@ export default function SimplePaper() {
       )}
     </Box>
     <Button variant="contained" style={{margin:20}} onClick={()=>{
+        setFinalState(true)
          navigate('/buyer/market/')
     }}>Submit</Button>
 

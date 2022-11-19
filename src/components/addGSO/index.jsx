@@ -119,13 +119,11 @@ export default function AddGSO() {
   };
 
   async function registerGso(values) {
-    
-    
     try {
       const [code,res] = await api.gso.registerGso(values);
     
       if (code === 201) {     
-        navigate('/main-officer/show-gso');
+        navigate('/main-officer/success-register-gso');
       } else {
         setErrors({ type: 'error', message: res });
         setErrorOccured(true);
@@ -141,7 +139,7 @@ export default function AddGSO() {
   
   return (
       <div>
-        <Container component="main" maxWidth="" sx={{background:'white',width:'70%', boxShadow: 
+        <Container component="main" maxWidth="" sx={{background:'white',width:'100%', boxShadow: 
         '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )', borderRadius:'10px', mb: '5vw', mt:0}}>
         <CssBaseline />
         <SnackBarComponent open={errorOccured} message={errors.message} type='error'  setOpen={setErrorOccured}   />

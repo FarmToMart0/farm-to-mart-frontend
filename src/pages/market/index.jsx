@@ -70,6 +70,7 @@ export default function Market() {
 
 	// the array containing products
 	const [listOfItems, setListOfItems] = useState([]);
+	
 
 	const getMarketData = async () => {
 		const [res, code] = await api.getMarketProducts([district,cropType]);
@@ -84,7 +85,7 @@ export default function Market() {
 
 	//use effect for seleect products accrding to the buyer's selection
 	useEffect(() => {
-		console.log(cropType)
+		
 		getMarketData();
 	}, [district, cropType]);
 
@@ -160,12 +161,14 @@ export default function Market() {
 											category='District'
 											handleSelection={handleDistrict}
 											initiaiState = "Matara"
+											width = {350}
 										/>
 										<SearchField
 											cropItems={arrType}
 											category='Crop Type'
 											handleSelection={handleCropType}
 											initiaiState ="Vegetables"
+											width = {350}
 										/>
 									</Stack>
 								</div>
