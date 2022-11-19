@@ -19,10 +19,10 @@ export default function PaymentForm(props) {
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCvv] = useState('');
   const [cardNumber, setCardNumber] = useState('');
-  const [nameError, setNameError] = useState('');
-  const [cardNumberError, setCardNumberError] = useState('');
-  const [expiryDateError, setExpiryDateError] = useState('');
-  const [cvvError, setCvvError] = useState('');
+  const [nameError, setNameError] = useState('Card name is required!');
+  const [cardNumberError, setCardNumberError] = useState('Invalid card number');
+  const [expiryDateError, setExpiryDateError] = useState('Expiry date is required!');
+  const [cvvError, setCvvError] = useState('CVV is required!');
 
   React.useEffect(() => {
     setPaymentValidated(false);
@@ -55,10 +55,10 @@ export default function PaymentForm(props) {
     });
 
     if (
-      nameError !== '' &&
-      cardNumberError !== '' &&
-      cvvError !== '' &&
-      expiryDateError !== ''
+      nameError === '' &&
+      cardNumberError === '' &&
+      cvvError === '' &&
+      expiryDateError === ''
     ) {
       setPaymentValidated(true);
     }

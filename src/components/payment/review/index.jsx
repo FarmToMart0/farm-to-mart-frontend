@@ -68,13 +68,11 @@ if(props.details.test === "yesAdd" ){
 
   const handleConfirm = () =>{
     
-    if(payment === "Available"){
+   
       props.stateSet("Confirmed")
       
       
-    }else{
-      navigate('/buyer/market/checkout/payment/complete',{setFinalState:props.setFinalState})
-    }
+    
     
   }
   

@@ -15,10 +15,16 @@ import Typography from '@mui/material/Typography';
 @import url('https://fonts.googleapis.com/css2?family=Rokkitt:wght@1200&display=swap');
 </style>
 
-export default function SimplePaper() {
-    const navigate = useNavigate()
-    const location = useLocation();
-    const setFinalState = location.setFinalState;
+export default function SimplePaper(props) {
+  const navigate = useNavigate()
+    
+
+    const handleFinalSubmit = () =>{
+      props.setFinalState(true)
+      props.setStart(value)
+      
+    }
+    
     const labels = {
        
         1: 'Useless',
@@ -93,10 +99,7 @@ export default function SimplePaper() {
         <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
       )}
     </Box>
-    <Button variant="contained" style={{margin:20}} onClick={()=>{
-        setFinalState(true)
-         navigate('/buyer/market/')
-    }}>Submit</Button>
+    <Button variant="contained" style={{margin:20}} onClick={handleFinalSubmit}>Submit</Button>
 
 <Typography variant="body2" color="text.secondary" align="center">
         {'Copyright © Farm2Mart '}

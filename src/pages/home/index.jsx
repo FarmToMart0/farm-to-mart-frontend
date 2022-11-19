@@ -33,6 +33,11 @@ const handleFarmer =()=>{
 const handleFarmerSection =()=>{
   navigate('/farmer/dash/dashboard')
 }
+
+const handleBuyerSection =()=>{
+  navigate('/buyer/market')
+}
+
 const handleSignIn =()=>{
   navigate('/login')
 }
@@ -55,7 +60,7 @@ setOpenDialog(true)
       <Chip label="AS BUYER" variant="outlined" onClick={handleBuyer} />
     </Stack>
       </FormDialog >
-            <NavBar isLogin={user.auth}/>     
+            <NavBar isLogin={user.auth } userType={user.userRole}/>     
       <CssBaseline />
     
       <div style={{ maxWidth: 'auto',   minHeight:660, backgroundImage: `url(${background})`,
@@ -140,6 +145,23 @@ setOpenDialog(true)
                 onClick={handleFarmerSection}
               >
                   <b> FARMER SECTION</b>
+                </Button>
+                </>
+
+
+                
+              }
+
+              {
+                (user?.auth && user?.userRole=='BUYER') && <>
+                <Button
+                color="secondary"
+                variant="contained"
+  
+                sx={{ width: 200, padding: 1, marginTop: 7, fontSize: 20, backgroundColor: "#128C7E" }}
+                onClick={handleBuyerSection}
+              >
+                  <b> Visit Market</b>
                 </Button>
                 </>
 

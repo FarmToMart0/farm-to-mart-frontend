@@ -38,8 +38,8 @@ const ExpandMore = styled((props) => {
 
 export default function ItemCard(props) {
     
-    
-    const {item_id,product_name,price,more_details,date,transport,payment,image,min_bid,district,remainAmount,farmer} = props.item
+    const bidUiData = props.item
+    //const {item_id,product_name,price,more_details,date,transport,payment,image,min_bid,district,remainAmount,farmer,bidEndTime} = props.item
     
     const [expanded, setExpanded] = React.useState(false);
 
@@ -49,7 +49,8 @@ export default function ItemCard(props) {
 
     const navigate = useNavigate();
     function handleBid(){
-      navigate('/buyer/market/bidding',{state:{item_id:item_id,base_price:price,min_bid:min_bid,farmer:farmer}})
+      navigate('/buyer/market/bidding',{state:bidUiData})
+      // navigate('/buyer/market/bidding',{state:{item_id:bidUiData.item_id,base_price:bidUiData.price,min_bid:bidUiData.min_bid,farmer:bidUiData.farmer,bidEndTime:bidUiData.bidEndTime}})
     }
 
   return (
@@ -58,18 +59,18 @@ export default function ItemCard(props) {
       <CardHeader
         
         
-        title= <span style={{fontSize:20,color:"#004600"}}><b>{product_name} </b></span>
-        subheader={date.slice(0,10)}
+        title= <span style={{fontSize:20,color:"#004600"}}><b>{bidUiData.product_name} </b></span>
+        subheader={(bidUiData.date).slice(0,10)}
       />
       <CardMedia
         component="img"
         height="194"
-        image={image}
+        image={bidUiData.image}
         alt="Paella dish"
       />
       <CardContent>
         <Typography variant="body2"  style={{fontWeight: 'bold'}}>
-          Start Bidding Price: {price} LKR
+          Start Bidding Price: {bidUiData.price} LKR
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -94,31 +95,31 @@ export default function ItemCard(props) {
         <Stack direction="row">
         {/* <Item> <LocalShippingIcon style={{margin:'5'}} ></LocalShippingIcon></Item> */}
         <LocalShippingIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
-        <Typography paragraph style={{color:'black'}}>  Tranport: {transport}</Typography> 
+        <Typography paragraph style={{color:'black'}}>  Tranport: {bidUiData.transport}</Typography> 
         </Stack>
 
         <Stack direction="row">
         {/* <Item> <LocalShippingIcon style={{margin:'5'}} ></LocalShippingIcon></Item> */}
         <PaymentIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
-        <Typography paragraph style={{color:'black'}}>  Online Payment:{payment} </Typography> 
+        <Typography paragraph style={{color:'black'}}>  Online Payment:{bidUiData.payment} </Typography> 
         </Stack>
 
         <Stack direction="row">
         {/* <Item> <LocalShippingIcon style={{margin:'5'}} ></LocalShippingIcon></Item> */}
         <LocalGroceryStoreIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
-        <Typography paragraph style={{color:'black'}}>  Available Stock:{remainAmount} kg </Typography> 
+        <Typography paragraph style={{color:'black'}}>  Available Stock:{bidUiData.remainAmount} kg </Typography> 
         </Stack>
 
         <Stack direction="row">
         {/* <Item> <LocalShippingIcon style={{margin:'5'}} ></LocalShippingIcon></Item> */}
         <PlaceIcon style={{margin:'0 10 0 0 '}} sx={{ color:'black'}} />
-        <Typography paragraph style={{color:'black'}}>  District:{district} </Typography> 
+        <Typography paragraph style={{color:'black'}}>  District:{bidUiData.district} </Typography> 
         </Stack>
 
         </Stack>
         <hr></hr>
           <Typography paragraph style={{color:'black'}}>
-            {more_details}
+            {bidUiData.more_details}
           </Typography>
           
         </CardContent>

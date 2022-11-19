@@ -1,24 +1,51 @@
 import AddressForm from "./address/index";
 import PaymentForm from "./payment/index";
 import Review from "./review/index";
+import Complete from "../order_complete/index";
 import Typography from "@mui/material/Typography";
 import React, { useState, useEffect } from "react";
+import API from '../../api/modules/buyer'
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 //transport, payment,product,price,amount,unitPrice
 export default function Checkout(props) {
+  let navigate = useNavigate();
+  const user = useSelector((state) => state?.user);
+  const buyer_id = user?.id
+  const allData = props.allData;
 	const { transport, payment, product, price, unitPrice } = props.data;
-	console.log(transport, payment, product, price, unitPrice);
+
 	const [address, setAddress] = useState([]);
 	const [paymentDetails, setPaymentDetails] = useState([]);
 	const [buyer_state, setBuyer_state] = useState("NotConfirmed");
 	const [finalize, setFinalize] = useState(false);
-	console.log(finalize);
-	const details = props.details;
-	var method = "";
+	const [ratings, setRatings] = useState(0);
 
+	const details = props.details;
+  
+	var method = "";
+  console.log(buyer_state);
 	// set final state
 	const setFinalState = (argue) => {
 		setFinalize(argue);
+	};
+
+	//set ratings
+	const setStart = (value) => {
+		setRatings(value);
+
+		allData.address = address
+    allData.rating = ratings
+    allData.buyer = buyer_id
+    allData.paymentDetails = paymentDetails
+
+    // const [res,code] = API.placeOrder(allData)
+    console.log(API.placeOrder(allData))
+    
+      
+      navigate('/buyer/market')
+    
 	};
 
 	const stateSet = (state) => {
@@ -43,14 +70,21 @@ export default function Checkout(props) {
 
 	if (transport === "Available" && address.length == 0) {
 		return <AddressForm addressSet={addressSet} />;
-	} else if (
+	} 
+  
+  else if (
 		payment === "Available" &&
 		paymentDetails.length == 0 &&
 		buyer_state === "Confirmed"
 	) {
-		return <PaymentForm paymentSet={paymentSet} />;
-	} else {
+		return (
+			<PaymentForm paymentSet={paymentSet} setFinalState={setFinalState} />
+		);
+
+
+	} else if (buyer_state === "NotConfirmed") {
 		if (transport === "Not Available" && payment === "Not Available") {
+      
 			details.test = "noAdd";
 		} else {
 			details.address = { address };
@@ -58,12 +92,12 @@ export default function Checkout(props) {
 			details.test = "yesAdd";
 		}
 
-		return (
-			<Review
-				details={props.details}
-				stateSet={stateSet}
-				setFinalState={setFinalState}
-			/>
-		);
+		return <Review details={props.details} stateSet={stateSet} />;
+	} 
+  
+  else if (!finalize) {
+		return <Complete setFinalState={setFinalState} setStart={setStart} />;
 	}
+  
+  
 }
