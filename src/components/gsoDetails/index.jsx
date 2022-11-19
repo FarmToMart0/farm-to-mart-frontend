@@ -13,25 +13,26 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-export default function Home() {
+export default function Home({gsoDetails}) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
       };
 
 
-    const gsoDetails = 
-        {
-            first_name : 'Piyumi Chan',
-            last_name : 'Mahaarachchi',
-            mobile : '0765867087',
-            district: 'Galle',
-            gso : 'Elpitiya',
-            gso_code : 'E-009',
-            email : 'mpiyumichaan@gmail.com',
-            nic : '988460222V'
+
+    // const gsoDetails = 
+    //     {
+    //         first_name : 'Amaya',
+    //         last_name : 'Adikari',
+    //         mobile : '0786785672',
+    //         district: 'Mannar',
+    //         gso : 'Mannar 2',
+    //         gso_code : '456',
+    //         email : 'mpiyumichaan@gmail.com',
+    //         nic : '988460223V'
     
-        }
+    //     }
 
     const [isEdit, setIsEdit] = useState(false);
 
@@ -42,7 +43,7 @@ export default function Home() {
     return (
         <div>
             <Container component="main" Width="" sx={{background:'white', boxShadow: 
-            '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )', borderRadius:'10px', mb: '5vw', mt:0, width: '70%', padding: '2vw', paddingTop: 0}}>
+            '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )', borderRadius:'10px', mb: '5vw', mt:0, width: '100%', padding: '2vw', paddingTop: 0}}>
                 <CssBaseline />
                 <Box sx={{
                         marginTop: 0,
@@ -51,10 +52,10 @@ export default function Home() {
                         alignItems: 'Left',
                     }}>
                         <Typography component="h1" variant="h5" color='primary' sx={{mt: 2, fontWeight: 'bold', fontSize: '2rem'}}>
-                            {gsoDetails.gso}
+                            {gsoDetails.gsoName}
                         </Typography>
                         <Typography component="h2" variant="h5" color='secondary' sx={{mt: 2, fontWeight: 'bold', fontSize: '1.8rem'}}>
-                            {gsoDetails.gso_code}
+                            {gsoDetails.gsoCode}
                         </Typography>
 
                         <div style={
@@ -86,7 +87,7 @@ export default function Home() {
                                 id="outlined-disabled"
                                 label=""
                                 
-                                defaultValue= {gsoDetails.first_name}
+                                defaultValue= {gsoDetails.firstName}
 
                                 // InputProps={{
                                 //     classes:{
@@ -111,7 +112,7 @@ export default function Home() {
                                 disabled = {!isEdit}
                                 id="outlined-disabled"
                                 label=""
-                                defaultValue={gsoDetails['last_name']}
+                                defaultValue={gsoDetails.lastName}
                                 // variant = "standard"
                                 sx={{color: 'red', width:'100%'}}
                                 />
@@ -163,7 +164,7 @@ export default function Home() {
                                 disabled = {true}
                                 id="outlined-disabled"
                                 label=""
-                                defaultValue={gsoDetails.gso}
+                                defaultValue={gsoDetails.gsoName}
                                 // variant = "standard"
                                 sx={{color: 'red', width:'100%'}}
                                 />
@@ -180,7 +181,7 @@ export default function Home() {
                                 disabled = {true}
                                 id="outlined-disabled"
                                 label=""
-                                defaultValue={gsoDetails.gso_code}
+                                defaultValue={gsoDetails.gsoCode}
                                 // variant = "standard"
                                 sx={{color: 'red', width:'100%'}}
                                 />

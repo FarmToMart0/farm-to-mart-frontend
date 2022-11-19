@@ -4,30 +4,34 @@ import TextField from '@mui/material/TextField';
 
 
 export default function ItemCard(props) {
+ const {unit_price,product_name} = props.left_card_details;
 
   
 
   return (
     <Box
       sx={{
-        
+        marginTop:3,
+        marginRight:1,
         width: 300,
         height: 300,
-        backgroundColor: '#fafafa',
-        boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px',
-        '&:hover': {
-        boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '',
+        padding: 1,
+        boxShadow: 'rgba(0, 0, 0, 0.15) 0px 0px 0px',
+        // '&:hover': {
+        // boxShadow: 'rgba(0, 0, 0, 0.15) 0px 3px 5px',
+        // backgroundColor: '#fafafa',
+       
         
-        },
+        // },
       }}
     >
         <div >
-        <h1 style={{padding:10, color:'#007476'}}>Paddy</h1>
+        <h1 style={{padding:10, color:'#007476'}}>{product_name}</h1>
         
         <div style={{
         paddingLeft:30}}>
-            <h3> Unit Price : 120 Rs/Kg</h3>
+            <h3> Unit Price : {unit_price} Rs/Kg</h3>
             <h3>Quantity : <Box
                     component="form"
                     sx={{

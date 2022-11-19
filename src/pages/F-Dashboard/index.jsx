@@ -9,9 +9,9 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import LineGraph from '../../components/LineChart/index'
 
-function HarvestDashboard() {
-  return (
 
+function Dashboard() {
+  return (
     <div>
       <Box sx={{ flexGrow: 1, mt:10 }}>
       <Grid container spacing={2} sx={{pr:10}}>
@@ -20,7 +20,7 @@ function HarvestDashboard() {
         </Grid>
 
         <Grid item xs={4} style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-        <PieGraph/>
+        
         </Grid>
 
         <Grid item xs={4} style={{display:'flex', justifyContent:'center', alignItems:'center'}}>

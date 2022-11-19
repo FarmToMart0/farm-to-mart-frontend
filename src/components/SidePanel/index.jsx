@@ -12,7 +12,7 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
+
 import MenuIcon from '@mui/icons-material/Menu';
 // import appimage from '../../assets/images/appimg.jpg'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -141,16 +141,11 @@ export default function SidePanel(Props) {
           <Box sx={{ flexGrow: 1}} />
           <Stack spacing={3} direction="row">
             {/* <Button color="inherit" onClick={() => navigate('/#')}> */}
-            <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="secondary">
+         
+          
           <NotificationIcon/>
             {/* <NotificationsIcon /> */}
-          </Badge>
-        </IconButton>
+         
             {/* </Button> */}
            
             

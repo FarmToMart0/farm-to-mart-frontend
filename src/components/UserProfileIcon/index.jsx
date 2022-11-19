@@ -10,9 +10,12 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
+import { useSelector,useDispatch } from 'react-redux';
+import { logOutRequest } from '../../reducers/modules/user';
 
 export default function UserProfileIcon(Props) {
+  const user = useSelector((state) => state?.user);
+  const dispatch = useDispatch();
   const currentuser = useLocation().pathname.split('/')[1];
   const navigate = useNavigate();
 
@@ -85,21 +88,25 @@ export default function UserProfileIcon(Props) {
           </ListItemIcon>
         <Typography>Profile</Typography>
         </MenuItem>
-        <MenuItem onClick={()=>{navigate(`/${currentuser}/category`);}}>
+        {/* <MenuItem onClick={()=>{navigate(`/${currentuser}/category`);}}>
           <ListItemIcon>
             <LogoutIcon fontSize="small" color="secondary" />
           </ListItemIcon>
         <Typography>{Props.item2}</Typography>
-        </MenuItem>
-        <MenuItem onClick={()=>{navigate(`/${currentuser}/dash/dashboard`);}}>
+        </MenuItem> */}
+        {/* <MenuItem onClick={()=>{navigate(`/${currentuser}/dash/dashboard`);}}>
           <ListItemIcon>
             <LogoutIcon fontSize="small" color="secondary" />
           </ListItemIcon>
         <Typography>Dashboard</Typography>
-        </MenuItem>
-        <MenuItem >
+        </MenuItem> */}
+        <MenuItem onClick={()=>{
+          dispatch(logOutRequest());
+          localStorage.clear();
+          navigate('/login')
+         }}>
           <ListItemIcon>
-            <LogoutIcon fontSize="small" color="secondary" />
+            <LogoutIcon fontSize="small" color="secondary"  />
           </ListItemIcon>
         <Typography>Logout</Typography>
         </MenuItem>

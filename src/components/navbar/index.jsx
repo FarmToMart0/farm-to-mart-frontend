@@ -1,5 +1,6 @@
-import * as React from 'react';
+import  React,{useState,useEffect} from 'react';
 import AppBar from '@mui/material/AppBar';
+import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -12,13 +13,21 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-
+import { useSelector, useDispatch } from 'react-redux';
 import logo from '../../assets/images/logo.png'
+import user from '../../api/modules/user';
+import { logOutRequest } from '../../reducers/modules/user';
 
-const pages = ['Home', 'Analysis Reports'];
-const settings = ['Profile', 'Dashboard', 'Logout'];
 
-const ResponsiveAppBar = () => {
+
+
+const pages = ['HOME', 'ABOUT'];
+const settings = ['Profile', , 'Logout'];
+
+const ResponsiveAppBar = ({isLogin}) => {
+  const user = useSelector((state) => state?.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -30,6 +39,7 @@ const ResponsiveAppBar = () => {
   };
 
   const handleCloseNavMenu = () => {
+    
     setAnchorElNav(null);
   };
 
@@ -37,11 +47,13 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
 
+
+  
   return (
     <AppBar position="fixed">
       <Container maxWidth="xl" >
         <Toolbar disableGutters>
-          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
+          
           <Typography
             variant="h6"
             noWrap
@@ -93,14 +105,25 @@ const ResponsiveAppBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+             
+                <MenuItem  onClick={()=>{
+                  handleCloseNavMenu()
+                  navigate('/')
+                  }}>
+                  <Typography  textAlign="center">HOME</Typography>
                 </MenuItem>
-              ))}
+                <MenuItem  onClick={()=>{
+                  handleCloseNavMenu()
+                  navigate('/buyer/market')
+                  }}>
+                  <Typography  textAlign="center">MARKET PLACE</Typography>
+                </MenuItem>
+         
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
+             <img src = {logo}  style={{width:60}}/>
+          </Box>
           <Typography
             variant="h5"
             noWrap
@@ -117,24 +140,34 @@ const ResponsiveAppBar = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            FARM TO MART
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+               
+                onClick={()=>{
+                  navigate('/')
+                  handleCloseNavMenu()}}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                HOME
               </Button>
-            ))}
+              <Button
+               
+                onClick={()=>{
+                  navigate('/buyer/market')
+                  handleCloseNavMenu()}}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                MARKET PLACE
+              </Button>
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+   { isLogin &&  <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt={user?.firstName} src="#" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -154,12 +187,23 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                setting=='Logout'?
+                (<MenuItem key={setting} onClick={()=>{
+                  handleCloseUserMenu()
+                  console.log('logout');
+                  dispatch(logOutRequest());
+                  localStorage.clear();
+                  navigate('/login')
+                  }}>
                   <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
+                </MenuItem>)
+                :
+                (<MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>)
               ))}
             </Menu>
-          </Box>
+          </Box>}
         </Toolbar>
       </Container>
     </AppBar>

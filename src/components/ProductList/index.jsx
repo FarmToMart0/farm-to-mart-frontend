@@ -1,4 +1,4 @@
-import * as React from 'react';
+import  React,{useEffect,useState} from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -37,13 +37,13 @@ function Row(props) {
   const handleClickOpen = () => {
     setOpenDialog(true);
   };
-
+  
 
   const handleClose = () => {
     setOpenDialog(false);
   };
 
-  const { row } = props;
+  const { row,handleDelete } = props;
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -60,19 +60,19 @@ function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {row.name}
+          {row.productName}
         </TableCell>
-        <TableCell align="right">{row.lastModified}</TableCell>
+        <TableCell align="right">{new Date(row.updatedAt).getFullYear()+'-'+(parseInt(new Date(row.updatedAt).getMonth())+1)+'-'+new Date(row.updatedAt).getDate()}</TableCell>
         
-        <TableCell align="right"><Button variant="outlined" onClick={()=>{props.openForm([true,'id'])}}  startIcon={<EditIcon  />}>
+        <TableCell align="right"><Button variant="outlined" onClick={()=>{props.openForm([true,row._id,1])}}  startIcon={<EditIcon  />}>
         Edit
 
       </Button></TableCell>
         <TableCell align="right"><Button variant="outlined" sx={{color:'red'}} onClick={()=>{handleClickOpen()}} startIcon={<DeleteIcon />}>
         Remove
       </Button></TableCell>
-      <TableCell align="right"> <Chip sx={{color:'green'}} variant="outlined" label="Sold out" /></TableCell>
-      
+      {row.remainQuantity==0 && <TableCell align="right"> <Chip sx={{color:'green'}} variant="outlined" label={"Sold out"} /></TableCell>}
+      {row.remainQuantity!=0 && <TableCell align="right"> <Chip sx={{color:'green'}} variant="outlined" label={"Remain in Stock"} /></TableCell>}
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -92,7 +92,7 @@ function Row(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.data.map((historyRow) => (
+                  {[row].map((historyRow) => (
                     <TableRow key={historyRow.description}>
                       <TableCell component="th" scope="row">
                         {historyRow.description}
@@ -100,10 +100,10 @@ function Row(props) {
                       <TableCell>{historyRow.unitPrice}</TableCell>
                       <TableCell align="right">{historyRow.initialBid}</TableCell>
                       <TableCell align="right">
-                        {historyRow.totalQuantity}
+                        {historyRow.quantity}
                       </TableCell>
                       <TableCell align="right">
-                        {historyRow.remainingQuantity}
+                        {historyRow.remainQuantity}
                       </TableCell>
                     </TableRow>
                   ))}
@@ -116,20 +116,20 @@ function Row(props) {
       <Dialog
         open={openDialog}
         TransitionComponent={Transition}
-        keepMounted
+        keepMounteds
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Use Google's location service?"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            Let Google help apps determine location. This means sending anonymous
-            location data to Google, even when no apps are running.
-          </DialogContentText>
-        </DialogContent>
+        <DialogTitle>{"Do you want to remove this?"}</DialogTitle>
+        
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose}>Agree</Button>
+          <Button onClick={()=>{
+            
+            handleDelete(row._id)
+            handleClose()
+
+            }}>Yes</Button>
+          <Button onClick={handleClose}>No</Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>
@@ -156,10 +156,13 @@ Row.propTypes = {
 
 
 
-export default function ProductList({openProductAddForm,dataList,handleChangeFilter}) {
+export default function ProductList({openProductAddForm,dataList,handleChangeFilter,handleRemove}) {
+
   return (
-    <Container>
+    <Container sx={{mt:3}}>
+      
       <SearchBarField placeHolder="Search product here" handleSearch={handleChangeFilter}/>
+ 
     <TableContainer  sx={{color:'primary'}} component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
@@ -173,8 +176,8 @@ export default function ProductList({openProductAddForm,dataList,handleChangeFil
           </TableRow>
         </TableHead>
         <TableBody>
-          {dataList.map((row) => (
-            <Row openForm={openProductAddForm}   key={row.name} row={row} />
+          {dataList && dataList?.map((row) => (
+            <Row openForm={openProductAddForm} handleDelete={handleRemove}  key = {row._id} row={row} />
           ))}
         </TableBody>
       </Table>

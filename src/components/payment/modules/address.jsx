@@ -7,16 +7,16 @@ import TextField from '@mui/material/TextField';
 export default function AddressForm() {
   
   return (
-    <React.Fragment>
+    <div>
       <Typography variant="h6" gutterBottom>
-        Shipping address
+        Delivery address
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
             required
             id="firstName"
-            value='nj'
+            value=''
             InputLabelProps={{ shrink: true }}
             name="firstName"
             label="First name"
@@ -29,7 +29,7 @@ export default function AddressForm() {
           <TextField
             required
             id="lastName"
-            value='nh'
+            value=''
             InputLabelProps={{ shrink: true }}
             name="lastName"
             label="Last name"
@@ -43,7 +43,7 @@ export default function AddressForm() {
             required
             id="address1"
             name="address1"
-            value='kj'
+            value=''
             InputLabelProps={{ shrink: true }}
             label="Address line 1"
             fullWidth
@@ -55,7 +55,7 @@ export default function AddressForm() {
           <TextField
             id="address2"
             name="address2"
-            value='bf'
+            value=''
             InputLabelProps={{ shrink: true }}
             label="Address line 2"
             fullWidth
@@ -68,7 +68,7 @@ export default function AddressForm() {
             required
             id="city"
             name="city"
-            value='er'
+            value=''
             InputLabelProps={{ shrink: true }}
             label="City"
             fullWidth
@@ -80,9 +80,9 @@ export default function AddressForm() {
           <TextField
             id="state"
             name="state"
-            label="State/Province/Region"
+            label="Province"
             InputLabelProps={{ shrink: true }}
-            value='qa'
+            value=''
             fullWidth
             variant="standard"
           />
@@ -92,15 +92,15 @@ export default function AddressForm() {
             required
             id="zip"
             name="zip"
-            value='qw'
+            value=''
             InputLabelProps={{ shrink: true }}
-            label="Zip / Postal code"
+            label="Postal code"
             fullWidth
             autoComplete="shipping postal-code"
             variant="standard"
           />
         </Grid>
       </Grid>
-    </React.Fragment>
+    </div>
   );
 }

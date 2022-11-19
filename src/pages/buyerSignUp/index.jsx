@@ -1,4 +1,4 @@
-import * as React from 'react';
+import  React,{useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Joi from "joi-browser";
 import { useState } from 'react';
@@ -54,6 +54,7 @@ export default function SignUp() {
       password:"",
       confPassword:""
     });
+    const [refresh,setRefresh]=useState(false);
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [errorOccured, setErrorOccured] = useState(false);
@@ -73,6 +74,18 @@ export default function SignUp() {
     confPassword: Joi.any().valid(Joi.ref('password')).required().options({ language: { any: { allowOnly: 'must match password' } } })
   };
 
+  useEffect(()=>{
+    setBuyer({
+      firstName: "",
+      lastName: "",
+      address: "",
+      phone: "",
+      email: "",
+      nic:"",
+      password:"",
+      confPassword:""
+    })
+  },[refresh])
   const handleSave = (event) => {
     const { name, value } = event.target;
     let errorData = { ...errors };
@@ -136,11 +149,11 @@ export default function SignUp() {
       const [code,res] = await api.buyer.signUpBuyer(values);
     
       if (code === 201) {
-        console.log(res)
-        setAuthorizationKey(res.token);
-        // setUserObjectInLocal(res.data.user);
-       
-        navigate('/buyer/market');
+        setErrors({
+          type: "success",
+          message: "Verification mail has been sent",
+        });
+        setErrorOccured(true);
       } else {
         setErrors({ type: 'error', message: res });
         setErrorOccured(true);
@@ -155,7 +168,7 @@ export default function SignUp() {
   return (
     <><ResponsiveAppBar /><Container component="main" maxWidth="md">
       <CssBaseline />
-      <SnackBarComponent open={errorOccured} message={errors.message} type='error'  setOpen={setErrorOccured}   />
+      <SnackBarComponent open={errorOccured} message={errors.message} type={errors.type}  setOpen={setErrorOccured}   />
 
       <Box
         sx={{

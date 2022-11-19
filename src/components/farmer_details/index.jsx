@@ -26,48 +26,48 @@ import StarBorder from '@mui/icons-material/StarBorder';
 import ListItem from '@mui/material/ListItem';
 import CircleIcon from '@mui/icons-material/Circle';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import CropForm from '../addCropData/index';
+import api from  '../../api'
 
-
-export default function Home() {
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // const data = new FormData(event.currentTarget);
-        // console.log({
+export default function Home({userDetails, farmerDetails}) {
+    const [click, setClick] = useState(false);
     
-        //   email: data.get('email'),
-        //   password: data.get('password'),
-    
-        // });
-      };
 
-
-    const farmerDetails = 
-        {
-            first_name : 'Piyumi Chan',
-            last_name : 'Mahaarachchi',
-            address : 'Pawani, Meda Mawatha, Ella Road, Kurundugaha, Elpitiya',
-            mobile : '0765867087',
-            district: 'Galle',
-            gso : 'Elpitiya',
-            gso_code : 'E-009',
-            email : 'mpiyumichaan@gmail.com',
-            nic : '988460222V',
-            crop_details: [{crop_id: 1, crop_type: 'Paddy', crop_name: 'Samba', crop_area: '10', start_date: '2022-10-12', estimated_harvest: '1000', harvest: '900', estimated_time: '3 months', harvest_date: '2022-12-12'},
-            {crop_id: 2, crop_type: 'Paddy', crop_name: 'Kekule', crop_area: '10', start_date: '2022-10-12', estimated_harvest: '1000', harvest: '900', estimated_time: '3 months', harvest_date: '2022-12-12'}]
+    // const farmerDetails = 
+    //     {
+    //         first_name : 'Piyumi Chan',
+    //         last_name : 'Mahaarachchi',
+    //         address : 'Pawani, Meda Mawatha, Ella Road, Kurundugaha, Elpitiya',
+    //         mobile : '0765867087',
+    //         district: 'Galle',
+    //         gso : 'Elpitiya',
+    //         gso_code : 'E-009',
+    //         email : 'mpiyumichaan@gmail.com',
+    //         nic : '988460222V',
+    //         crop_details: [{crop_id: 1, crop_type: 'Paddy', crop_name: 'Samba', crop_area: '10', start_date: '2022-10-12', estimated_harvest: '1000', harvest: '900', estimated_time: '3 months', harvest_date: '2022-12-12'},
+    //         {crop_id: 2, crop_type: 'Paddy', crop_name: 'Kekule', crop_area: '10', start_date: '2022-10-12', estimated_harvest: '1000', harvest: '900', estimated_time: '3 months', harvest_date: '2022-12-12'}]
     
-        }
+    //     }
     
         const [open, setOpen] = React.useState(false);
 
-        const handleClick = () => {
-          setOpen(!open);
-        };
+    const handleClick = () => {
+        setOpen(!open);
+    };
+    const handleRemove = async (e) => {
+        console.log({farmerDetails})
+        try{
+            await api.gso.removeFarmer({farmerDetails})
+
+        }catch(error){
+            console.log(error);
+        }
+    };
 
 
     return (
         <div>
-            <Container  component="main" Width="" sx={{
+            {!click && <Container  component="main" width="" sx={{
                                                             background:'#ffffff4d', 
                                                             borderLeft: "1px solid #ffffff4d",
                                                             borderTop: "1px solid #ffffff4d",
@@ -75,7 +75,7 @@ export default function Home() {
                                                             // boxShadow: '20px 20px 40px -6px rgb(0 0 0 / 20%)',
                                                             boxShadow: 
                                                                         '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )',
-                                                            borderRadius:'10px', mb: '5vw', mt:0, width: '70%', padding: '2vw', paddingTop: 0}}>
+                                                            borderRadius:'10px', mb: '5vw', mt:0, width: '100%', padding: '2vw', paddingTop: 0}}>
                 <CssBaseline />
                 <Box sx={{
                         marginTop: 0,
@@ -87,15 +87,15 @@ export default function Home() {
                         <div style={
                             {float: 'right', marginTop: '2vw'}
                         }>
-                            <Button variant="outlined" sx={{margin: 0, fontWeight: 'bold', fontSize: '1rem', color: 'red', float: 'right', width: '25%'}}>
+                            <Button variant="outlined" sx={{margin: 0, fontWeight: 'bold', fontSize: '1rem', color: 'red', float: 'right', width: '25%'}} onClick={handleRemove}>
                             Remove Farmer <hr/> <DeleteIcon/> </Button>
                         </div>
 
                         <Typography component="h1" variant="h5" color='primary' sx={{mt: 2, fontWeight: 'bold', fontSize: '1.5rem', textAlign: 'center'}}>
-                            {farmerDetails['first_name']} {farmerDetails['last_name']}
+                            {farmerDetails.firstName} {farmerDetails.lastnName}
                         </Typography>
                         <Typography component="h2" variant="h5" color='secondary' sx={{mt: 2, fontWeight: 'bold', fontSize: '1.3rem', textAlign: 'center'}}>
-                            {farmerDetails['gso']} {farmerDetails['gso_code']}
+                            {farmerDetails.gsoName} {farmerDetails.gsoCode}
                         </Typography>
 
                         <Grid container spacing={2} sx={{mt: '1.5vw'}}>
@@ -103,56 +103,56 @@ export default function Home() {
                                 Full Name
                             </Grid>
                             <Grid item xs={12} md={8} sx={{fontSize: '1.2rem'}}>
-                                : {farmerDetails['first_name']} {farmerDetails['last_name']}
+                                : {farmerDetails.firstName} {farmerDetails.lastnName}
                             </Grid>
 
                             <Grid item xs={12} md={4} sx={{fontSize: '1.2rem', fontWeight: 'bold'}}>
                                 Address
                             </Grid>
                             <Grid item xs={12} md={8} sx={{fontSize: '1.2rem'}}>
-                                : {farmerDetails['address']}
+                                : {farmerDetails.address}
                             </Grid>
 
                             <Grid item xs={12} md={4} sx={{fontSize: '1.2rem', fontWeight: 'bold'}}>
                                 Mobile Number
                             </Grid>
                             <Grid item xs={12} md={8} sx={{fontSize: '1.2rem'}}>
-                                : {farmerDetails['mobile']}
+                                : {farmerDetails.phone}
                             </Grid>
 
                             <Grid item xs={12} md={4} sx={{fontSize: '1.2rem', fontWeight: 'bold'}}>
                                 District
                             </Grid>
                             <Grid item xs={12} md={8} sx={{fontSize: '1.2rem'}}>
-                                : {farmerDetails['district']}
+                                : {farmerDetails.district}
                             </Grid>
 
                             <Grid item xs={12} md={4} sx={{fontSize: '1.2rem', fontWeight: 'bold'}}>
                                 Govijana Seva Devision
                             </Grid>
                             <Grid item xs={12} md={8} sx={{fontSize: '1.2rem'}}>
-                                : {farmerDetails['gso']}
+                                : {farmerDetails.gsdName}
                             </Grid>
 
                             <Grid item xs={12} md={4} sx={{fontSize: '1.2rem', fontWeight: 'bold'}}>
                                 Govijana Seva Devision Code
                             </Grid>
                             <Grid item xs={12} md={8} sx={{fontSize: '1.2rem'}}>
-                                : {farmerDetails['gso_code']}
+                                : {farmerDetails.gsdCode}
                             </Grid>
 
                             <Grid item xs={12} md={4} sx={{fontSize: '1.2rem', fontWeight: 'bold'}}>
                                 Email
                             </Grid>
                             <Grid item xs={12} md={8} sx={{fontSize: '1.2rem'}}>
-                                : {farmerDetails['email']}
+                                : {userDetails.email}
                             </Grid>
 
                             <Grid item xs={12} md={4} sx={{fontSize: '1.2rem', fontWeight: 'bold'}}>
                                 National Identity Card
                             </Grid>
                             <Grid item xs={12} md={8} sx={{fontSize: '1.2rem'}}>
-                                : {farmerDetails['nic']}
+                                : {farmerDetails.nic}
                             </Grid>
                             </Grid>
                             
@@ -164,13 +164,16 @@ export default function Home() {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 0, height: '2.5rem', width:'25%', float: 'right'}}
+                            onClick={() => {
+                                setClick(true);
+                            }}
                             >
                             Add New Crop data
                             </Button>
                             </div>
                             
 
-                            <List
+                            {/* <List
                             sx={{ width: '100%', bgcolor: 'background.paper', mt: '2vw' }}
                             component="nav"
                             aria-labelledby="nested-list-subheader"
@@ -294,13 +297,15 @@ export default function Home() {
                                     )
                                 })}
 
-                            </List>
+                            </List> */}
                         
                 </Box>
 
 
-            </Container>
+            </Container>}
+            {click && <CropForm farmersNic ={farmerDetails.nic} /> }
         </div>
+        
     );
 }
 
