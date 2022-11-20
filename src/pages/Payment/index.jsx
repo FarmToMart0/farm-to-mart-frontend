@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../../components/navbar/index';
 import Payment from '../../components/payment/index'
-import Typography from '@mui/material/Typography';
+
 import {  useLocation } from "react-router-dom";
 
 function PaymentPage() {

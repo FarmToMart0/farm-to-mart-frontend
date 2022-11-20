@@ -1,50 +1,42 @@
-import React, { useState } from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
-import AddressForm from './modules/address';
-import PaymentForm from './modules/payment';
-import Review from './modules/review';
-import moment from 'moment';
+import React, { useState } from "react";
+import CssBaseline from "@mui/material/CssBaseline";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
 
-
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import AddressForm from "./modules/address";
+import PaymentForm from "./modules/payment";
+import Review from "./modules/review";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      
+      {"Copyright © "}
+
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
 
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
+const steps = ["Shipping address", "Payment details", "Review your order"];
 
 export default function Checkout() {
-  
-
   const [activeStep, setActiveStep] = useState(0);
   const [paymentValidated, setPaymentValidated] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState('CARD');
-  const [comments, setComments] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState("CARD");
+  const [comments, setComments] = useState("");
   const [cardDetails, setCardDetails] = useState({
-    nameOnCard: '',
-    cardNumber: '',
-    expiryDate: '',
-    cvv: '',
+    nameOnCard: "",
+    cardNumber: "",
+    expiryDate: "",
+    cvv: "",
   });
-  const [deliveryMethod, setDeliveryMethod] = useState('DELIVERY');
-  const [orderId, setOrderId] = useState('');
+  const [deliveryMethod, setDeliveryMethod] = useState("DELIVERY");
+  const [orderId, setOrderId] = useState("");
   const [loading, setLoading] = useState(false);
 
   function getStepContent(step) {
@@ -72,14 +64,14 @@ export default function Checkout() {
           />
         );
       default:
-        throw new Error('Unknown step');
+        throw new Error("Unknown step");
     }
   }
 
-  async function  createOrder() {
+  async function createOrder() {
     setLoading(true);
-  setTimeout(()=>{},1000)
-   
+    setTimeout(() => {}, 1000);
+
     setLoading(false);
   }
 
@@ -87,9 +79,9 @@ export default function Checkout() {
     if (activeStep === 2) {
       createOrder();
     } else if (activeStep === 1) {
-      if (paymentMethod !== 'CARD') {
+      if (paymentMethod !== "CARD") {
         setActiveStep(activeStep + 1);
-      } else if (paymentValidated && paymentMethod === 'CARD') {
+      } else if (paymentValidated && paymentMethod === "CARD") {
         setActiveStep(activeStep + 1);
       }
     } else {
@@ -104,7 +96,7 @@ export default function Checkout() {
   return (
     <div>
       <CssBaseline />
-    
+
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper
           variant="outlined"
@@ -135,7 +127,7 @@ export default function Checkout() {
             ) : (
               <React.Fragment>
                 {getStepContent(activeStep)}
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
                       Back
@@ -151,10 +143,10 @@ export default function Checkout() {
                       loading ? (
                         <CircularProgress />
                       ) : (
-                        'Place order'
+                        "Place order"
                       )
                     ) : (
-                      'Next'
+                      "Next"
                     )}
                   </Button>
                 </Box>

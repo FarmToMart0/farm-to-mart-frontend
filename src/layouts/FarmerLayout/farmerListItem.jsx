@@ -8,10 +8,8 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 
 import { useNavigate } from 'react-router-dom';
 import { FARMER_SECTIONS } from '../../constants';
-import ChatIcon from '@mui/icons-material/Chat';
 import StoreIcon from '@mui/icons-material/Store';
 import RateReview from '@mui/icons-material/RateReview';
-import ReceiptIcon from '@mui/icons-material/Receipt';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import Tooltip from '@mui/material/Tooltip';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';

@@ -9,9 +9,12 @@ import Container from "@mui/material/Container";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import api from "../../api";
 import { useNavigate } from "react-router-dom";
-import { setAuthorizationKey,setUserObjectInLocal } from "../../utils/localStorageHelper";
-import { loggingRequest } from '../../reducers/modules/user';
-import { useSelector, useDispatch } from 'react-redux';
+import {
+  setAuthorizationKey,
+  setUserObjectInLocal,
+} from "../../utils/localStorageHelper";
+import { loggingRequest } from "../../reducers/modules/user";
+import { useSelector, useDispatch } from "react-redux";
 
 function Copyright(props) {
   return (
@@ -39,7 +42,6 @@ export default function VerifyComponent(props) {
     try {
       const [code, res] = await api.user.verify(token);
       if (code == 201) {
-        
         if (res.userRole == "FARMER") {
           setAuthorizationKey(res.token);
           setUserObjectInLocal(res);
@@ -84,15 +86,12 @@ export default function VerifyComponent(props) {
           onClick={() => {
             handleSubmit(props.id);
           }}
-         
           sx={{ mt: 3 }}
         >
           <Button
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2, backgroundColor: "#198754" }
-             
-          }
+            sx={{ mt: 3, mb: 2, backgroundColor: "#198754" }}
           >
             Click Here
           </Button>

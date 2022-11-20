@@ -1,13 +1,10 @@
 import * as React from 'react';
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
-import SearchIcon from '@mui/icons-material/Search';
-import Stack from '@mui/material/Stack';
-import Autocomplete from '@mui/material/Autocomplete';
-import InputAdornment from '@mui/material/InputAdornment';
+
 import AdminNavbar from '../../components/admin_navbar/index';
 import AddGSO from '../../components/addGSO/index';
-import GSOProfile from '../../components/gsoDetails/index';
+
 import DetailsCard from '../../components/details_card_gso/index';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';

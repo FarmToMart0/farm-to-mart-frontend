@@ -1,40 +1,33 @@
-import React from 'react'
-import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import SellIcon from '@mui/icons-material/Sell';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-
-
+import React from "react";
+import {
+  Avatar,
+  Box,
+  Card,
+  CardContent,
+  Grid,
+  Typography,
+} from "@mui/material";
+import SellIcon from "@mui/icons-material/Sell";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 
 export const TotalOrders = (props) => (
   <Card {...props}>
     <CardContent>
-      <Grid
-        container
-        spacing={3}
-        sx={{ justifyContent: 'space-between' }}
-      >
+      <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
         <Grid item>
-          <Typography
-            color="textSecondary"
-            gutterBottom
-            variant="overline"
-          >
+          <Typography color="textSecondary" gutterBottom variant="overline">
             TOTAL ORDERS
           </Typography>
-          <Typography
-            color="textPrimary"
-            variant="h4"
-          >
+          <Typography color="textPrimary" variant="h4">
             {props.totalOrders}
           </Typography>
         </Grid>
         <Grid item>
           <Avatar
             sx={{
-              backgroundColor: 'success.main',
+              backgroundColor: "success.main",
               height: 56,
-              width: 56
+              width: 56,
             }}
           >
             <SellIcon />
@@ -43,24 +36,21 @@ export const TotalOrders = (props) => (
       </Grid>
       <Box
         sx={{
-          alignItems: 'center',
-          display: 'flex',
-          pt: 2
+          alignItems: "center",
+          display: "flex",
+          pt: 2,
         }}
       >
         <TrendingUpIcon color="success" />
         <Typography
           variant="body2"
           sx={{
-            mr: 1
+            mr: 1,
           }}
         >
           {props.totalOrdersSinceLastMonth}%
         </Typography>
-        <Typography
-          color="textSecondary"
-          variant="caption"
-        >
+        <Typography color="textSecondary" variant="caption">
           Since last month
         </Typography>
       </Box>

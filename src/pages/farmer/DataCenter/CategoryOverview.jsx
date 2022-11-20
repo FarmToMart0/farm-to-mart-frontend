@@ -1,13 +1,13 @@
-import { useEffect,useState } from 'react';
+
 import { Doughnut } from 'react-chartjs-2';
-import { Box, Card, CardContent, CardHeader, Divider, Typography, useTheme } from '@mui/material';
+import { Box,Divider, Typography, useTheme } from '@mui/material';
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
 export default function CategoryOverview ({categoryData}) {
   const theme = useTheme();
  
-  const supColors = ['#3F51B5', '#e53935', '#FB8C00','#00FFAB','#15133C','#F9D923','#FF5F00'].slice(0,categoryData.length)
+  
  
   
 

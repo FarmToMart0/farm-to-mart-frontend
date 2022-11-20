@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import VerifyComponent from '../../components/VerifyComponent';
 import NavBar from '../../components/navbar'
 import { CssBaseline } from '@mui/material';
