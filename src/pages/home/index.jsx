@@ -64,15 +64,28 @@ setOpenDialog(true)
   backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundColor:'#f5f9fb', 
   }}>
     {/* backgroundSize:'150vh', backgroundPosition:'right', */}
-  <div style={{ width:'700px',   minHeight:660,   background: 'rgba(255, 255, 255, 0.6)', paddingLeft:100, paddingTop:170,
+  <div style={{ width:'50%',   minHeight:660,   background: 'rgba(255, 255, 255, 0.6)', paddingLeft:100, paddingTop:170,
   }} >
-    
+    <div style={{ paddingTop:18, paddingLeft:5,
+  }}>
+            <Typography  sx={{
+              
+              
+              display: { xs: 'flex', md: 'flex' },
+              fontFamily: "'Poppins', sans-serif",
+              color: "#074C0E", 
+              fontSize: {xs: '24px', md: '22px'},
+              fontWeight: {xs: 600, md: 500}
+              
+            }} >
+              
+            </Typography>
+            </div>
             <div style={{ paddingTop:18, paddingLeft:5,
   }}>
             <Typography  variant="h2" sx={{
               fontWeight:600,
-              display: { xs: 'flex', md: 'flex' },
-              fontSize: {xs: '46px', md: '68px'},
+              display: { xs: 'none', md: 'flex' },
               fontFamily: "'Poppins', sans-serif",
               
               color: "#075E54",
@@ -88,8 +101,7 @@ setOpenDialog(true)
             </div>
       <Typography variant="h3" sx={{
               fontWeight:500,
-              display: { xs: 'flex', md: 'flex' },
-              fontSize: {xs: '32px', md: '43px'},
+              display: { xs: 'none', md: 'flex' },
               fontFamily: "'Poppins', sans-serif",
               color: "#075E54",
                
