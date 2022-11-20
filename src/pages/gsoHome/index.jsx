@@ -2,20 +2,18 @@ import * as React from 'react';
 import Joi from "joi-browser";
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
-import { useNavigate } from 'react-router-dom';
-import SearchIcon from '@mui/icons-material/Search';
-import Stack from '@mui/material/Stack';
-import Autocomplete from '@mui/material/Autocomplete';
-import InputAdornment from '@mui/material/InputAdornment';
+
 import AdminNavbar from '../../components/admin_navbar/index';
 import AddFarmer from '../../components/add_farmer/index';
-import FarmerProfile from '../../components/farmer_details/index';
+
 import DetailsCard from '../../components/details_card/index';
-import CropDataForm from '../../components/addCropData/index';
+
 import Button from '@mui/material/Button';
+
 import Alert from '@mui/material/Alert';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
+
 import Box from '@mui/material/Box';
 import gsoHome from '../../assets/images/gsoHome.jpg';
 import api from '../../api';

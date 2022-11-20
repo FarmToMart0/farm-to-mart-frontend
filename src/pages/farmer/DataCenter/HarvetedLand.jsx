@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -13,14 +12,12 @@ import ReactApexChart from 'react-apexcharts';
 const MonthlyBarChart = ({years,series}) => {
 
     // chart options
-const barChartOptions = {
 
-};
 
 
     const theme = useTheme();
 
-    const { primary, secondary } = theme.palette.text;
+    const {  secondary } = theme.palette.text;
     const info = theme.palette.info.light;
 
    

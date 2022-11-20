@@ -1,12 +1,11 @@
 import React,{useState,useEffect} from 'react'
-import { useDispatch,useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import {Stack,Grid,Button,Typography,Paper,CircularProgress,TextField,Autocomplete,CssBaseline,Card,CardContent} from '@mui/material';
 import * as yup from 'yup';
-import { color } from '@mui/system';
 import Switch from '@mui/material/Switch';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -16,15 +15,13 @@ import ImageCollection from '../imageList/index';
 import SnackBarComponent from '../../components/Snackbars';
 import axios from 'axios';
 import api  from "../../api"
-import ResponsiveDateTimePickers from './../DateTimePicker/index';
 const validationSchema = yup.object().shape({
   productName: yup.string().required().label('Product productName'),
   quantity: yup.number().required().min(1).label('Product Quantity'),
   price: yup.number().required().min(1).label('Unit price of product'),
   bid: yup.number().required().min(1).label('Initial bid of product'),
   description: yup.string().required().label('Description'),
-  // delivery: yup.array().length().min(1).label('Delivery option'),
-  // payment: yup.array().length().min(1).label('Payment option'),
+ 
 });
 
 
@@ -38,10 +35,10 @@ export default function ItemAdd(props) {
   const [errorOccured, setErrorOccured] = useState(false)
   const [errorMessage, setErrorMessage] = useState({ type: '', message: '' });
   const [productId,setProductId]= useState()
-  const [imageFiles, setImageFiles] = useState([]);
+  
   const [loadingProductAdd, setLoadingProductAdd] = useState(false);
   const [loadingImageAdd, setLoadingImageAdd] = useState(false);
-  const [loadingVariantAdd, setLoadingVariantAdd] = useState(false);
+ 
   const [selectedDeliveryOption,setSelectedDeliveryOption]=useState([])
   const [selectCategory,setSelectCategory]=useState('')
   const [selectedPayementOption,setSelectedPayementOption]=useState(['Cash on delivery'])
@@ -61,7 +58,7 @@ export default function ItemAdd(props) {
     
     ]
     );
-    const [img,setImg]=useState([])
+    
   const [checked, setChecked] = React.useState(false);
   const [onlinePayment, setOnlinePayment] = React.useState(false);
 

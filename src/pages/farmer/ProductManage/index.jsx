@@ -1,20 +1,19 @@
 import React,{useState,useEffect} from 'react';
 import Box from '@mui/material/Box';
-import Fab from '@mui/material/Fab';
-import NavigationIcon from '@mui/icons-material/Navigation';
+
 import ItemAdd from '../../../components/ItemAdd/index';
 import { CssBaseline, Grid, Typography } from '@mui/material';
 
 import ProductList from '../../../components/ProductList';
 import api from '../../../api';
-import AddIcon from '@mui/icons-material/Add';
+
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import CircularProgress from '@mui/material/CircularProgress';
-import { useSelector, useDispatch } from 'react-redux';
+
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import Loader from '../../../components/Loader';
+
 function ProductManage(props) {
   const user = useSelector((state) => state?.user);
   const navigate = useNavigate()

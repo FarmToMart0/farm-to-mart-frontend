@@ -1,33 +1,27 @@
-import  React,{useState,useEffect} from 'react';
-import AppBar from '@mui/material/AppBar';
-import { useNavigate } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import React from "react";
+import AppBar from "@mui/material/AppBar";
+import { useNavigate } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
 
-import { useSelector, useDispatch } from 'react-redux';
-import logo from '../../assets/images/logo.png'
-import user from '../../api/modules/user';
+import { useSelector, useDispatch } from "react-redux";
+import logo from "../../assets/images/logo.png";
 import NotificationIcon from "../NotificationIcon";
-import { logOutRequest } from '../../reducers/modules/user';
-import { Stack } from '@mui/system';
+import { logOutRequest } from "../../reducers/modules/user";
+import { Stack } from "@mui/system";
 
+const settings = ["Profile", , "Logout"];
 
-
-
-const pages = ['HOME', 'ABOUT'];
-const settings = ['Profile', , 'Logout'];
-
-const ResponsiveAppBar = ({isLogin}) => {
+const ResponsiveAppBar = ({ isLogin }) => {
   const user = useSelector((state) => state?.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,7 +36,6 @@ const ResponsiveAppBar = ({isLogin}) => {
   };
 
   const handleCloseNavMenu = () => {
-    
     setAnchorElNav(null);
   };
 
@@ -50,13 +43,10 @@ const ResponsiveAppBar = ({isLogin}) => {
     setAnchorElUser(null);
   };
 
-
-  
   return (
     <AppBar position="fixed">
-      <Container maxWidth="xl" >
+      <Container maxWidth="xl">
         <Toolbar disableGutters>
-          
           <Typography
             variant="h6"
             noWrap
@@ -64,22 +54,20 @@ const ResponsiveAppBar = ({isLogin}) => {
             href="/"
             sx={{
               mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
+              display: { xs: "none", md: "flex" },
+              fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
             }}
           >
             <Box>
-             <img src = {logo} style={{width:60}}/>
-          </Box>
+              <img src={logo} style={{ width: 60 }} />
+            </Box>
           </Typography>
-          
-          
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -94,38 +82,40 @@ const ResponsiveAppBar = ({isLogin}) => {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: "block", md: "none" },
               }}
             >
-             
-                <MenuItem  onClick={()=>{
-                  handleCloseNavMenu()
-                  navigate('/')
-                  }}>
-                  <Typography  textAlign="center">HOME</Typography>
-                </MenuItem>
-                <MenuItem  onClick={()=>{
-                  handleCloseNavMenu()
-                  navigate('/buyer/market')
-                  }}>
-                  <Typography  textAlign="center">MARKET PLACE</Typography>
-                </MenuItem>
-         
+              <MenuItem
+                onClick={() => {
+                  handleCloseNavMenu();
+                  navigate("/");
+                }}
+              >
+                <Typography textAlign="center">HOME</Typography>
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleCloseNavMenu();
+                  navigate("/buyer/market");
+                }}
+              >
+                <Typography textAlign="center">MARKET PLACE</Typography>
+              </MenuItem>
             </Menu>
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
-             <img src = {logo}  style={{width:60}}/>
+          <Box sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}>
+            <img src={logo} style={{ width: 60 }} />
           </Box>
           <Typography
             variant="h5"
@@ -134,90 +124,93 @@ const ResponsiveAppBar = ({isLogin}) => {
             href=""
             sx={{
               mr: 2,
-              display: { xs: 'flex', md: 'none' },
+              display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: 'monospace',
+              fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
             }}
           >
             FARM TO MART
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-
-              <Button
-               
-                onClick={()=>{
-                  navigate('/')
-                  handleCloseNavMenu()}}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                HOME
-              </Button>
-              <Button
-               
-                onClick={()=>{
-                  navigate('/buyer/market')
-                  handleCloseNavMenu()}}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                MARKET PLACE
-              </Button>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            <Button
+              onClick={() => {
+                navigate("/");
+                handleCloseNavMenu();
+              }}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              HOME
+            </Button>
+            <Button
+              onClick={() => {
+                navigate("/buyer/market");
+                handleCloseNavMenu();
+              }}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              MARKET PLACE
+            </Button>
           </Box>
 
-   { isLogin &&  <Box sx={{ flexGrow: 0 }}>
-   <Stack spacing={3} direction='row'>
-								{/* <Button color="inherit" onClick={() => navigate('/#')}> */}
+          {isLogin && (
+            <Box sx={{ flexGrow: 0 }}>
+              <Stack spacing={3} direction="row">
+                {/* <Button color="inherit" onClick={() => navigate('/#')}> */}
 
-								<NotificationIcon />
-								{/* <NotificationsIcon /> */}
+                <NotificationIcon />
+                {/* <NotificationsIcon /> */}
 
-								{/* </Button> */}
+                {/* </Button> */}
 
-							
-						
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={user?.firstName} src="#" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                setting=='Logout'?
-                (<MenuItem key={setting} onClick={()=>{
-                  handleCloseUserMenu()
-                  console.log('logout');
-                  dispatch(logOutRequest());
-                  localStorage.clear();
-                  navigate('/login')
-                  }}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>)
-                :
-                (<MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>)
-              ))}
-            </Menu>
-            </Stack>
-          </Box>}
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar alt={user?.firstName} src="#" />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {settings.map((setting) =>
+                    setting == "Logout" ? (
+                      <MenuItem
+                        key={setting}
+                        onClick={() => {
+                          handleCloseUserMenu();
+                          console.log("logout");
+                          dispatch(logOutRequest());
+                          localStorage.clear();
+                          navigate("/login");
+                        }}
+                      >
+                        <Typography textAlign="center">{setting}</Typography>
+                      </MenuItem>
+                    ) : (
+                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                        <Typography textAlign="center">{setting}</Typography>
+                      </MenuItem>
+                    )
+                  )}
+                </Menu>
+              </Stack>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
