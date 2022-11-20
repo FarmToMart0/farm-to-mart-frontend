@@ -186,8 +186,8 @@ if(user?.userRole!='FARMER'){
          <Grid item  >
          <Box
      sx={{
-       width: 'auto',
-       height: 'auto',
+       width: '100%',
+       height: '80%',
        backgroundColor: 'white',
        padding :'10px',
        borderRadius:'10px',
@@ -206,7 +206,19 @@ if(user?.userRole!='FARMER'){
            </Typography>
            </Box>
          </Grid>
+         
        </Grid>
+       <Box
+      sx={{
+        width: '100%',
+        height: 3,
+        backgroundColor: 'secondary.dark',
+        '&:hover': {
+          backgroundColor: 'secondary.main',
+          opacity: [0.9, 0.8, 0.7],
+        },
+      }}
+    />
      </Grid>
        </div>
      })}
