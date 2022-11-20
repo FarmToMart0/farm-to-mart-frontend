@@ -34,7 +34,7 @@ import Card2 from './components/signup_button/index';
 
 import Item from './pages/shoppingCard/index'
 import Bid from '././pages/Bidding'
-import PieGraph from './components/PieGraph/index' 
+
 import BarGraph from './components/BarGraph/index'
 import LineGraph from './components/LineChart/index'
 import Dashboard from './pages/F-Dashboard/index'
@@ -107,18 +107,7 @@ function App() {
     
       <Route path="/card2" element={<Card2 /> }exact />
     
-      {/* <Route path="/market" element={<Market/>} exact />
-      <Route path="/shopping" element={<ShoppingCard/>} exact />
-      <Route path="/farmer/dash/:page" element={<FarmerLayout/>}/>
-      <Route path="/item" element={<Item/>} exact />
-      <Route path="/bid" element={<Bid/>} exact />
-      <Route path="/pie" element={<PieGraph/>} exact />
-      <Route path="/bar" element={<BarGraph/>} exact />
-      <Route path="/line" element={<LineGraph/>} exact />
-      <Route path="/dashboard" element={<Dashboard/>} exact />
-      <Route path="/test" element={<PieGraph/>} exact />
-      <Route path="/graphcard" element={<GraphCard/>} exact />
-      <Route path="/payment" element={<Payment/>} exact /> */}
+     
 
     </Routes>
     </BrowserRouter>    
