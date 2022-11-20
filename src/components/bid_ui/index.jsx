@@ -27,37 +27,62 @@ export default function SimplePaper() {
 
   const db = firebaseapp.startFirebase();
 
-  //incoming all data
-  const bidDataFromCard = location.state;
-  console.log(bidDataFromCard);
+	//incoming all data
+	const bidDataFromCard = location.state;
+	
+	
+	
+	
+	
+	
+	// buyer details
+	const buyer_id = user?.id
+	// const email = user?.email
+	const buyer_name = user?.firstName + user?.lastName
+	
+	
+	const timePasses = true
 
-  // buyer details
-  const buyer_id = user?.id;
-  // const email = user?.email
-  const buyer_name = user?.firstName + user?.lastName;
+	const [bidLeaderId, setBidLeaderId] = useState("")
+	const [your_bid, setYour_bid] = useState(0);
+	const [checkBid, setCheckBid] = useState(false);
+	const [isBidOver, setIsBidOver] = useState(false);
+	const [current_bid, setCurrent_bid] = useState(0);
 
-  const timePasses = true;
+	//notification details
+	const [message, setMessage] = useState("")
+	const [msgType, setMsgType] = useState("") //"success", error"
+	const [bidEndingTime, setBidEndingTime] = useState(	new Date(bidDataFromCard.bidEndTime))
+	const [currentTime,setCurrentTime] = useState("")
+	var iterrator =  new Date()
+	useEffect(() => {
+		getBidData();
+	}, []);
 
-  const [bidLeaderId, setBidLeaderId] = useState("");
-  const [your_bid, setYour_bid] = useState(0);
-  const [bidLead, setBidLead] = useState(false);
-  const [current_bid, setCurrent_bid] = useState(0);
+	useEffect(() => {
+		
+		setInterval(() => {
+			if (new Date(bidDataFromCard.bidEndTime) <= new Date()){
+				
+				setIsBidOver(true)
+			}
+		}, 1000);
+	}, []);
 
-  //notification details
-  const [message, setMessage] = useState("");
-  const [msgType, setMsgType] = useState(""); //"success", error"
 
-  useEffect(() => {
-    getBidData();
-  }, []);
+
+	// submit bid order function
+
+	const handleBidOrder =() =>{
+		bidDataFromCard.totValue = current_bid  
+		bidDataFromCard.amount = bidDataFromCard.remainAmount  
+			navigate("/buyer/market/checkout/payment", {
+				state: bidDataFromCard,
+			});
+	}
 
   // submit bid order function
 
-  const handleBidOrder = () => {
-    navigate("/buyer/market/checkout/payment", {
-      state: bidDataFromCard,
-    });
-  };
 
   //display Notification
   const displayNotification = (message, type) => {
@@ -156,138 +181,126 @@ export default function SimplePaper() {
   };
   //======================
 
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        flexWrap: "wrap",
-        "& > :not(style)": {
-          m: 1,
-          width: "100%",
-          height: "100%",
-          backgroundColor: "#FAFAFA",
-          padding: 10,
-        },
-      }}
-      style={{
-        display: "flex",
-        paddingTop: 30,
-        paddingBottom: 0,
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Paper elevation={3} s>
-        <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
-          <Alert
-            onClose={handleClose}
-            severity={msgType}
-            sx={{ width: "100%" }}
-          >
-            {message}
-          </Alert>
-        </Snackbar>
-        <Stack
-          direction="row"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Stack sx={{ mx: 5 }}>
-            <p style={{ fontSize: 30, fontWeight: "bold" }}>
-              Current Bid Value (LKR)
-            </p>
-            <Chip
-              sx={{ px: 3, py: 4 }}
-              label=<p
-                style={{
-                  fontSize: 40,
-                  fontWeight: "bold",
-                  margin: 0,
-                  color: "#4BB543",
-                }}
-              >
-                {current_bid}
-              </p>
-              variant="outlined"
-            />
-          </Stack>
+	return (
+		<Box
+			sx={{
+				display: "flex",
+				flexWrap: "wrap",
+				"& > :not(style)": {
+					m: 1,
+					width: "100%",
+					height: "100%",
+					backgroundColor: "#FAFAFA",
+					padding: 10,
+				},
+			}}
+			style={{
+				display: "flex",
+				paddingTop: 30,
+				paddingBottom: 0,
+				alignItems: "center",
+				justifyContent: "center",
+			}}>
+			<Paper elevation={3} s>
+				<Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+					<Alert
+						onClose={handleClose}
+						severity={msgType}
+						sx={{ width: "100%" }}>
+						{message}
+					</Alert>
+				</Snackbar>
+				<Stack
+					direction='row'
+					style={{
+						display: "flex",
+						alignItems: "center",
+						justifyContent: "center",
+					}}>
+					<Stack sx={{ mx: 5 }}>
+						<p style={{ fontSize: 30, fontWeight: "bold" }}>
+							Current Bid Value (LKR)
+						</p>
+						<Chip
+							sx={{ px: 4, py: 5 }}
+							label=<p
+								style={{
+									fontSize: 40,
+									fontWeight: "bold",
+									margin: 0,
+									color: "#4BB543",
+								}}>
+								{Number(current_bid).toFixed(2)} 
+							</p>
+							variant='outlined'
+						/>
+					</Stack>
 
-          <Stack sx={{ mx: 5, alignItems: "center" }}>
-            <p style={{ fontSize: 30, fontWeight: "bold" }}>
-              Your Current Status
-            </p>
-            <Chip
-              sx={{ p: 3, py: 4 }}
-              label=<p
-                style={{
-                  fontSize: 30,
-                  fontWeight: "bold",
-                  margin: 0,
-                  color: "#4BB543",
-                }}
-              >
-                {getBidStatus()}
-              </p>
-              variant="outlined"
-            />
-          </Stack>
+					<Stack sx={{ mx: 4, alignItems: "center" }}>
+						<p style={{ fontSize: 30, fontWeight: "bold" }}>
+							Your Current Status
+						</p>
+						<Chip
+							sx={{ p: 4, py: 5 }}
+							label=<p
+								style={{
+									fontSize: 30,
+									fontWeight: "bold",
+									margin: 0,
+									color: "#4BB543",
+								}}>
+								{getBidStatus()}
+							</p>
+							variant='outlined'
+						/>
+					</Stack>
 
-          <Stack sx={{ mx: 5 }}>
-            <p style={{ fontSize: 30, fontWeight: "bold" }}>Remaining Time</p>
-            <Chip
-              sx={{ p: 3, py: 4 }}
-              label=<CoundDown date={bidDataFromCard.bidEndTime} />
-              variant="outlined"
-            />
-          </Stack>
-        </Stack>
-        {/* start of bidding card */}
-        <Stack>
-          <Box
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              "& > :not(style)": {
-                my: 8,
-                width: "30%",
-                height: "100%",
-                backgroundColor: "",
-                borderRadius: "20px",
-                py: 10,
-              },
-            }}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Paper
-              elevation={3}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: 10,
-                boxShadow: "rgba(0, 0, 0, 0.2) 0px 5px 15px",
-              }}
-            >
-              <Stack
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <h1 style={{ margin: 2 }}> Place a Bid</h1>
-                <p style={{ margin: 3 }}>
-                  {" "}
-                  Initial Bid Value :{bidDataFromCard.price} LKR
-                </p>
-                {/* <TextF title={"Bidding Amount"}  style={{display:'flex',alignItems:'center',justifyContent:'center'}}/> */}
+					<Stack sx={{ mx: 7 }}>
+						<p style={{ fontSize: 30, fontWeight: "bold" }}>Remaining Time</p>
+						<Chip sx={{ p: 4, py: 5 }} label=<CoundDown date={bidDataFromCard.bidEndTime} /> variant='outlined' />
+					</Stack>
+				</Stack>
+				{/* start of bidding card */}
+				<Stack>
+					<Box
+						sx={{
+							display: "flex",
+							flexWrap: "wrap",
+							"& > :not(style)": {
+								my: 8,
+								width: "30%",
+								height: "100%",
+								backgroundColor: "",
+								borderRadius: "20px",
+								py: 10,
+							},
+						}}
+						style={{
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+						}}>
+						<Paper
+							elevation={3}
+							style={{
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
+								padding: 10,
+								boxShadow: "rgba(0, 0, 0, 0.2) 0px 5px 15px",
+							}}>
+							<Stack
+								style={{
+									display: "flex",
+									alignItems: "center",
+									justifyContent: "center",
+								}}>
+								<h1 style={{ margin: 2 }}> Place a Bid</h1>
+								<p style={{ margin: 3 }}>
+									{" "}
+									Initial Bid Value :{bidDataFromCard.price} LKR
+								</p>
+								{/* <TextF title={"Bidding Amount"}  style={{display:'flex',alignItems:'center',justifyContent:'center'}}/> */}
 
                 {/* =================Text Field =================== */}
 
@@ -310,54 +323,51 @@ export default function SimplePaper() {
                   />
                 </Box>
 
-                {/* ============= End Text Field ================= */}
-                <Stack
-                  direction="row"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  {bidLead ? (
-                    <h1>Bid is Over</h1>
-                  ) : (
-                    <Button
-                      variant="contained"
-                      color="success"
-                      sx={{ my: 3 }}
-                      onClick={placeBid}
-                    >
-                      Place Bid
-                    </Button>
-                  )}
-                </Stack>
-              </Stack>
-            </Paper>
-          </Box>
-          <Stack direction="row">
-            <Button
-              variant="contained"
-              sx={{ width: "10%" }}
-              startIcon={<ArrowCircleLeftIcon />}
-              onClick={() => {
-                navigate("/buyer/market");
-              }}
-            >
-              Market
-            </Button>
-            {bidLead && (
-              <Button
-                variant="contained"
-                sx={{ width: "10%", ml: 57.5 }}
-                endIcon={<SendIcon />}
-                onClick={handleBidOrder}
-              >
-                <span style={{ fontSize: 18 }}>Buy</span>
-              </Button>
-            )}
-          </Stack>
-        </Stack>
+								{/* ============= End Text Field ================= */}
+								<Stack
+									direction='row'
+									style={{
+										display: "flex",
+										alignItems: "center",
+										justifyContent: "center",
+									}}>
+									{isBidOver ? (
+										<h1>Bid is Over</h1>
+									) : (
+										<Button
+											variant='contained'
+											color='success'
+											sx={{ my: 3 }}
+											onClick={placeBid}>
+											Place Bid
+										</Button>
+									)}
+								</Stack>
+							</Stack>
+						</Paper>
+					</Box>
+					<Stack direction='row'>
+						<Button
+							variant='contained'
+							sx={{ width: "10%" }}
+							startIcon={<ArrowCircleLeftIcon />}
+							onClick={() => {
+								navigate("/buyer/market");
+							}}>
+							Market
+						</Button>
+						{isBidOver && (
+							// buy product button
+							<Button
+								variant='contained'
+								sx={{ width: "10%", ml: 57.5 }}
+								endIcon={<SendIcon />}
+								onClick={handleBidOrder}>
+								<span style={{ fontSize: 18 }}>Buy</span>
+							</Button>
+						)}
+					</Stack>
+				</Stack>
 
         {/* end of bidding card */}
       </Paper>

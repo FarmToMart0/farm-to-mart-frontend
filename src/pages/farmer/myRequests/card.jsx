@@ -20,8 +20,8 @@ import Loader from '../../../components/Loader';
 const Img = styled('img')({
   margin: 'auto',
   display: 'block',
-  maxWidth: '100%',
-  maxHeight: '100%',
+  maxWidth: '250px',
+  maxHeight: '250px',
 });
 
  
@@ -116,7 +116,7 @@ if(user?.userRole!='FARMER'){
        return <div>
          <Grid container spacing={2}>
        <Grid item md={4}  xs={12} sm container>
-         <ButtonBase sx={{ width: '100%', height: '80%' }}>
+         <ButtonBase sx={{ width: '90%', height: '250px', }}>
            <Img alt="complex" src={item.img} />
          </ButtonBase>
        </Grid>
@@ -131,7 +131,7 @@ if(user?.userRole!='FARMER'){
      <b>{ new Date(item.endDate) > Date.now() ?  "Current Bid :":"Winning Bid"}</b><b> LKR {arr.bidPrice}</b>
                  </Typography><Stack direction="row" spacing={2}>
                      <Typography fontSize='16px' color="text.primary">
-                     <b>{ new Date(item.endDate) > Date.now() ?  "Current Winner :":"Final Winner "}</b>  <b>{arr?.buyerName}</b>
+                     <b>{ new Date(item.endDate) > Date.now() ?  "Current Winner : ":"Final Winner : "}</b>  <b>{arr?.buyerName}</b>
                      </Typography>
 
 
@@ -175,7 +175,7 @@ if(user?.userRole!='FARMER'){
          <Box
      sx={{
        width: '100%',
-       height: '80%',
+       height: '100px',
        backgroundColor: 'white',
        padding :'10px',
        borderRadius:'10px',
@@ -200,6 +200,7 @@ if(user?.userRole!='FARMER'){
       sx={{
         width: '100%',
         height: 3,
+      marginBottom:2,
         backgroundColor: 'secondary.dark',
         '&:hover': {
           backgroundColor: 'secondary.main',

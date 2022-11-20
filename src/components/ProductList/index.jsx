@@ -199,6 +199,7 @@ export default function ProductList({
   return (
     <Container sx={{ mt: 3 }}>
       <SearchBarField
+    
         placeHolder="Search product here"
         handleSearch={handleChangeFilter}
       />
