@@ -11,7 +11,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
-import ImageCollection from '../ImageList/index';
+import ImageCollection from '../imageList/index';
 import SnackBarComponent from '../../components/Snackbars';
 import axios from 'axios';
 import api  from "../../api"

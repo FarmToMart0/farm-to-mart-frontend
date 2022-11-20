@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Joi from "joi-browser";
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 
@@ -9,18 +10,56 @@ import DetailsCard from '../../components/details_card_gso/index';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import mHome from '../../assets/images/mainOfficerHome.jpg';
+import Alert from '@mui/material/Alert';
 import api from '../../api';
 
 export default function HomeMainOfficer() {
-  const [nic, setNic] = useState('');
+  const [nic, setNic] = useState({nic:""});
   const [favailability, setFavailability] = useState(false); 
   const [clicked, setClicked] = useState(false);
   const [gso, setGso] = useState([]);
+  const [errors, setErrors] = useState({});
 
-  const handleSearch = async (e) => {
+  const schema = {
+    nic: Joi.string().regex(/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/, "name").required(),
+  };
+
+  const handleSave = (event) => {
+    setFavailability(false);
+    setClicked(false);
+    const { name, value } = event.target;
+    let errorData = { ...errors };
+    const errorMessage = validateProperty(event);
+    if (errorMessage) {
+    errorData[name] = errorMessage;
+    } else {
+    delete errorData[name];
+    }
+    let NicData = { ...nic };
+    NicData[name] = value;
+    setNic(NicData);
+    setErrors(errorData);
+  };
+
+  const validateProperty = (event) => {
+    const { name, value } = event.target;
+    const obj = { [name]: value };
+    const subSchema = { [name]: schema[name] };
+    const result = Joi.validate(obj, subSchema);
+    const { error } = result;
+    return error ? error.details[0].message : null;
+    
+  };
+
+  const handleSearch = async (event) => {
+    event.preventDefault();
+    const result = Joi.validate(nic,
+      schema, { abortEarly: false });
+    const { error } = result;
+    if (!error){
     
     try{
-      const [code, res] = await api.gso.checkGsoAvailability({"nic": nic})
+      const [code, res] = await api.gso.checkGsoAvailability({"nic": nic.nic})
       if(code === 201){
         if (res){
           setFavailability(true);
@@ -36,6 +75,18 @@ export default function HomeMainOfficer() {
     }catch(error){
       console.log(error);
     }
+  }else {
+    const errorData = {};
+    for (let item of error.details) {
+      const name = item.path[0];
+      const message = item.message;
+      errorData[name] = message;
+    }
+    setErrors(errorData);
+    console.log(errorData);
+    return errorData;
+  }
+
   };
 
   
@@ -55,12 +106,11 @@ export default function HomeMainOfficer() {
         type="text"
         label="Enter Govijana Seva Officer's NIC"
         name="nic"
-        onChange={(e) => {
-          setFavailability(false);
-          setClicked(false);
-          setNic(e.target.value)}}
+        onChange= {handleSave}
         autoFocus
       />
+      {errors.nic && (
+                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid NIC Number</Alert>)}
 
       <Button
         //id="submit"
@@ -77,8 +127,9 @@ export default function HomeMainOfficer() {
       {!favailability && !clicked && <img style={{width: '100%', height: '100%'}} src={mHome} alt="mHome" />}
 
       {favailability && clicked && <DetailsCard gsoDetails={gso} />}
+      {console.log(nic)}
 
-      {clicked && !favailability && <AddGSO />}
+      {clicked && !favailability && <AddGSO nic={nic.nic}/>}
       
     
     </div>    

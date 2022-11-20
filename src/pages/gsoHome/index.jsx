@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Joi from "joi-browser";
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 
@@ -9,45 +10,94 @@ import DetailsCard from '../../components/details_card/index';
 
 import Button from '@mui/material/Button';
 
+import Alert from '@mui/material/Alert';
+import CssBaseline from '@mui/material/CssBaseline';
+import Grid from '@mui/material/Grid';
+
 import Box from '@mui/material/Box';
 import gsoHome from '../../assets/images/gsoHome.jpg';
 import api from '../../api';
 
 export default function GSOHome() {
-  const [nic, setNic] = useState('');
+  const [nic, setNic] = useState({nic:""});
   const [favailability, setFavailability] = useState(false); 
   const [clicked, setClicked] = useState(false);
   const [farmer, setFarmer] = useState([]);
+  const [errors, setErrors] = useState({});
 
-  const handleSearch = async (e) => {
-    
-    try{
-      console.log(nic)
-      const [code, res] = await api.gso.checkFarmerAvailability({"nic": nic})
-      if(code == 201){
-        if (res === "removed"){
-          setFavailability(false);
-          setClicked(true);
-        }
-        else if (res){
-          setFavailability(true);
-          setClicked(true);
-          //console.log(clicked);
-          //console.log(nic)
-          setFarmer(res);
-          
-        }else{
-          setFavailability(false);
-          setClicked(true);
-        }
-      
-      }
-    
-    console.log(clicked);
-    console.log(favailability)
-    }catch(error){
-      console.log(error);
+  const schema = {
+    nic: Joi.string().regex(/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/, "name").required(),
+  };
+
+  const handleSave = (event) => {
+    setFavailability(false);
+    setClicked(false);
+    const { name, value } = event.target;
+    let errorData = { ...errors };
+    const errorMessage = validateProperty(event);
+    if (errorMessage) {
+    errorData[name] = errorMessage;
+    } else {
+    delete errorData[name];
     }
+    let FarmerData = { ...nic };
+    FarmerData[name] = value;
+    setNic(FarmerData);
+    setErrors(errorData);
+  };
+
+  const validateProperty = (event) => {
+    const { name, value } = event.target;
+    const obj = { [name]: value };
+    const subSchema = { [name]: schema[name] };
+    const result = Joi.validate(obj, subSchema);
+    const { error } = result;
+    return error ? error.details[0].message : null;
+    
+  };
+
+
+  const handleSearch = async (event) => {
+    event.preventDefault();
+    const result = Joi.validate(nic,
+      schema, { abortEarly: false });
+    const { error } = result;
+    if (!error){
+      try{
+        console.log(nic)
+        const [code, res] = await api.gso.checkFarmerAvailability({"nic": nic.nic})
+        if(code == 201){
+          if (res === "removed"){
+            setFavailability(false);
+            setClicked(true);
+          }
+          else if (res){
+            setFavailability(true);
+            setClicked(true);
+            //console.log(clicked);
+            //console.log(nic)
+            setFarmer(res); 
+          }else{
+            setFavailability(false);
+            setClicked(true);
+          }
+        }
+      }catch(er){
+        console.log(er);
+      }
+
+    }else {
+      const errorData = {};
+      for (let item of error.details) {
+        const name = item.path[0];
+        const message = item.message;
+        errorData[name] = message;
+      }
+      setErrors(errorData);
+      console.log(errorData);
+      return errorData;
+    }
+    
     
   };
 
@@ -68,12 +118,12 @@ export default function GSOHome() {
         type="text"
         label="Enter Farmer's NIC"
         name="nic"
-        onChange={(e) => {
-          setFavailability(false);
-          setClicked(false);
-          setNic(e.target.value)}}
+        value={nic.nic}
+        onChange={handleSave}
         autoFocus
       />
+      {errors.nic && (
+                <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid NIC Number</Alert>)}
 
       <Button
         //id="submit"
@@ -89,7 +139,7 @@ export default function GSOHome() {
       
       {(!favailability && !clicked) && <img style={{width: '100%', height: '100%'}} src={gsoHome} alt="gsoHome" />}
 
-      {clicked && !favailability && <AddFarmer />}
+      {clicked && !favailability && <AddFarmer nic={nic.nic}/>}
 
       {clicked && favailability && <DetailsCard farmerDetails={farmer} />}
       

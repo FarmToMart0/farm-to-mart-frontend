@@ -64,7 +64,7 @@ export default function SignUp() {
       .regex(/^[0-9]+$/, "given")
       .required(),
     email: Joi.string().email().required(),
-    nic: Joi.string().required(),
+    nic: Joi.string().regex(/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/, "name").required(),
     password: Joi.string()
       .min(8)
       .max(25)
