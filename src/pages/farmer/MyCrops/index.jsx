@@ -49,6 +49,7 @@ setCompletedTask(temp);
    }
   })
   setCompletedTask(temp);
+
 }  
 
 const doSave=async(id)=>{
@@ -69,6 +70,7 @@ const doSave=async(id)=>{
       setErrorMessage({ type: 'success', message:'successfully updated harvest details' });
       setErrorOccured(true);
       setCompletedTask(temp);
+     
     }
     else{
       setErrorMessage({ type: 'error', message:res });
@@ -82,8 +84,8 @@ const doSave=async(id)=>{
 }  
 const doRefresh =async()=>{
  
-await getMyCropTask()
-await getCompletedMyCropTask()
+await getMyCropTask(user?.nic)
+await getCompletedMyCropTask(user?.nic)
 }
 
 
@@ -99,6 +101,7 @@ await getCompletedMyCropTask()
      }
     })
     setCompletedTask(temp);
+    
   } 
  
   const handleChange = (event, newValue) => {

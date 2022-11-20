@@ -24,6 +24,7 @@ import FormDialog from './../../../../components/DialogComponent/index';
 import ModalBox from '../../../../components/ModalBox';
 import Alert from '@mui/material/Alert';
 import api from '../../../../api'
+import { date } from 'yup';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -168,7 +169,12 @@ const handleEditHaversetedDate=(id,event)=>{
     } else {
     delete errorData[name];
     }
-    updateHarvestDate(id,value)
+    if(new Date(value)<= Date.now()){
+      updateHarvestDate(id,value)
+    }else{
+      errorData['date']='Time should less than today'
+    }
+   
     setErrors(errorData);
 
 
@@ -368,6 +374,7 @@ const validateProperty = (event) => {
 
                     value={row.harvestedDate}
                     onChange={(event)=>handleEditHaversetedDate(row.id,event)}
+                    
                 />
                 {errors.harvestedDate && (
                 <Alert sx={{ mt: '1vw', mb: '1vw' }} severity="error">{errors.harvestedDate}</Alert>)}
