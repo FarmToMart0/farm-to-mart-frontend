@@ -40,19 +40,19 @@ getReviewsList(user?.id);
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: yellow}} aria-label="recipe">
-            {item.buyer.firstName[0]}
+            {item?.buyer?.firstName[0]}
           </Avatar>
         }
         action={
-            <Rating name="read-only" value={item.rating} readOnly />
+            <Rating name="read-only" value={item?.rating} readOnly />
           }
-        title={item.buyer.firstName+" "+item.buyer.lastName}
-        subheader={new Date(item.commentedDate).getFullYear()+'-'+(parseInt(new Date(item.commentedDate).getMonth())+1) +'-'+new Date(item.commentedDate).getDate()}
+        title={item?.buyer?.firstName+" "+item?.buyer?.lastName}
+        subheader={new Date(item?.commentedDate).getFullYear()+'-'+(parseInt(new Date(item?.commentedDate).getMonth())+1) +'-'+new Date(item?.commentedDate).getDate()}
       />
       
     <CardContent>
       <Typography sx={{ fontSize: 14, marginLeft:"4%" }}component="div" >
-        {item.comment}
+        {item?.comment}
       </Typography>
     </CardContent>
 

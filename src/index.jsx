@@ -8,19 +8,12 @@ import store from './reducers/store';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './utils/theme'
-import PWAInstallerPrompt from 'react-pwa-installer-prompt';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Provider store={store}>
 <ThemeProvider theme={theme}>
-<PWAInstallerPrompt 
-      render={({ onClick }) => (
-        <button type="button" onClick={onClick}> // make sure you pass onClick
-          Install
-        </button>
-      )}
-      callback={(data) => console.log(data)} 
-    />
+
     <App />
 </ThemeProvider> 
 </Provider>
