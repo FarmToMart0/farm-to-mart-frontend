@@ -23,6 +23,7 @@ import CategoryOverview from './CategoryOverview';
 import api from '../../../api'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../../../components/Loader';
 
 
 
@@ -33,6 +34,7 @@ const DataCenter = () => {
     const user = useSelector((state) => state?.user);
   const navigate = useNavigate()
     const [years, setYears] = useState([]);
+    const [isLoading,setIsLoading]= useState(true);
     const [sum, setSum] = useState(0);
     const [yearsForTable, setYearsForTable] = useState([]);
     const [categorySummary,setCategorySummary] = useState([]);
@@ -61,7 +63,7 @@ const DataCenter = () => {
             const [code,res] =await api.farmer.getYearstList(district)
             if (code==201) {
                 setYearsForTable(res.map((item)=>{return item._id.year}));
-
+               
             }
             
         } catch (error) {
@@ -152,6 +154,7 @@ const DataCenter = () => {
             const [code,res] = await api.farmer.getToHarvestedCrops(district,year)
             if (code==201) {
                 setTabledata(res); 
+                setIsLoading(false);
             }else{
                 console.log(code,res)
             }
@@ -182,12 +185,14 @@ const DataCenter = () => {
         }
     }
     useEffect(() =>{
+        
         if (!user?.auth  ) {
             navigate('/login')
         }
         if(user?.userRole!='FARMER'){
             navigate('/')
         }
+       
         getAllListDetailst();    
    },[])
    
@@ -200,7 +205,7 @@ const DataCenter = () => {
    },[district])
     useEffect(() =>{
 
-       getTopHarvestDetails(district? district: user.district,yearForTable);
+       getTopHarvestDetails(district? district: user.district,yearForTable?yearForTable:2022);
        
         
    },[yearForTable])
@@ -208,95 +213,99 @@ const DataCenter = () => {
     getAverageCategory(district,yearForTable); 
    },[yearForTable,district])
     return (
-        <><Stack
-        marginTop={4}
-            direction="row"
-            divider={<Divider orientation="vertical" flexItem />}
-            spacing={2}
-        >
-            <SelectingInputField lable={"District"} handleChangeValue={handleChangeDistrict} value={district} valuesArray={districtList} />
-            <SelectingInputField lable={"Crop Type"} handleChangeValue={handleChangeCropType} value={cropType} valuesArray={cropList} />
-        </Stack><Grid marginTop={0} container rowSpacing={4.5} columnSpacing={2.75}>
-
-
-                <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
-
-                {/* row 2 */}
-                <Grid item xs={12} md={7} lg={8}>
-                    <Grid container alignItems="center" justifyContent="space-between">
-                        <Grid item>
-                            <Typography variant="h5">Comparison Of Harvested and Expected Amount of {cropType} in Past Years in {district}</Typography>
-                            <Typography variant="caption" display="block" gutterBottom>Yields are measured in tonnes </Typography>
+        <div>
+            {isLoading ? <Loader/>:
+            <><Stack
+            marginTop={4}
+                direction="row"
+                divider={<Divider orientation="vertical" flexItem />}
+                spacing={2}
+            >
+                <SelectingInputField lable={"District"} handleChangeValue={handleChangeDistrict} value={district} valuesArray={districtList} />
+                <SelectingInputField lable={"Crop Type"} handleChangeValue={handleChangeCropType} value={cropType} valuesArray={cropList} />
+            </Stack><Grid marginTop={0} container rowSpacing={4.5} columnSpacing={2.75}>
+    
+    
+                    <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
+    
+                    {/* row 2 */}
+                    <Grid item xs={12} md={7} lg={8}>
+                        <Grid container alignItems="center" justifyContent="space-between">
+                            <Grid item>
+                                <Typography variant="h5">Comparison Of Harvested and Expected Amount of {cropType} in Past Years in {district}</Typography>
+                                <Typography variant="caption" display="block" gutterBottom>Yields are measured in  Kilogram </Typography>
+                              
+                            </Grid>
+                            <Grid item>
+    
+                            </Grid>
                         </Grid>
-                        <Grid item>
-
-                        </Grid>
+                        <MainCard content={false} sx={{ mt: 1.5 }}>
+                            <Box sx={{ pt: 1, pr: 2 }}>
+                                <IncomeAreaChart series={series} years={years} />
+                            </Box>
+                        </MainCard>
                     </Grid>
-                    <MainCard content={false} sx={{ mt: 1.5 }}>
-                        <Box sx={{ pt: 1, pr: 2 }}>
-                            <IncomeAreaChart series={series} years={years} />
-                        </Box>
-                    </MainCard>
-                </Grid>
-                <Grid item xs={12} md={5}  lg={4}>
-                    <Grid container alignItems="center" justifyContent="space-between">
-                        <Grid item>
-                            <Typography variant="h5">Statistics of Growing Area in {district} district  </Typography>
-                            <Typography  variant="caption" display="block" gutterBottom>Area ismeasured in hectare </Typography>
+                    <Grid item xs={12} md={5}  lg={4}>
+                        <Grid container alignItems="center" justifyContent="space-between">
+                            <Grid item>
+                                <Typography variant="h5">Statistics of Growing Area in {district} district  </Typography>
+                                <Typography  variant="caption" display="block" gutterBottom>Area ismeasured in hectare </Typography>
+                            </Grid>
+                            <Grid item />
                         </Grid>
-                        <Grid item />
+                        <MainCard sx={{ mt: 2 }} content={false}>
+                            <Box sx={{ p: 3, pb: 0 }}>
+                                <Stack spacing={2}>
+                                    
+    
+                                </Stack>
+                            </Box>
+                            <MonthlyBarChart series={landData} years={years} />
+                        </MainCard>
                     </Grid>
-                    <MainCard sx={{ mt: 2 }} content={false}>
-                        <Box sx={{ p: 3, pb: 0 }}>
-                            <Stack spacing={2}>
+    
+                    {/* row 3 */}
+                    <Grid item xs={12} md={7} lg={8}>
+                        <Grid container alignItems="center" justifyContent="space-between">
+    
+                            <Grid item>
+                            <Stack
+            marginTop={4}
+                direction="row"
+               
+                spacing={2}
+            >
+                
+               <Typography variant="h5">Top Harvested Crops</Typography>
+                <SelectingInputField lable={"year"} handleChangeValue={handleChangeYear} value={yearForTable} valuesArray={yearsForTable} />
+            </Stack>
                                 
-
-                            </Stack>
-                        </Box>
-                        <MonthlyBarChart series={landData} years={years} />
-                    </MainCard>
-                </Grid>
-
-                {/* row 3 */}
-                <Grid item xs={12} md={7} lg={8}>
-                    <Grid container alignItems="center" justifyContent="space-between">
-
-                        <Grid item>
-                        <Stack
-        marginTop={4}
-            direction="row"
-           
-            spacing={2}
-        >
-            
-           <Typography variant="h5">Top Harvested Crops</Typography>
-            <SelectingInputField lable={"year"} handleChangeValue={handleChangeYear} value={yearForTable} valuesArray={yearsForTable} />
-        </Stack>
+                            </Grid>
+                            <Grid item />
+                        </Grid>
+                        <MainCard sx={{ mt: 2 }} content={false}>
+                            <OrdersTable tableData={tableData} />
+                        </MainCard>
+                    </Grid>
+                    <Grid item xs={12} md={5} lg={4}>
+                        <Grid container alignItems="center" justifyContent="space-between">
+                            <Grid item>
+                                <Typography variant="h5">Analytics Report</Typography>
+                            </Grid>
+                            <Grid item />
+                        </Grid>
+                        <MainCard sx={{ mt: 2 }} content={false}>
                             
-                        </Grid>
-                        <Grid item />
+                            <CategoryOverview   categoryData={categorySummary} />
+                        </MainCard>
                     </Grid>
-                    <MainCard sx={{ mt: 2 }} content={false}>
-                        <OrdersTable tableData={tableData} />
-                    </MainCard>
-                </Grid>
-                <Grid item xs={12} md={5} lg={4}>
-                    <Grid container alignItems="center" justifyContent="space-between">
-                        <Grid item>
-                            <Typography variant="h5">Analytics Report</Typography>
-                        </Grid>
-                        <Grid item />
-                    </Grid>
-                    <MainCard sx={{ mt: 2 }} content={false}>
-                        
-                        <CategoryOverview   categoryData={categorySummary} />
-                    </MainCard>
-                </Grid>
-
-                {/* row 4 */}
-
-
-            </Grid></>
+    
+                    {/* row 4 */}
+    
+    
+                </Grid></>}
+        </div>
             
        
     );

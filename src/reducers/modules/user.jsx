@@ -10,6 +10,7 @@ const initialState = {
   firstName: userObj?.firstName,
   lastName: userObj?.lastName,
   email: userObj?.email,
+  phone: userObj?.phone,
   nic: userObj?.nic,
   birthday: userObj?.birthday,
   address: userObj?.address,
@@ -32,6 +33,7 @@ export const userSlice = createSlice({
       state.firstName = action.payload?.firstName;
       state.lastName = action.payload?.lastName;
       state.email = action.payload?.email;
+      state.phone = action.payload?.phone;
       state.nic =action.payload?.nic;
       state.gsd_zone=action.payload?.gsd_zone;
       state.gsd_code=action.payload?.gsd_code;
@@ -44,11 +46,12 @@ export const userSlice = createSlice({
     },
 
     logOutRequest: (state) => {
-        state.auth = true;
+        state.auth = false;
         state.id = '';
         state.firstName = '';
         state.lastName = '';
         state.email = '';
+        state.phone = '';
         state.nic ='';
         state.gsd_zone='';
         state.gsd_code='';

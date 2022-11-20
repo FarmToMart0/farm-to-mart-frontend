@@ -15,10 +15,10 @@ export default {
     return resolver(axiosClient.put(`/product/update`,data))
   },
   getOngoingMycrops(data){
-    return resolver(axiosClient.get(`/farmer/getmycrops/990910820V`))
+    return resolver(axiosClient.get(`/farmer/getmycrops/${data}`))
   },
-  getCompletedMycrops(){
-    return resolver(axiosClient.get(`/farmer/getcompletedmycrops/990910820V`))
+  getCompletedMycrops(data){
+    return resolver(axiosClient.get(`/farmer/getcompletedmycrops/${data}`))
   },
   updateHarvestedData(data){
     
@@ -54,6 +54,7 @@ export default {
     return resolver(axiosClient.get(`/farmer/notify/${id}`));
   }
   ,
+
   
   addFarmerbyGso(data) {
 		return resolver(axiosClient.post("/gso/register-farmer", data));

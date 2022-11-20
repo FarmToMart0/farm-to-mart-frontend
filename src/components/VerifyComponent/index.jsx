@@ -52,6 +52,12 @@ export default function VerifyComponent(props) {
           dispatch(loggingRequest(res));
           navigate("/");
         }
+        if (res.userRole == "GSO") {
+          setAuthorizationKey(res.token);
+          setUserObjectInLocal(res);
+          dispatch(loggingRequest(res));
+          navigate("/gso/home");
+        }
       }
     } catch (error) {}
   };

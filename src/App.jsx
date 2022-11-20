@@ -15,6 +15,13 @@ import GSOHome from './pages/gsoHome/index';
 import FarmerSignUp from './pages/farmer/SignUp/index';
 import BuyerSignUp from './pages/buyerSignUp/index';
 import Dash from './pages/F-Dashboard/index'
+import SuccessReg from './pages/registrationSucess/index';
+import SuccessCrop from './pages/addCropSucess/index';
+import SuccessRemoveFarmer from './pages/farmerRemoveSuccess/index';
+import SuccessRegGso from './pages/gsoRegSucces';
+import SuccessRemoveGso from './pages/gsoRemoveSuccess';
+import SuccessUpdateGso from './pages/gsoUpdatesuccess';
+
 
 import Market from './pages/market/index';
 
@@ -33,6 +40,8 @@ import LineGraph from './components/LineChart/index'
 import Dashboard from './pages/F-Dashboard/index'
 import GraphCard from './components/graphCard/index'
 import Payment from './pages/Payment/index'
+
+import Test from './components/orderReview'
 
 
 
@@ -64,6 +73,7 @@ function App() {
 
     <Route path="/buyer/market/checkout/payment/complete" element={<Success/>}/>
     <Route path="/pay" element={<Pay/>}/>
+    <Route path="/test" element={<Test/>}/>
 
     
 
@@ -86,8 +96,12 @@ function App() {
     <Route path='/farmer/signup' element={<FarmerSignUp/>}/>
     <Route path='/buyer/signup' element={<BuyerSignUp/>}/>
     <Route path='/dash' element={<Dash/>}/>
-  
- 
+    <Route path='/gso/success-register-farmer' element={<SuccessReg/>}/>
+    <Route path='/gso/success-add-crop' element={<SuccessCrop/>}/>
+    <Route path='/gso/success-remove-farmer' element={<SuccessRemoveFarmer/>}/>
+    <Route path='/main-officer/success-register-gso' element={<SuccessRegGso/>}/>
+    <Route path='/main-officer/success-remove-gso' element={<SuccessRemoveGso/>}/>
+    <Route path='/main-officer/success-update-gso' element={<SuccessUpdateGso/>}/>
 
     {/* ==================Buyer================ */}
     

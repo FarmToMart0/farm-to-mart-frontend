@@ -80,6 +80,12 @@ export default function SignInSide() {
           case 'BUYER':
             navigate('/buyer/market')
             break;
+          case 'GSO':
+            navigate('/gso/home')
+            break;
+          case 'MAINOFFICER':
+            navigate('/main-officer/home')
+            break
           default:
             break;
         }
@@ -106,6 +112,7 @@ export default function SignInSide() {
     <Alert icon={false} sx={{ mt: '1vw', mb: '1vw' }} severity="error">{errorMessages.message}</Alert>
   );
 useEffect(()=>{
+  
   if (user?.auth ) {
     navigate('/')
 }
@@ -159,13 +166,19 @@ const renderForm = (
             >
             {isLoading ? <CircularProgress /> : 'Sign In'}
             </Button>
-            {/* <Grid container>
-              <Grid item xs>
-                <Link onClick={()=>{navigate('/forgotpassword')}} variant="body2" color='#12877a'>
-                  Forgot password?
-                </Link>
+            <Grid container>
+                <Grid item xs>
+                  <Link onClick={()=>{navigate('/forgotpassword')}} variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link onClick={()=>{navigate('/')}} href="#" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
               </Grid>
-            </Grid> */}
+            
             <Copyright sx={{ mt: 5 }} />
           </Box>
   </div>
@@ -218,6 +231,7 @@ const renderForm = (
           <Typography component="h1" variant="h5" color='primary'>
             Sign in
           </Typography>
+          
           {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
         </Box>
       </Grid>

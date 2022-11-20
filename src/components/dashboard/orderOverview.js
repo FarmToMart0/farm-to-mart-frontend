@@ -44,7 +44,7 @@ export const OrderOverView = (props) => {
       titleFontColor: theme.palette.text.primary
     }
   };
-  console.log('lllll',props.orderData)
+  
 const devices = props.orderData.map(item=>{return  {
   title: item.productName,
   value: item.totalAmount,
@@ -54,7 +54,7 @@ const devices = props.orderData.map(item=>{return  {
 
   return (
     <Card {...props}>
-      <CardHeader title="Order Overview" />
+      <CardHeader title="Order Overview in KG" />
       <Divider />
       <CardContent>
         <Box

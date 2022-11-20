@@ -10,8 +10,14 @@ import Button from "@mui/material/Button";
 import ImageList from "../../components/buyer_image_pre/index";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import PaymentIcon from "@mui/icons-material/Payment";
-import Alert from "@mui/material/Alert";
+
 import api from "../../api/modules/buyer";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
 export default function BuyItemShoppingCard(props) {
 	const navigate = useNavigate();
@@ -19,29 +25,63 @@ export default function BuyItemShoppingCard(props) {
 
 	const [totValue, setTotValue] = useState(0);
 	const [inputValue, setInputValue] = useState(0);
+	const [msg, setMsg] = useState("")
 
-	const { item_id, unit_price, payment, transport, product_name } =
-		location.state;
+	//notification thsings
 
-	const left_card_details = { unit_price, product_name };
+	const [open, setOpen] = React.useState(false);
+
+	const handleClick = () => {
+	  setOpen(true);
+	};
+  
+	const handleClose = (event, reason) => {
+	  if (reason === 'clickaway') {
+		return;
+	  }
+  
+	  setOpen(false);
+	};
+	//=============
+	
+
+	//all data
+	const buyDataFromCard = location.state;
+
+
+	const price = buyDataFromCard.price
+	const product_name = buyDataFromCard.product_name
+	const remainAmount = buyDataFromCard.remainAmount
+	// const { item_id, unit_price, payment, transport, product_name,remainAmount } =
+	// 	location.state;
+	// console.log((item_id, unit_price, payment, transport, product_name,remainAmount));
+	const left_card_details = { price, product_name,remainAmount };
 
 	const [itemData, setItemData] = useState([]);
 
 	const handleBuyOrder = () => {
-		navigate("/buyer/market/checkout/payment", {
-			state: {
-				transport: transport,
-				payment: payment,
-				product: product_name,
-				price: totValue,
-				amount: inputValue,
-			},
-		});
+		if (inputValue <= buyDataFromCard.remainAmount ){
+			if(inputValue == 0){
+				setMsg("Input amount can't be 0 kg")
+				handleClick()
+
+			}else{
+				buyDataFromCard.totValue = totValue
+				buyDataFromCard.amount = inputValue
+			navigate("/buyer/market/checkout/payment", {
+				state: buyDataFromCard,
+			});
+		}
+		}else{
+			setMsg("Your required amount must be less than available amount")
+			handleClick()
+		}
+		
 	};
 
-	const getImages = async (item_id) => {
-		var [res, code] = await api.getItemImages(item_id.trim());
-		console.log(code.slice(0, 5));
+	const getImages = async (image_id) => {
+		var [res, code] = await api.getItemImages(image_id.trim());
+		
 		setItemData(code.slice(0, 3));
 	};
 
@@ -68,15 +108,20 @@ export default function BuyItemShoppingCard(props) {
 	}
 
 	useEffect(() => {
-		setTotValue((inputValue * unit_price).toFixed(2));
+		setTotValue((inputValue * buyDataFromCard.price).toFixed(2));
 	}, [inputValue]);
 
 	useEffect(() => {
-		getImages(item_id);
+		getImages(buyDataFromCard.item_id);
 	}, []);
 
 	return (
 		<div>
+		<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+          {msg}
+        </Alert>
+      </Snackbar>
 			<Box
 				sx={{
 					display: "flex",
@@ -94,7 +139,10 @@ export default function BuyItemShoppingCard(props) {
 					justifyContent: "center",
 					alignItems: "center",
 				}}>
+				
 				<Paper
+
+
 					elevation={0}
 					sx={{ px: 5 }}
 					style={{ paddingTop: 25, marginBottom: 20 }}>
@@ -184,7 +232,7 @@ export default function BuyItemShoppingCard(props) {
 
 															<ul style={{ margin: 0 }}>
 																<b>Tranport : </b>
-																{transport}
+																{buyDataFromCard.transport}
 															</ul>
 														</Stack>
 
@@ -192,7 +240,7 @@ export default function BuyItemShoppingCard(props) {
 															<PaymentIcon sx={{ mx: 3 }} />
 															<ul style={{ margin: 0 }}>
 																<b>Online Payment : </b>
-																{payment}
+																{buyDataFromCard.payment}
 															</ul>
 														</Stack>
 													</div>
