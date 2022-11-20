@@ -175,13 +175,13 @@ export default function Home({userDetails, farmerDetails}) {
         const [code, res] = await api.gso.getCropDetails(id)
         if (code === 201){
             setCropData(res)
-            console.log(cropData)
-            if (cropData.length != 0){
-                setdataAvailability(true)
-            }
-            else{
-                setdataAvailability(false)
-            }
+            console.log(cropData, "cropdata")
+            // if (cropData.length != 0){
+            //     setdataAvailability(true)
+            // }
+            // else{
+            //     setdataAvailability(false)
+            // }
             // console.log("Crop data",res)
 
         }
@@ -312,9 +312,9 @@ export default function Home({userDetails, farmerDetails}) {
                                 </ListSubheader>
                             }>
                             
-                            {console.log(dataAvailability, "abc")}
+                            {/* {console.log(dataAvailability, "abc")} */}
                             
-                            {dataAvailability && cropData.map((crop) => {
+                            {cropData.map((crop) => {
                                     
                                     if (crop.status == "ongoing"){
                                         crop.harvestedDate = "pending"
@@ -332,9 +332,9 @@ export default function Home({userDetails, farmerDetails}) {
                                     )
                                 })}
                             
-                            {!dataAvailability && <Typography component="h5" variant="h3" color='secondary' sx={{mt: 3, mb: 3, fontSize: '1rem', fontWeight: 'bold', textAlign: 'center'}}>
+                            {/* {!dataAvailability && <Typography component="h5" variant="h3" color='secondary' sx={{mt: 3, mb: 3, fontSize: '1rem', fontWeight: 'bold', textAlign: 'center'}}>
            No Crop Details in the System!
-          </Typography>}
+          </Typography>} */}
 
                             </List>
                         

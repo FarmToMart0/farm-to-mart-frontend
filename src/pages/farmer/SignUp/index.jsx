@@ -105,7 +105,7 @@ export default function SignUp() {
     gsdName: Joi.string().required(),
     gsdCode: Joi.string().required(),
     email: Joi.string().email().required(),
-    nic: Joi.string().required(),
+    nic: Joi.string().regex(/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/, "name").required(),
     district: Joi.string().required(),
 
     password: Joi.string()
