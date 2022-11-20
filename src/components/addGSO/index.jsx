@@ -19,7 +19,8 @@ import api from  '../../api'
 import SnackBarComponent from '../Snackbars';
 
 
-export default function AddGSO() {
+export default function AddGSO({nic}) {
+  console.log(nic);
   const [errorOccured, setErrorOccured] = useState(false);
   //const [errorMessage, setErrorMessage] = useState({ type: '', message: '' });
   const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +32,7 @@ export default function AddGSO() {
     gsoName: "",
     gsoCode: "",
     email: "",
-    nic:"",
+    nic:nic,
     password:"",
     confPassword:""
   });
@@ -295,6 +296,7 @@ export default function AddGSO() {
                 <TextField
                   required
                   fullWidth
+                  disabled={true}
                   id="nic"
                   label="National Identity Card Number"
                   name="nic"

@@ -80,8 +80,9 @@ export default function HomeMainOfficer() {
       {!favailability && !clicked && <img style={{width: '100%', height: '100%'}} src={mHome} alt="mHome" />}
 
       {favailability && clicked && <DetailsCard gsoDetails={gso} />}
+      {console.log(nic)}
 
-      {clicked && !favailability && <AddGSO />}
+      {clicked && !favailability && <AddGSO nic={nic}/>}
       
     
     </div>    
