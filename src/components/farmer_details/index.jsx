@@ -80,7 +80,7 @@ const CustomizedListItem = ({ crop }) => {
                                                             <ListItemText  primary={<Typography sx={{color: 'black', fontWeight: '', fontSize: '1rem'}}>Growing Area</Typography>} />
                                                             </Grid>
                                                             <Grid item xs={12} md={8} >
-                                                            <ListItemText primary={<Typography sx={{color: 'black', fontSize: '1rem'}}>: {crop.landArea} acres</Typography>} />
+                                                            <ListItemText primary={<Typography sx={{color: 'black', fontSize: '1rem'}}>: {crop.landArea} Hectares</Typography>} />
                                                             </Grid>
                                                         </Grid>
                                                     </ListItem>
