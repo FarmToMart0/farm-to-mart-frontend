@@ -308,7 +308,7 @@ export default function SignUp() {
                   autoComplete="phone"
                 />
 
-                {errors.mobile && (
+                {errors.phone && (
                   <Alert sx={{ mt: "1vw", mb: "1vw" }} severity="error">
                     Invalid Mobile Number
                   </Alert>
