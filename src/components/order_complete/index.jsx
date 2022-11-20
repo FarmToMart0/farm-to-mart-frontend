@@ -8,6 +8,8 @@ import Rating from '@mui/material/Rating';
 import Button from '@mui/material/Button';
 import { useNavigate, useLocation } from "react-router-dom";
 import Typography from '@mui/material/Typography';
+import { TextField } from '@mui/material';
+
 
 
 
@@ -20,8 +22,9 @@ export default function SimplePaper(props) {
     
 
     const handleFinalSubmit = () =>{
-      props.setFinalState(true)
-      props.setStart(value)
+      
+      props.setStart(value,comments)
+      
       
     }
     
@@ -38,8 +41,13 @@ export default function SimplePaper(props) {
         5: 'Excellent',
       };
 
-      const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(0);
+  const [comments,setComments] = React.useState("");
   const [hover, setHover] = React.useState(-1);
+
+
+
+
 
   function getLabelText(value) {
     return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
@@ -61,7 +69,7 @@ export default function SimplePaper(props) {
       style={{display:'flex', justifyContent:'center',alignItems:'content'}}
     >
       
-      <Paper style={{display:'flex', justifyContent:'center',padding:10,width:"40%", height:550,borderRadius:15}}>
+      <Paper style={{display:'flex', justifyContent:'center',padding:10,width:"40%", height:600,borderRadius:15,marginTop:85}}>
         
             
             
@@ -82,7 +90,10 @@ export default function SimplePaper(props) {
         alignItems: 'center',
       }}
     >
-      <Rating
+
+      
+      
+      <Rating 
         name="hover-feedback"
         value={value}
         precision={1}
@@ -94,11 +105,31 @@ export default function SimplePaper(props) {
           setHover(newHover);
         }}
         emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+      
+        
       />
+
+      
+    
+
+      
       {value !== null && (
         <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
       )}
+      
+
+      
+
+        
     </Box>
+
+    <TextField
+        multiline
+        rows={3}
+        label="Order comments"
+        fullWidth
+        onChange={(event) => setComments(event.target.value)}
+      />
     <Button variant="contained" style={{margin:20}} onClick={handleFinalSubmit}>Submit</Button>
 
 <Typography variant="body2" color="text.secondary" align="center">

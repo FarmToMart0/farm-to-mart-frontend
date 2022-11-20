@@ -56,11 +56,20 @@ export default {
 
 	updateProduct(data){
     console.log(data);
+    console.log("===============");
 		return resolver(axiosClient.put(`/order/updatestatus`,data))
 	},
 
   getOrderByBuyer(buyer){
     return resolver(axiosClient.get(`/order/getordersbybuyer?buyer=${buyer}`))
+  },
+
+  addReviews(data){
+    console.log(data);
+    return resolver(axiosClient.post(`/reviews/addreview`,data))
+  },
+
+  updateRemainCrop(data){
+    return resolver(axiosClient.put(`/order/updateproduct`,data))
   }
-	
-};
+}
