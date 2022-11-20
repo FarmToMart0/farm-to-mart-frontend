@@ -19,7 +19,8 @@ import api from  '../../api'
 import SnackBarComponent from '../Snackbars';
 
 
-export default function AddGSO() {
+export default function AddGSO({nic}) {
+  console.log(nic);
   const [errorOccured, setErrorOccured] = useState(false);
   //const [errorMessage, setErrorMessage] = useState({ type: '', message: '' });
   const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +32,7 @@ export default function AddGSO() {
     gsoName: "",
     gsoCode: "",
     email: "",
-    nic:"",
+    nic:nic,
     password:"",
     confPassword:""
   });
@@ -139,6 +140,9 @@ export default function AddGSO() {
   
   return (
       <div>
+        <Typography component="h5" variant="h3" color='secondary' sx={{mt: 3, mb: 3, fontSize: '1rem', fontWeight: 'bold', textAlign: 'center'}}>
+            There is no Govijana Seva Officer registered under the nic. Please fill the details to register the farmer.
+          </Typography>
         <Container component="main" maxWidth="" sx={{background:'white',width:'100%', boxShadow: 
         '0px 0px 0px 5px rgba( 255,255,255,0.4 ), 0px 4px 20px rgba( 0,0,0,0.33 )', borderRadius:'10px', mb: '5vw', mt:0}}>
         <CssBaseline />
@@ -295,6 +299,7 @@ export default function AddGSO() {
                 <TextField
                   required
                   fullWidth
+                  disabled={true}
                   id="nic"
                   label="National Identity Card Number"
                   name="nic"
