@@ -56,6 +56,7 @@ const handleEdit = (e) =>{
   })))
 }
 const handleChangeSearchFilter =(e)=>{
+  console.log(e.target.value)
   setSearchedText(e.target.value)
 }
 const doRemove = async(id)=>{
@@ -63,7 +64,7 @@ const doRemove = async(id)=>{
   getAllProducts(user?.id);
 }
 React.useEffect(() => {
-  
+console.log(searchedText);
   if (searchedText !== '') {
     
     const items = products.filter((item) =>
