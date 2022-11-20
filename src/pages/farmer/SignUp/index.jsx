@@ -98,10 +98,7 @@ export default function SignUp() {
       .regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, "name")
       .required(),
     address: Joi.string().required(),
-    phone: Joi.string()
-      .length(10)
-      .regex(/^[0-9]+$/, "given")
-      .required(),
+    phone: Joi.string().length(10).regex(/^[0-9]+$/, 'given').required(),
     gsdName: Joi.string().required(),
     gsdCode: Joi.string().required(),
     email: Joi.string().email().required(),
