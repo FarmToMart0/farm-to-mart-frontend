@@ -41,7 +41,7 @@ import Dashboard from './pages/F-Dashboard/index'
 import GraphCard from './components/graphCard/index'
 import Payment from './pages/Payment/index'
 
-import Test from './components/orderReview'
+import Test from './pages/orderReview/index'
 
 
 

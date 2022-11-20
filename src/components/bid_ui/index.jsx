@@ -64,18 +64,21 @@ export default function SimplePaper() {
 	}, []);
 
 	useEffect(() => {
-		if (new Date(bidDataFromCard.bidEndTime) <= new Date()){
-			setIsBidOver(true)
-		}
 		
-	}, [iterrator]);
+		setInterval(() => {
+			if (new Date(bidDataFromCard.bidEndTime) <= new Date()){
+				
+				setIsBidOver(true)
+			}
+		}, 1000);
+	}, []);
 
 
 
 	// submit bid order function
 
 	const handleBidOrder =() =>{
-		bidDataFromCard.totValue = current_bid * bidDataFromCard.remainAmount  
+		bidDataFromCard.totValue = current_bid  
 		bidDataFromCard.amount = bidDataFromCard.remainAmount  
 			navigate("/buyer/market/checkout/payment", {
 				state: bidDataFromCard,
@@ -220,7 +223,7 @@ export default function SimplePaper() {
 							Current Bid Value (LKR)
 						</p>
 						<Chip
-							sx={{ px: 3, py: 4 }}
+							sx={{ px: 4, py: 5 }}
 							label=<p
 								style={{
 									fontSize: 40,
@@ -228,18 +231,18 @@ export default function SimplePaper() {
 									margin: 0,
 									color: "#4BB543",
 								}}>
-								{current_bid} 
+								{Number(current_bid).toFixed(2)} 
 							</p>
 							variant='outlined'
 						/>
 					</Stack>
 
-					<Stack sx={{ mx: 5, alignItems: "center" }}>
+					<Stack sx={{ mx: 4, alignItems: "center" }}>
 						<p style={{ fontSize: 30, fontWeight: "bold" }}>
 							Your Current Status
 						</p>
 						<Chip
-							sx={{ p: 3, py: 4 }}
+							sx={{ p: 4, py: 5 }}
 							label=<p
 								style={{
 									fontSize: 30,
@@ -253,9 +256,9 @@ export default function SimplePaper() {
 						/>
 					</Stack>
 
-					<Stack sx={{ mx: 5 }}>
+					<Stack sx={{ mx: 7 }}>
 						<p style={{ fontSize: 30, fontWeight: "bold" }}>Remaining Time</p>
-						<Chip sx={{ p: 3, py: 4 }} label=<CoundDown date={bidDataFromCard.bidEndTime} /> variant='outlined' />
+						<Chip sx={{ p: 4, py: 5 }} label=<CoundDown date={bidDataFromCard.bidEndTime} /> variant='outlined' />
 					</Stack>
 				</Stack>
 				{/* start of bidding card */}

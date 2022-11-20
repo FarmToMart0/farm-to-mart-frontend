@@ -55,7 +55,12 @@ export default {
 	},
 
 	updateProduct(data){
-		return resolver(axiosClient.put(`/order/updateproduct`,data))
-	}
+    console.log(data);
+		return resolver(axiosClient.put(`/order/updatestatus`,data))
+	},
+
+  getOrderByBuyer(buyer){
+    return resolver(axiosClient.get(`/order/getordersbybuyer?buyer=${buyer}`))
+  }
 	
 };
