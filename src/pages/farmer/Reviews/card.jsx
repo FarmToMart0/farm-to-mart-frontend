@@ -1,14 +1,11 @@
 import  React,{useState,useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CardHeader from '@mui/material/CardHeader';
 import { yellow } from '@mui/material/colors';
 import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
 import Rating from '@mui/material/Rating';
 import api from '../../../api'
 import { useSelector } from 'react-redux';
@@ -43,19 +40,19 @@ getReviewsList(user?.id);
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: yellow}} aria-label="recipe">
-            {item.buyer.firstName[0]}
+            {item?.buyer?.firstName[0]}
           </Avatar>
         }
         action={
-            <Rating name="read-only" value={item.rating} readOnly />
+            <Rating name="read-only" value={item?.rating} readOnly />
           }
-        title={item.buyer.firstName+" "+item.buyer.lastName}
-        subheader={new Date(item.commentedDate).getFullYear()+'-'+(parseInt(new Date(item.commentedDate).getMonth())+1) +'-'+new Date(item.commentedDate).getDate()}
+        title={item?.buyer?.firstName+" "+item?.buyer?.lastName}
+        subheader={new Date(item?.commentedDate).getFullYear()+'-'+(parseInt(new Date(item?.commentedDate).getMonth())+1) +'-'+new Date(item?.commentedDate).getDate()}
       />
       
     <CardContent>
       <Typography sx={{ fontSize: 14, marginLeft:"4%" }}component="div" >
-        {item.comment}
+        {item?.comment}
       </Typography>
     </CardContent>
 

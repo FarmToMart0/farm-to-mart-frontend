@@ -3,8 +3,7 @@ import Joi from "joi-browser";
 import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -15,16 +14,16 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import InputLabel from "@mui/material/InputLabel";
-import FormHelperText from "@mui/material/FormHelperText";
+
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Alert from "@mui/material/Alert";
 import ResponsiveAppBar from "../../../components/navbar";
 import api from "../../../api";
-import { setAuthorizationKey } from "../../../utils/localStorageHelper";
+
 import SnackBarComponent from "../../../components/Snackbars";
-import farmer from "../../../api/modules/farmer";
-import { useSelector, useDispatch } from 'react-redux';
+
+import { useSelector } from 'react-redux';
 
 
 function Copyright(props) {
@@ -98,14 +97,11 @@ export default function SignUp() {
       .regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, "name")
       .required(),
     address: Joi.string().required(),
-    phone: Joi.string()
-      .length(10)
-      .regex(/^[0-9]+$/, "given")
-      .required(),
+    phone: Joi.string().length(10).regex(/^[0-9]+$/, 'given').required(),
     gsdName: Joi.string().required(),
     gsdCode: Joi.string().required(),
     email: Joi.string().email().required(),
-    nic: Joi.string().required(),
+    nic: Joi.string().regex(/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/, "name").required(),
     district: Joi.string().required(),
 
     password: Joi.string()
@@ -311,7 +307,7 @@ export default function SignUp() {
                   autoComplete="phone"
                 />
 
-                {errors.mobile && (
+                {errors.phone && (
                   <Alert sx={{ mt: "1vw", mb: "1vw" }} severity="error">
                     Invalid Mobile Number
                   </Alert>

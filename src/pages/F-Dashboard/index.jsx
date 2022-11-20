@@ -1,11 +1,7 @@
 import React from 'react'
-import Navbar from '../../components/navbar'
-import Stack from '@mui/material/Stack';
 import BarGraph from '../../components/BarGraph/index'
-import PieGraph from '../../components/PieGraph/index'
-import { styled } from '@mui/material/styles';
+
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import LineGraph from '../../components/LineChart/index'
 

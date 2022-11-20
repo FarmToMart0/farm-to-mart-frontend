@@ -5,37 +5,25 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import CardContent from '@mui/material/CardContent';
-import Collapse from '@mui/material/Collapse';
+
 import { Box } from '@mui/material';
-import Divider from '@mui/material/Divider';
-import bg from "../../../assets/images/bg4.jpg";
+
 import Stack from '@mui/material/Stack';
 import Timer from './../../../components/Timer/index';
 import api from '../../../api'
 import firebaseapp from "../../../api/firebase"
-import {ref,set,get,child,onValue,push} from "firebase/database"
+import {ref,onValue} from "firebase/database"
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../../components/Loader';
 const Img = styled('img')({
   margin: 'auto',
   display: 'block',
-  maxWidth: '100%',
-  maxHeight: '100%',
+  maxWidth: '250px',
+  maxHeight: '250px',
 });
-const ExpandMore = styled((props) => {
-    const { expand, ...other } = props;
-    return <IconButton {...other} />;
-  })(({ theme, expand }) => ({
-    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  }));
-  
+
  
 
  
@@ -128,7 +116,7 @@ if(user?.userRole!='FARMER'){
        return <div>
          <Grid container spacing={2}>
        <Grid item md={4}  xs={12} sm container>
-         <ButtonBase sx={{ width: '100%', height: '80%' }}>
+         <ButtonBase sx={{ width: '90%', height: '250px', }}>
            <Img alt="complex" src={item.img} />
          </ButtonBase>
        </Grid>
@@ -143,7 +131,7 @@ if(user?.userRole!='FARMER'){
      <b>{ new Date(item.endDate) > Date.now() ?  "Current Bid :":"Winning Bid"}</b><b> LKR {arr.bidPrice}</b>
                  </Typography><Stack direction="row" spacing={2}>
                      <Typography fontSize='16px' color="text.primary">
-                     <b>{ new Date(item.endDate) > Date.now() ?  "Current Winner :":"Final Winner "}</b>  <b>{arr?.buyerName}</b>
+                     <b>{ new Date(item.endDate) > Date.now() ?  "Current Winner : ":"Final Winner : "}</b>  <b>{arr?.buyerName}</b>
                      </Typography>
 
 
@@ -186,8 +174,8 @@ if(user?.userRole!='FARMER'){
          <Grid item  >
          <Box
      sx={{
-       width: 'auto',
-       height: 'auto',
+       width: '100%',
+       height: '100px',
        backgroundColor: 'white',
        padding :'10px',
        borderRadius:'10px',
@@ -206,7 +194,20 @@ if(user?.userRole!='FARMER'){
            </Typography>
            </Box>
          </Grid>
+         
        </Grid>
+       <Box
+      sx={{
+        width: '100%',
+        height: 3,
+      marginBottom:2,
+        backgroundColor: 'secondary.dark',
+        '&:hover': {
+          backgroundColor: 'secondary.main',
+          opacity: [0.9, 0.8, 0.7],
+        },
+      }}
+    />
      </Grid>
        </div>
      })}

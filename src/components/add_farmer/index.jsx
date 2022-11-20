@@ -11,14 +11,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
 import api from  '../../api'
 import SnackBarComponent from '../Snackbars';
 
-export default function AddFarmer() {
+export default function AddFarmer({nic}) {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [errorOccured, setErrorOccured] = useState(false);
@@ -33,7 +32,7 @@ export default function AddFarmer() {
     district: "",
     gsdCode: "",
     email: "",
-    nic:"",
+    nic:nic,
     password:"",
     confPassword:""
   });
@@ -318,6 +317,7 @@ export default function AddFarmer() {
                 <TextField
                   required
                   fullWidth
+                  disabled={true}
                   id="nic"
                   label="National Identity Card Number"
                   name="nic"

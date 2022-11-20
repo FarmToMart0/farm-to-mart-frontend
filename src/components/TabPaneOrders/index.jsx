@@ -6,7 +6,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import CustomizedTables from '../TableComponent/index';
 import api from '../../api'
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import SnackBarComponent from './../Snackbars/index';
 import Loader from '../Loader';
 export default function TabPane(props) {

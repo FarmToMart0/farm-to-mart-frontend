@@ -16,8 +16,8 @@ import FormHelperText from '@mui/material/FormHelperText';
 import Alert from '@mui/material/Alert';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import AdminNavbar from '../admin_navbar/index';
+import Select from '@mui/material/Select';
+
 import api from  '../../api'
 import SnackBarComponent from '../Snackbars';
 
@@ -195,11 +195,11 @@ export default function AddCropData({farmersNic}) {
                   fullWidth
                   id="landArea"
                   type="number"
-                  label="Growing Land Size"
+                  label="Growing Land Size (Hectares)"
                   name="landArea"
                   autoComplete="land-size"
                   InputProps={{
-                    endAdornment: <InputAdornment position="end">Acre</InputAdornment>,
+                    endAdornment: <InputAdornment position="end">Hectares</InputAdornment>,
                     inputMode: 'numeric', pattern: '[0-9]*'
                   }}
                   value={crop.landArea}
@@ -259,11 +259,15 @@ export default function AddCropData({farmersNic}) {
                   fullWidth
                   id="expectedAmount"
                   type="number"
-                  label="Estimated Harvest (kg)"
+                  label="Estimated Harvest (Kg)"
                   name="expectedAmount"
                   value={crop.expectedAmount}
                   onChange={handleExpectedAmountChange}
                   autoComplete="est-harvest"
+                  InputProps={{
+                    endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
+                    inputMode: 'numeric', pattern: '[0-9]*'
+                  }}
                 />
                 {/* <FormHelperText id="outlined-weight-helper-text" sx={{ml:'5px', fontSize:'0.8rem'}}>*Clearly mention the unit</FormHelperText> */}
               </Grid>

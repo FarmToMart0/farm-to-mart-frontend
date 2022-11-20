@@ -1,57 +1,54 @@
 import React, { useState, useEffect } from "react";
-import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Navbar from "../../components/navbar/index";
-import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import Buy_card from "../../components/cards/buy_card/index";
 import Bid_card from "../../components/cards/bid_card/index";
-import BackI from "../../assets/images/weat.jpg";
 
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
+
 import SearchField from "../../components/auto_com_search/index";
-import TextFiled from "../../components/text_field/index";
+
 import api from "../../api/modules/buyer";
 
 <style>
-	@import
-	url('https://fonts.googleapis.com/css2?family=Rokkitt:wght@1200&display=swap');
+  @import
+  url('https://fonts.googleapis.com/css2?family=Rokkitt:wght@1200&display=swap');
 </style>;
 
 const arrType = [
-	{ label: "Vegetables" },
-	{ label: "Grains" },
-	{ label: "Fruits" },
+  { label: "Vegetables" },
+  { label: "Grains" },
+  { label: "Fruits" },
 ];
 const arrDis = [
-	{ label: "Ampara" },
-	{ label: "Anuradhapura" },
-	{ label: "Badulla" },
-	{ label: "Batticaloa" },
-	{ label: "Colombo" },
-	{ label: "Galle" },
-	{ label: "Gampaha" },
-	{ label: "Hambantota" },
-	{ label: "Jaffna" },
-	{ label: "Kalutara" },
-	{ label: "Kandy" },
-	{ label: "Kegalle" },
-	{ label: "Kilinochchi" },
-	{ label: "Kurunegala" },
-	{ label: "Mannar" },
-	{ label: "Matale" },
-	{ label: "Matara" },
-	{ label: "Monaragala" },
-	{ label: "Mullaitivu" },
-	{ label: "Nuwara Eliya" },
-	{ label: "Polonnaruwa" },
-	{ label: "Puttalam" },
-	{ label: "Ratnapura" },
-	{ label: "Trincomalee" },
-	{ label: "Vavuniya" },
+  { label: "Ampara" },
+  { label: "Anuradhapura" },
+  { label: "Badulla" },
+  { label: "Batticaloa" },
+  { label: "Colombo" },
+  { label: "Galle" },
+  { label: "Gampaha" },
+  { label: "Hambantota" },
+  { label: "Jaffna" },
+  { label: "Kalutara" },
+  { label: "Kandy" },
+  { label: "Kegalle" },
+  { label: "Kilinochchi" },
+  { label: "Kurunegala" },
+  { label: "Mannar" },
+  { label: "Matale" },
+  { label: "Matara" },
+  { label: "Monaragala" },
+  { label: "Mullaitivu" },
+  { label: "Nuwara Eliya" },
+  { label: "Polonnaruwa" },
+  { label: "Puttalam" },
+  { label: "Ratnapura" },
+  { label: "Trincomalee" },
+  { label: "Vavuniya" },
 ];
 
 export default function Market() {

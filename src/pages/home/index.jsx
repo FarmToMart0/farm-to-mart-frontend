@@ -7,15 +7,14 @@ import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import background from "../../assets/images/bg4.jpg"
 import FormDialog from "../../components/DialogComponent";
-import CircularProgress from '@mui/material/CircularProgress';
-import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
+
+import { useSelector } from 'react-redux';
 
 
 
 export default function HomePage(props) {
  const user = useSelector((state) => state?.user);
- const [isLoading,setIsLoading]=useState(false);
+ 
  const [openDialog,setOpenDialog]=useState(false);
  const navigate = useNavigate();
 
@@ -23,9 +22,7 @@ export default function HomePage(props) {
  useEffect(()=>{
   
  },[])
-const handle =()=>{
 
-}
 const handleFarmer =()=>{
   navigate('/farmer/signup')
   handleClose()

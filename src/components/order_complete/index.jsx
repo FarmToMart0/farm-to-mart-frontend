@@ -14,23 +14,25 @@ import { TextField } from '@mui/material';
 
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Rokkitt:wght@1200&display=swap');
-</style>
+  @import
+  url('https://fonts.googleapis.com/css2?family=Rokkitt:wght@1200&display=swap');
+</style>;
 
 export default function SimplePaper(props) {
-  const navigate = useNavigate()
-    
+ 
 
-    const handleFinalSubmit = () =>{
+  const handleFinalSubmit = () =>{
       
-      props.setStart(value,comments)
-      
-      
-    }
+    props.setStart(value,comments)
     
-    const labels = {
-       
-        1: 'Useless',
+    
+  }
+
+  const labels = {
+    1: "Useless",
+
+   
+    
         
         2: 'Poor',
         
@@ -50,17 +52,15 @@ export default function SimplePaper(props) {
 
 
   function getLabelText(value) {
-    return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
+    return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
   }
-
-  
 
   return (
     <Box
       sx={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        '& > :not(style)': {
+        display: "flex",
+        flexWrap: "wrap",
+        "& > :not(style)": {
           mt: 9,
           width: 128,
           height: 128,
@@ -140,9 +140,23 @@ export default function SimplePaper(props) {
       </Typography>
                 </Stack>
             </Box>
-             
-      </Paper>
+            <Button
+              variant="contained"
+              style={{ margin: 20 }}
+              onClick={handleFinalSubmit}
+            >
+              Submit
+            </Button>
+
+            <Typography variant="body2" color="text.secondary" align="center">
+              {"Copyright © Farm2Mart "}
+
+              {new Date().getFullYear()}
+              {"."}
+            </Typography>
       
+       
+      </Paper>
     </Box>
   );
 }

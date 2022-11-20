@@ -108,7 +108,7 @@ function OrderReview() {
 							
 						</Box>
 
-						{/* end of search panel */}
+            {/* end of search panel */}
 
 						{newArrayList.length != 0 ? (
 							<Grid
