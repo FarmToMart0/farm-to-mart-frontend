@@ -45,6 +45,7 @@ export default function PaymentForm(props) {
   
   const navigate = useNavigate()
   const [paymentValidated, setPaymentValidated] = useState(false);
+  
   const [cardDetails, setCardDetails] = useState({
     nameOnCard: '',
     cardNumber: '',
@@ -57,19 +58,19 @@ export default function PaymentForm(props) {
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCvv] = useState('');
   const [cardNumber, setCardNumber] = useState('');
-  const [nameError, setNameError] = useState('');
-  const [cardNumberError, setCardNumberError] = useState('');
-  const [expiryDateError, setExpiryDateError] = useState('');
-  const [cvvError, setCvvError] = useState('');
+  const [nameError, setNameError] = useState('Card name is required!');
+  const [cardNumberError, setCardNumberError] = useState('Invalid card number');
+  const [expiryDateError, setExpiryDateError] = useState('Expiry date is required!');
+  const [cvvError, setCvvError] = useState('CVV is required!');
 
   React.useEffect(() => {
-    setPaymentValidated(false);
+    
     if (!nameOnTheCard) {
       setNameError('Card name is required!');
     } else {
       setNameError('');
     }
-    if (!validator.isCreditCard(cardNumber)) {
+    if (!cardNumber) {
       setCardNumberError('Invalid card number');
     } else {
       setCardNumberError('');
@@ -93,10 +94,10 @@ export default function PaymentForm(props) {
     });
 
     if (
-      nameError !== '' &&
-      cardNumberError !== '' &&
-      cvvError !== '' &&
-      expiryDateError !== ''
+      nameError === '' &&
+      cardNumberError === '' &&
+      cvvError === '' &&
+      expiryDateError === ''
     ) {
       setPaymentValidated(true);
     }
@@ -111,7 +112,8 @@ export default function PaymentForm(props) {
        
         if (paymentValidated ){
           props.paymentSet(data)
-          navigate('/buyer/market/checkout/payment/complete')
+          
+          
         }else{
           handleClick()
           
@@ -120,8 +122,9 @@ export default function PaymentForm(props) {
      
        
       }else{
-        props.paymentSet("CASH_ON_DELIVERY")
-        navigate('/buyer/market/checkout/payment/complete')
+        props.paymentSet(["CASH_ON_DELIVERY"])
+        // props.setFinalState(true)
+        
       }
     
       

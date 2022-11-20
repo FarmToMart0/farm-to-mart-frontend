@@ -10,9 +10,11 @@ import { TotalProfit } from "../../../components/dashboard/ongoingBiding";
 import { OrderOverView } from "../../../components/dashboard/orderOverview";
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
+import Loader from "../../../components/Loader";
 
 function SalaseDashBoard() {
   const navigate = useNavigate()
+  const [isLoading,setIsLoading]= useState(true);
   const user = useSelector((state) => state?.user);
   const [totalOrders, setTotalOrders] = useState(0);
   const [totalOrdersSinceLastMonth, settotalOrdersSinceLastMonth] = useState(0);
@@ -88,11 +90,14 @@ function SalaseDashBoard() {
           };
         })
       );
+
+      setIsLoading(false)
     } catch (error) {
+      setIsLoading(false)
       console.log(error);
     }
   }
-  console.log("pppppp", total);
+
 
   useEffect(() => {
     if (!user?.auth ) {
@@ -105,67 +110,72 @@ function SalaseDashBoard() {
 
   return (
     <>
-      <title>Dashboard | Material Kit</title>
+      {isLoading? <Loader/>:
 
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          py: 8,
-        }}
-      >
-        <Container maxWidth={false}>
-          <Grid container spacing={3}>
-            <Grid item lg={3} sm={6} xl={3} xs={12}>
-              <TotalSales
-                totalSales={totalales}
-                salesSinceLastMonth={
-                  totalales == 0
-                    ? 0
-                    : Math.round((totalSalesSinceLastMonth / totalales) * 100)
-                }
-              />
-            </Grid>
-            <Grid item xl={3} lg={3} sm={6} xs={12}>
-              <TotalOrders
-                totalOrders={totalOrders}
-                totalOrdersSinceLastMonth={
-                  totalOrders == 0
-                    ? 0
-                    : Math.round(
-                        (totalOrdersSinceLastMonth / totalOrders) * 100
-                      )
-                }
-              />
-            </Grid>
-            <Grid item xl={3} lg={3} sm={6} xs={12}>
-              <PendingOrders
-                pendingOrders={
-                  totalOrders == 0
-                    ? 0
-                    : Math.round((pendingOrdersCount / totalOrders) * 100)
-                }
-              />
-            </Grid>
-            <Grid item xl={3} lg={3} sm={6} xs={12}>
-              <TotalProfit
-                ongoingBiddingCount={ongoingBiddingCount}
-                sx={{ height: "100%" }}
-              />
-            </Grid>
-            <Grid item lg={8} md={12} xl={9} xs={12}>
-              <Sales labeles={labeles} data={data} />
-            </Grid>
-            <Grid item lg={4} md={6} xl={3} xs={12}>
-              <OrderOverView
-                total={total}
-                orderData={orderOrverview}
-                sx={{ height: "100%" }}
-              />
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
+      <div>
+<title>Dashboard | Material Kit</title>
+
+<Box
+  component="main"
+  sx={{
+    flexGrow: 1,
+    py: 8,
+  }}
+>
+  <Container maxWidth={false}>
+    <Grid container spacing={3}>
+      <Grid item lg={3} sm={6} xl={3} xs={12}>
+        <TotalSales
+          totalSales={totalales}
+          salesSinceLastMonth={
+            totalales == 0
+              ? 0
+              : Math.round((totalSalesSinceLastMonth / totalales) * 100)
+          }
+        />
+      </Grid>
+      <Grid item xl={3} lg={3} sm={6} xs={12}>
+        <TotalOrders
+          totalOrders={totalOrders}
+          totalOrdersSinceLastMonth={
+            totalOrders == 0
+              ? 0
+              : Math.round(
+                  (totalOrdersSinceLastMonth / totalOrders) * 100
+                )
+          }
+        />
+      </Grid>
+      <Grid item xl={3} lg={3} sm={6} xs={12}>
+        <PendingOrders
+          pendingOrders={
+            totalOrders == 0
+              ? 0
+              : Math.round((pendingOrdersCount / totalOrders) * 100)
+          }
+        />
+      </Grid>
+      <Grid item xl={3} lg={3} sm={6} xs={12}>
+        <TotalProfit
+          ongoingBiddingCount={ongoingBiddingCount}
+          sx={{ height: "100%" }}
+        />
+      </Grid>
+      <Grid item lg={8} md={12} xl={9} xs={12}>
+        <Sales labeles={labeles} data={data} />
+      </Grid>
+      <Grid item lg={4} md={6} xl={3} xs={12}>
+        <OrderOverView
+          total={total}
+          orderData={orderOrverview}
+          sx={{ height: "100%" }}
+        />
+      </Grid>
+    </Grid>
+  </Container>
+</Box>
+      </div>
+      }
     </>
   );
 }

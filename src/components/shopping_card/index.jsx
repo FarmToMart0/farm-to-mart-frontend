@@ -43,30 +43,33 @@ export default function BuyItemShoppingCard(props) {
 	  setOpen(false);
 	};
 	//=============
+	
 
-	const { item_id, unit_price, payment, transport, product_name,remainAmount } =
-		location.state;
-	console.log((item_id, unit_price, payment, transport, product_name,remainAmount));
-	const left_card_details = { unit_price, product_name,remainAmount };
+	//all data
+	const buyDataFromCard = location.state;
+
+
+	const price = buyDataFromCard.price
+	const product_name = buyDataFromCard.product_name
+	const remainAmount = buyDataFromCard.remainAmount
+	// const { item_id, unit_price, payment, transport, product_name,remainAmount } =
+	// 	location.state;
+	// console.log((item_id, unit_price, payment, transport, product_name,remainAmount));
+	const left_card_details = { price, product_name,remainAmount };
 
 	const [itemData, setItemData] = useState([]);
 
 	const handleBuyOrder = () => {
-		if (inputValue <= remainAmount ){
+		if (inputValue <= buyDataFromCard.remainAmount ){
 			if(inputValue == 0){
 				setMsg("Input amount can't be 0 kg")
 				handleClick()
 
 			}else{
+				buyDataFromCard.totValue = totValue
+				buyDataFromCard.amount = inputValue
 			navigate("/buyer/market/checkout/payment", {
-				state: {
-					transport: transport,
-					payment: payment,
-					product: product_name,
-					price: totValue,
-					amount: inputValue,
-					unitPrice:unit_price
-				},
+				state: buyDataFromCard,
 			});
 		}
 		}else{
@@ -76,8 +79,8 @@ export default function BuyItemShoppingCard(props) {
 		
 	};
 
-	const getImages = async (item_id) => {
-		var [res, code] = await api.getItemImages(item_id.trim());
+	const getImages = async (image_id) => {
+		var [res, code] = await api.getItemImages(image_id.trim());
 		
 		setItemData(code.slice(0, 3));
 	};
@@ -105,11 +108,11 @@ export default function BuyItemShoppingCard(props) {
 	}
 
 	useEffect(() => {
-		setTotValue((inputValue * unit_price).toFixed(2));
+		setTotValue((inputValue * buyDataFromCard.price).toFixed(2));
 	}, [inputValue]);
 
 	useEffect(() => {
-		getImages(item_id);
+		getImages(buyDataFromCard.item_id);
 	}, []);
 
 	return (
@@ -229,7 +232,7 @@ export default function BuyItemShoppingCard(props) {
 
 															<ul style={{ margin: 0 }}>
 																<b>Tranport : </b>
-																{transport}
+																{buyDataFromCard.transport}
 															</ul>
 														</Stack>
 
@@ -237,7 +240,7 @@ export default function BuyItemShoppingCard(props) {
 															<PaymentIcon sx={{ mx: 3 }} />
 															<ul style={{ margin: 0 }}>
 																<b>Online Payment : </b>
-																{payment}
+																{buyDataFromCard.payment}
 															</ul>
 														</Stack>
 													</div>

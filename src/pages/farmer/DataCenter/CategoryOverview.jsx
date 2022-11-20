@@ -32,7 +32,7 @@ export default function CategoryOverview ({categoryData}) {
       titleFontColor: theme.palette.text.primary
     }
   };
-console.log('dog',categoryData)
+
 const data = {
   datasets: [
     {

@@ -50,4 +50,12 @@ export default {
   getOrderOrverView(id) {
     return resolver(axiosClient.get(`/order/ordersoverview/${id}`));
   },
+  placeOrder(data){
+		return resolver(axiosClient.post(`/order/placeorder`,data))
+	},
+
+	updateProduct(data){
+		return resolver(axiosClient.put(`/order/updateproduct`,data))
+	}
+	
 };

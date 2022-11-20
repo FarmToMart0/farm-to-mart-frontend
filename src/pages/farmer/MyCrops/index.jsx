@@ -10,8 +10,10 @@ import MyCropTable from './Table/index';
 import SnackBarComponent from '../../../components/Snackbars';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../../../components/Loader';
 
 export default function TabPaneMyCrops(props) {
+  const [isLoading,setIsLoading]= useState(true);
   const [errorMessage, setErrorMessage] = useState({ type: '', message: '' });
   const [errorOccured, setErrorOccured] = useState(false);
   const [value, setValue] = React.useState('1');
@@ -47,6 +49,7 @@ setCompletedTask(temp);
    }
   })
   setCompletedTask(temp);
+
 }  
 
 const doSave=async(id)=>{
@@ -67,6 +70,7 @@ const doSave=async(id)=>{
       setErrorMessage({ type: 'success', message:'successfully updated harvest details' });
       setErrorOccured(true);
       setCompletedTask(temp);
+     
     }
     else{
       setErrorMessage({ type: 'error', message:res });
@@ -80,8 +84,8 @@ const doSave=async(id)=>{
 }  
 const doRefresh =async()=>{
  
-await getMyCropTask()
-await getCompletedMyCropTask()
+await getMyCropTask(user?.nic)
+await getCompletedMyCropTask(user?.nic)
 }
 
 
@@ -97,6 +101,7 @@ await getCompletedMyCropTask()
      }
     })
     setCompletedTask(temp);
+    
   } 
  
   const handleChange = (event, newValue) => {
@@ -109,7 +114,7 @@ async function getCompletedMyCropTask(nic) {
       let [code,res]=await api.farmer.getCompletedMycrops(nic);
       if (code ===201) {
         setCompletedTask(res.map((item)=>{return {'id':item._id,isEdit:false,startedDate:new Date(item.startingDateOfGrowing).getFullYear()+'-'+new Date(item.startingDateOfGrowing).getMonth()+1 +'-'+new Date(item.startingDateOfGrowing).getDate(),expectedDate:new Date(item.expectingDateOfHarvest).getFullYear()+'-'+new Date(item.expectingDateOfHarvest).getMonth()+1 +'-'+new Date(item.expectingDateOfHarvest).getDate(),cropType:item.cropType,landArea:`${item.landArea} ha` , location:item.location, harvestedAmount:`${item.harvestedAmount}Kg`,expectedAmount:`${item.expectedAmount}Kg`,harvestedDate:new Date(item.harvestedDate).getFullYear()+'-'+(parseInt(new Date(item.harvestedDate).getMonth())+1) +'-'+new Date(item.harvestedDate).getDate()}}))
-       
+        setIsLoading(false)
       }
     } catch (error) {
       console.log(error)
@@ -144,20 +149,23 @@ if(user?.userRole!='FARMER'){
 
 
   return (
-    <Box sx={{ width: '100%', typography: 'body1' }}>
-       <SnackBarComponent open={errorOccured} message={errorMessage.message} type={errorMessage.type}  setOpen={setErrorOccured}   />
-      <TabContext value={value}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <Tab label="On going Growing" value="1" />
-            <Tab label="Completed Tasks" value="2" />
-            
-          </TabList>
-        </Box>
-        <TabPanel value="1"> <MyCropTable doRefresh={doRefresh}  tab={true} columns={['Crop Type','Started date of Growing','Expected date for haversted','Viwe Details','Update harvest']} rows={orderData}/> </TabPanel>
-        <TabPanel value="2"> <MyCropTable doSave={doSave} updateHarvestAmount={updateHarvestAmount} updateHarvestDate={updateHarvestDate} handleClickEdit={handleClickEdit} tab={false} columns={['Crop Type','Harvested Date','Harvested Amount','Viwe Details','Edit']} rows={completedTask}/> </TabPanel>
-        
-      </TabContext>
-    </Box>
+    <div>
+      {isLoading ? <Loader/>:
+      <Box sx={{ width: '100%', typography: 'body1' }}>
+      <SnackBarComponent open={errorOccured} message={errorMessage.message} type={errorMessage.type}  setOpen={setErrorOccured}   />
+     <TabContext value={value}>
+       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+         <TabList onChange={handleChange} aria-label="lab API tabs example">
+           <Tab label="On going Growing" value="1" />
+           <Tab label="Completed Tasks" value="2" />
+           
+         </TabList>
+       </Box>
+       <TabPanel value="1"> <MyCropTable doRefresh={doRefresh}  tab={true} columns={['Crop Type','Started date of Growing','Expected date for haversted','Viwe Details','Update harvest']} rows={orderData}/> </TabPanel>
+       <TabPanel value="2"> <MyCropTable doSave={doSave} updateHarvestAmount={updateHarvestAmount} updateHarvestDate={updateHarvestDate} handleClickEdit={handleClickEdit} tab={false} columns={['Crop Type','Harvested Date','Harvested Amount','Viwe Details','Edit']} rows={completedTask}/> </TabPanel>
+       
+     </TabContext>
+   </Box>}
+    </div>
   );
   }

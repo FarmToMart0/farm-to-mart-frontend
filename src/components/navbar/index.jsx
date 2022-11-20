@@ -13,10 +13,13 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+
 import { useSelector, useDispatch } from 'react-redux';
 import logo from '../../assets/images/logo.png'
 import user from '../../api/modules/user';
+import NotificationIcon from "../NotificationIcon";
 import { logOutRequest } from '../../reducers/modules/user';
+import { Stack } from '@mui/system';
 
 
 
@@ -165,6 +168,16 @@ const ResponsiveAppBar = ({isLogin}) => {
           </Box>
 
    { isLogin &&  <Box sx={{ flexGrow: 0 }}>
+   <Stack spacing={3} direction='row'>
+								{/* <Button color="inherit" onClick={() => navigate('/#')}> */}
+
+								<NotificationIcon />
+								{/* <NotificationsIcon /> */}
+
+								{/* </Button> */}
+
+							
+						
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt={user?.firstName} src="#" />
@@ -203,6 +216,7 @@ const ResponsiveAppBar = ({isLogin}) => {
                 </MenuItem>)
               ))}
             </Menu>
+            </Stack>
           </Box>}
         </Toolbar>
       </Container>

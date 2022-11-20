@@ -1,28 +1,55 @@
 import AddressForm from "./address/index";
 import PaymentForm from "./payment/index";
 import Review from "./review/index";
+import Complete from "../order_complete/index";
 import Typography from "@mui/material/Typography";
 import React, { useState, useEffect } from "react";
+import API from "../../api/modules/order";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 //transport, payment,product,price,amount,unitPrice
 export default function Checkout(props) {
+	let navigate = useNavigate();
+	const user = useSelector((state) => state?.user);
+	const buyer_id = user?.id;
+	const allData = props.allData;
 	const { transport, payment, product, price, unitPrice } = props.data;
-	console.log(transport, payment, product, price, unitPrice);
+
 	const [address, setAddress] = useState([]);
 	const [paymentDetails, setPaymentDetails] = useState([]);
-	const [buyer_state, setBuyer_state] = useState("NotConfirmed");
 	const [finalize, setFinalize] = useState(false);
-	console.log(finalize);
-	const details = props.details;
-	var method = "";
+	const [ratings, setRatings] = useState(0);
 
+	const details = props.details;
+
+	var method = "";
+	
 	// set final state
 	const setFinalState = (argue) => {
 		setFinalize(argue);
 	};
 
-	const stateSet = (state) => {
-		setBuyer_state(state);
+	//set ratings
+	const setStart = (value) => {
+		setRatings(value);
+
+		allData.address = address;
+		allData.rating = ratings;
+		allData.buyer = buyer_id;
+		allData.paymentDetails = paymentDetails;
+		const item_id = allData.item_id
+		const remainQuantity = allData.remainAmount - allData.amount
+		
+		console.log(allData.remainAmount);
+		console.log(remainQuantity);
+		console.log(item_id);
+		
+		
+		API.placeOrder(allData);
+		API.updateProduct({product:item_id,remainQuantity:remainQuantity})
+		
+		navigate("/buyer/market");
 	};
 
 	const addressSet = (addr) => {
@@ -41,29 +68,20 @@ export default function Checkout(props) {
 		}
 	};
 
+	// srart rendaring
+
 	if (transport === "Available" && address.length == 0) {
 		return <AddressForm addressSet={addressSet} />;
-	} else if (
-		payment === "Available" &&
-		paymentDetails.length == 0 &&
-		buyer_state === "Confirmed"
-	) {
-		return <PaymentForm paymentSet={paymentSet} />;
-	} else {
-		if (transport === "Not Available" && payment === "Not Available") {
-			details.test = "noAdd";
-		} else {
-			details.address = { address };
-			details.payment = { payment };
-			details.test = "yesAdd";
-		}
-
+	} else if (transport === "Not Available" && address.length == 0) {
+		setAddress([["Farm pick up"]]);
+	} else if (payment === "Available" && paymentDetails.length == 0) {
 		return (
-			<Review
-				details={props.details}
-				stateSet={stateSet}
-				setFinalState={setFinalState}
-			/>
+			<PaymentForm paymentSet={paymentSet} setFinalState={setFinalState} />
 		);
+	} else if (payment === "Not Available" && paymentDetails.length == 0) {
+		
+		setPaymentDetails([["cash on delivery"]]);
+	} else {
+		return <Complete setFinalState={setFinalState} setStart={setStart} />;
 	}
 }

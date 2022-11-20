@@ -11,12 +11,16 @@ axiosClient.interceptors.request.use(function (config) {
   return config;
 });
 
+
+
 /**
  * Axios Response Resolver
  * will do error handling part
  * @returns [number, {*}]
- *           status_code will be http response codes
+ *           status_code will be http response codes        
  */
+
+
 export async function resolver(axiosResponse) {
   try {
     const response = await axiosResponse;

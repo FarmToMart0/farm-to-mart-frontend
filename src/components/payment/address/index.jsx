@@ -77,7 +77,7 @@ export default function AddressForm(props) {
 				handleClick();
 			}
 		} else {
-			props.addressSet("FARM_PICKUP");
+			props.addressSet(["FARM_PICKUP"]);
 		}
 	};
 

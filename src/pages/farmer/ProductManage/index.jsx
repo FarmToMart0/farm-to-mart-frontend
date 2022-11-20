@@ -3,15 +3,18 @@ import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import ItemAdd from '../../../components/ItemAdd/index';
-import { CssBaseline, Typography } from '@mui/material';
+import { CssBaseline, Grid, Typography } from '@mui/material';
+
 import ProductList from '../../../components/ProductList';
 import api from '../../../api';
 import AddIcon from '@mui/icons-material/Add';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../../../components/Loader';
 function ProductManage(props) {
   const user = useSelector((state) => state?.user);
   const navigate = useNavigate()
@@ -19,9 +22,11 @@ function ProductManage(props) {
  const [product,setProduct] = useState([]);
   const [searchedText, setSearchedText] = useState('');
   const [products, setAllProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const getAllProducts =async (id)=>{
     let temp = await api.farmer.getProduct(id);
     setAllProducts(temp[1]);
+    setIsLoading(false);
     
   }
   React.useEffect(() => {
@@ -75,7 +80,8 @@ React.useEffect(() => {
 
 // },[manageAddProdct])
     return (
-       <div> 
+       
+        <div> 
         <CssBaseline/> 
     <Box  sx={{ml:1,mt:1}} elevation={0}  square >
    {
@@ -103,8 +109,13 @@ React.useEffect(() => {
 </Box>
 
 {manageAddProdct[0] && <ItemAdd getProducts={getAllProducts} formShow={manageAddProdct} editProduct={product} edit={manageAddProdct[2]}/>}
-{!manageAddProdct[0] && <ProductList  handleRemove={doRemove} handleChangeFilter={handleChangeSearchFilter} dataList={products} openProductAddForm={handleEdit} />}
+{!manageAddProdct[0] &&   <ProductList  handleRemove={doRemove} handleChangeFilter={handleChangeSearchFilter} dataList={products} openProductAddForm={handleEdit} />
+
+   
+}
+
 </div> 
+    
     );
 }
 
