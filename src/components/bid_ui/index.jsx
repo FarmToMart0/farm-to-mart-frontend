@@ -32,6 +32,8 @@ export default function SimplePaper() {
 	
 	// buyer details
 	const buyer_id = user?.id
+	const phone = user?.phone
+	const address = user?.address
 	// const email = user?.email
 	const buyer_name = user?.firstName + user?.lastName
 	
@@ -40,16 +42,13 @@ export default function SimplePaper() {
 
 	const [bidLeaderId, setBidLeaderId] = useState("")
 	const [your_bid, setYour_bid] = useState(0);
-	const [checkBid, setCheckBid] = useState(false);
 	const [isBidOver, setIsBidOver] = useState(false);
 	const [current_bid, setCurrent_bid] = useState(0);
 
 	//notification details
 	const [message, setMessage] = useState("")
 	const [msgType, setMsgType] = useState("") //"success", error"
-	const [bidEndingTime, setBidEndingTime] = useState(	new Date(bidDataFromCard.bidEndTime))
-	const [currentTime,setCurrentTime] = useState("")
-	var iterrator =  new Date()
+	
 	useEffect(() => {
 		getBidData();
 	}, []);
@@ -102,13 +101,15 @@ export default function SimplePaper() {
   };
 
   //function for writing data to the real time database
-  const writeBidData = (BuyerId, ProductId, BuyerName, BidPrice) => {
+  const writeBidData = (BuyerId, ProductId, BuyerName, BidPrice,address,phone) => {
     if (bidAbility()) {
       const date = new Date();
       set(ref(db, "BidOrders/" + bidDataFromCard.farmer + "/" + ProductId), {
         buyerId: BuyerId,
         buyerName: BuyerName,
         bidPrice: BidPrice,
+		address:address,
+		phone:phone,
         // email:email,
         timeStamp: date.toString(),
       }).then(displayNotification("Your bid successfully placed", "success"));
@@ -138,12 +139,14 @@ export default function SimplePaper() {
     }
   };
 
+  
+
   // function for place bid button
   const placeBid = (e) => {
     e.preventDefault();
-    console.log(your_bid);
+    console.log(buyer_id, bidDataFromCard.item_id, buyer_name, your_bid,bidDataFromCard,phone,address);
     //writeBidData = (BuyerId, ProductId, BuyerName, BidPrice)
-    writeBidData(buyer_id, bidDataFromCard.item_id, buyer_name, your_bid);
+    writeBidData(buyer_id, bidDataFromCard.item_id, buyer_name, your_bid,bidDataFromCard,phone,address);
   };
 
   //function for get bid value
@@ -351,7 +354,7 @@ export default function SimplePaper() {
 							}}>
 							Market
 						</Button>
-						{isBidOver && (
+						{isBidOver && bidLeaderId===buyer_id &&(
 							// buy product button
 							<Button
 								variant='contained'
