@@ -6,8 +6,9 @@ import Navbar from "../../components/navbar/index";
 import CssBaseline from "@mui/material/CssBaseline";
 import Buy_card from "../../components/cards/buy_card/index";
 import Bid_card from "../../components/cards/bid_card/index";
-
+import Button from '@mui/material/Button';
 import Stack from "@mui/material/Stack";
+import { useNavigate } from "react-router-dom";
 
 import SearchField from "../../components/auto_com_search/index";
 
@@ -55,6 +56,7 @@ export default function Market() {
 	//buyer's selectons
 	const [district, setDistrict] = useState("Matara");
 	const [cropType, setCropType] = useState("Vegetables");
+  let navigate = useNavigate();
 
 	// Set satates according to the buyer's selection
 	const handleDistrict = (dis) => {
@@ -78,6 +80,10 @@ export default function Market() {
 
 		return res, code;
 	};
+
+  const navigateOrderReview =() =>{
+    navigate("/buyer/orderreview")
+  }
 
 	
 
@@ -161,6 +167,7 @@ export default function Market() {
 								{/* <h1 style={{float: "right"}}>FarmtoMart</h1> */}
 								<div>
 									<Stack direction='row' spacing={2}>
+                 
 										<SearchField
 											cropItems={arrDis}
 											category='District'
@@ -175,6 +182,7 @@ export default function Market() {
 											initiaiState ="Vegetables"
 											width = {350}
 										/>
+                     <Button variant="contained" onClick={navigateOrderReview}>ORDERS</Button>
 									</Stack>
 								</div>
 							</div>

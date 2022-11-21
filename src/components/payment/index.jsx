@@ -55,7 +55,7 @@ export default function Checkout(props) {
 		API.updateRemainCrop(updateData);
 		API.addReviews(reviewData)
 
-		navigate("/buyer/market");
+		navigate("/buyer/orderreview");
 	};
 
 	const addressSet = (addr) => {

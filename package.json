@@ -31,6 +31,7 @@
     "dayjs": "^1.11.5",
     "fast-equals": "^4.0.3",
     "firebase": "^9.13.0",
+    "force": "^0.0.3",
     "formik": "^2.2.9",
     "formik-material-ui": "^4.0.0-alpha.2",
     "formik-mui": "^5.0.0-alpha.0",
@@ -82,6 +83,6 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-object-rest-spread": "^7.18.9",
-    "cypress": "^11.0.1"
+    "cypress": "^11.1.0"
   }
 }

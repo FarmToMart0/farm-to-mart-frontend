@@ -12,15 +12,21 @@ import buyer from "../../api/modules/buyer";
 function OrderReview() {
 	const user = useSelector((state) => state?.user);
 	const [listOfOrder, setListOfOrder] =  useState([])
-	const buyer_id = user?.id
+	// const buyer_id = user?.id
 	const newArrayList = listOfOrder.filter(elemant=>elemant.idReceived == false )
-	// const buyer_id = "633693db8b0ef806b4a0819e"
+	const buyer_id = "637afd3440529bb4be3fde60"
 	
 	const getOrders = async () => {
-		const [res, code] = await API.getOrderByBuyer(buyer_id);
+		try{
+			const [res, code] = await API.getOrderByBuyer(buyer_id);
+			setListOfOrder(code);
+		}catch{
+			console.log("orderReview");
+		}
+		
 		
 			
-			setListOfOrder(code);
+			
 		
 
 	};
