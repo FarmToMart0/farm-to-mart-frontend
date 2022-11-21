@@ -141,13 +141,8 @@ if(user?.userRole!='FARMER'){
                      </Typography>
 
 
-                   </Stack><Stack direction="row" spacing={2}>
-                     <Typography fontSize='16px' color="text.primary">
-                       Address: {arr?.address}
-                     </Typography>
-
-
-                   </Stack><Stack direction="row" spacing={2}>
+                   </Stack>
+                   <Stack direction="row" spacing={2}>
                      <Typography fontSize='13px' color="text.secondary" paddingTop='3px'>
                        Bid Date :{(new Date(arr?.timeStamp)).getDate() +
                          "/" + ((new Date(arr?.timeStamp)).getMonth() + 1) +
