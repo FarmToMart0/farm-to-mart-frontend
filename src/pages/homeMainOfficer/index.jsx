@@ -8,7 +8,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import InputAdornment from '@mui/material/InputAdornment';
 import AdminNavbar from '../../components/admin_navbar/index';
 import AddGSO from '../../components/addGSO/index';
-import GSOProfile from '../../components/gsoDetails/index';
+import Typography from '@mui/material/Typography';
 import DetailsCard from '../../components/details_card_gso/index';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -100,6 +100,10 @@ export default function HomeMainOfficer() {
     <div style={{margin: 'auto',
         width: '70%',
         padding: '10px', }}>
+
+      <Typography component="h5" variant="h3" color='primary' sx={{mt: 3, mb: 3, fontSize: '1rem', fontWeight: 'bold', textAlign: 'center'}}>
+            Enter Govijana Seva Offier's National Identity Card Number to Register or View Details of the Officer.
+      </Typography>
             
       <Box component="" sx={{ mt: 3, mb: 3}} >
       <TextField

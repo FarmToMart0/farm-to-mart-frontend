@@ -17,6 +17,7 @@ import Alert from '@mui/material/Alert';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import gsoHome from '../../assets/images/gsoHome.jpg';
 import api from '../../api';
 
@@ -111,6 +112,10 @@ export default function GSOHome() {
     <div style={{margin: 'auto',
         width: '70%',
         padding: '10px', }}>
+      
+      <Typography component="h5" variant="h3" color='primary' sx={{mt: 3, mb: 3, fontSize: '1rem', fontWeight: 'bold', textAlign: 'center'}}>
+            Enter Farmer's National Identity Card Number to Register or View Details of the Farmer.
+      </Typography>
             
       <Box component="" sx={{ mt: 3, mb: 3}} >
       <TextField
