@@ -60,11 +60,11 @@ setOpenDialog(true)
             <NavBar isLogin={user.auth } userType={user.userRole}/>     
       <CssBaseline />
     
-      <div style={{ maxWidth: 'auto',   minHeight:660, backgroundImage: `url(${background})`,
+      <div style={{ maxWidth: 'auto',   minHeight:'100vh', backgroundImage: `url(${background})`,
   backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundColor:'#f5f9fb', 
   }}>
     {/* backgroundSize:'150vh', backgroundPosition:'right', */}
-  <div style={{ width:'50%',   minHeight:660,   background: 'rgba(255, 255, 255, 0.6)', paddingLeft:100, paddingTop:170,
+  <div style={{ width:'50%',   minHeight:'100vh',   background: 'rgba(255, 255, 255, 0.6)', paddingLeft:100, paddingTop:170,
   }} >
     <div style={{ paddingTop:18, paddingLeft:5,
   }}>
