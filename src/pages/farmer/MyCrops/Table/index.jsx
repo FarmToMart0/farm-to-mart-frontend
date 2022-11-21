@@ -396,7 +396,7 @@ export default function MyCropTable({
                     variant="outlined"
                     startIcon={<EditIcon />}
                   >
-                    Update Harvest Details
+                    Update Harvest 
                   </Button>
                 </StyledTableCell>
               </StyledTableRow>
