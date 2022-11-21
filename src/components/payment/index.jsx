@@ -3,7 +3,7 @@ import AddressForm from "./address/index";
 import PaymentForm from "./payment/index";
 import Complete from "../order_complete/index";
 import React, { useState } from "react";
-import API from "../../api/modules/order";
+import API from "../../api";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -50,10 +50,16 @@ export default function Checkout(props) {
 		const remainQuantity = allData.remainAmount - allData.amount;
 		const updateData = { product: item_id, remainQuantity: remainQuantity }
 		const reviewData = {farmer:allData.farmer,buyer:buyer_id,comment:com,rating:addr}
-		
-		API.placeOrder(allData);
-		API.updateRemainCrop(updateData);
-		API.addReviews(reviewData)
+		try {
+
+		API.order.placeOrder(allData);
+		API.order.updateRemainCrop(updateData);
+		API.order.addReviews(reviewData)
+		const [code ,res] = await API.farmer.pushNotification({id:allData.farmer,message:`New order is placed ${allData.product_name}`})
+
+		} catch (error) {
+			console.log(error)
+		}
 
 		navigate("/buyer/market");
 	};

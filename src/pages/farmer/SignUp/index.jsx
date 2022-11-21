@@ -193,6 +193,19 @@ export default function SignUp() {
         setErrorOccured(true);
 
         setRefresh(true)
+        setFarmer({
+          firstName: "",
+          lastName: "",
+          address: "",
+          phone: "",
+          gsdName: "",
+          district:'',
+          gsdCode: "",
+          email: "",
+          nic:"",
+          password:"",
+          confPassword:""
+        })
       } else {
         setErrorMessage({ type: "error", message: res });
         setErrorOccured(true);
