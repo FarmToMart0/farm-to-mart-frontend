@@ -60,8 +60,15 @@ const data = {"id":props.item._id}
 
   const dialoghandleClose = () => {
     setDialogopen(false);
-    API.updateProduct(data)
-    handleClick()
+    try {
+      API.updateProduct(data)
+      handleClick()
+      window.location.reload()
+    } catch (error) {
+      
+    }
+
+    
 
   };
 

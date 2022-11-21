@@ -10,9 +10,6 @@ axiosClient.interceptors.request.use(function (config) {
   config.headers.Authorization = resolve_accessToken();
   return config;
 });
-
-
-
 /**
  * Axios Response Resolver
  * will do error handling part

@@ -47,7 +47,12 @@ getReviewsList(user?.id);
             <Rating name="read-only" value={item?.rating} readOnly />
           }
         title={item?.buyer?.firstName+" "+item?.buyer?.lastName}
-        subheader={new Date(item?.commentedDate).getFullYear()+'-'+(parseInt(new Date(item?.commentedDate).getMonth())+1) +'-'+new Date(item?.commentedDate).getDate()}
+        subheader={(new Date(item.commentedDate)).getDate() +
+          "/" + ((new Date(item.commentedDate)).getMonth() + 1) +
+          "/" + (new Date(item.commentedDate)).getFullYear() +
+          " | " + (new Date(item.commentedDate)).getHours() +
+          ":" + (new Date(item.commentedDate)).getMinutes() +
+          ":" + (new Date(item.commentedDate)).getSeconds()}
       />
       
     <CardContent>

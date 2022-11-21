@@ -47,7 +47,7 @@ export default function ItemCard(props) {
     if(IsLogged){
       navigate("/buyer/market/checkout", { state: buyDataArray });
     }else{
-      navigate('/login')
+      navigate('/logout')
     }
     
   }

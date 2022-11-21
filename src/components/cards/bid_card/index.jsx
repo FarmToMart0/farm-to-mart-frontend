@@ -47,7 +47,7 @@ export default function ItemCard(props) {
     if(IsLogged){
       navigate("/buyer/market/bidding", { state: bidUiData });
     }else{
-      navigate('/login')
+      navigate('/logout')
     }
     
     // navigate('/buyer/market/bidding',{state:{item_id:bidUiData.item_id,base_price:bidUiData.price,min_bid:bidUiData.min_bid,farmer:bidUiData.farmer,bidEndTime:bidUiData.bidEndTime}})
@@ -59,7 +59,7 @@ export default function ItemCard(props) {
   
   if(user?.userRole ==='BUYER'){
    setIsLogged(true)
-}
+  }
       
     
   }, []);
