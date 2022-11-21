@@ -1,47 +1,72 @@
 import React, { useState, useEffect } from "react";
-import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-import Navbar from "../navbar/index";
-import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
-import Buy_card from "../cards/buy_card/index";
-import Bid_card from "../cards/bid_card/index";
-import BackI from "../../assets/images/weat.jpg";
 import OrderViewCard from "../orderViewCard";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import SearchField from "../auto_com_search/index";
-import TextFiled from "../text_field/index";
-import api from "../../api/modules/buyer";
+import { Stack } from '@mui/system';
+import API from "../../api/modules/order";
+import { useSelector, useDispatch } from 'react-redux';
+import buyer from "../../api/modules/buyer";
 
-function orderReview() {
-	const listOfItems = ["ko","igy","oh"]
+function OrderReview() {
+	const user = useSelector((state) => state?.user);
+	const [listOfOrder, setListOfOrder] =  useState([])
+	// const buyer_id = user?.id
+	const newArrayList = listOfOrder.filter(elemant=>elemant.idReceived == false )
+	const buyer_id = "637afd3440529bb4be3fde60"
+	
+	const getOrders = async () => {
+		try{
+			const [res, code] = await API.getOrderByBuyer(buyer_id);
+			setListOfOrder(code);
+		}catch{
+			console.log("orderReview");
+		}
+		
+		
+			
+			
+		
+
+	};
+	
+
+	useEffect(() => {
+		getOrders()
+	  
+	}, [])
+
+	
+	
+	
 	return (
 		<React.Fragment>
 			<CssBaseline />
 			<Box
 				sx={{
 					display: "flex",
-					flexWrap: "wrap",
 					justifyContent: "center",
 					alignItems: "center",
 					width: "100%",
+					marginTop:5
+					
 				}}>
 				<Paper
 					elevation={5}
 					style={{
+						display: "flex",
+						alignItems: "center",
+						justifyContent: "center",
+						justifyItems: "Center",
 						backgroundColor: "#E5F6DF",
 						borderRadius: "30px",
 						marginTop: 75,
-
+						width: "80%",
 						padding: 40,
 						// boxShadow: "rgba(0, 0, 0, 0.12) 5px 6px 8px, rgba(0, 0, 0, 0.24) 5px 6px 7px"
 					}}>
 					<Box sx={{ width: "100%" }}>
-						{/* SEARCH PANEL */}
-
 						<Box
 							sx={{
 								display: "flex",
@@ -50,11 +75,12 @@ function orderReview() {
 								justifyItems: "Center",
 								"& > :not(style)": {
 									m: 1,
-									width: 500,
+									width: "100%",
 									height: 128,
 									paddingTop: 3,
 								},
 							}}>
+							<Stack direction = "row" spacing={"50%"}>
 							<div style={{ marginLeft: "auto" }}>
 								{/* <h1 style={{float: "right"}}>FarmtoMart</h1> */}
 								<p
@@ -77,24 +103,30 @@ function orderReview() {
 									Mart{" "}
 								</p>
 							</div>
+
+							<div>
+								<p style={{fontSize: 40,
+										margin: 0,
+										fontFamily: "Rokkitt, serif",
+										color: "#006400",}}> <b>Order Summery</b></p>
+							</div>
+							</Stack>
 							
 						</Box>
 
-						{/* end of search panel */}
+            {/* end of search panel */}
 
-						{listOfItems.length != 0 ? (
+						{newArrayList.length != 0 ? (
 							<Grid
 								container
 								sx={{ marginTop: 1.5, marginBottom: 6 }}
 								rowSpacing={3}
 								columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-								{listOfItems.map((item, index) =>
-									
-										<Grid item xs={3} key={item}>
-											<OrderViewCard item={item} />
-										</Grid>
-									
-								)}
+								{newArrayList.map((item, index) => (
+									<Grid item xs={3} key={index}>
+										<OrderViewCard item={item} />
+									</Grid>
+								))}
 							</Grid>
 						) : (
 							<React.Fragment>
@@ -110,7 +142,7 @@ function orderReview() {
 										style={{
 											margin: 80,
 										}}>
-										No Available Items
+										No Orders
 									</h1>
 								</div>
 							</React.Fragment>
@@ -122,4 +154,4 @@ function orderReview() {
 	);
 }
 
-export default orderReview;
+export default OrderReview;

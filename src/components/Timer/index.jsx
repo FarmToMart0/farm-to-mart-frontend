@@ -1,6 +1,5 @@
 import React,{useState,useEffect} from 'react';
 const calculateTimeLeft = (date) => {
-    let year = new Date().getFullYear();
     let difference = +new Date(date) - +new Date();
   
     let timeLeft = {};

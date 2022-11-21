@@ -3,8 +3,7 @@ import Joi from "joi-browser";
 import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -15,16 +14,16 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import InputLabel from "@mui/material/InputLabel";
-import FormHelperText from "@mui/material/FormHelperText";
+
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Alert from "@mui/material/Alert";
 import ResponsiveAppBar from "../../../components/navbar";
 import api from "../../../api";
-import { setAuthorizationKey } from "../../../utils/localStorageHelper";
+
 import SnackBarComponent from "../../../components/Snackbars";
-import farmer from "../../../api/modules/farmer";
-import { useSelector, useDispatch } from 'react-redux';
+
+import { useSelector } from 'react-redux';
 
 
 function Copyright(props) {
@@ -194,6 +193,19 @@ export default function SignUp() {
         setErrorOccured(true);
 
         setRefresh(true)
+        setFarmer({
+          firstName: "",
+          lastName: "",
+          address: "",
+          phone: "",
+          gsdName: "",
+          district:'',
+          gsdCode: "",
+          email: "",
+          nic:"",
+          password:"",
+          confPassword:""
+        })
       } else {
         setErrorMessage({ type: "error", message: res });
         setErrorOccured(true);

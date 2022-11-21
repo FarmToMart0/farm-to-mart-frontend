@@ -31,6 +31,7 @@
     "dayjs": "^1.11.5",
     "fast-equals": "^4.0.3",
     "firebase": "^9.13.0",
+    "force": "^0.0.3",
     "formik": "^2.2.9",
     "formik-material-ui": "^4.0.0-alpha.2",
     "formik-mui": "^5.0.0-alpha.0",
@@ -44,6 +45,7 @@
     "react-helmet": "^6.1.0",
     "react-number-format": "^5.1.1",
     "react-perfect-scrollbar": "^1.5.8",
+    "react-pwa-installer-prompt": "^1.0.8",
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.4.0",
     "react-scripts": "5.0.1",
@@ -81,6 +83,6 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-object-rest-spread": "^7.18.9",
-    "cypress": "^11.0.1"
+    "cypress": "^11.1.0"
   }
 }

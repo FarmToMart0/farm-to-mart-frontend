@@ -9,12 +9,12 @@ import { TotalOrders } from "../../../components/dashboard/total-oders";
 import { TotalProfit } from "../../../components/dashboard/ongoingBiding";
 import { OrderOverView } from "../../../components/dashboard/orderOverview";
 import { useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import Loader from "../../../components/Loader";
 
 function SalaseDashBoard() {
-  const navigate = useNavigate()
-  const [isLoading,setIsLoading]= useState(true);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
   const user = useSelector((state) => state?.user);
   const [totalOrders, setTotalOrders] = useState(0);
   const [totalOrdersSinceLastMonth, settotalOrdersSinceLastMonth] = useState(0);
@@ -25,26 +25,24 @@ function SalaseDashBoard() {
   const [salseOverView, setSalesOverView] = useState(0);
   const [labeles, setLables] = useState([]);
   const [data, setData] = useState([]);
+  const [total, setTotal] = useState([]);
   const [orderOrverview, setOrderOverView] = useState([]);
 
-  var total = 0;
-  orderOrverview.forEach((element) => {
-    total = total + element.totalAmount;
-  });
+  
   async function getAllDetails(id) {
     try {
       const [code1, res1] = await api.order.getOngoingBiddingCount(id);
-      setongoingBiddingCount(res1[0].farmer);
+      setongoingBiddingCount(res1[0]?.farmer);
       const [code2, res2] = await api.order.getTotalPendingOrdersCount(id);
-      setPendingOrdersCount(res2[0].farmer);
+      setPendingOrdersCount(res2.length?res2[0]?.farmer:0);
       const [code3, res3] = await api.order.getTotalOrdersSinceLastMonth(id);
-      settotalOrdersSinceLastMonth(res3[0].farmer);
+      settotalOrdersSinceLastMonth(res3[0]?.farmer);
       const [code4, res4] = await api.order.getTotalSalesSinceLastMonth(id);
-      settotalSalesSinceLastMonth(res4[0].totalSales);
+      settotalSalesSinceLastMonth(res4[0]?.totalSales);
       const [code5, res5] = await api.order.getTotalSales(id);
-      setTotalSales(res5[0].totalSales);
+      setTotalSales(res5[0]?.totalSales);
       const [code6, res6] = await api.order.getTotalOrders(id);
-      setTotalOrders(res6[0].farmer);
+      setTotalOrders(res6[0]?.farmer);
       const [code7, res7] = await api.order.getSalesOverviwes(id);
       setSalesOverView(res7);
       setLables(
@@ -85,97 +83,102 @@ function SalaseDashBoard() {
       setOrderOverView(
         res8.map((item) => {
           return {
-            totalAmount: item.totalAmount,
-            productName: item.details[0].productName,
+            totalAmount: item?.totalAmount,
+            productName: item?.details[0]?.productName,
+           
           };
         })
       );
-
-      setIsLoading(false)
+      
+console.log('vvvvvvvvvvvvvv',res1,res2,res3,res4,res5,res6);
+      setIsLoading(false);
     } catch (error) {
-      setIsLoading(false)
+      setIsLoading(false);
       console.log(error);
     }
   }
 
-
   useEffect(() => {
-    if (!user?.auth ) {
-      navigate('/login')
-  }if(user?.userRole!='FARMER'){
-    navigate('/')
-}
+    if (!user?.auth) {
+      navigate("/login");
+    }
+    if (user?.userRole != "FARMER") {
+      navigate("/");
+    }
     getAllDetails(user?.id);
   }, []);
 
   return (
     <>
-      {isLoading? <Loader/>:
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div>
+          <title>Dashboard | Material Kit</title>
 
-      <div>
-<title>Dashboard | Material Kit</title>
-
-<Box
-  component="main"
-  sx={{
-    flexGrow: 1,
-    py: 8,
-  }}
->
-  <Container maxWidth={false}>
-    <Grid container spacing={3}>
-      <Grid item lg={3} sm={6} xl={3} xs={12}>
-        <TotalSales
-          totalSales={totalales}
-          salesSinceLastMonth={
-            totalales == 0
-              ? 0
-              : Math.round((totalSalesSinceLastMonth / totalales) * 100)
-          }
-        />
-      </Grid>
-      <Grid item xl={3} lg={3} sm={6} xs={12}>
-        <TotalOrders
-          totalOrders={totalOrders}
-          totalOrdersSinceLastMonth={
-            totalOrders == 0
-              ? 0
-              : Math.round(
-                  (totalOrdersSinceLastMonth / totalOrders) * 100
-                )
-          }
-        />
-      </Grid>
-      <Grid item xl={3} lg={3} sm={6} xs={12}>
-        <PendingOrders
-          pendingOrders={
-            totalOrders == 0
-              ? 0
-              : Math.round((pendingOrdersCount / totalOrders) * 100)
-          }
-        />
-      </Grid>
-      <Grid item xl={3} lg={3} sm={6} xs={12}>
-        <TotalProfit
-          ongoingBiddingCount={ongoingBiddingCount}
-          sx={{ height: "100%" }}
-        />
-      </Grid>
-      <Grid item lg={8} md={12} xl={9} xs={12}>
-        <Sales labeles={labeles} data={data} />
-      </Grid>
-      <Grid item lg={4} md={6} xl={3} xs={12}>
-        <OrderOverView
-          total={total}
-          orderData={orderOrverview}
-          sx={{ height: "100%" }}
-        />
-      </Grid>
-    </Grid>
-  </Container>
-</Box>
-      </div>
-      }
+          <Box
+            component="main"
+            sx={{
+              flexGrow: 1,
+              py: 8,
+            }}
+          >
+            <Container maxWidth={false}>
+              <Grid container spacing={3}>
+                <Grid item lg={3} sm={6} xl={3} xs={12}>
+                  <TotalSales
+                    totalSales={totalales}
+                    salesSinceLastMonth={
+                      totalales == 0
+                        ? 0
+                        : Math.round(
+                            (totalSalesSinceLastMonth / totalales) * 100
+                          )
+                    }
+                  />
+                </Grid>
+                <Grid item xl={3} lg={3} sm={6} xs={12}>
+                  <TotalOrders
+                    totalOrders={totalOrders}
+                    totalOrdersSinceLastMonth={
+                      totalOrders == 0
+                        ? 0
+                        : Math.round(
+                            (totalOrdersSinceLastMonth / totalOrders) * 100
+                          )
+                    }
+                  />
+                </Grid>
+                <Grid item xl={3} lg={3} sm={6} xs={12}>
+                  <PendingOrders
+                    pendingOrders={
+                      totalOrders == 0
+                        ? 0
+                        : Math.round((pendingOrdersCount / totalOrders) * 100)
+                    }
+                  />
+                </Grid>
+                <Grid item xl={3} lg={3} sm={6} xs={12}>
+                  <TotalProfit
+                    ongoingBiddingCount={ongoingBiddingCount}
+                    sx={{ height: "100%" }}
+                  />
+                </Grid>
+                <Grid item lg={8} md={12} xl={9} xs={12}>
+                  <Sales labeles={labeles} data={data} />
+                </Grid>
+                <Grid item lg={4} md={6} xl={3} xs={12}>
+                  <OrderOverView
+                    
+                    orderData={orderOrverview}
+                    sx={{ height: "100%" }}
+                  />
+                </Grid>
+              </Grid>
+            </Container>
+          </Box>
+        </div>
+      )}
     </>
   );
 }

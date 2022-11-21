@@ -1,20 +1,18 @@
-import * as React from 'react';
-import dayjs from 'dayjs';
-import TextField from '@mui/material/TextField';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
-import { DesktopDateTimePicker } from '@mui/x-date-pickers/DesktopDateTimePicker';
-import Stack from '@mui/material/Stack';
+import * as React from "react";
+import dayjs from "dayjs";
+import TextField from "@mui/material/TextField";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
-export default function ResponsiveDateTimePickers({handleDate,endDate}) {
+import Stack from "@mui/material/Stack";
+
+export default function ResponsiveDateTimePickers({ handleDate, endDate }) {
   const [value, setValue] = React.useState(dayjs(endDate));
- 
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Stack spacing={3}>
-        
         <DateTimePicker
           label="Ending Time"
           renderInput={(params) => <TextField {...params} />}
@@ -22,13 +20,8 @@ export default function ResponsiveDateTimePickers({handleDate,endDate}) {
           onChange={(newValue) => {
             setValue(newValue);
             handleDate(value);
-          }
-          
-        
-}
-        minDateTime={dayjs(Date.now())}
-        
-         
+          }}
+          minDateTime={dayjs(Date.now())}
         />
       </Stack>
     </LocalizationProvider>

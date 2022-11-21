@@ -2,37 +2,35 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import TextF from "../../components/text_field/index";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Chip from "@mui/material/Chip";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { useNavigate, useLocation } from "react-router-dom";
 import TextField from "@mui/material/TextField";
-import api from "../../api/modules/buyer";
 import firebaseapp from "../../api/firebase";
-import { ref, get, child, set, onValue } from "firebase/database";
+import { ref, set, onValue } from "firebase/database";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-import { async } from "@firebase/util";
 import SendIcon from "@mui/icons-material/Send";
 import CoundDown from "../Timer/index";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from "react-redux";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
-	return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export default function SimplePaper() {
-	const user = useSelector((state) => state?.user);
-	const navigate = useNavigate();
-	const location = useLocation();
+  const user = useSelector((state) => state?.user);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-	const db = firebaseapp.startFirebase();
-
+  const db = firebaseapp.startFirebase();
+  
 	//incoming all data
 	const bidDataFromCard = location.state;
-	console.log(bidDataFromCard);
+	
+	
 	
 	
 	
@@ -48,121 +46,140 @@ export default function SimplePaper() {
 	const [bidLeaderId, setBidLeaderId] = useState("")
 	const [your_bid, setYour_bid] = useState(0);
 	const [checkBid, setCheckBid] = useState(false);
-	const [bidLead, setBidLead] = useState(false);
+	const [isBidOver, setIsBidOver] = useState(false);
 	const [current_bid, setCurrent_bid] = useState(0);
 
 	//notification details
 	const [message, setMessage] = useState("")
 	const [msgType, setMsgType] = useState("") //"success", error"
-
+	const [bidEndingTime, setBidEndingTime] = useState(	new Date(bidDataFromCard.bidEndTime))
+	const [currentTime,setCurrentTime] = useState("")
+	var iterrator =  new Date()
 	useEffect(() => {
 		getBidData();
 	}, []);
 
+	useEffect(() => {
+		
+		setInterval(() => {
+			if (new Date(bidDataFromCard.bidEndTime) <= new Date()){
+				
+				setIsBidOver(true)
+			}
+		}, 1000);
+	}, []);
+
+
+
 	// submit bid order function
 
 	const handleBidOrder =() =>{
-		navigate("/buyer/market/checkout/payment", {
-			state:bidDataFromCard
-		});
+		bidDataFromCard.totValue = current_bid  
+		bidDataFromCard.amount = bidDataFromCard.remainAmount  
+			navigate("/buyer/market/checkout/payment", {
+				state: bidDataFromCard,
+			});
 	}
 
-	//display Notification
-	const displayNotification = (message,type)=>{
-		setMessage(message)
-		setMsgType(type)
-		handleClick();
+  // submit bid order function
 
-	}
 
-	//function for getting bid values
+  //display Notification
+  const displayNotification = (message, type) => {
+    setMessage(message);
+    setMsgType(type);
+    handleClick();
+  };
 
-	const getBidData = async () => {
-		const starCountRef = ref(db, "BidOrders/" +bidDataFromCard.farmer+'/'+bidDataFromCard.item_id);
-		onValue(starCountRef, (snapshot) => {
-			if (snapshot.exists()) {
-				setCurrent_bid(snapshot.val().bidPrice);
-				setBidLeaderId(snapshot.val().buyerId)
-			}
-		});
-	};
+  //function for getting bid values
 
-	//function for writing data to the real time database
-	const writeBidData = (BuyerId, ProductId, BuyerName, BidPrice) => {
-		if (bidAbility()){
-			const date = new Date()
-			set(ref(db, "BidOrders/" +bidDataFromCard.farmer+'/'+ ProductId), {
-				buyerId: BuyerId,
-				buyerName: BuyerName,
-				bidPrice: BidPrice,
-				// email:email,
-				timeStamp:date.toString()
-			}).then(
-				displayNotification("Your bid successfully placed","success")
-			);
-		}else{
-			setYour_bid(0)
-		}
+  const getBidData = async () => {
+    const starCountRef = ref(
+      db,
+      "BidOrders/" + bidDataFromCard.farmer + "/" + bidDataFromCard.item_id
+    );
+    onValue(starCountRef, (snapshot) => {
+      if (snapshot.exists()) {
+        setCurrent_bid(snapshot.val().bidPrice);
+        setBidLeaderId(snapshot.val().buyerId);
+      }
+    });
+  };
 
-		
-	};
+  //function for writing data to the real time database
+  const writeBidData = (BuyerId, ProductId, BuyerName, BidPrice) => {
+    if (bidAbility()) {
+      const date = new Date();
+      set(ref(db, "BidOrders/" + bidDataFromCard.farmer + "/" + ProductId), {
+        buyerId: BuyerId,
+        buyerName: BuyerName,
+        bidPrice: BidPrice,
+        // email:email,
+        timeStamp: date.toString(),
+      }).then(displayNotification("Your bid successfully placed", "success"));
+    } else {
+      setYour_bid(0);
+    }
+  };
 
-	//function for checking bid condition
-	const bidAbility = () => {
-		if (your_bid > current_bid ) {
-			if(your_bid > bidDataFromCard.price){
-				
-				return true
-			}else{
-				displayNotification("Your bid value must greater than initial bid value", "error")
-				return false
-			}
-			
-		}else{
-			displayNotification("your bid value must greater than current bid value","error")
-			return false
-		}
-	};
+  //function for checking bid condition
+  const bidAbility = () => {
+    if (your_bid > current_bid) {
+      if (your_bid > bidDataFromCard.price) {
+        return true;
+      } else {
+        displayNotification(
+          "Your bid value must greater than initial bid value",
+          "error"
+        );
+        return false;
+      }
+    } else {
+      displayNotification(
+        "your bid value must greater than current bid value",
+        "error"
+      );
+      return false;
+    }
+  };
 
-	// function for place bid button
-	const placeBid = (e) => {
-		e.preventDefault();
-		console.log(your_bid);
-		//writeBidData = (BuyerId, ProductId, BuyerName, BidPrice)
-		writeBidData(buyer_id,bidDataFromCard.item_id,buyer_name,your_bid);
-		
-		
-	};
+  // function for place bid button
+  const placeBid = (e) => {
+    e.preventDefault();
+    console.log(your_bid);
+    //writeBidData = (BuyerId, ProductId, BuyerName, BidPrice)
+    writeBidData(buyer_id, bidDataFromCard.item_id, buyer_name, your_bid);
+  };
 
-	//function for get bid value
-	const getBid = () => {};
+  //function for get bid value
+  const getBid = () => {};
 
-	const getBidStatus = () => {
-		if (current_bid == 0) {
-			return "Bid has not started yet!";
-		} else if (bidLeaderId === buyer_id) {
-			return " You are  the Bid Leader";
-		} else {
-			return " You are not the Bid Leader";
-		}
-		return "I have "
-	};
+  const getBidStatus = () => {
+    if (current_bid == 0) {
+      return "Bid has not started yet!";
+    } else if (bidLeaderId === buyer_id) {
+      return " You are  the Bid Leader";
+    } else {
+      return " You are not the Bid Leader";
+    }
+    return "I have ";
+  };
 
-	// Notification things
-	const [open, setOpen] = React.useState(false);
+  // Notification things
+  const [open, setOpen] = React.useState(false);
 
-	const handleClick = () => {
-		setOpen(true);
-	};
+  const handleClick = () => {
+    setOpen(true);
+  };
 
-	const handleClose = (event, reason) => {
-		if (reason === "clickaway") {
-			return;
-		}
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
 
-		setOpen(false);
-	};
-	//======================
+    setOpen(false);
+  };
+  //======================
 
 	return (
 		<Box
@@ -205,7 +222,7 @@ export default function SimplePaper() {
 							Current Bid Value (LKR)
 						</p>
 						<Chip
-							sx={{ px: 3, py: 4 }}
+							sx={{ px: 4, py: 5 }}
 							label=<p
 								style={{
 									fontSize: 40,
@@ -213,18 +230,18 @@ export default function SimplePaper() {
 									margin: 0,
 									color: "#4BB543",
 								}}>
-								{current_bid} 
+								{Number(current_bid).toFixed(2)} 
 							</p>
 							variant='outlined'
 						/>
 					</Stack>
 
-					<Stack sx={{ mx: 5, alignItems: "center" }}>
+					<Stack sx={{ mx: 4, alignItems: "center" }}>
 						<p style={{ fontSize: 30, fontWeight: "bold" }}>
 							Your Current Status
 						</p>
 						<Chip
-							sx={{ p: 3, py: 4 }}
+							sx={{ p: 4, py: 5 }}
 							label=<p
 								style={{
 									fontSize: 30,
@@ -238,9 +255,9 @@ export default function SimplePaper() {
 						/>
 					</Stack>
 
-					<Stack sx={{ mx: 5 }}>
+					<Stack sx={{ mx: 7 }}>
 						<p style={{ fontSize: 30, fontWeight: "bold" }}>Remaining Time</p>
-						<Chip sx={{ p: 3, py: 4 }} label=<CoundDown date={bidDataFromCard.bidEndTime} /> variant='outlined' />
+						<Chip sx={{ p: 4, py: 5 }} label=<CoundDown date={bidDataFromCard.bidEndTime} /> variant='outlined' />
 					</Stack>
 				</Stack>
 				{/* start of bidding card */}
@@ -285,25 +302,26 @@ export default function SimplePaper() {
 								</p>
 								{/* <TextF title={"Bidding Amount"}  style={{display:'flex',alignItems:'center',justifyContent:'center'}}/> */}
 
-								{/* =================Text Field =================== */}
+                {/* =================Text Field =================== */}
 
-								<Box
-									component='form'
-									sx={{
-										"& > :not(style)": { m: 1, width: "100%" },
-									}}
-									noValidate
-									autoComplete='off'>
-									<TextField
-										id='standard-basic'
-										label='Amount of Bid'
-										variant='standard'
-										type='number'
-										onChange={(e) => {
-											setYour_bid(e.target.value);
-										}}
-									/>
-								</Box>
+                <Box
+                  component="form"
+                  sx={{
+                    "& > :not(style)": { m: 1, width: "100%" },
+                  }}
+                  noValidate
+                  autoComplete="off"
+                >
+                  <TextField
+                    id="standard-basic"
+                    label="Amount of Bid"
+                    variant="standard"
+                    type="number"
+                    onChange={(e) => {
+                      setYour_bid(e.target.value);
+                    }}
+                  />
+                </Box>
 
 								{/* ============= End Text Field ================= */}
 								<Stack
@@ -313,7 +331,7 @@ export default function SimplePaper() {
 										alignItems: "center",
 										justifyContent: "center",
 									}}>
-									{bidLead ? (
+									{isBidOver ? (
 										<h1>Bid is Over</h1>
 									) : (
 										<Button
@@ -338,7 +356,8 @@ export default function SimplePaper() {
 							}}>
 							Market
 						</Button>
-						{bidLead && (
+						{isBidOver && (
+							// buy product button
 							<Button
 								variant='contained'
 								sx={{ width: "10%", ml: 57.5 }}
@@ -350,8 +369,8 @@ export default function SimplePaper() {
 					</Stack>
 				</Stack>
 
-				{/* end of bidding card */}
-			</Paper>
-		</Box>
-	);
+        {/* end of bidding card */}
+      </Paper>
+    </Box>
+  );
 }

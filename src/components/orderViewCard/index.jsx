@@ -1,39 +1,115 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
+
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
+
 import Typography from '@mui/material/Typography';
-import { grey, red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import PaymentIcon from '@mui/icons-material/Payment';
+
 import { Stack } from '@mui/system';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import GavelIcon from '@mui/icons-material/Gavel';
-import { useNavigate } from "react-router-dom";
-import PlaceIcon from '@mui/icons-material/Place';
-import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
 
-function orderViewCard() {
+import API from '../../api/modules/order'
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+function OrderViewCard(props) {
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  //dialog parts
+
+  const [dialogopen, setDialogopen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setDialogopen(true);
+  };
+const data = {"id":props.item._id}
+
+  const dialoghandleClose = () => {
+    setDialogopen(false);
+    API.updateProduct(data)
+    handleClick()
+
+  };
+
+  const paymenyStatus = ()=>{
+    if(props.item.paymentStatus === "paid"){
+      return "Paid"
+    }else{
+      return "Not Paid"
+    }
+  }
+
+  
+
+  
   return (
-    <Card sx={{ maxWidth: 345 ,background:'#F2FF3F',boxShadow: 'rgba(0, 0, 0, 0.24) 3px 5px 10px',borderRadius: '15px'}}>
+    <Card sx={{ maxWidth: 345 ,background:'#FFFFFF',boxShadow: 'rgba(0, 0, 0, 0.24) 3px 5px 10px',borderRadius: '15px'}}>
+    <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+         Thank you! Order Mark as Received..
+        </Alert>
+      </Snackbar>
+
+      <Dialog
+        open={dialogopen}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={dialoghandleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>{"Order Received?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Befofe confirm make sure that, you have received correct amount and expected 
+            quality of product. 
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          
+          <Button onClick={dialoghandleClose} color="success">Confirm</Button>
+        </DialogActions>
+      </Dialog>
+
+
     <CardHeader
       
       
-      title= <span style={{fontSize:20,color:"#004600"}}><b>product_name </b></span>
-      subheader={"date.slice(0,10)"}
+      title= <span style={{fontSize:25,color:"#004600"}}><b>{props.item.product.productName} </b></span>
+      subheader={<b>{paymenyStatus()}</b>}
     />
     {/* <CardMedia
       component="img"
@@ -42,16 +118,23 @@ function orderViewCard() {
       alt="Paella dish"
     /> */}
     <CardContent>
-      <Typography variant="body2"  style={{fontWeight: 'bold'}}>
-        Start Bidding Price: price LKR
+    <Stack direction="row" spacing={6}>
+    <Typography variant="body2"  style={{fontWeight: 'bold'}}>
+      Amount(kg) : {props.item.amount}
       </Typography>
+
+    <Typography variant="body2"  style={{fontWeight: 'bold'}}>
+      Total Price(Rs) : {(props.item.totalPrice).toFixed(2)}
+      </Typography>
+    </Stack>
+      
     </CardContent>
     <CardActions disableSpacing>
       
 
-      <Button variant="contained" color="success" onClick={()=>{}}>
-      <GavelIcon style={{margin:'0 10 0 0'}}/> Bid
-    </Button>
+      {paymenyStatus()==="Paid" && (<Button variant="contained" color="success" onClick={handleClickOpen} >
+      <TaskAltIcon style={{margin:'0 10 0 0'}}/> Order Recieved
+    </Button>)}
 
       
     </CardActions>
@@ -60,4 +143,4 @@ function orderViewCard() {
   )
 }
 
-export default orderViewCard
+export default OrderViewCard

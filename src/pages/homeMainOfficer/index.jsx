@@ -2,10 +2,7 @@ import * as React from 'react';
 import Joi from "joi-browser";
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
-import SearchIcon from '@mui/icons-material/Search';
-import Stack from '@mui/material/Stack';
-import Autocomplete from '@mui/material/Autocomplete';
-import InputAdornment from '@mui/material/InputAdornment';
+
 import AdminNavbar from '../../components/admin_navbar/index';
 import AddGSO from '../../components/addGSO/index';
 import Typography from '@mui/material/Typography';

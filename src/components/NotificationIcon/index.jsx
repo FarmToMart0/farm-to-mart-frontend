@@ -1,40 +1,33 @@
-import  React,{useState,useEffect} from 'react';
+import  React,{useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Badge from '@mui/material/Badge';
-import ListItemIcon from '@mui/material/ListItemIcon';
+
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
-import Logout from '@mui/icons-material/Logout';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { Avatar, Dialog, DialogTitle, Divider, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
-import EmailIcon from '@mui/icons-material/Email';
-import StoreIcon from '@mui/icons-material/Store';
-import { blue, red, green } from '@mui/material/colors';
-import axios from 'axios';
-import Button from '@mui/material/Button';
+import { Avatar, DialogTitle, Divider, Button, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
+
+import { blue } from '@mui/material/colors';
+
 import NotificationAddIcon from '@mui/icons-material/NotificationAdd';
 import PaidIcon from '@mui/icons-material/Paid';
-import CarCrashIcon from '@mui/icons-material/CarCrash';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import SellIcon from '@mui/icons-material/Sell';
-import StorefrontIcon from '@mui/icons-material/Storefront';
+
 import DeleteIcon from '@mui/icons-material/Delete';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+
 import firebaseapp from "../../api/firebase"
-import AgricultureIcon from '@mui/icons-material/Agriculture';
-import {ref,set,get,child,onValue,push} from "firebase/database"
-import { NineteenMp } from '@mui/icons-material';
+
+import {ref,set,child,onValue,push} from "firebase/database"
+
 import api from '../../api'
 
 export default function NotificationIcon() {
   const user = useSelector((state) => state?.user);
-  const dispatch = useDispatch();
+ 
   const [newNotofication,setNewNotificaton]=useState([])
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -210,7 +203,12 @@ export default function NotificationIcon() {
                   <NotificationAddIcon/>
                  </Avatar>
                </ListItemAvatar>
-               <ListItemText primary={item.message} secondary={new Date(item.date).toUTCString()}/>
+               <ListItemText primary={item.message} secondary={(new Date(item.date)).getDate() +
+                         "/" + ((new Date(item.date)).getMonth() + 1) +
+                         "/" + (new Date(item.date)).getFullYear() +
+                         " | " + (new Date(item.date)).getHours() +
+                         ":" + (new Date(item.date)).getMinutes() +
+                         ":" + (new Date(item.date)).getSeconds()}/>
              </ListItem>
            </MenuItem>
          );

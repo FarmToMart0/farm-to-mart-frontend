@@ -1,12 +1,15 @@
-import * as React from 'react';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import * as React from "react";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
-export default function SelectingInputField({lable,value,handleChangeValue,valuesArray}) {
-  
-
+export default function SelectingInputField({
+  lable,
+  value,
+  handleChangeValue,
+  valuesArray,
+}) {
   return (
     <div>
       <FormControl sx={{ m: 1, minWidth: 100 }}>
@@ -19,13 +22,9 @@ export default function SelectingInputField({lable,value,handleChangeValue,value
           autoWidth
           label="Age"
         >
-
-            {
-                valuesArray.map((item)=>{
-                    return <MenuItem value={item}>{item}</MenuItem>
-                })
-            }
-          
+          {valuesArray.map((item) => {
+            return <MenuItem value={item}>{item}</MenuItem>;
+          })}
         </Select>
       </FormControl>
     </div>
