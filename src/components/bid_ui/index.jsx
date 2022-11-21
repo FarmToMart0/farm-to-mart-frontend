@@ -30,11 +30,6 @@ export default function SimplePaper() {
 	//incoming all data
 	const bidDataFromCard = location.state;
 	
-	
-	
-	
-	
-	
 	// buyer details
 	const buyer_id = user?.id
 	// const email = user?.email
@@ -66,7 +61,7 @@ export default function SimplePaper() {
 				
 				setIsBidOver(true)
 			}
-		}, 1000);
+		}, 500);
 	}, []);
 
 
