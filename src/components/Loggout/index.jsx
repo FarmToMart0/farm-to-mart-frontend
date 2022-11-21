@@ -42,6 +42,10 @@ export default function LogoutComponent(props) {
   const navigate = useNavigate();
 const [role,setRole] = useState('')
   useEffect(()=>{
+
+    if(!user?.auth){
+        navigate('/')
+    }
     if (user?.userRole==='FARMER') {
         setRole('farmer')
     }
