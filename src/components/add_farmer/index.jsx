@@ -17,7 +17,7 @@ import Alert from '@mui/material/Alert';
 import api from  '../../api'
 import SnackBarComponent from '../Snackbars';
 
-export default function AddFarmer({nic}) {
+export default function AddFarmer({nic, gsdName, gsdCode,district}) {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [errorOccured, setErrorOccured] = useState(false);
@@ -28,9 +28,9 @@ export default function AddFarmer({nic}) {
     lastName: "",
     address: "",
     phone: "",
-    gsdName: "",
-    district: "",
-    gsdCode: "",
+    gsdName: gsdName,
+    district: district,
+    gsdCode: gsdCode,
     email: "",
     nic:nic,
     password:"",
@@ -234,6 +234,7 @@ export default function AddFarmer({nic}) {
                     labelId="district"	
                     id="district"
                     value={farmer.district}
+                    disabled={true}
                     label="District *"
                     onChange={handleDistrictChange}
                     >
@@ -272,6 +273,7 @@ export default function AddFarmer({nic}) {
                   id="gsdName"
                   label="GoviJana Seva Devision"
                   name="gsdName"
+                  disabled={true}
                   value={farmer.gsdName}
                   onChange={handleSave}
                   autoComplete="gso-devision"
@@ -288,6 +290,7 @@ export default function AddFarmer({nic}) {
                   id="gsdCode"
                   label="GoviJana Seva Devision Code"
                   name="gsdCode"
+                  disabled={true}
                   value={farmer.gsdCode}
                   onChange={handleSave}
                   autoComplete="gso-code"

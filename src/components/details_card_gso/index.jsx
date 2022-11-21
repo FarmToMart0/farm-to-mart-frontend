@@ -64,7 +64,7 @@ export default function OutlinedCard({ gsoDetails }) {
                   color="primary"
                   sx={{ mt: 2, fontWeight: "bold", fontSize: "1.8rem" }}
                 >
-                  {gsoDetails.gsoName}
+                  {gsoDetails.gsdName}
                 </Typography>
                 <Typography
                   component="h2"
@@ -72,7 +72,7 @@ export default function OutlinedCard({ gsoDetails }) {
                   color="secondary"
                   sx={{ mt: 2, fontWeight: "bold", fontSize: "1.5rem" }}
                 >
-                  {gsoDetails.gsoCode}
+                  {gsoDetails.gsdCode}
                 </Typography>
                 <Typography
                   component="h3"

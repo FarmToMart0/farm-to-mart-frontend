@@ -13,13 +13,15 @@ import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-
+import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import gsoHome from '../../assets/images/gsoHome.jpg';
 import api from '../../api';
 
 export default function GSOHome() {
+  const user = useSelector((state) => state?.user);
+  console.log(user)
   const [nic, setNic] = useState({nic:""});
   const [favailability, setFavailability] = useState(false); 
   const [clicked, setClicked] = useState(false);
@@ -66,7 +68,8 @@ export default function GSOHome() {
     if (!error){
       try{
         console.log(nic)
-        const [code, res] = await api.gso.checkFarmerAvailability({"nic": nic.nic})
+        console.log(user.gsd_code)
+        const [code, res] = await api.gso.checkFarmerAvailability({"nic": nic.nic, "gsdCode": user.gsd_code});
         if(code == 201){
           if (res === "removed"){
             setFavailability(false);
@@ -110,9 +113,16 @@ export default function GSOHome() {
     <div style={{margin: 'auto',
         width: '70%',
         padding: '10px', }}>
+
+      <Typography component="h5" variant="h3" color='black' sx={{mt: 3, mb: 3, fontSize: '1.2rem', fontWeight: 'bold', textAlign: 'center'}}>
+            {user.district} District <br/>
+            {user.gsd_code} - {user.gsd_zone} Govijana Seva Devision
+            
+           
+      </Typography>
       
-      <Typography component="h5" variant="h3" color='primary' sx={{mt: 3, mb: 3, fontSize: '1rem', fontWeight: 'bold', textAlign: 'center'}}>
-            Enter Farmer's National Identity Card Number to Register or View Details of the Farmer.
+      <Typography component="h5" variant="h3" color='secondary' sx={{mt: 3, mb: 3, fontSize: '1rem', fontWeight: 'bold', textAlign: 'center'}}>
+            Enter Farmer's National Identity Card Number to Register or View Details and Add New Crop Details of the Farmer.
       </Typography>
             
       <Box component="" sx={{ mt: 3, mb: 3}} >
@@ -144,7 +154,7 @@ export default function GSOHome() {
       
       {(!favailability && !clicked) && <img style={{width: '100%', height: '100%'}} src={gsoHome} alt="gsoHome" />}
 
-      {clicked && !favailability && <AddFarmer nic={nic.nic}/>}
+      {clicked && !favailability && <AddFarmer nic={nic.nic} gsdName={user.gsd_zone} gsdCode={user.gsd_code} district={user.district}/>}
 
       {clicked && favailability && <DetailsCard farmerDetails={farmer} />}
       

@@ -28,8 +28,8 @@ export default function AddGSO({nic}) {
     lastName: "",
     mobile: "",
     district: "",
-    gsoName: "",
-    gsoCode: "",
+    gsdName: "",
+    gsdCode: "",
     email: "",
     nic:nic,
     password:"",
@@ -42,8 +42,8 @@ export default function AddGSO({nic}) {
     firstName: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
     lastName: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
     mobile: Joi.string().length(10).regex(/^[0-9]+$/, 'given').required(),
-    gsoName: Joi.string().required(),
-    gsoCode: Joi.string().required(),
+    gsdName: Joi.string().required(),
+    gsdCode: Joi.string().required(),
     email: Joi.string().email().required(),
     nic: Joi.string().required(),
     district: Joi.string().required(),
@@ -251,30 +251,30 @@ export default function AddGSO({nic}) {
                 <TextField
                   required
                   fullWidth
-                  id="gsoName"
+                  id="gsdName"
                   label="GoviJana Seva Devision"
                   type="text"
-                  name="gsoName"
-                  value={gso.gsoName}
+                  name="gsdName"
+                  value={gso.gsdName}
                   onChange={handleSave}
                   autoComplete="gso-devision"
                 />
-                {errors.gsoName && (
+                {errors.gsdName && (
                 <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid GoviJana Seva Devision</Alert>)}
               </Grid>
               <Grid item xs={12} sm={4}>
                 <TextField
                   required
                   fullWidth
-                  id="gsoCode"
+                  id="gsdCode"
                   label="GoviJana Seva Devision Code"
-                  name="gsoCode"
-                  value={gso.gsoCode}
+                  name="gsdCode"
+                  value={gso.gsdCode}
                   onChange={handleSave}
                   autoComplete="gso-code"
                 />
 
-                {errors.gsoCode && (
+                {errors.gsdCode && (
                 <Alert sx={{mt: '1vw', mb: '1vw'}} severity="error">Invalid GoviJana Seva Devision Code</Alert>)}
               </Grid>
 

@@ -141,10 +141,10 @@ export default function Home({userDetails, gsoDetails}) {
                         alignItems: 'Left',
                     }}>
                         <Typography component="h1" variant="h5" color='primary' sx={{mt: 2, fontWeight: 'bold', fontSize: '2rem'}}>
-                            {gsoDetails.gsoName}
+                            {gsoDetails.gsdName}
                         </Typography>
                         <Typography component="h2" variant="h5" color='secondary' sx={{mt: 2, fontWeight: 'bold', fontSize: '1.8rem'}}>
-                            {gsoDetails.gsoCode}
+                            {gsoDetails.gsdCode}
                         </Typography>
 
                         <div style={
@@ -266,7 +266,7 @@ export default function Home({userDetails, gsoDetails}) {
                                 disabled = {true}
                                 id="outlined-disabled"
                                 label=""
-                                defaultValue={gsoDetails.gsoName}
+                                defaultValue={gsoDetails.gsdName}
                                 // variant = "standard"
                                 sx={{color: 'red', width:'100%'}}
                                 />
@@ -283,7 +283,7 @@ export default function Home({userDetails, gsoDetails}) {
                                 disabled = {true}
                                 id="outlined-disabled"
                                 label=""
-                                defaultValue={gsoDetails.gsoCode}
+                                defaultValue={gsoDetails.gsdCode}
                                 // variant = "standard"
                                 sx={{color: 'red', width:'100%'}}
                                 />
