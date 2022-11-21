@@ -1,11 +1,13 @@
 import React from 'react'
-import Navbar from '../../components/navbar/index';
+import NavBar from '../../components/navbar/index';
 import Payment from '../../components/payment/index'
+import { useSelector } from 'react-redux';
 
 import {  useLocation } from "react-router-dom";
 
 function PaymentPage() {
   const location = useLocation();
+  const user = useSelector((state) => state?.user);
   const allData = location.state;
   // const { transport, payment,product,price,amount,unitPrice } = location.state;
   const transport = allData.transport
@@ -20,7 +22,7 @@ function PaymentPage() {
   
   return (
     <div>
-        <Navbar/>
+       <NavBar isLogin={user.auth } userType={user.userRole}/>
         <Payment data={data} details={details} allData={allData}/>
     </div>
   )

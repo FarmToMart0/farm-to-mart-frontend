@@ -81,23 +81,7 @@ export default function BuyItemShoppingCard(props) {
     setItemData(code.slice(0, 3));
   };
 
-  const itemData1 = [
-    {
-      img: "https://cdn.xxl.thumbs.canstockphoto.com/fresh-green-beans-background-moist-with-water-stock-photo_csp0953104.jpg",
-    },
-    {
-      img: "https://cdn.xxl.thumbs.canstockphoto.com/eggs-on-straw-white-and-brown-eggs-on-a-bed-of-straw-closeup-picture_csp0450257.jpg",
-    },
-    {
-      img: "https://cdn.xxl.thumbs.canstockphoto.com/coconuts-clusters-of-coconuts-close-up-hanging-on-palm-tree-pictures_csp13524285.jpg",
-    },
-    {
-      img: "https://cdn.xxl.thumbs.canstockphoto.com/produce-potato-stock-photograph_csp0051109.jpg",
-    },
-    {
-      img: "https://cdn.xxl.thumbs.canstockphoto.com/papaya-papaya-tree-in-the-orchard-of-thailand-picture_csp19495873.jpg",
-    },
-  ];
+
 
   function getInputAmount(value) {
     setInputValue(value);

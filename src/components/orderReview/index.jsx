@@ -8,10 +8,13 @@ import { Stack } from '@mui/system';
 import API from "../../api/modules/order";
 import { useSelector, useDispatch } from 'react-redux';
 import buyer from "../../api/modules/buyer";
+import Loader from "../Loader";
 
 function OrderReview() {
 	const user = useSelector((state) => state?.user);
 	const [listOfOrder, setListOfOrder] =  useState([])
+	const [isLoading, setIsLoading] = useState(true)
+
 	const buyer_id = user?.id
 	console.log(buyer_id);
 	console.log(listOfOrder);
@@ -23,6 +26,7 @@ function OrderReview() {
 		try{
 			const [res, code] = await API.getOrderByBuyer(buyer_id);
 			setListOfOrder(code);
+			setIsLoading(false)
 		}catch{
 			console.log("orderReview");
 		}
@@ -46,7 +50,7 @@ function OrderReview() {
 	return (
 		<React.Fragment>
 			<CssBaseline />
-			<Box
+			{isLoading ? <Loader/>: (<Box
 				sx={{
 					display: "flex",
 					justifyContent: "center",
@@ -152,7 +156,7 @@ function OrderReview() {
 						)}
 					</Box>
 				</Paper>
-			</Box>
+			</Box>)}
 		</React.Fragment>
 	);
 }
