@@ -2,13 +2,14 @@
 import { Doughnut } from 'react-chartjs-2';
 import { Box,Divider, Typography, useTheme } from '@mui/material';
 import { Chart, registerables } from 'chart.js';
+import { ca } from 'date-fns/locale';
 Chart.register(...registerables);
 
 export default function CategoryOverview ({categoryData}) {
   const theme = useTheme();
  
   
- 
+
   
 
   const options = {
