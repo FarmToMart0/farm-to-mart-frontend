@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Joi from "joi-browser";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 
 import AdminNavbar from '../../components/admin_navbar/index';
@@ -17,16 +17,25 @@ import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import gsoHome from '../../assets/images/gsoHome.jpg';
+import { useNavigate } from "react-router-dom";
 import api from '../../api';
 
 export default function GSOHome() {
   const user = useSelector((state) => state?.user);
   console.log(user)
+  const navigate = useNavigate();
   const [nic, setNic] = useState({nic:""});
   const [favailability, setFavailability] = useState(false); 
   const [clicked, setClicked] = useState(false);
   const [farmer, setFarmer] = useState([]);
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {if (!user?.auth) {
+    navigate("/login");
+  }
+  if (user?.userRole != "GSO") {
+    navigate("/");
+  }}, []);
 
   const schema = {
     nic: Joi.string().regex(/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/, "name").required(),

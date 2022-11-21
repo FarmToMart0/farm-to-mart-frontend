@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Joi from "joi-browser";
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -16,12 +16,21 @@ import Select from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
 import api from  '../../api'
 import SnackBarComponent from '../Snackbars';
+import { useSelector } from 'react-redux';
 
 export default function AddFarmer({nic, gsdName, gsdCode,district}) {
   const navigate = useNavigate();
+  const user = useSelector((state) => state?.user);
   const [isLoading, setIsLoading] = useState(false);
   const [errorOccured, setErrorOccured] = useState(false);
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {if (!user?.auth) {
+    navigate("/login");
+  }
+  if (user?.userRole != "GSO") {
+    navigate("/");
+  }}, []);
 
   const [farmer, setFarmer] = useState({
     firstName: "",

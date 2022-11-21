@@ -19,6 +19,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import ListItem from "@mui/material/ListItem";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CropForm from "../addCropData/index";
+import { useSelector } from 'react-redux';
 import api from "../../api";
 
 const CustomizedListItem = ({ crop }) => {
@@ -262,6 +263,8 @@ export default function Home({userDetails, farmerDetails}) {
     const [click, setClick] = useState(false);
     const [dataAvailability, setdataAvailability] = useState(false)
     const navigate = useNavigate();
+    const user = useSelector((state) => state?.user);
+
     // const [open, setOpen] = React.useState(false);
     const [cropData, setCropData] = useState([]);
 
@@ -295,9 +298,15 @@ export default function Home({userDetails, farmerDetails}) {
         }
     }
 
-    useEffect(() => {
-        getCropDetais(farmerDetails.nic)
-    },[])
+
+    useEffect(() => {if (!user?.auth) {
+      navigate("/login");
+    }
+    if (user?.userRole != "GSO") {
+      navigate("/");
+    }
+    getCropDetais(farmerDetails.nic)
+    }, []);
 
 
     return (

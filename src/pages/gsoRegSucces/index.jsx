@@ -14,6 +14,9 @@ export default function Success() {
                 <Typography component="h1" variant="h5" color='primary' sx={{marginTop: "2vw", mb: 3, fontSize: '2rem', fontWeight: 'bold', textAlign: 'center'}}>
                     Govijana Seva Officer Registration Succesfull!
                 </Typography>
+                <Typography component="h1" variant="h5" color='secondary' sx={{marginTop: "2vw", mb: 3, fontSize: '1rem', fontWeight: 'bold', textAlign: 'center'}}>
+                    Verification mail has been sent to the Govijana Seva Officer.
+                </Typography>
                 <CheckCircleIcon sx={{width: '20%', height: "20%", marginLeft: "40%", marginRight:"40%", color: "#00917C"}}/>
                 
                 <a href = "/main-officer/home" style={{textDecoration: "none"}}>

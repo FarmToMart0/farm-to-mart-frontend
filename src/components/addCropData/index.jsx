@@ -2,6 +2,7 @@ import * as React from 'react';
 import Joi from "joi-browser";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -17,7 +18,7 @@ import Alert from '@mui/material/Alert';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-
+import { useSelector } from 'react-redux';
 import api from  '../../api'
 import SnackBarComponent from '../Snackbars';
 
@@ -40,6 +41,13 @@ export default function AddCropData({farmersNic}) {
 
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const user = useSelector((state) => state?.user);
+    useEffect(() => {if (!user?.auth) {
+        navigate("/login");
+      }
+      if (user?.userRole != "GSO") {
+        navigate("/");
+      }}, []);
   const schema = {
     farmerNic: Joi.required(),
     category: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),

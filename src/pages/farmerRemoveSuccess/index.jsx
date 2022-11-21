@@ -2,8 +2,19 @@ import * as React from 'react';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function Success() {
+    const navigate = useNavigate();
+    const user = useSelector((state) => state?.user);
+    useEffect(() => {if (!user?.auth) {
+        navigate("/login");
+      }
+      if (user?.userRole != "GSO") {
+        navigate("/");
+      }}, []);
 
     return (
         <div>
