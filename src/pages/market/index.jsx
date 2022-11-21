@@ -9,6 +9,7 @@ import Bid_card from "../../components/cards/bid_card/index";
 import Button from '@mui/material/Button';
 import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 import SearchField from "../../components/auto_com_search/index";
 
@@ -57,6 +58,7 @@ export default function Market() {
 	const [district, setDistrict] = useState("Matara");
 	const [cropType, setCropType] = useState("Vegetables");
   let navigate = useNavigate();
+  const user = useSelector((state) => state?.user);
 
 	// Set satates according to the buyer's selection
 	const handleDistrict = (dis) => {
@@ -90,12 +92,17 @@ export default function Market() {
 	//use effect for seleect products accrding to the buyer's selection
 	useEffect(() => {
 		
+    
+
 		getMarketData();
 	}, [district, cropType]);
 
 	useEffect(() => {
+
+    if (!user?.auth ) {
+      navigate('/login')}
 		
-		getMarketData();
+		
 	}, []);
 
 	
@@ -121,7 +128,7 @@ export default function Market() {
 						backgroundColor: "#E5F6DF",
 						borderRadius: "30px",
 						marginTop: 75,
-					
+					width:"100%",
 						padding: 40
 						// boxShadow: "rgba(0, 0, 0, 0.12) 5px 6px 8px, rgba(0, 0, 0, 0.24) 5px 6px 7px"
 					}}>
