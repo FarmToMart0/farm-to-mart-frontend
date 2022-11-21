@@ -2,6 +2,8 @@ import * as React from 'react';
 import Joi from "joi-browser";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import Container  from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -19,12 +21,20 @@ import Alert from '@mui/material/Alert';
 
 
 export default function Home({userDetails, gsoDetails}) {
+    
     // console.log(gsoDetails, "gso")
     const [isEdit, setIsEdit] = useState(false);
     const [errorOccured, setErrorOccured] = useState(false);
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const user = useSelector((state) => state?.user);
+    useEffect(() => {if (!user?.auth) {
+        navigate("/login");
+      }
+      if (user?.userRole != "MAINOFFICER") {
+        navigate("/");
+      }}, []);
 
     const [updatedGSO, setupdatedGSO] = useState({
         _id: userDetails._id,
@@ -141,10 +151,10 @@ export default function Home({userDetails, gsoDetails}) {
                         alignItems: 'Left',
                     }}>
                         <Typography component="h1" variant="h5" color='primary' sx={{mt: 2, fontWeight: 'bold', fontSize: '2rem'}}>
-                            {gsoDetails.gsoName}
+                            {gsoDetails.gsdName}
                         </Typography>
                         <Typography component="h2" variant="h5" color='secondary' sx={{mt: 2, fontWeight: 'bold', fontSize: '1.8rem'}}>
-                            {gsoDetails.gsoCode}
+                            {gsoDetails.gsdCode}
                         </Typography>
 
                         <div style={
@@ -266,7 +276,7 @@ export default function Home({userDetails, gsoDetails}) {
                                 disabled = {true}
                                 id="outlined-disabled"
                                 label=""
-                                defaultValue={gsoDetails.gsoName}
+                                defaultValue={gsoDetails.gsdName}
                                 // variant = "standard"
                                 sx={{color: 'red', width:'100%'}}
                                 />
@@ -283,7 +293,7 @@ export default function Home({userDetails, gsoDetails}) {
                                 disabled = {true}
                                 id="outlined-disabled"
                                 label=""
-                                defaultValue={gsoDetails.gsoCode}
+                                defaultValue={gsoDetails.gsdCode}
                                 // variant = "standard"
                                 sx={{color: 'red', width:'100%'}}
                                 />

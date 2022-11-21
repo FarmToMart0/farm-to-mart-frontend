@@ -8,6 +8,9 @@ import Typography from "@mui/material/Typography";
 import { Container } from "@mui/system";
 import FarmerDetails from "../farmer_details/index";
 import api from "../../api";
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const bull = (
   <Box
@@ -20,7 +23,16 @@ const bull = (
 
 export default function OutlinedCard({ farmerDetails }) {
   const [click, setClick] = useState(false);
-  const [user, setUser] = useState([]);
+  const [userF, setUserF] = useState([]);
+
+  const navigate = useNavigate();
+  const user = useSelector((state) => state?.user);
+  useEffect(() => {if (!user?.auth) {
+        navigate("/login");
+      }
+      if (user?.userRole != "GSO") {
+        navigate("/");
+  }}, []);
 
   const handleSeeMore = async (e) => {
     console.log({ farmerDetails });
@@ -31,7 +43,7 @@ export default function OutlinedCard({ farmerDetails }) {
       if (code === 201) {
         if (res) {
           console.log(res);
-          setUser(res);
+          setUserF(res);
         }
       }
     } catch (error) {
@@ -114,7 +126,7 @@ export default function OutlinedCard({ farmerDetails }) {
       )}
 
       {click && (
-        <FarmerDetails farmerDetails={farmerDetails} userDetails={user} />
+        <FarmerDetails farmerDetails={farmerDetails} userDetails={userF} />
       )}
     </>
   );

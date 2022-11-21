@@ -8,6 +8,10 @@ import Typography from "@mui/material/Typography";
 import { Container } from "@mui/system";
 import GSODetails from "../gsoDetails/index";
 import api from "../../api";
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 
 const bull = (
   <Box
@@ -21,7 +25,15 @@ const bull = (
 export default function OutlinedCard({ gsoDetails }) {
   const [click, setClick] = useState(false);
 
-  const [user, setUser] = useState([]);
+  const [userG, setUserG] = useState([]);
+  const navigate = useNavigate();
+    const user = useSelector((state) => state?.user);
+    useEffect(() => {if (!user?.auth) {
+        navigate("/login");
+      }
+      if (user?.userRole != "MAINOFFICER") {
+        navigate("/");
+      }}, []);
 
   const handleSeeMore = async (e) => {
     try {
@@ -30,7 +42,7 @@ export default function OutlinedCard({ gsoDetails }) {
       if (code === 201) {
         if (res) {
           //console.log(res)
-          setUser(res);
+          setUserG(res);
         }
       }
       setClick(true);
@@ -64,7 +76,7 @@ export default function OutlinedCard({ gsoDetails }) {
                   color="primary"
                   sx={{ mt: 2, fontWeight: "bold", fontSize: "1.8rem" }}
                 >
-                  {gsoDetails.gsoName}
+                  {gsoDetails.gsdName}
                 </Typography>
                 <Typography
                   component="h2"
@@ -72,7 +84,7 @@ export default function OutlinedCard({ gsoDetails }) {
                   color="secondary"
                   sx={{ mt: 2, fontWeight: "bold", fontSize: "1.5rem" }}
                 >
-                  {gsoDetails.gsoCode}
+                  {gsoDetails.gsdCode}
                 </Typography>
                 <Typography
                   component="h3"
@@ -113,7 +125,7 @@ export default function OutlinedCard({ gsoDetails }) {
         </Container>
       )}
 
-      {click && <GSODetails gsoDetails={gsoDetails} userDetails={user} />}
+      {click && <GSODetails gsoDetails={gsoDetails} userDetails={userG} />}
     </>
   );
 }
