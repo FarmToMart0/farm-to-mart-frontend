@@ -215,11 +215,11 @@ export default function NotificationIcon() {
        })}
      
      <MenuItem>
-     <Typography align='center'>
+{newNotofication.length>0 &&     <Typography align='center'>
    <Button onClick={clearNotification} variant="contained" startIcon={<DeleteIcon />}>
          Read all notifications
      </Button> 
- </Typography>
+ </Typography>}
      
      </MenuItem>
        

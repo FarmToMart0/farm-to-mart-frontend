@@ -62,7 +62,7 @@ const DataCenter = () => {
   async function getAverageCategory(district, year) {
     try {
       const [code, res] = await api.farmer.getCategorySummary(district, year);
-
+   
       if (code == 201) {
         var total = 0;
 
@@ -73,22 +73,22 @@ const DataCenter = () => {
         var devices = [];
 
         res.forEach((element) => {
-          if (element._id == "vegetable") {
+          if (element._id == "Vegetables") {
             devices.push({
-              title: "vegetable",
+              title: "Vegetables",
               value: Math.round((element.totalHarvest / total) * 100),
 
               color: "#2D31FA",
             });
-          } else if (element._id == "grains") {
+          } else if (element._id == "Grains") {
             devices.push({
-              title: "grains",
+              title: "Grains",
               value: Math.round((element.totalHarvest / total) * 100),
               color: "#2D31FA",
             });
-          } else if (element._id == "fruits") {
+          } else if (element._id == "Fruits") {
             devices.push({
-              title: "fruits",
+              title: "Fruits",
               value: Math.round((element.totalHarvest / total) * 100),
               color: "#2D31FA",
             });
