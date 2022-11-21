@@ -106,6 +106,24 @@ function Row(props) {
               label={"Remain in Stock"}
             />
           </TableCell>
+        )}{row.biddingEnable  ?(
+          <TableCell align="right">
+            {" "}
+            <Chip
+              sx={{ color: "green" }}
+              variant="outlined"
+              label={"Bidding"}
+            />
+          </TableCell>
+        ):(
+          <TableCell align="right">
+            {" "}
+            <Chip
+              sx={{ color: "blue" }}
+              variant="outlined"
+              label={"Direcit Selling"}
+            />
+          </TableCell>
         )}
       </TableRow>
       <TableRow>
@@ -119,8 +137,9 @@ function Row(props) {
                 <TableHead>
                   <TableRow>
                     <TableCell size="medium">Description</TableCell>
-                    <TableCell>Unit Price</TableCell>
-                    <TableCell align="right">Initial bid</TableCell>
+                    {!row.biddingEnable ?<TableCell>Unit Price</TableCell>:<TableCell></TableCell>}
+                    <TableCell align="right">Selling Method</TableCell>
+                    {row.biddingEnable ? <TableCell align="right">Initial Bid</TableCell>:<TableCell align="right"></TableCell>}
                     <TableCell align="right">Total Quantity</TableCell>
                     <TableCell align="right">Remaining Quantity</TableCell>
                   </TableRow>
@@ -131,10 +150,14 @@ function Row(props) {
                       <TableCell component="th" scope="row">
                         {historyRow.description}
                       </TableCell>
+                      
                       <TableCell>{historyRow.unitPrice}</TableCell>
-                      <TableCell align="right">
-                        {historyRow.initialBid}
+                      <TableCell align="right" component="th" scope="row">
+                        {row.biddingEnable ? "Bidding":"Direct Selling"}
                       </TableCell>
+                      {row.biddingEnable ? <TableCell align="right">
+                        {historyRow.initialBid}
+                      </TableCell>:<TableCell align="right"></TableCell>}
                       <TableCell align="right">{historyRow.quantity}</TableCell>
                       <TableCell align="right">
                         {historyRow.remainQuantity}
@@ -199,6 +222,7 @@ export default function ProductList({
   return (
     <Container sx={{ mt: 3 }}>
       <SearchBarField
+    
         placeHolder="Search product here"
         handleSearch={handleChangeFilter}
       />
@@ -213,6 +237,7 @@ export default function ProductList({
               <TableCell align="right">Edit Product</TableCell>
               <TableCell align="right">Remove Product</TableCell>
               <TableCell align="right">Status</TableCell>
+              <TableCell align="right">Selling Method</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

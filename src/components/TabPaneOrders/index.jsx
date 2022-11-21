@@ -9,7 +9,9 @@ import api from '../../api'
 import { useSelector } from 'react-redux';
 import SnackBarComponent from './../Snackbars/index';
 import Loader from '../Loader';
-export default function TabPane(props) {
+import SearchBarField from '../SearchBarField';
+export default function TabPane() {
+  const [searchedText, setSearchedText] = useState('');
   const user = useSelector((state) => state?.user);
   const [isLoading,setIsLoading]= useState(true);
   const [value, setValue] = React.useState('1');
@@ -23,6 +25,31 @@ export default function TabPane(props) {
     setValue(newValue);
   };
 
+  const handleSearchFilter =(e)=>{
+    
+    setSearchedText(e.target.value)
+  }
+ 
+  React.useEffect(() => {
+    
+
+    if (searchedText !== '') {
+    
+      
+        const pro = placedOrderData.filter((item) =>
+        item?.product?.productName.includes(searchedText)
+      );
+      setPlacedOrderData(pro)
+     
+      
+    } else {
+      
+      
+      getPlacedOrderList()
+    }
+  }, [searchedText]);
+
+  
 
   const handleClickRecieved =async (id) => {
     try {
@@ -130,15 +157,21 @@ useEffect(()=>{
 <div>
   {isLoading ? <Loader/>:
       <Box sx={{ width: '100%', typography: 'body1' }}>
+        
       <SnackBarComponent open={errorOccured} message={errorMessage.message} type={errorMessage.type}  setOpen={setErrorOccured}   />
     <TabContext value={value}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <TabList onChange={handleChange} aria-label="lab API tabs example">
-          <Tab label="Place Orders" value="1" />
-          <Tab label="Delivered Orders" value="2" />
+          <Tab label="Pending" value="1" />
+          <Tab label="Delivered" value="2" />
           <Tab label="Rejected" value="3" />
         </TabList>
       </Box>
+      <SearchBarField
+    
+    placeHolder="Search product here"
+    handleSearch={handleSearchFilter}
+  />
       <TabPanel value="1"> <CustomizedTables handleClickRecieved={handleClickRecieved} handleClickDelivereded={handleClickDelivereded} handleClickRejected={handleClickRejected} handleClickUnDoRejected={handleClickUnDoRejected} itemData={placedOrderData.filter((item)=>{if (item.orderStatus=='place') {
         return item
       }})}  columns={['Order Date','Product','View','Payment Status','Order Status']} /> </TabPanel>

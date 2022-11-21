@@ -30,7 +30,7 @@ import ShoppingCard from "././pages/shoppingCard/index";
 import Card2 from "./components/signup_button/index";
 import Payment from "./pages/Payment/index";
 
-import Test from "./components/orderReview";
+import OrderReview from "./pages/orderReview";
 
 import { BrowserRouter } from "react-router-dom";
 
@@ -39,6 +39,7 @@ import FarmerVerification from "./pages/FarmerVerification/index";
 import ForgotPassword from "./pages/farmer/ForgotPassword";
 import ResetPasswordUi from "./pages/farmer/ResetPasswordUi/index";
 import Pay from "./components/payment/payment/index";
+import LogoutComponent from './components/Loggout/index';
 // import ShoppingCard from './pages/shoppingCard/index';
 function App() {
   return (
@@ -53,20 +54,19 @@ function App() {
           element={<Payment />}
           exact
         />
-       
-
         <Route
           path="/buyer/market/checkout/payment/complete"
           element={<Success />}
         />
         <Route path="/pay" element={<Pay />} />
-        <Route path="/test" element={<Test />} />
+        <Route path="/buyer/orderreview" element={<OrderReview />} />
 
         {/* <Route path="/home" element={<Home/>} exact /> */}
 
         <Route path="/" element={<Home />} exact />
 
         <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<LogoutComponent/>} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route
           path="/resetpassword/:email/:id/:token"

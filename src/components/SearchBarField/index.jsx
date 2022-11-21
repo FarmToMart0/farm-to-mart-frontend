@@ -12,14 +12,14 @@ export default function SearchBarField({placeHolder,handleSearch}) {
 
     <Paper
       component="form"
-      sx={{ml:'61%', p: '2px 4px', display: 'flex', alignItems: 'center', width: 300 }}
+      sx={{ml:'61%',mr:'5%', p: '2px 4px', display: 'flex', alignItems: 'center', width: '30vw' }}
     >
       
       <InputBase
         sx={{ ml: 1, flex: 1 ,}}
         placeholder={placeHolder}
         inputProps={{ 'aria-label': 'search google maps' }}
-        onChange={()=>{console.log(placeHolder)}}
+        onChange={handleSearch}
       />
       <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
         <SearchIcon />

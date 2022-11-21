@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
 export default function ItemCard(props) {
-  const { unit_price, product_name, remainAmount } = props.left_card_details;
+  const { price, product_name, remainAmount } = props.left_card_details;
 
   return (
     <Box
@@ -30,7 +30,7 @@ export default function ItemCard(props) {
             paddingLeft: 30,
           }}
         >
-          <h3> Unit Price : {unit_price} Rs/Kg</h3>
+          <h3> Unit Price : {price} Rs/Kg</h3>
           <h3> Available : {remainAmount} kg</h3>
           <h3>
             Quantity :{" "}

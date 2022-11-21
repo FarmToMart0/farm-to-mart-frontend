@@ -11,9 +11,7 @@ export default function OrderPage() {
   useEffect(()=>{
     if (!user?.auth ) {
       navigate('/login')
-  }if(user?.userRole!='FARMER'){
-    navigate('/')
-}
+  }
   },[])
   return (
     <Container>

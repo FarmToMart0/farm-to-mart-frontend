@@ -25,26 +25,24 @@ function SalaseDashBoard() {
   const [salseOverView, setSalesOverView] = useState(0);
   const [labeles, setLables] = useState([]);
   const [data, setData] = useState([]);
+  const [total, setTotal] = useState([]);
   const [orderOrverview, setOrderOverView] = useState([]);
 
-  var total = 0;
-  orderOrverview.forEach((element) => {
-    total = total + element.totalAmount;
-  });
+  
   async function getAllDetails(id) {
     try {
       const [code1, res1] = await api.order.getOngoingBiddingCount(id);
-      setongoingBiddingCount(res1[0].farmer);
+      setongoingBiddingCount(res1[0]?.farmer);
       const [code2, res2] = await api.order.getTotalPendingOrdersCount(id);
-      setPendingOrdersCount(res2[0].farmer);
+      setPendingOrdersCount(res2.length?res2[0]?.farmer:0);
       const [code3, res3] = await api.order.getTotalOrdersSinceLastMonth(id);
-      settotalOrdersSinceLastMonth(res3[0].farmer);
+      settotalOrdersSinceLastMonth(res3[0]?.farmer);
       const [code4, res4] = await api.order.getTotalSalesSinceLastMonth(id);
-      settotalSalesSinceLastMonth(res4[0].totalSales);
+      settotalSalesSinceLastMonth(res4[0]?.totalSales);
       const [code5, res5] = await api.order.getTotalSales(id);
-      setTotalSales(res5[0].totalSales);
+      setTotalSales(res5[0]?.totalSales);
       const [code6, res6] = await api.order.getTotalOrders(id);
-      setTotalOrders(res6[0].farmer);
+      setTotalOrders(res6[0]?.farmer);
       const [code7, res7] = await api.order.getSalesOverviwes(id);
       setSalesOverView(res7);
       setLables(
@@ -85,12 +83,14 @@ function SalaseDashBoard() {
       setOrderOverView(
         res8.map((item) => {
           return {
-            totalAmount: item.totalAmount,
-            productName: item.details[0].productName,
+            totalAmount: item?.totalAmount,
+            productName: item?.details[0]?.productName,
+           
           };
         })
       );
-
+      
+console.log('vvvvvvvvvvvvvv',res1,res2,res3,res4,res5,res6);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -169,7 +169,7 @@ function SalaseDashBoard() {
                 </Grid>
                 <Grid item lg={4} md={6} xl={3} xs={12}>
                   <OrderOverView
-                    total={total}
+                    
                     orderData={orderOrverview}
                     sx={{ height: "100%" }}
                   />

@@ -124,13 +124,44 @@ export default function SignUp() {
       return error ? error.details[0].message : null;
     }
   };
+  async function registerBuyer(values) {
+    try {
+      const [code, res] = await api.buyer.signUpBuyer(values);
 
+      if (code === 201) {
+        setErrors({
+          type: "success",
+          message: "Verification mail has been sent",
+        });
+        setErrorOccured(true);
+        setRefresh(true)
+        setBuyer({
+          firstName: "",
+          lastName: "",
+          address: "",
+          phone: "",
+          email: "",
+          nic: "",
+          password: "",
+          confPassword: "",
+        });
+      } else {
+        setErrors({ type: "error", message: res });
+        setErrorOccured(true);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      setErrors({ type: "error", message: "server error" });
+      setErrorOccured(true);
+      setIsLoading(false);
+    }
+  }
   const handleSubmit = async (event) => {
     event.preventDefault();
     const result = Joi.validate(buyer, schema, { abortEarly: false });
     const { error } = result;
     if (!error) {
-      console.log("Submitted");
+   
       await registerBuyer(buyer);
     } else {
       const errorData = {};
@@ -145,27 +176,7 @@ export default function SignUp() {
     }
   };
 
-  async function registerBuyer(values) {
-    try {
-      const [code, res] = await api.buyer.signUpBuyer(values);
 
-      if (code === 201) {
-        setErrors({
-          type: "success",
-          message: "Verification mail has been sent",
-        });
-        setErrorOccured(true);
-      } else {
-        setErrors({ type: "error", message: res });
-        setErrorOccured(true);
-      }
-      setIsLoading(false);
-    } catch (error) {
-      setErrors({ type: "error", message: "server error" });
-      setErrorOccured(true);
-      setIsLoading(false);
-    }
-  }
   return (
     <>
       <ResponsiveAppBar />
