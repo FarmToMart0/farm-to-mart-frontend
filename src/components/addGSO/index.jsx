@@ -16,6 +16,8 @@ import Select from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
 import api from  '../../api'
 import SnackBarComponent from '../Snackbars';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 
 export default function AddGSO({nic}) {
@@ -38,6 +40,13 @@ export default function AddGSO({nic}) {
 
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const user = useSelector((state) => state?.user);
+    useEffect(() => {if (!user?.auth) {
+        navigate("/login");
+      }
+      if (user?.userRole != "MAINOFFICER") {
+        navigate("/");
+      }}, []);
   const schema = {
     firstName: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),
     lastName: Joi.string().regex(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$/, 'name').required(),

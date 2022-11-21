@@ -12,6 +12,9 @@ import Box from '@mui/material/Box';
 import mHome from '../../assets/images/mainOfficerHome.jpg';
 import Alert from '@mui/material/Alert';
 import api from '../../api';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function HomeMainOfficer() {
   const [nic, setNic] = useState({nic:""});
@@ -19,6 +22,16 @@ export default function HomeMainOfficer() {
   const [clicked, setClicked] = useState(false);
   const [gso, setGso] = useState([]);
   const [errors, setErrors] = useState({});
+
+  const navigate = useNavigate();
+    const user = useSelector((state) => state?.user);
+    useEffect(() => {if (!user?.auth) {
+        navigate("/login");
+      }
+      if (user?.userRole != "MAINOFFICER") {
+        navigate("/");
+      }}, []);
+
 
   const schema = {
     nic: Joi.string().regex(/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/, "name").required(),
