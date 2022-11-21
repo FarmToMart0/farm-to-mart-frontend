@@ -1,4 +1,4 @@
-import * as React from "react";
+import  React,{useState,useEffect} from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -9,6 +9,8 @@ import Container from "@mui/material/Container";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import api from "../../api";
 import { useNavigate } from "react-router-dom";
+
+import { logOutRequest } from "../../reducers/modules/user";
 import {
   setAuthorizationKey,
   setUserObjectInLocal,
@@ -34,7 +36,7 @@ function Copyright(props) {
   );
 }
 
-export default function VerifyComponent(props) {
+export default function LogoutComponent(props) {
   const user = useSelector((state) => state?.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
