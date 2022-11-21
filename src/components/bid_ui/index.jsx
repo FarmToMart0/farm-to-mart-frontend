@@ -26,7 +26,7 @@ export default function SimplePaper() {
   const location = useLocation();
 
   const db = firebaseapp.startFirebase();
-
+  
 	//incoming all data
 	const bidDataFromCard = location.state;
 	

@@ -17,6 +17,7 @@ import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { useNavigate } from "react-router-dom";
 import PlaceIcon from "@mui/icons-material/Place";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
+import { useSelector } from 'react-redux';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -30,9 +31,11 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function ItemCard(props) {
+  const user = useSelector((state) => state?.user);
   const buyDataArray = props.item;
   //const {item_id,product_name,price,more_details,date,transport,payment,image,district,remainAmount,farmer} = props.item
   const [expanded, setExpanded] = React.useState(false);
+  const [IsLogged, setIsLogged] = React.useState(false)
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -40,8 +43,25 @@ export default function ItemCard(props) {
 
   const navigate = useNavigate();
   function handleBuy() {
-    navigate("/buyer/market/checkout", { state: buyDataArray });
+
+    if(IsLogged){
+      navigate("/buyer/market/checkout", { state: buyDataArray });
+    }else{
+      navigate('/login')
+    }
+    
   }
+
+  React.useEffect(() => {
+  
+    if(user?.userRole ==='BUYER'){
+     setIsLogged(true)
+  }
+        
+      
+    }, []);
+
+
   return (
     <Card
       sx={{

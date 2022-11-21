@@ -17,6 +17,7 @@ import GavelIcon from "@mui/icons-material/Gavel";
 import { useNavigate } from "react-router-dom";
 import PlaceIcon from "@mui/icons-material/Place";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
+import { useSelector } from 'react-redux';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -31,19 +32,37 @@ const ExpandMore = styled((props) => {
 
 export default function ItemCard(props) {
   const bidUiData = props.item;
-  //const {item_id,product_name,price,more_details,date,transport,payment,image,min_bid,district,remainAmount,farmer,bidEndTime} = props.item
 
+  //const {item_id,product_name,price,more_details,date,transport,payment,image,min_bid,district,remainAmount,farmer,bidEndTime} = props.item
+  const [IsLogged, setIsLogged] = React.useState(false)
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+    
   const navigate = useNavigate();
   function handleBid() {
-    navigate("/buyer/market/bidding", { state: bidUiData });
+    if(IsLogged){
+      navigate("/buyer/market/bidding", { state: bidUiData });
+    }else{
+      navigate('/login')
+    }
+    
     // navigate('/buyer/market/bidding',{state:{item_id:bidUiData.item_id,base_price:bidUiData.price,min_bid:bidUiData.min_bid,farmer:bidUiData.farmer,bidEndTime:bidUiData.bidEndTime}})
   }
+
+  const user = useSelector((state) => state?.user);
+
+  React.useEffect(() => {
+  
+  if(user?.userRole ==='BUYER'){
+   setIsLogged(true)
+}
+      
+    
+  }, []);
 
   return (
     <Card

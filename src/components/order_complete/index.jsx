@@ -140,20 +140,7 @@ export default function SimplePaper(props) {
       </Typography>
                 </Stack>
             </Box>
-            <Button
-              variant="contained"
-              style={{ margin: 20 }}
-              onClick={handleFinalSubmit}
-            >
-              Submit
-            </Button>
-
-            <Typography variant="body2" color="text.secondary" align="center">
-              {"Copyright © Farm2Mart "}
-
-              {new Date().getFullYear()}
-              {"."}
-            </Typography>
+            
       
        
       </Paper>

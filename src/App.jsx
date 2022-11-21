@@ -30,7 +30,7 @@ import ShoppingCard from "././pages/shoppingCard/index";
 import Card2 from "./components/signup_button/index";
 import Payment from "./pages/Payment/index";
 
-import Test from "./components/orderReview";
+import OrderReview from "./pages/orderReview";
 
 import { BrowserRouter } from "react-router-dom";
 
@@ -53,14 +53,12 @@ function App() {
           element={<Payment />}
           exact
         />
-       
-
         <Route
           path="/buyer/market/checkout/payment/complete"
           element={<Success />}
         />
         <Route path="/pay" element={<Pay />} />
-        <Route path="/test" element={<Test />} />
+        <Route path="/buyer/orderreview" element={<OrderReview />} />
 
         {/* <Route path="/home" element={<Home/>} exact /> */}
 
