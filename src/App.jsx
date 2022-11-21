@@ -39,6 +39,7 @@ import FarmerVerification from "./pages/FarmerVerification/index";
 import ForgotPassword from "./pages/farmer/ForgotPassword";
 import ResetPasswordUi from "./pages/farmer/ResetPasswordUi/index";
 import Pay from "./components/payment/payment/index";
+import LogoutComponent from './components/Loggout/index';
 // import ShoppingCard from './pages/shoppingCard/index';
 function App() {
   return (
@@ -65,6 +66,7 @@ function App() {
         <Route path="/" element={<Home />} exact />
 
         <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<LogoutComponent/>} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route
           path="/resetpassword/:email/:id/:token"
