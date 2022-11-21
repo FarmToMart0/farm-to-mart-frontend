@@ -203,7 +203,12 @@ export default function NotificationIcon() {
                   <NotificationAddIcon/>
                  </Avatar>
                </ListItemAvatar>
-               <ListItemText primary={item.message} secondary={new Date(item.date).toUTCString()}/>
+               <ListItemText primary={item.message} secondary={(new Date(item.date)).getDate() +
+                         "/" + ((new Date(item.date)).getMonth() + 1) +
+                         "/" + (new Date(item.date)).getFullYear() +
+                         " | " + (new Date(item.date)).getHours() +
+                         ":" + (new Date(item.date)).getMinutes() +
+                         ":" + (new Date(item.date)).getSeconds()}/>
              </ListItem>
            </MenuItem>
          );

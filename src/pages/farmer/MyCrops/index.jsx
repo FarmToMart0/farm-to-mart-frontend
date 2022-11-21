@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../../../components/Loader";
 
 export default function TabPaneMyCrops(props) {
+  const [searchedText, setSearchedText] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState({ type: "", message: "" });
   const [errorOccured, setErrorOccured] = useState(false);
@@ -20,6 +21,36 @@ export default function TabPaneMyCrops(props) {
   const [orderData, setOrderData] = React.useState([]);
   const [completedTask, setCompletedTask] = React.useState([]);
   const navigate = useNavigate();
+  const handleSearch =(e)=>{
+    
+    setSearchedText(e.target.value)
+  }
+ 
+  React.useEffect(() => {
+    
+
+    if (searchedText !== '') {
+      if (value==='1') {
+        const items = orderData.filter((item) =>
+        item?.cropType.includes(searchedText)
+      );
+      setOrderData(items)
+      }else if(value==='2'){
+        const pro = completedTask.filter((item) =>
+        item?.cropType.includes(searchedText)
+      );
+      setCompletedTask(pro)
+      }
+      
+    } else {
+      
+      
+    getCompletedMyCropTask(user?.nic);
+    getMyCropTask(user?.nic);
+    }
+  }, [searchedText]);
+
+
   const handleClickEdit = (id) => {
     var temp = completedTask.map((item) => {
       if (item.id == id) {
@@ -226,6 +257,7 @@ export default function TabPaneMyCrops(props) {
             <TabPanel value="1">
               {" "}
               <MyCropTable
+              handleChangeFilter={handleSearch}
                 doRefresh={doRefresh}
                 tab={true}
                 columns={[
@@ -241,6 +273,7 @@ export default function TabPaneMyCrops(props) {
             <TabPanel value="2">
               {" "}
               <MyCropTable
+                 handleChangeFilter={handleSearch}
                 doSave={doSave}
                 updateHarvestAmount={updateHarvestAmount}
                 updateHarvestDate={updateHarvestDate}

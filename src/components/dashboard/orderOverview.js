@@ -14,12 +14,15 @@ import {
 Chart.register(...registerables);
 export const OrderOverView = (props) => {
   const theme = useTheme();
-
+  var total = 0;
+  props.orderData.forEach((element) => {
+    total = total + element.totalAmount;
+  });
   const data = {
     datasets: [
       {
         data: props.orderData.map((item) => {
-          return item.totalAmount;
+          return Math.round((item.totalAmount / total) * 100);
         }),
         backgroundColor: ["#3F51B5", "#e53935", "#FB8C00"],
         borderWidth: 8,
@@ -28,7 +31,7 @@ export const OrderOverView = (props) => {
       },
     ],
     labels: props.orderData.map((item) => {
-      return item.productName;
+      return item?.productName;
     }),
   };
 
@@ -56,15 +59,15 @@ export const OrderOverView = (props) => {
 
   const devices = props.orderData.map((item) => {
     return {
-      title: item.productName,
-      value: item.totalAmount,
+      title: item?.productName,
+      value: Math.round((item.totalAmount / total) * 100),
       color: "#3F51B5",
     };
   });
 
   return (
     <Card {...props}>
-      <CardHeader title="Order Overview in KG" />
+      <CardHeader title="Order Overview " />
       <Divider />
       <CardContent>
         <Box
@@ -94,7 +97,7 @@ export const OrderOverView = (props) => {
                 {title}
               </Typography>
               <Typography variant="h4">
-                {Math.round((value / props.total) * 100)}%
+                {value}%
               </Typography>
             </Box>
           ))}

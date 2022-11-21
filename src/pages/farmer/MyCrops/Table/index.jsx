@@ -28,6 +28,7 @@ import FormDialog from "./../../../../components/DialogComponent/index";
 import ModalBox from "../../../../components/ModalBox";
 import Alert from "@mui/material/Alert";
 import api from "../../../../api";
+import SearchBarField from "../../../../components/SearchBarField";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -59,6 +60,7 @@ export default function MyCropTable({
   updateHarvestDate,
   doSave,
   doRefresh,
+  handleChangeFilter
 }) {
   const [openDialog1, setOpenDialog] = useState(false);
   const [harvesteddata, setHarvestedData] = useState({
@@ -213,12 +215,18 @@ export default function MyCropTable({
 
   return (
     <TableContainer component={Paper}>
+      
       <SnackBarComponent
         open={errorOccured}
         message={errorMessage.message}
         type={errorMessage.type}
         setOpen={setErrorOccured}
-      />
+      /> 
+      <SearchBarField
+    
+      placeHolder="Search product here"
+      handleSearch={handleChangeFilter}
+    />
       <FormDialog handleClose={handleCloseDialog} openDialog={openDialog1}>
         <Grid width={250} container spacing={2}>
           <Grid item xs={12}>
