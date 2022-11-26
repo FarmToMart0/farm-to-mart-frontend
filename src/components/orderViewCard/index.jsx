@@ -58,12 +58,11 @@ function OrderViewCard(props) {
   };
 const data = {"id":props.item._id}
 
-  const dialoghandleClose = () => {
+  const dialoghandleClose = async () => {
     setDialogopen(false);
     try {
       API.updateProduct(data)
-      handleClick()
-      window.location.reload()
+      await props.getOrders()
     } catch (error) {
       
     }
@@ -82,7 +81,7 @@ const data = {"id":props.item._id}
 
   
 
-  
+  console.log('hhhhhhhhhhhhhhhhhhhhhhhhh',props.item);
   return (
     <Card sx={{ maxWidth: 345 ,background:'#FFFFFF',boxShadow: 'rgba(0, 0, 0, 0.24) 3px 5px 10px',borderRadius: '15px'}}>
     <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
@@ -115,7 +114,7 @@ const data = {"id":props.item._id}
     <CardHeader
       
       
-      title= <span style={{fontSize:25,color:"#004600"}}><b>{props.item.product.productName} </b></span>
+      title= <span style={{fontSize:25,color:"#004600"}}><b>{props.item?.product?.productName} </b></span>
       subheader={<b>{paymenyStatus()}</b>}
     />
     {/* <CardMedia

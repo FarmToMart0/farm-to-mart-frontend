@@ -16,15 +16,17 @@ function OrderReview() {
 	const [isLoading, setIsLoading] = useState(true)
 
 	const buyer_id = user?.id
-	console.log(buyer_id);
+	
 	console.log(listOfOrder);
 	console.log("=========");
 	const newArrayList = listOfOrder.filter(elemant=>elemant.idReceived == false  )
+	
 	// const buyer_id = "637afd3440529bb4be3fde60"
 	
 	const getOrders = async () => {
 		try{
 			const [res, code] = await API.getOrderByBuyer(buyer_id);
+			
 			setListOfOrder(code);
 			setIsLoading(false)
 		}catch{
@@ -131,7 +133,7 @@ function OrderReview() {
 								columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
 								{newArrayList.map((item, index) => (
 									<Grid item xs={3} key={index}>
-										<OrderViewCard item={item} />
+										<OrderViewCard getOrders={getOrders} item={item} />
 									</Grid>
 								))}
 							</Grid>
