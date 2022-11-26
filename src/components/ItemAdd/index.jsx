@@ -107,13 +107,12 @@ export default function ItemAdd(props) {
   
  
   const [productAddSuccesfully, setProductAddedSuccesfully] = useState(false);
-  
   const [imageAddSuccesfully, setImageAddedSuccesfully] = useState(false);
   
 const handleSave = async (values)=>{
   try {
     
-    setLoadingProductAdd(true)
+    setLoadingProductAdd(true);
     
     if(checked ){
       if (new Date(endDate) < new Date(Date.now())) {
@@ -121,19 +120,18 @@ const handleSave = async (values)=>{
         setErrorOccured(true);
         setLoadingProductAdd(false)
         return
-      }
-      if(values.bid ){
-        var [code,res] = await api.farmer.addProduct({'category':selectCategory,biddingEndin:endDate,'farmer':user.id,'productName':values.productName,'quantity':values.quantity,'unitPrice':values?.price,'initialBid':values?.bid,'description':values.description,'biddingEnable':checked,'paymentOption':selectedPayementOption,'deliveryOption':selectedDeliveryOption,'images':imageList});
+      }if(values.bid ){
+        var [code,res] = await api.farmer.updateProduct({'category':selectCategory,biddingEndin:endDate,'farmer':user.id,'productName':values.productName,'quantity':values.quantity,'unitPrice':values?.price,'initialBid':values?.bid,'description':values.description,'biddingEnable':checked,'paymentOption':selectedPayementOption,'deliveryOption':selectedDeliveryOption,'images':imageList});
       }else{
         setErrorMessage({ type: 'error', message:'bid is required' });
         setErrorOccured(true);
-        setLoadingProductAdd(false)
+        setLoadingProductAdd(false);
         return
       }
       
     }else{
       if(values.price ){
-        var [code,res] = await api.farmer.addProduct({'category':selectCategory,biddingEndin:endDate,'farmer':user.id,'productName':values.productName,'quantity':values.quantity,'unitPrice':values?.price,'initialBid':values?.bid,'description':values.description,'biddingEnable':checked,'paymentOption':selectedPayementOption,'deliveryOption':selectedDeliveryOption,'images':imageList});
+        var [code,res] = await api.farmer.updateProduct({'category':selectCategory,biddingEndin:endDate,'farmer':user.id,'productName':values.productName,'quantity':values.quantity,'unitPrice':values?.price,'initialBid':values?.bid,'description':values.description,'biddingEnable':checked,'paymentOption':selectedPayementOption,'deliveryOption':selectedDeliveryOption,'images':imageList});
       }else{
       
         setErrorMessage({ type: 'error', message:'price is required'});
